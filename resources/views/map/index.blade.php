@@ -1,0 +1,71 @@
+<x-app-layout>
+
+    <style>
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay-div {
+            position: absolute;
+            width: 0.75%;
+            height: 1.5%;
+            border-radius: 100%;
+            color: rgb(255, 0, 0);
+            text-align: center;
+            line-height: 1%;
+            border: 2px solid rgb(0, 0, 0);
+            /* Add white stroke */
+        }
+
+        a.fill-div {
+            display: block;
+            height: 100%;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        /* Optional: Custom tooltip styling */
+        .overlay-div:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -35px;
+            /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+    </style>
+
+    <div class="py-6">
+        <div class="max-w-full mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="image-container">
+                        <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image">
+
+                        @foreach ($contracts as $contract)
+                            <div class="overlay-div"
+                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; background-color:red;"
+                                data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
+                                <a href="{{ route('contract.show', $contract->url_address) }}" class="fill-div"></a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</x-app-layout>

@@ -1,0 +1,138 @@
+/* Custom CSS */
+.gradient-background {
+    background: linear-gradient(to bottom, #2b6a9a, #0c6e70);
+    /* Adjust colors as needed  #2b6a9a, #0c6e70 */
+}
+
+.gradient-background-nav {
+    background: linear-gradient(to bottom, #2b6a9a, #3dafd1);
+    /* Adjust colors as needed   #2b6a9a, #d0e3ff*/
+}
+
+.bg-custom {
+    background-color: #e8f8ff;
+    /* Replace with your desired color #e8f8ff */
+    color: #e8f8ff;
+    /* Text color */
+}
+
+.btn-custom-show {
+    background-color: #4d9ae7;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-show:hover {
+    background-color: #3081b8;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-statement {
+    background-color: #5f4de7;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-statement:hover {
+    background-color: #4230b8;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-edit {
+    background-color: #d89042;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-edit:hover {
+    background-color: #c2753e;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-delete {
+    background-color: #922e2e;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-delete:hover {
+    background-color: #560606;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-statement {
+    background-color: #5f4de7;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-statement:hover {
+    background-color: #4230b8;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-back {
+    background-color: #e74d90;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-back:hover {
+    background-color: #b83098;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+@media print {
+    /* page size and orientation and margin */
+    @page {
+        size: A4 portrait;
+        margin: 0.5cm;
+    }
+
+    /* Hide every other element */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Then displaying print-container elements only */
+    .print-container,
+    .print-container * {
+        visibility: visible;
+    }
+
+    /* Ensure the print-container takes up the full width */
+    .print-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%; /* Ensure full width */
+        padding: 0;  /* Remove any padding */
+        margin: 0;   /* Remove any margin */
+    }
+}
+
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+}
