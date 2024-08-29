@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class=" mx-4 my-4 w-full ">
-                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo" class="h-10 mr-4">
+                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo" class="h-30 mr-4">
                             </div>
 
                         </div>

@@ -10,7 +10,7 @@
             <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.customer_info') }}
                         </h1>
                         <div class="flex ">

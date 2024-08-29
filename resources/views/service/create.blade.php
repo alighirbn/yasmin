@@ -14,7 +14,7 @@
                     <div>
                         <form method="post" action="{{ route('service.store') }}">
                             @csrf
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                                 {{ __('word.service_info') }}
                             </h1>
 
@@ -56,7 +56,7 @@
 
                             </div>
 
-                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 my-8 w-full">
+                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4  w-full">
                                 {{ __('word.service_card') }}
                             </h2>
 

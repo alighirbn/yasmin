@@ -30,7 +30,7 @@
 
                     </div>
                     <div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.contract_info') }}
                         </h1>
                         <div class="flex ">
@@ -61,7 +61,7 @@
                                     {{ number_format($contract->contract_amount, 0) }} دينار
                             </div>
                         </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.customer_info') }}
                         </h1>
                         <div class="flex ">
@@ -86,7 +86,7 @@
                                     {{ $contract->customer->customer_phone }}
                             </div>
                         </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.building_info') }}
                         </h1>
                         <div class="flex ">
@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.installment_info') }}
                         </h1>
                         <div class="container mt-4">

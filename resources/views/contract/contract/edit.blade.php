@@ -3,7 +3,9 @@
     <x-slot name="header">
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
-
+        <!-- select2 css and js-->
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
+        <script src="{{ asset('js/select2.min.js') }}"></script>
         @include('contract.nav.navigation')
     </x-slot>
 
@@ -31,7 +33,7 @@
                             <div class="flex ">
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="contract_customer_id" class="w-full mb-1" :value="__('word.contract_customer_id')" />
-                                    <select id="contract_customer_id" class="w-full block mt-1 "
+                                    <select id="contract_customer_id" class="js-example-basic-single w-full block mt-1 "
                                         name="contract_customer_id">
                                         @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}"
@@ -45,7 +47,7 @@
 
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="contract_building_id" class="w-full mb-1" :value="__('word.contract_building_id')" />
-                                    <select id="contract_building_id" class="w-full block mt-1 "
+                                    <select id="contract_building_id" class="js-example-basic-single w-full block mt-1 "
                                         name="contract_building_id">
                                         @foreach ($buildings as $building)
                                             <option value="{{ $building->id }}"
@@ -60,7 +62,8 @@
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="contract_payment_method_id" class="w-full mb-1"
                                         :value="__('word.contract_payment_method_id')" />
-                                    <select id="contract_payment_method_id" class="w-full block mt-1 "
+                                    <select id="contract_payment_method_id"
+                                        class="js-example-basic-single w-full block mt-1 "
                                         name="contract_payment_method_id">
                                         @foreach ($payment_methods as $payment_method)
                                             <option value="{{ $payment_method->id }}"
@@ -112,5 +115,20 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        // Prevent double submission
+        $('form').on('submit', function() {
+            // Find the submit button
+            var $submitButton = $(this).find('button[type="submit"]');
 
+            // Change the button text to 'Submitting...'
+            $submitButton.text('جاري الحفظ');
+
+            // Disable the submit button
+            $submitButton.prop('disabled', true);
+        });
+    </script>
 </x-app-layout>
