@@ -34,7 +34,18 @@ class PaymentController extends Controller
             return view('payment.accessdenied', ['ip' => $ip]);
         }
     }
+    public function approve(string $url_address)
+    {
+        $payment = Payment::where('url_address', '=', $url_address)->first();
 
+        if (isset($payment)) {
+            $payment->approve();
+            return redirect()->route('payment.index')->with('success', 'تم قبول الدفعة بنجاح');
+        } else {
+            $ip = $this->getIPAddress();
+            return view('payment.accessdenied', ['ip' => $ip]);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

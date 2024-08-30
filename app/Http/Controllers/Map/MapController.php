@@ -18,12 +18,13 @@ class MapController extends Controller
         return view('map.index', compact(['contracts']));
     }
 
-    public function due_installments()
+    public function due_installments(Request $request)
     {
-        $today = Carbon::today(); // or you can use `now()` if you want to include time
+        $daysBeforeDue = $request->input('days_before_due', 0); // Default to 0 days if not provided
+        $dueDate = Carbon::today()->subDays($daysBeforeDue); // Calculate the due date
 
-        $contracts = Contract::with(['building'])->whereHas('unpaidInstallments', function ($query) use ($today) {
-            $query->where('installment_date', '<=', $today);
+        $contracts = Contract::with(['building'])->whereHas('unpaidInstallments', function ($query) use ($dueDate) {
+            $query->where('installment_date', '<=', $dueDate);
         })->get();
 
         return view('map.index', compact(['contracts']));

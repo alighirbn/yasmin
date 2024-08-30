@@ -35,7 +35,9 @@ class Contract extends Model
     public function unpaidInstallments()
     {
         return $this->hasMany(Contract_Installment::class, 'contract_id', 'id')
-            ->whereDoesntHave('payment'); // Only installments without payments
+            ->whereDoesntHave('payment', function ($query) {
+                $query->where('approved', true);
+            });
     }
 
 

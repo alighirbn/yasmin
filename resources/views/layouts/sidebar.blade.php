@@ -39,11 +39,10 @@
         transform: rotate(-180deg);
     }
 
-    /* .item .sub-menu a:hover {
-        border: 2px solid rebeccapurple;
-        border-radius: 12px;
+    .item .sub-menu a {
         padding: 5px;
-    } */
+    }
+
     .item .sub-menu a:focus {
         border: 2px solid blue;
         border-radius: 12px;

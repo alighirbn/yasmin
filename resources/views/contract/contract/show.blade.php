@@ -169,7 +169,15 @@
                                         <td>{{ $installment->installment->installment_percent * 100 }} %</td>
                                         <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
                                         <td>{{ $installment->installment_date }}</td>
-                                        <td>{{ $installment->payment == null ? 'لم تسدد' : 'مسددة في ' . $installment->payment->payment_date }}
+                                        <td>
+                                            @if ($installment->payment == null)
+                                                لم تسدد
+                                            @elseif ($installment->payment->approved)
+                                                مسددة في {{ $installment->payment->payment_date }}
+                                            @else
+                                                لم تتم الموافقة على الدفع
+                                            @endif
+
                                         </td>
                                         <td>
                                             @if ($installment->payment != null)

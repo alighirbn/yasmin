@@ -4,7 +4,17 @@
     </a>
 @endcan
 @can('map-index')
-    <a href="{{ route('map.due_installments') }}" class="me-3">
-        {{ __('word.map_due_installments') }}
+    <a href="{{ route('map.due_installments', ['days_before_due' => 0]) }}" class="me-3">
+        {{ __('word.map_due_installments_0') }}
+    </a>
+@endcan
+@can('map-index')
+    <a href="{{ route('map.due_installments', ['days_before_due' => 30]) }}" class="me-3">
+        {{ __('word.map_due_installments_30') }}
+    </a>
+@endcan
+@can('map-index')
+    <a href="{{ route('map.due_installments', ['days_before_due' => 60]) }}" class="me-3">
+        {{ __('word.map_due_installments_60') }}
     </a>
 @endcan

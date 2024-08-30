@@ -20,12 +20,14 @@
                                 {{ __('word.contract_view') }}
                             </a>
                         @endcan
-                        @can('contract-update')
-                            <a href="{{ route('contract.edit', $payment->contract->url_address) }}"
-                                class="btn btn-custom-edit">
-                                {{ __('word.contract_edit') }}
-                            </a>
-                        @endcan
+
+                        @if (!$payment->approved)
+                            <form action="{{ route('payment.approve', $payment->url_address) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-custom-edit">قبول الدفعة</button>
+                            </form>
+                        @endif
                         <button id="print" class="btn btn-custom-statement" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>

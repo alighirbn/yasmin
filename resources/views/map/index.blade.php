@@ -1,52 +1,56 @@
 <x-app-layout>
 
-    <style>
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: auto;
-        }
+    <x-slot name="header">
+        <style>
+            .image-container {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
 
-        .main-image {
-            width: 100%;
-            height: auto;
-        }
+            .main-image {
+                width: 100%;
+                height: auto;
+            }
 
-        .overlay-div {
-            position: absolute;
-            width: 0.75%;
-            height: 1.5%;
-            border-radius: 100%;
-            color: rgb(255, 0, 0);
-            text-align: center;
-            line-height: 1%;
-            border: 2px solid rgb(0, 0, 0);
-            /* Add white stroke */
-        }
+            .overlay-div {
+                position: absolute;
+                width: 0.75%;
+                height: 1.5%;
+                border-radius: 100%;
+                color: rgb(255, 0, 0);
+                text-align: center;
+                line-height: 1%;
+                border: 2px solid rgb(0, 0, 0);
+                /* Add white stroke */
+            }
 
-        a.fill-div {
-            display: block;
-            height: 100%;
-            width: 100%;
-            text-decoration: none;
-        }
+            a.fill-div {
+                display: block;
+                height: 100%;
+                width: 100%;
+                text-decoration: none;
+            }
 
-        /* Optional: Custom tooltip styling */
-        .overlay-div:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            top: -35px;
-            /* Adjust as needed */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            white-space: nowrap;
-            z-index: 10;
-        }
-    </style>
+            /* Optional: Custom tooltip styling */
+            .overlay-div:hover::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                top: -35px;
+                /* Adjust as needed */
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 15px;
+                border-radius: 5px;
+                white-space: nowrap;
+                z-index: 10;
+            }
+        </style>
+        @include('map.nav.navigation')
+
+    </x-slot>
 
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">

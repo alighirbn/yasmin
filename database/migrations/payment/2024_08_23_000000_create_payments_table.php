@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('payment_amount');
             $table->date('payment_date');
             $table->string('payment_note', '200')->nullable();
+            $table->boolean('approved')->default(false); // Add the approved column, default to false
 
             $table->timestamps();
         });

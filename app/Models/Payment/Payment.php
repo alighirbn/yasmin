@@ -34,12 +34,19 @@ class Payment extends Model
         return $this->belongsTo(Contract_Installment::class, 'contract_installment_id', 'id');
     }
 
+    public function approve()
+    {
+        $this->approved = true;
+        $this->save();
+    }
+
 
     protected $fillable = [
         'url_address',
         'payment_amount',
         'payment_date',
         'payment_note',
+        'approved', // New field
 
         'payment_contract_id',
         'contract_installment_id',

@@ -77,17 +77,20 @@
                                 ]);
                             }
 
+                            // Add approved payments to the collection
                             foreach ($contract->payments as $payment) {
-                                $items->push([
-                                    'date' => $payment->payment_date,
-                                    'description' => __('مدفوعية بالعدد') . ' ' . $payment->id,
-                                    'credit' => 0,
-                                    'debit' => $payment->payment_amount,
-                                    'note' =>
-                                        $payment->payment_note .
-                                        ' ' .
-                                        $payment->contract_installment->installment->installment_name,
-                                ]);
+                                if ($payment->approved) {
+                                    $items->push([
+                                        'date' => $payment->payment_date,
+                                        'description' => __('مدفوعية بالعدد') . ' ' . $payment->id,
+                                        'credit' => 0,
+                                        'debit' => $payment->payment_amount,
+                                        'note' =>
+                                            $payment->payment_note .
+                                            ' ' .
+                                            $payment->contract_installment->installment->installment_name,
+                                    ]);
+                                }
                             }
 
                             foreach ($contract->services as $service) {

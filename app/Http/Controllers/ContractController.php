@@ -161,30 +161,33 @@ class ContractController extends Controller
     public function statement(string $url_address)
     {
         // Retrieve the contract with necessary relationships and aggregate sums
+
         $contract = Contract::with([
             'customer',
             'building',
             'payment_method',
-            'payments',
             'services',
-            'contract_installments.installment'
+            'contract_installments.installment',
         ])
             ->withSum('contract_installments', 'installment_amount') // Sum of installment amounts
-            ->withSum('payments', 'payment_amount') // Sum of payment amounts
             ->withSum('services', 'service_amount') // Sum of service amounts
             ->where('url_address', $url_address)
             ->first();
+
+        // Sum of approved payments
+        $total_approved_payments = $contract->payments()->where('approved', true)->sum('payment_amount');
+
 
         // Prepare the data for the view
         $data = [
             'contract' => $contract,
             'total_installments' => $contract->contract_installments_sum_installment_amount,
-            'total_payments' => $contract->payments_sum_payment_amount,
+            'total_payments' => $total_approved_payments,
             'total_services' => $contract->services_sum_service_amount,
             'outstanding_amount' =>
             $contract->contract_installments_sum_installment_amount +
                 $contract->services_sum_service_amount -
-                $contract->payments_sum_payment_amount,
+                $total_approved_payments,
         ];
 
 
