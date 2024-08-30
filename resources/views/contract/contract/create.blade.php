@@ -18,12 +18,11 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
-                        <!-- Button to trigger the modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#customerModal">
-                            Add New Customer
-                        </button>
-
+                        @can('customer-create')
+                            <a href="{{ route('contract.customercreate') }}" class="my-1 mx-1 btn btn-custom-edit">
+                                {{ __('word.customer_add') }}
+                            </a>
+                        @endcan
                     </div>
                     <div>
                         @if ($message = Session::get('success'))
