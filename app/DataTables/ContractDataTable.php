@@ -24,6 +24,10 @@ class ContractDataTable extends DataTable
             ->addColumn('contract_amount', function ($row) {
                 return number_format($row->contract_amount, 0);
             })
+            ->addColumn('last_payment', function ($row) {
+                $lastPayment = $row->payments->last(); // Get the last payment
+                return $lastPayment ?  $lastPayment->contract_installment->installment->installment_name . ' في ' . $lastPayment->payment_date  : __('لا توجد دفعة');
+            })
             ->addColumn('action', 'contract.contract.action')
             ->rawColumns(['action'])
             ->setRowId('id');
@@ -37,7 +41,7 @@ class ContractDataTable extends DataTable
      */
     public function query(Contract $model): QueryBuilder
     {
-        $query = $model->newQuery()->with(['building', 'customer', 'payment_method']);
+        $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
 
         // Check if a contract ID filter is applied
         if ($contractId = request('contract_id')) {
@@ -114,6 +118,7 @@ class ContractDataTable extends DataTable
             Column::make('customer')->title(__('word.customer_full_name'))->data('customer.customer_full_name')->name('customer.customer_full_name')->class('text-center'),
             Column::make('contract_amount')->title(__('word.contract_amount'))->class('text-center'),
             Column::make('payment_method')->title(__('word.method_name'))->data('payment_method.method_name')->name('payment_method.method_name')->class('text-center'),
+            Column::make('last_payment')->title(__('word.last_payment'))->class('text-center'), // New Column
             Column::make('contract_note')->title(__('word.contract_note'))->class('text-center'),
         ];
     }

@@ -198,7 +198,9 @@ class ContractController extends Controller
      */
     public function edit(string $url_address)
     {
-        $contract = Contract::where('url_address', '=', $url_address)->with('payments')->first();
+        $contract = Contract::where('url_address', '=', $url_address)
+            ->with('payments', 'building') // Ensure 'building' is loaded
+            ->first();
 
         if (!$contract) {
             $ip = $this->getIPAddress();
@@ -212,11 +214,19 @@ class ContractController extends Controller
         }
 
         $customers = Customer::all();
-        $buildings = Building::doesntHave('contract')->get();
+
+        // Get buildings that either:
+        // 1. Don't have any contracts, OR
+        // 2. Are associated with the current contract
+        $buildings = Building::whereDoesntHave('contract')
+            ->orWhere('id', $contract->contract_building_id)
+            ->get();
+
         $payment_methods = Payment_Method::all();
 
         return view('contract.contract.edit', compact('contract', 'customers', 'buildings', 'payment_methods'));
     }
+
 
     /**
      * Update the specified resource in storage.

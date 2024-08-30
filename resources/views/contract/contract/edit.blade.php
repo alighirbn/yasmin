@@ -26,7 +26,7 @@
                             <input type="hidden" id="url_address" name="url_address"
                                 value="{{ $contract->url_address }}">
 
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                                 {{ __('word.contract_info') }}
                             </h1>
 
@@ -86,11 +86,19 @@
                                     <x-input-error :messages="$errors->get('contract_date')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="contract_amount" class="w-full mb-1" :value="__('word.contract_amount')" />
-                                    <x-text-input id="contract_amount" class="w-full block mt-1" type="text"
-                                        name="contract_amount"
-                                        value="{{ old('contract_amount') ?? $contract->contract_amount }}" />
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="contract_amount_display" class="w-full mb-1"
+                                        :value="__('word.contract_amount')" />
+
+                                    <!-- Displayed input for formatted number -->
+                                    <x-text-input id="contract_amount_display" class="w-full block mt-1" type="text"
+                                        value="{{ number_format(old('contract_amount') ?? $contract->contract_amount, 0) }}"
+                                        placeholder="0" />
+
+                                    <!-- Hidden input for the actual number -->
+                                    <input type="hidden" id="contract_amount" name="contract_amount"
+                                        value="{{ old('contract_amount') ?? $contract->contract_amount }}">
+
                                     <x-input-error :messages="$errors->get('contract_amount')" class="w-full mt-2" />
                                 </div>
 
@@ -116,6 +124,30 @@
         </div>
     </div>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var displayInput = document.getElementById('contract_amount_display');
+            var hiddenInput = document.getElementById('contract_amount');
+
+            function formatNumber(value) {
+                return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            function unformatNumber(value) {
+                return value.replace(/,/g, '');
+            }
+
+            displayInput.addEventListener('input', function() {
+                var formattedValue = formatNumber(displayInput.value);
+                displayInput.value = formattedValue;
+                hiddenInput.value = unformatNumber(formattedValue);
+            });
+
+            // On form submission, make sure the hidden input is set correctly
+            document.querySelector('form').addEventListener('submit', function() {
+                hiddenInput.value = unformatNumber(displayInput.value);
+            });
+        });
+
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });
