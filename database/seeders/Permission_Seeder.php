@@ -45,6 +45,7 @@ class Permission_Seeder extends Seeder
             'contract-update',
             'contract-delete',
             'contract-statement',
+            'contract-print',
 
             //**************************payment******************************* */
             //payment permissions

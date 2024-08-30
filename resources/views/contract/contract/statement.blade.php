@@ -32,10 +32,12 @@
                     <div class="print-container">
                         <div class="flex">
                             <div class=" mx-4 my-4 w-full ">
+                                {!! QrCode::size(100)->generate($contract->id) !!}
                                 <h2 class="text-xl font-semibold mb-2">{{ __('كشف الحساب للعقد رقم') }}
                                     #{{ $contract->id }}
                                 </h2>
                                 <div class="mb-6">
+
                                     <p><strong>{{ __('تاريخ العقد:') }}</strong> {{ $contract->contract_date }}</p>
                                     <p><strong>{{ __('مبلغ العقد:') }}</strong>
                                         {{ number_format($contract->contract_amount, 0) }}
@@ -58,8 +60,10 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class=" mx-4 my-4 w-full ">
-                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo" class="h-30 mr-4">
+
+                            <div class="mx-4 my-4 w-full">
+                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo">
+
                             </div>
 
                         </div>

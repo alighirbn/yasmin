@@ -99,6 +99,10 @@
     color: #ffffff;
     /* Text color */
 }
+.a4-width {
+    width: 793.7px; /* Approximate A4 width in pixels */
+    max-width: 100%;
+}
 
 @media print {
     /* page size and orientation and margin */
@@ -118,6 +122,7 @@
         visibility: visible;
     }
 
+    
     /* Ensure the print-container takes up the full width */
     .print-container {
         position: absolute;
@@ -128,6 +133,7 @@
         margin: 0;   /* Remove any margin */
     }
 }
+
 
 
 .header-buttons {

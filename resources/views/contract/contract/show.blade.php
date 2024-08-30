@@ -27,6 +27,11 @@
                                 {{ __('word.contract_edit') }}
                             </a>
                         @endcan
+                        @can('contract-print')
+                            <a href="{{ route('contract.print', $contract->url_address) }}" class="btn btn-custom-print">
+                                {{ __('word.contract_print') }}
+                            </a>
+                        @endcan
 
                     </div>
                     <div>

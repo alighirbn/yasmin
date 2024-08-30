@@ -115,6 +115,18 @@ class ContractController extends Controller
         }
     }
 
+    public function print(string $url_address)
+    {
+        $contract = Contract::with(['customer', 'building', 'payment_method'])->where('url_address', '=', $url_address)->first();
+        $contract_installments = Contract_Installment::with(['installment', 'payment'])->where('contract_id', $contract->id)->get();
+        if (isset($contract)) {
+            return view('contract.contract.print', compact(['contract', 'contract_installments']));
+        } else {
+            $ip = $this->getIPAddress();
+            return view('contract.contract.accessdenied', ['ip' => $ip]);
+        }
+    }
+
     public function add_payment(string $url_address)
     {
         // Retrieve the contract installment with the related contract, building, and customer
