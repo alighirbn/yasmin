@@ -33,10 +33,10 @@ class BuildingRequest extends FormRequest
             'building_type_id' => ['required'],
 
             //normal fields
-            'building_number' => ['max:10'],
-            'house_number' => ['max:10'],
-            'block_number' => ['max:10'],
-            'building_area' => ['max:10'],
+            'building_number' => ['required', 'max:10'],
+            'house_number' => ['required', 'max:10'],
+            'block_number' => ['required', 'max:10'],
+            'building_area' => ['required', 'max:10'],
             'building_map_x' => ['max:6'],
             'building_map_y' => ['max:6'],
 

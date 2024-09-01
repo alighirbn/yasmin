@@ -8,7 +8,7 @@
 
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg bg-white">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="header-buttons">
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
@@ -29,7 +29,7 @@
                         </button>
                     </div>
 
-                    <div class="print-container">
+                    <div class="print-container a4-width mx-auto  bg-white">
                         <div class="flex">
                             <div class=" mx-4 my-4 w-full ">
                                 {!! QrCode::size(100)->generate($contract->id) !!}

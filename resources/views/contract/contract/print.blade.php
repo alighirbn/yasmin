@@ -34,13 +34,14 @@
 
                             <div class="flex">
                                 <div class=" mx-2 my-2 w-full ">
-                                    {!! QrCode::size(70)->generate($contract->id) !!}
+                                    {!! QrCode::size(90)->generate($contract->id) !!}
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
                                     <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
-                                        style="h-6;max-width: 60%; height: auto;">
+                                        style="h-6;max-width: 100%; height: auto;">
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
+
                                     <p><strong>{{ __('رقم العقد:') }}</strong>
                                         {{ $contract->id }}
                                     </p>
@@ -68,8 +69,8 @@
                                     الأشرف
                                     في (18-2-2024) ولتوفير دار سكني لدى الطرف الأول فقد اتفق الطرفان على قيام الطرف
                                     الأول
-                                    بيعه الى الطرف الثاني الدار المرقمة ({{ $contract->building->block_number }}) ضمن
-                                    البلوك المرقم ({{ $contract->building->house_number }}) على قطعة أرض مساحتها
+                                    بيعه الى الطرف الثاني الدار المرقمة ({{ $contract->building->house_number }}) ضمن
+                                    البلوك المرقم ({{ $contract->building->block_number }}) على قطعة أرض مساحتها
                                     ({{ $contract->building->building_area }}) متر ضمن مجمع واحة الياسمين السكني في
                                     النجف
                                     الاشرف .</p>
@@ -122,7 +123,7 @@
                                     حاله تلكؤ الطرف الثاني مره أخرى فمن حق الطرف الأول فسخ العقد واعادة تمليك الوحدة
                                     السكنية
                                     الى شخص اخر دون امهال المشتري لاي مدة اخرى ودون الحاجه الى انذار رسمي ولا يحق للطرف
-                                    الثاني المطالبة بالأموال التي سددها وتصبح من حق الطرف الاول .
+                                    الثاني المطالبة بالأموال التي سددها وتصبح من حق الطرف الاول.
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
@@ -136,7 +137,7 @@
                             <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
                                 <p>سادسا - لا يحق للطرف الثاني التنازل عن العقد او تحويله الى شخص اخر بالوكاله او
                                     التخويل
-                                    وانما يتم التنازل عن العقد بحضوره شخصياً ويكوت التوقيع على التنازل من قبله بالذات .
+                                    وانما يتم التنازل عن العقد بحضوره شخصياً ويكون التوقيع على التنازل من قبله بالذات .
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">

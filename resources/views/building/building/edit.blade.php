@@ -62,7 +62,7 @@
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="block_number" class="w-full mb-1" :value="__('word.block_number')" />
                                     <x-text-input id="block_number" class="w-full block mt-1" type="text"
-                                        ame="block_number"
+                                        name="block_number"
                                         value="{{ old('block_number') ?? $building->block_number }}" />
                                     <x-input-error :messages="$errors->get('block_number')" class="w-full mt-2" />
                                 </div>
