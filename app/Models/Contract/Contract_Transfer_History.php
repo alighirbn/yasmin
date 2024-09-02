@@ -48,6 +48,7 @@ class Contract_Transfer_History extends Model
         'transfer_date',
         'transfer_amount',
         'transfer_note',
+        'webcam_image',
 
         'contract_id',
         'old_customer_id',

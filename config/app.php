@@ -84,9 +84,9 @@ return [
 
     'locale' => 'ar',
     'languages' => [
-                      'en' => 'english',
-                      'ar' => 'العربية',
-                   ], 
+        'en' => 'english',
+        'ar' => 'العربية',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -218,6 +218,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'DataTables' => \Yajra\DataTables\Facades\DataTables::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
     ])->toArray(),
 
 ];

@@ -34,6 +34,7 @@ class ContractTransferHistoryRequest extends FormRequest
             'old_customer_id' => ['required'],
             'new_customer_id' => ['required'],
             'contract_id' => ['required'],
+            'webcam_image' => 'nullable|string',
 
             //normal fields
             'transfer_date' => ['required', 'date_format:Y-m-d'],

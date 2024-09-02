@@ -24,7 +24,7 @@
                                 {{ __('word.contract_edit') }}
                             </a>
                         @endcan
-                        <button id="print" class="btn btn-custom-statement" onclick="window.print();">
+                        <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
                     </div>
@@ -51,6 +51,8 @@
                                     <p><strong>{{ __('إجمالي الأقساط:') }}</strong>
                                         {{ number_format($total_installments, 0) }}
                                     </p>
+                                    <p><strong>{{ __('إجمالي التنقلات:') }}</strong>
+                                        {{ number_format($total_transfers, 0) }}</p>
                                     <p><strong>{{ __('إجمالي المدفوعات:') }}</strong>
                                         {{ number_format($total_payments, 0) }}</p>
                                     <p><strong>{{ __('إجمالي الخدمات:') }}</strong>
@@ -96,7 +98,20 @@
                                     ]);
                                 }
                             }
-
+                            foreach ($contract->transfers as $transfer) {
+                                $items->push([
+                                    'date' => $transfer->transfer_date,
+                                    'description' => __('تناقل بالعدد') . ' ' . $transfer->id,
+                                    'credit' => $transfer->transfer_amount,
+                                    'debit' => 0,
+                                    'note' =>
+                                        $transfer->transfer_note .
+                                        ' من ' .
+                                        $transfer->oldcustomer->customer_full_name .
+                                        ' الى ' .
+                                        $transfer->newcustomer->customer_full_name,
+                                ]);
+                            }
                             foreach ($contract->services as $service) {
                                 $items->push([
                                     'date' => $service->service_date,
@@ -116,18 +131,24 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col"
+                                        width="15%"class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('التاريخ') }}</th>
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col" width="15%"
+                                        class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('الوصف') }}</th>
 
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col" width="15%"
+                                        class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('المدين') }}</th>
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col" width="15%"
+                                        class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('الدائن') }}</th>
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col" width="15%"
+                                        class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('الرصيد الجاري') }}</th>
-                                    <th class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
+                                    <th scope="col"
+                                        width="25%"class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('الملاحظات') }}</th>
                                 </tr>
                             </thead>

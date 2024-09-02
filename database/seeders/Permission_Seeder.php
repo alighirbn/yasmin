@@ -55,6 +55,8 @@ class Permission_Seeder extends Seeder
             'transfer-update',
             'transfer-delete',
             'transfer-approve',
+            'transfer-print',
+
             //**************************payment******************************* */
             //payment permissions
             'payment-list',

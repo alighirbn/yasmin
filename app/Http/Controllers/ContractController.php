@@ -41,10 +41,10 @@ class ContractController extends Controller
      */
     public function customerstore(CustomerRequest $request)
     {
-        Customer::create($request->validated());
+        $customer = Customer::create($request->validated());
 
         //inform the user
-        return redirect()->route('contract.create')
+        return redirect()->route('contract.create', ['customer_id' => $customer->id])
             ->with('success', 'تمت أضافة الزبون بنجاح ');
     }
 
@@ -52,14 +52,14 @@ class ContractController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($customer_id = null)
     {
         $customers = Customer::all();
         $buildings = Building::doesntHave('contract')->get();
         // $buildings = Building::has('contract')->get();
         $payment_methods = Payment_Method::all();
 
-        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods']));
+        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'customer_id']));
     }
 
     /**
@@ -187,6 +187,7 @@ class ContractController extends Controller
         ])
             ->withSum('contract_installments', 'installment_amount') // Sum of installment amounts
             ->withSum('services', 'service_amount') // Sum of service amounts
+            ->withSum('transfers', 'transfer_amount')
             ->where('url_address', $url_address)
             ->first();
 
@@ -200,9 +201,11 @@ class ContractController extends Controller
             'total_installments' => $contract->contract_installments_sum_installment_amount,
             'total_payments' => $total_approved_payments,
             'total_services' => $contract->services_sum_service_amount,
+            'total_transfers' => $contract->transfers_sum_transfer_amount,
             'outstanding_amount' =>
             $contract->contract_installments_sum_installment_amount +
-                $contract->services_sum_service_amount -
+                $contract->services_sum_service_amount +
+                $contract->transfers_sum_transfer_amount -
                 $total_approved_payments,
         ];
 

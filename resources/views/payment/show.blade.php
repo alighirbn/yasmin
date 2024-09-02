@@ -28,7 +28,7 @@
                                 <button type="submit" class="btn btn-custom-edit">قبول الدفعة</button>
                             </form>
                         @endif
-                        <button id="print" class="btn btn-custom-statement" onclick="window.print();">
+                        <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
                     </div>

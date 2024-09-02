@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContractTransferHistoryRequest;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Contract\Contract_Transfer_History;
-
+use Illuminate\Support\Facades\Storage;
 
 class ContractTransferHistoryController extends Controller
 {
@@ -32,8 +32,26 @@ class ContractTransferHistoryController extends Controller
 
     public function store(ContractTransferHistoryRequest $request)
     {
+        $validated = $request->validated();
+
+        // Process webcam_image if present
+        if ($request->has('webcam_image')) {
+            $imageData = $request->input('webcam_image');
+            $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+            $imageData = str_replace(' ', '+', $imageData);
+            $imageName = 'webcam_' . time() . '.jpeg';
+            $imagePath = 'public/transfer/' . $imageName;
+
+            // Save the image to storage
+            Storage::put($imagePath, base64_decode($imageData));
+
+            // Add the image path to validated data
+            $validated['webcam_image'] = str_replace('public/', 'storage/', $imagePath);
+        }
+
         // Create a new transfer history record
-        $transfer = Contract_Transfer_History::create($request->validated());
+        Contract_Transfer_History::create($validated);
+
 
         return redirect()->route('transfer.index')
             ->with('success', 'تم إرسال طلب  التناقل للموافقة.');
@@ -45,7 +63,7 @@ class ContractTransferHistoryController extends Controller
 
         $transferHistory->approve();
         $transferHistory->contract->update([
-            'customer_id' => $transferHistory->new_customer_id,
+            'contract_customer_id' => $transferHistory->new_customer_id,
         ]);
 
         return redirect()->route('transfer.index')
@@ -65,7 +83,7 @@ class ContractTransferHistoryController extends Controller
      */
     public function customerstore(CustomerRequest $request)
     {
-        Customer::create($request->validated());
+        $customer = Customer::create($request->validated());
 
         //inform the user
         return redirect()->route('transfer.create')

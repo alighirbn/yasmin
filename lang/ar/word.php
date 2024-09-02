@@ -83,6 +83,7 @@ return [
     'contract_view' => 'عرض العقد',
     'contract_edit' => 'تعديل العقد',
     'contract_print' => 'طباعة العقد',
+    'contract_transfer' => 'تناقل العقد',
 
     //contract_info
     'contract_info' => 'بيانات العقد',
@@ -102,7 +103,8 @@ return [
     //nav
     'transfer_add' => 'اضافة تناقل',
     'transfer_search' => 'بحث عن تناقل',
-
+    'transfer_edit' => 'تعديل التناقل',
+    'transfer_print' => 'طباعة التناقل',
     //transfer_info
     'transfer_info' => 'بيانات التناقل',
 

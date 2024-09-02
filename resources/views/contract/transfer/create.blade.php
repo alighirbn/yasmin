@@ -4,6 +4,8 @@
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
+        <script src="https://cdn.jsdelivr.net/npm/webcamjs@1.0.25/webcam.min.js"></script>
+
         <!-- select2 css and js-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
         <script src="{{ asset('js/select2.min.js') }}"></script>
@@ -101,7 +103,8 @@
 
                                     <x-input-error :messages="$errors->get('transfer_amount')" class="w-full mt-2" />
                                 </div>
-
+                            </div>
+                            <div class="flex ">
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="transfer_note" class="w-full mb-1" :value="__('word.transfer_note')" />
                                     <x-text-input id="transfer_note" class="w-full block mt-1" type="text"
@@ -109,6 +112,18 @@
                                     <x-input-error :messages="$errors->get('transfer_note')" class="w-full mt-2" />
                                 </div>
 
+                            </div>
+                            <div class="flex ">
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="webcam_capture" class="w-full mb-1" :value="__('word.webcam_capture')" />
+                                    <div id="webcam-container" class="w-full">
+                                        <div id="my_camera"></div>
+                                        <button type="button" id="capture-button" class="btn btn-custom-edit mt-2">
+                                            {{ __('word.capture') }}
+                                        </button>
+                                        <input type="hidden" id="webcam_image" name="webcam_image">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class=" mx-4 my-4 w-full">
@@ -121,7 +136,24 @@
             </div>
         </div>
     </div>
+    <script>
+        // Initialize WebcamJS
+        Webcam.set({
+            width: 800,
+            height: 460,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#my_camera');
 
+        document.getElementById('capture-button').addEventListener('click', function() {
+            Webcam.snap(function(data_uri) {
+                document.getElementById('webcam_image').value = data_uri;
+                // Display captured image
+                document.getElementById('my_camera').innerHTML = '<img src="' + data_uri + '"/>';
+            });
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var displayInput = document.getElementById('transfer_amount_display');

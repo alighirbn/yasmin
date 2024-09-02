@@ -25,6 +25,7 @@ Route::group(['prefix' => 'transfer'], function () {
     //update
     Route::get('/edit/{url_address}', [ContractTransferHistoryController::class, 'edit'])->middleware(['auth', 'verified', 'permission:transfer-update'])->name('transfer.edit');
     Route::patch('/update/{url_address}', [ContractTransferHistoryController::class, 'update'])->middleware(['auth', 'verified', 'permission:transfer-update'])->name('transfer.update');
+    Route::patch('/approve/{url_address}', [ContractTransferHistoryController::class, 'approve'])->middleware(['auth', 'verified', 'permission:transfer-approve'])->name('transfer.approve');
 
     //delete
 

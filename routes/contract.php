@@ -15,7 +15,7 @@ Route::group(['prefix' => 'contract'], function () {
     Route::post('/customercreate', [ContractController::class, 'customerstore'])->middleware(['auth', 'verified', 'permission:customer-create'])->name('contract.customerstore');
 
     //create
-    Route::get('/create', [ContractController::class, 'create'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.create');
+    Route::get('/create/{customer_id?}', [ContractController::class, 'create'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.create');
     Route::post('/create', [ContractController::class, 'store'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.store');
 
     //transfer
