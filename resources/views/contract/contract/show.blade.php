@@ -32,6 +32,12 @@
                                 {{ __('word.contract_print') }}
                             </a>
                         @endcan
+                        @can('transfer-create')
+                            <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
+                                class="btn btn-custom-transfer">
+                                {{ __('word.contract_transfer') }}
+                            </a>
+                        @endcan
 
                     </div>
                     <div>
@@ -120,7 +126,8 @@
 
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="block_number" class="w-full mb-1" :value="__('word.block_number')" />
-                                <p id="block_number" class="w-full h-9 block mt-1 " type="text" name="block_number">
+                                <p id="block_number" class="w-full h-9 block mt-1 " type="text"
+                                    name="block_number">
                                     {{ $contract->building->block_number }}
                             </div>
 

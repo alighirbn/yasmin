@@ -27,6 +27,12 @@ class Contract extends Model
         return $this->hasMany(Payment::class, 'payment_contract_id', 'id');
     }
 
+    public function transfers()
+    {
+        return $this->hasMany(Contract_Transfer_History::class, 'contract_id', 'id');
+    }
+
+
     public function Services()
     {
         return $this->hasMany(Service::class, 'service_contract_id', 'id');

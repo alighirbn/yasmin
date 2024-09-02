@@ -18,6 +18,10 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/create', [ContractController::class, 'create'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.create');
     Route::post('/create', [ContractController::class, 'store'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.store');
 
+    //transfer
+    Route::get('/transfer/{url_address}', [ContractController::class, 'transfer'])->middleware(['auth', 'verified', 'permission:contract-transfer'])->name('contract.transfer');
+    Route::post('/transfer/{url_address}', [ContractController::class, 'transferstore'])->middleware(['auth', 'verified', 'permission:contract-transfer'])->name('contract.transferstore');
+
     //show
     Route::get('/show/{url_address}', [ContractController::class, 'show'])->middleware(['auth', 'verified', 'permission:contract-show'])->name('contract.show');
     Route::get('/add/{url_address}', [ContractController::class, 'add_payment'])->middleware(['auth', 'verified', 'permission:contract-show'])->name('contract.add');

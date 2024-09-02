@@ -10,10 +10,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Contract\Installment;
 use App\DataTables\ContractDataTable;
 use App\Http\Requests\ContractRequest;
+use App\Http\Requests\ContractTransferHistoryRequest;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
+use App\Models\Contract\Contract_Transfer_History;
 use App\Models\Payment\Payment;
+use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
@@ -164,6 +167,7 @@ class ContractController extends Controller
     }
 
 
+
     /**
      * Display the statement of account for the given contract.
      *
@@ -268,10 +272,10 @@ class ContractController extends Controller
 
         // Retrieve the payment method
         $payment_method_id = $request->input('contract_payment_method_id');
-        $payment_method = Payment_Method::find($payment_method_id);
+
 
         // Update the contract installments based on the payment method
-        if ($payment_method_id == 2) {
+        if ($payment_method_id == 2 && $contract->contract_installments->count() == 11) {
             // For payment method 2, update each installment
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
@@ -279,7 +283,7 @@ class ContractController extends Controller
                     'installment_date' => Carbon::parse($contract->contract_date)->addMonth($contract_installment->installment->installment_period),
                 ]);
             }
-        } else {
+        } elseif ($payment_method_id == 1 && $contract->contract_installments->count() == 1) {
             // For other payment methods, update each installment
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
@@ -287,7 +291,34 @@ class ContractController extends Controller
                     'installment_date' => $request->contract_date,
                 ]);
             }
+        } elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 11) {
+            $contract->contract_installments()->delete();
+            $installments = Installment::where('payment_method_id', 2)->get();
+            foreach ($installments as $installment) {
+                Contract_Installment::create([
+                    'url_address' => $this->random_string(60),
+                    'installment_amount' => $installment->installment_percent * $request->contract_amount,
+                    'installment_date' => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
+                    'contract_id' => $contract->id,
+                    'installment_id' => $installment->id,
+                    'user_id_create' => $request->user_id_update,
+                ]);
+            }
+        } elseif ($payment_method_id == 1 && $contract->contract_installments->count() != 1) {
+            $contract->contract_installments()->delete();
+            $installments = Installment::where('payment_method_id', 1)->get();
+            foreach ($installments as $installment) {
+                Contract_Installment::create([
+                    'url_address' => $this->random_string(60),
+                    'installment_amount' => $request->contract_amount,
+                    'installment_date' => $request->contract_date,
+                    'contract_id' => $contract->id,
+                    'installment_id' => $installment->id,
+                    'user_id_create' => $request->user_id_create,
+                ]);
+            }
         }
+
 
         return redirect()->route('contract.index')
             ->with('success', 'تمت تعديل بيانات العقد وأقساطه بنجاح');

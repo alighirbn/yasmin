@@ -15,7 +15,32 @@
     color: #e8f8ff;
     /* Text color */
 }
+.btn-custom-print {
+    background-color: #e7e74d;
+    /* Replace with your desired color */
+    color: #2f2f2f;
+    /* Text color */
+}
 
+.btn-custom-print:hover {
+    background-color: #a4b830;
+    /* Darker shade on hover */
+    color: #2f2f2f;
+    /* Text color */
+}
+.btn-custom-transfer {
+    background-color: #848383;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-transfer:hover {
+    background-color: #797979;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
 .btn-custom-show {
     background-color: #4d9ae7;
     /* Replace with your desired color */
@@ -103,6 +128,7 @@
     width: 793.7px; /* Approximate A4 width in pixels */
     max-width: 100%;
 }
+
 
 @media print {
     /* page size and orientation and margin */

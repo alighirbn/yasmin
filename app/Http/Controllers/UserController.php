@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\User;
-use App\Models\Basic\Employee\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -13,43 +12,23 @@ use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
-
-    public function employeelogin(Request $request){
-        $loginData = $request->validate([
-            'job_number'=>'required|string',
-            'employee_password'=>'required|min:8'
-        ]);
-        $employee = Employee::where('job_number', $loginData['job_number'])->where('employee_password', $loginData['employee_password'])->first();
-        if(!$employee ){
-            return response()->json([
-                'message' => 'المعلومات المدخلة غير صحيحة يرجى التأكد من عنوان الايميل وكلمة السر',
-                'success' => false ,
-            ],401);
-        }
-        
-        return response()->json([
-            'employee' => $employee,
-            'success' => true,
-        ]);
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-      $users = User::orderBy('id','DESC')->paginate(10);
-      return view('user.index',compact('users'))->with('i', ($request->input('page', 1) - 1) * 10);
-}
+        $users = User::orderBy('id', 'DESC')->paginate(10);
+        return view('user.index', compact('users'))->with('i', ($request->input('page', 1) - 1) * 10);
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         $departments = Department::all();
-        return view('user.create',compact(['roles','departments']));
+        return view('user.create', compact(['roles', 'departments']));
     }
 
     /**
@@ -59,7 +38,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'roles_name' => ['array'],
         ]);
@@ -67,17 +46,16 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'department_id'=> $request->department_id,
-            'Status'=> $request->Status,
-            'url_address'=> $this->get_random_string(60),
+            'department_id' => $request->department_id,
+            'Status' => $request->Status,
+            'url_address' => $this->get_random_string(60),
             'password' => Hash::make($request->password),
         ]);
 
         $user->assignRole(collect($request->role_name));
-        
-         return redirect()->route('user.index')
-                        ->with('success','تمت أضافة المستخدم بنجاح ');
-        
+
+        return redirect()->route('user.index')
+            ->with('success', 'تمت أضافة المستخدم بنجاح ');
     }
 
     /**
@@ -85,15 +63,13 @@ class UserController extends Controller
      */
     public function show(string $url_address)
     {
-        $user = User::where('url_address','=',$url_address) -> first();
+        $user = User::where('url_address', '=', $url_address)->first();
         if (isset($user)) {
             return view('user.show', compact('user'));
-        }
-        else{
+        } else {
             $ip = $this->getIPAddress();
-             return view('user.accessdenied' , ['ip'=>$ip]);
+            return view('user.accessdenied', ['ip' => $ip]);
         }
-
     }
 
     /**
@@ -101,16 +77,15 @@ class UserController extends Controller
      */
     public function edit(string $url_address)
     {
-        $user = User::where('url_address','=',$url_address)->first();
+        $user = User::where('url_address', '=', $url_address)->first();
         if (isset($user)) {
             $departments = Department::all();
-            $roles = Role::pluck('name','name')->all();
-            $userRole = $user->roles->pluck('name','name')->all();
-            return view('user.edit',compact(['user','departments','roles','userRole']));
-        }
-        else{
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
+            return view('user.edit', compact(['user', 'departments', 'roles', 'userRole']));
+        } else {
             $ip = $this->getIPAddress();
-             return view('user.accessdenied' , ['ip'=>$ip]);
+            return view('user.accessdenied', ['ip' => $ip]);
         }
     }
 
@@ -119,59 +94,59 @@ class UserController extends Controller
      */
     public function update(Request $request, string $url_address)
     {
-        $user = User::where('url_address',$url_address)->first();
+        $user = User::where('url_address', $url_address)->first();
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'Status'=> 'required',
-            'department_id'=> 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'Status' => 'required',
+            'department_id' => 'required',
             'password' => 'same:password_confirmation',
             'role_name' => 'required'
         ]);
-        
-        if(!empty($request->password)){
+
+        if (!empty($request->password)) {
             $input = $request->all();
             $input['password'] = Hash::make($input['password']);
-        }else{
+        } else {
             $input = $request->except('password');
         }
 
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
-        
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+
         $user->assignRole(collect($request->role_name));
 
-         return redirect()->route('user.index')
-                        ->with('success','تمت تحديث بيانات المستخدم بنجاح ');
+        return redirect()->route('user.index')
+            ->with('success', 'تمت تحديث بيانات المستخدم بنجاح ');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-public function destroy(string $url_address)
+    public function destroy(string $url_address)
     {
-        $user = User::where('url_address',$url_address)->first();
-        $affected = User::where('url_address',$url_address)->delete();
-        DB::table('model_has_roles')->where('model_id',$user->id)->delete();
+        $user = User::where('url_address', $url_address)->first();
+        $affected = User::where('url_address', $url_address)->delete();
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
         return redirect()->route('user.index')
-                            ->with('success','تمت حذف بيانات المستخدم بنجاح ');
+            ->with('success', 'تمت حذف بيانات المستخدم بنجاح ');
     }
 
 
-       function get_random_string($length)
+    function get_random_string($length)
     {
-      $array = array(0,1,2,3,4,5,6,7,8,9, 'a', 'b','c' , 'd', 'e', 'f','g', 'h', 'i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-      $text = "";
-      $length = rand(22, $length);
+        $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $text = "";
+        $length = rand(22, $length);
 
-      for($i=0;$i<$length;$i++) {
-         $random = rand(0,61);
-         $text .=$array[$random];
+        for ($i = 0; $i < $length; $i++) {
+            $random = rand(0, 61);
+            $text .= $array[$random];
         }
-      return $text;
+        return $text;
     }
 
-     function getIPAddress()
+    function getIPAddress()
     {
         //whether ip is from the share internet
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -186,7 +161,5 @@ public function destroy(string $url_address)
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
-   }
-
+    }
 }
-

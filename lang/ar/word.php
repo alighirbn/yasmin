@@ -82,11 +82,29 @@ return [
     'contract_search' => 'بحث عن عقد',
     'contract_view' => 'عرض العقد',
     'contract_edit' => 'تعديل العقد',
+    'contract_print' => 'طباعة العقد',
 
     //contract_info
     'contract_info' => 'بيانات العقد',
     'installment_info' => 'بيانات الدفعات',
     'statement' => 'كشف',
+
+    //************************************* transfer        *******************************************
+
+    'transfer_id' => 'عدد التناقل',
+    'transfer_date' => 'تاريخ التناقل',
+    'transfer_amount' => 'اجور التناقل',
+    'transfer_note' => 'الملاحظات',
+
+    'oldcustomer' => 'الزبون السابق',
+    'newcustomer' => 'الزبون الجديد',
+
+    //nav
+    'transfer_add' => 'اضافة تناقل',
+    'transfer_search' => 'بحث عن تناقل',
+
+    //transfer_info
+    'transfer_info' => 'بيانات التناقل',
 
 
     //************************************* building        *******************************************

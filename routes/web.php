@@ -52,6 +52,8 @@ Route::group(['middleware' => 'checkStatus'], function () {
 
     //contract routes
     require __DIR__ . '/contract.php';
+    //transfer routes
+    require __DIR__ . '/transfer.php';
 
 
     //user routes
