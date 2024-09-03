@@ -15,8 +15,8 @@
 
             .overlay-div {
                 position: absolute;
-                width: 0.75%;
-                height: 1.5%;
+                width: 0.37%;
+                height: 0.75%;
                 border-radius: 100%;
                 color: rgb(255, 0, 0);
                 text-align: center;

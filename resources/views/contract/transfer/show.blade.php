@@ -16,6 +16,12 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
+                        @can('contract-show')
+                            <a href="{{ route('contract.show', $transfer->contract->url_address) }}"
+                                class="btn btn-custom-show">
+                                {{ __('word.contract_view') }}
+                            </a>
+                        @endcan
                         @if (!$transfer->approved)
                             <form action="{{ route('transfer.approve', $transfer->url_address) }}" method="POST">
                                 @csrf
@@ -23,6 +29,7 @@
                                 <button type="submit" class="btn btn-custom-edit">قبول التناقل</button>
                             </form>
                         @endif
+
                         @can('transfer-print')
                             <a href="{{ route('transfer.print', $transfer->url_address) }}" class="btn btn-custom-print">
                                 {{ __('word.transfer_print') }}

@@ -146,7 +146,7 @@
                                         {{ __('الدائن') }}</th>
                                     <th scope="col" width="15%"
                                         class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
-                                        {{ __('الرصيد الجاري') }}</th>
+                                        {{ __('الرصيد ') }}</th>
                                     <th scope="col"
                                         width="25%"class="px-6 py-3 text-right  font-medium uppercase tracking-wider">
                                         {{ __('الملاحظات') }}</th>
