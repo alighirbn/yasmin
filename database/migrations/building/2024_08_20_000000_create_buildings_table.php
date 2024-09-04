@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
-            
+
             $table->unsignedBigInteger('user_id_create')->nullable();
             $table->foreign('user_id_create')->references('id')->on('users');
-            
+
             $table->unsignedBigInteger('user_id_update')->nullable();
             $table->foreign('user_id_update')->references('id')->on('users');
 
@@ -26,13 +26,13 @@ return new class extends Migration
             $table->unsignedBigInteger('building_type_id')->nullable();
             $table->foreign('building_type_id')->references('id')->on('building_type');
 
-            $table->string('url_address','60')->unique()->nullable();
-            $table->string('building_number','10');
-            $table->string('house_number','10');
-            $table->string('block_number','10');
-            $table->string('building_area','10');
-            $table->string('building_map_x','6');
-            $table->string('building_map_y','6');
+            $table->string('url_address', '60')->unique()->nullable();
+            $table->string('building_number', '10');
+            $table->string('house_number', '10');
+            $table->string('block_number', '10');
+            $table->string('building_area', '10');
+            $table->string('building_map_x', '6')->nullable();
+            $table->string('building_map_y', '6')->nullable();
             $table->timestamps();
         });
     }
