@@ -22,6 +22,9 @@ class PaymentDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'payment.action')
+            ->addColumn('payment_amount', function ($row) {
+                return number_format($row->payment_amount, 0);
+            })
             ->rawColumns(['action'])
             ->setRowId('id');
     }

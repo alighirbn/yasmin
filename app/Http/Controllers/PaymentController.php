@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PaymentDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRequest;
+use App\Models\Contract\Contract;
 use App\Models\Payment\Payment;
-
-
+use App\Models\User;
+use App\Notifications\PaymentNotify;
 
 class PaymentController extends Controller
 {
@@ -18,7 +20,32 @@ class PaymentController extends Controller
         return $dataTable->render('payment.index');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
 
+        $contracts = Contract::with(['building.building_category', 'customer'])->get();
+        return view('payment.create', compact(['contracts']));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(PaymentRequest $request)
+    {
+        $payment = Payment::create($request->validated());
+
+        // Notify all users with 'accountant' role
+        $accountants = User::role('accountant')->get(); // Assuming you're using a role system
+        foreach ($accountants as $accountant) {
+            $accountant->notify(new PaymentNotify($payment));
+        }
+
+        return redirect()->route('payment.index')
+            ->with('success', 'تمت أضافة الدفعة بنجاح في انتظار الموافقة عليها ');
+    }
 
     /**
      * Display the specified resource.
@@ -40,12 +67,49 @@ class PaymentController extends Controller
 
         if (isset($payment)) {
             $payment->approve();
-            return redirect()->route('payment.index')->with('success', 'تم قبول الدفعة بنجاح');
+            return redirect()->route('contract.show', $payment->contract->url_address)->with('success', 'تم قبول الدفعة بنجاح');
         } else {
             $ip = $this->getIPAddress();
             return view('payment.accessdenied', ['ip' => $ip]);
         }
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $url_address)
+    {
+        $contracts = Contract::with(['building.building_category', 'customer'])->get();
+        $payment = Payment::where('url_address', '=', $url_address)->first();
+
+        if (isset($payment)) {
+            if ($payment->approved) {
+                return redirect()->route('payment.index')
+                    ->with('error', 'لا يمكن تعديل دفعة موافق عليها.');
+            }
+
+            return view('payment.edit', compact(['payment', 'contracts']));
+        } else {
+            $ip = $this->getIPAddress();
+            return view('payment.accessdenied', ['ip' => $ip]);
+        }
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(PaymentRequest $request, string $url_address)
+    {
+        // insert the user input into model and lareval insert it into the database.
+        Payment::where('url_address', $url_address)->update($request->validated());
+
+        //inform the user
+        return redirect()->route('payment.index')
+            ->with('success', 'تمت تعديل الخدمة  بنجاح ');
+    }
+
 
     /**
      * Remove the specified resource from storage.

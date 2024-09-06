@@ -7,7 +7,11 @@
             {{ __('word.view') }}
         </a>
     @endcan
-
+    @can('payment-update')
+        <a href="{{ route('payment.edit', $url_address) }}" class="my-1 mx-1 btn btn-custom-edit">
+            {{ __('word.edit') }}
+        </a>
+    @endcan
     @can('payment-delete')
         <form action="{{ route('payment.destroy', $url_address) }}" method="post">
             @csrf

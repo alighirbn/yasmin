@@ -63,54 +63,62 @@
     <div class="w-full h-auto p-2 flex justify-center " style="height:100dvh;position: sticky;top:0px;">
 
     </div>
-    <div class="item"><a class="sub-btn"> {{ __('word.Map') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('map.nav.navigation')
+    @can('map-index')
+        <div class="item"><a class="sub-btn"> {{ __('word.Map') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('map.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.contract') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('contract.nav.navigation')
+    @endcan
+    @can('contract-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.contract') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('contract.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.payment') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('payment.nav.navigation')
+    @endcan
+    @can('payment-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.payment') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('payment.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.service') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('service.nav.navigation')
+    @endcan
+    @can('service-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.service') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('service.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.Building') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('building.nav.navigation')
+    @endcan
+    @can('building-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.Building') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('building.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.Customer') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('customer.nav.navigation')
+    @endcan
+    @can('customer-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.Customer') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('customer.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.users') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('user.nav.navigation')
+    @endcan
+    @can('user-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.users') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('user.nav.navigation')
+            </div>
         </div>
-    </div>
-
-    <div class="item"><a class="sub-btn"> {{ __('word.roles') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
-        <div class="flex flex-col   sub-menu" style="display: none;">
-            @include('role.nav.navigation')
+    @endcan
+    @can('role-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.roles') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('role.nav.navigation')
+            </div>
         </div>
-    </div>
-
+    @endcan
 </div>
 <script>
     $(document).ready(function() {

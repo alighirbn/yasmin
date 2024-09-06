@@ -23,6 +23,9 @@ class ServiceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'service.action')
+            ->addColumn('service_amount', function ($row) {
+                return number_format($row->service_amount, 0);
+            })
             ->filterColumn('contract.customer.customer_full_name', function ($query, $keyword) {
                 $query->whereHas('contract.customer', function ($query) use ($keyword) {
                     $query->where('customer_full_name', 'like', "%{$keyword}%");

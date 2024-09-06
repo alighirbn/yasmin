@@ -93,8 +93,9 @@
                                         'debit' => $payment->payment_amount,
                                         'note' =>
                                             $payment->payment_note .
-                                            ' ' .
-                                            $payment->contract_installment->installment->installment_name,
+                                            (isset($payment->contract_installment->installment)
+                                                ? ' ' . $payment->contract_installment->installment->installment_name
+                                                : ''),
                                     ]);
                                 }
                             }

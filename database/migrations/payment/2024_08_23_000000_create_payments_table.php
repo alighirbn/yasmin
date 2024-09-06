@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('payment_contract_id');
             $table->foreign('payment_contract_id')->references('id')->on('contracts')->onDelete('cascade');
 
-            $table->unsignedBigInteger('contract_installment_id');
+            $table->unsignedBigInteger('contract_installment_id')->nullable();
             $table->foreign('contract_installment_id')->references('id')->on('contract_installments')->onDelete('cascade');
 
 

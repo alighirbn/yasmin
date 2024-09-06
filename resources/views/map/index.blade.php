@@ -15,14 +15,8 @@
 
             .overlay-div {
                 position: absolute;
-                width: 0.37%;
-                height: 0.75%;
-                border-radius: 100%;
-                color: rgb(255, 0, 0);
-                text-align: center;
-                line-height: 1%;
-                border: 2px solid rgb(0, 0, 0);
-                /* Add white stroke */
+                width: 0.85%;
+                height: 1.4%;
             }
 
             a.fill-div {
@@ -30,6 +24,11 @@
                 height: 100%;
                 width: 100%;
                 text-decoration: none;
+                border-radius: 100%;
+                text-align: center;
+                line-height: 1%;
+                background-color: rgb(0, 195, 255);
+                mix-blend-mode: multiply;
             }
 
             /* Optional: Custom tooltip styling */
@@ -42,7 +41,7 @@
                 transform: translateX(-50%);
                 background-color: rgba(0, 0, 0, 0.7);
                 color: white;
-                padding: 15px;
+                padding: 3px;
                 border-radius: 5px;
                 white-space: nowrap;
                 z-index: 10;
@@ -61,7 +60,7 @@
 
                         @foreach ($contracts as $contract)
                             <div class="overlay-div"
-                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; background-color:red;"
+                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; "
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
                                 <a href="{{ route('contract.show', $contract->url_address) }}" class="fill-div"></a>
                             </div>

@@ -10,13 +10,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Contract\Installment;
 use App\DataTables\ContractDataTable;
 use App\Http\Requests\ContractRequest;
-use App\Http\Requests\ContractTransferHistoryRequest;
+
 use App\Http\Requests\CustomerRequest;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
-use App\Models\Contract\Contract_Transfer_History;
+
 use App\Models\Payment\Payment;
+use App\Models\User;
+use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class ContractController extends Controller
 {
@@ -156,6 +159,14 @@ class ContractController extends Controller
                 'contract_installment_id' => $contract_installment->id,
                 'user_id_create' => auth()->user()->id,
             ]);
+
+
+            // Notify all users with 'accountant' role
+            $accountants = User::role('accountant')->get(); // Assuming you're using a role system
+            foreach ($accountants as $accountant) {
+                $accountant->notify(new PaymentNotify($payment));
+            }
+
 
             // Redirect to the payment details page
             return redirect()->route('payment.show', $payment->url_address);

@@ -41,6 +41,11 @@
 
                     </div>
                     <div>
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                         <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.contract_info') }}
                         </h1>

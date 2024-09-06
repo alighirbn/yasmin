@@ -8,7 +8,7 @@
 
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg bg-white">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg ">
                 <div class="p-6 text-gray-900">
                     <div class="header-buttons">
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
@@ -32,18 +32,33 @@
                             {{ __('word.print') }}
                         </button>
                     </div>
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <div class="print-container a4-width mx-auto  bg-white">
 
-                    <div class="print-container w-full">
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
+                        <div class="flex">
+                            <div class=" mx-2 my-2 w-full ">
+                                {!! QrCode::size(90)->generate($payment->contract->id) !!}
                             </div>
-                        @endif
+                            <div class=" mx-2 my-2 w-full ">
+                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
+                                    style="h-6;max-width: 100%; height: auto;">
+                            </div>
+                            <div class=" mx-2 my-2 w-full ">
+                                <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($payment->id, 'C39') }}"
+                                    alt="barcode" />
 
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.payment_info') }}
-                        </h1>
+                                <p><strong>{{ __('عدد الدفعة:') }}</strong>
+                                    {{ $payment->id }}
+                                </p>
+                                <p><strong>{{ __('تاريخ الدفعة:') }}</strong> {{ $payment->payment_date }}</p>
+
+                            </div>
+                        </div>
+
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="payment_id" class="w-full mb-1" :value="__('word.payment_id')" />
@@ -61,7 +76,11 @@
                                 <x-input-label for="installment_name" class="w-full mb-1" :value="__('word.installment_name')" />
                                 <p id="installment_name" class="w-full h-9 block mt-1 " type="text"
                                     name="installment_name">
-                                    {{ $payment->contract_installment->installment->installment_name }}
+                                    @if ($payment->contract_installment && $payment->contract_installment->installment)
+                                        {{ $payment->contract_installment->installment->installment_name }}
+                                    @else
+                                        {{ __('بدون') }}
+                                    @endif
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -72,9 +91,7 @@
                             </div>
 
                         </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.customer_info') }}
-                        </h1>
+
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
@@ -104,9 +121,7 @@
                             </div>
 
                         </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.building_info') }}
-                        </h1>
+
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="building_category_id" class="w-full mb-1" :value="__('word.building_category_id')" />

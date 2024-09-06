@@ -31,11 +31,11 @@ class PaymentRequest extends FormRequest
 
             //foreign id and reference
             'payment_contract_id' => ['required'],
-            'contract_installment_id' => ['required'],
-            
+
+
 
             //normal fields
-            'payment_date' => ['required','date_format:Y-m-d'],
+            'payment_date' => ['required', 'date_format:Y-m-d'],
             'payment_amount' => ['required'],
             'payment_note' => ['max:200'],
         ];
@@ -52,8 +52,6 @@ class PaymentRequest extends FormRequest
         } elseif (request()->routeIs('payment.update')) {
             $this->mergeIfMissing(['user_id_update' =>  auth()->user()->id]);
         }
-        
-       
     }
 
 
