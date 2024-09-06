@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContractTransferHistoryRequest;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Contract\Contract_Transfer_History;
+use App\Models\User;
+use App\Notifications\TransferNotify;
 use Illuminate\Support\Facades\Storage;
 
 class ContractTransferHistoryController extends Controller
@@ -34,27 +36,47 @@ class ContractTransferHistoryController extends Controller
     {
         $validated = $request->validated();
 
-        // Process webcam_image if present
-        if ($request->has('webcam_image')) {
-            $imageData = $request->input('webcam_image');
+        // Process old_customer_picture if present
+        if ($request->has('old_customer_picture')) {
+            $imageData = $request->input('old_customer_picture');
             $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
             $imageData = str_replace(' ', '+', $imageData);
-            $imageName = 'webcam_' . time() . '.jpeg';
+            $imageName = 'old_customer_picture_' . time() . '.jpeg';
             $imagePath = 'public/transfer/' . $imageName;
 
             // Save the image to storage
             Storage::put($imagePath, base64_decode($imageData));
 
             // Add the image path to validated data
-            $validated['webcam_image'] = str_replace('public/', 'storage/', $imagePath);
+            $validated['old_customer_picture'] = str_replace('public/', 'storage/', $imagePath);
+        }
+
+        // Process new_customer_picture if present
+        if ($request->has('new_customer_picture')) {
+            $imageData = $request->input('new_customer_picture');
+            $imageData = str_replace('data:image/jpeg;base64,', '', $imageData);
+            $imageData = str_replace(' ', '+', $imageData);
+            $imageName = 'new_customer_picture_' . time() . '.jpeg';
+            $imagePath = 'public/transfer/' . $imageName;
+
+            // Save the image to storage
+            Storage::put($imagePath, base64_decode($imageData));
+
+            // Add the image path to validated data
+            $validated['new_customer_picture'] = str_replace('public/', 'storage/', $imagePath);
         }
 
         // Create a new transfer history record
-        Contract_Transfer_History::create($validated);
+        $transfer = Contract_Transfer_History::create($validated);
 
+        // Notify all users with 'accountant' role
+        $accountants = User::role('accountant')->get(); // Assuming you're using a role system
+        foreach ($accountants as $accountant) {
+            $accountant->notify(new TransferNotify($transfer));
+        }
 
         return redirect()->route('transfer.index')
-            ->with('success', 'تم إرسال طلب  التناقل للموافقة.');
+            ->with('success', 'تم إرسال طلب التناقل للموافقة.');
     }
 
     public function approve(string $url_address)
@@ -132,14 +154,17 @@ class ContractTransferHistoryController extends Controller
             return view('contract.transfer.accessdenied', ['ip' => $ip]);
         }
 
+        if ($transfer->approved) {
+            return redirect()->route('transfer.index')
+                ->with('error', 'تمت الموافقة على التناقل ولا يمكن تعديل البيانات.');
+        }
+
         $customers = Customer::all();
-
-
-
         $contracts = Contract::all();
 
-        return view('contract.transfer.edit', compact('contracts', 'customers',  'transfer'));
+        return view('contract.transfer.edit', compact('contracts', 'customers', 'transfer'));
     }
+
 
 
     /**
@@ -147,6 +172,7 @@ class ContractTransferHistoryController extends Controller
      */
     public function update(ContractTransferHistoryRequest $request, string $url_address)
     {
+        // Find the existing transfer record
         $transfer = Contract_Transfer_History::where('url_address', $url_address)->first();
 
         if (!$transfer) {
@@ -154,24 +180,88 @@ class ContractTransferHistoryController extends Controller
             return view('contract.transfer.accessdenied', ['ip' => $ip]);
         }
 
-        // Update the contract
-        $transfer->update($request->validated());
+        // Validate the request
+        $validated = $request->validated();
+
+        // Process old_customer_picture if present
+        if ($request->has('old_customer_picture')) {
+            $oldCustomerPicture = $request->input('old_customer_picture');
+            if (strpos($oldCustomerPicture, 'data:image/jpeg;base64,') === 0) {
+                $imageData = str_replace('data:image/jpeg;base64,', '', $oldCustomerPicture);
+                $imageData = str_replace(' ', '+', $imageData);
+                $imageName = 'old_customer_picture_' . time() . '.jpeg';
+                $imagePath = 'public/transfer/' . $imageName;
+
+                // Save the image to storage
+                Storage::put($imagePath, base64_decode($imageData));
+
+                // Add the image path to validated data
+                $validated['old_customer_picture'] = str_replace('public/', 'storage/', $imagePath);
+            }
+        }
+
+        // Process new_customer_picture if present
+        if ($request->has('new_customer_picture')) {
+            $newCustomerPicture = $request->input('new_customer_picture');
+            if (strpos($newCustomerPicture, 'data:image/jpeg;base64,') === 0) {
+                $imageData = str_replace('data:image/jpeg;base64,', '', $newCustomerPicture);
+                $imageData = str_replace(' ', '+', $imageData);
+                $imageName = 'new_customer_picture_' . time() . '.jpeg';
+                $imagePath = 'public/transfer/' . $imageName;
+
+                // Save the image to storage
+                Storage::put($imagePath, base64_decode($imageData));
+
+                // Add the image path to validated data
+                $validated['new_customer_picture'] = str_replace('public/', 'storage/', $imagePath);
+            }
+        }
+
+
+        // Update the transfer record
+        $transfer->update($validated);
+
         return redirect()->route('transfer.index')
-            ->with('success', 'تمت تعديل بيانات التناقل وأقساطه بنجاح');
+            ->with('success', 'تمت تعديل بيانات التناقل  ');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $url_address)
     {
-        $affected = Contract_Transfer_History::where('url_address', $url_address)->first();
-        $affected->delete();
+        // Find the transfer record
+        $transfer = Contract_Transfer_History::where('url_address', $url_address)->first();
+
+        if (!$transfer) {
+            return redirect()->route('transfer.index')
+                ->with('error', 'بيانات التناقل غير موجودة.');
+        }
+
+        // Get the associated contract
+        $contract = $transfer->contract;
+
+        // Find the last transfer for the contract (based on created_at or id)
+        $lastTransfer = Contract_Transfer_History::where('contract_id', $contract->id)
+            ->where('approved', 1)  // Only consider approved transfers
+            ->orderBy('created_at', 'desc') // Assuming the latest transfer is the last one by date
+            ->first();
+
+        // Check if the current transfer is the last approved transfer
+        if ($lastTransfer && $lastTransfer->id == $transfer->id) {
+            // If this is the last approved transfer, revert the contract's customer to the old customer
+            $contract->update([
+                'contract_customer_id' => $transfer->old_customer_id
+            ]);
+        }
+
+        // Now delete the transfer record
+        $transfer->delete();
+
         return redirect()->route('transfer.index')
-            ->with('success', 'تمت حذف بيانات التناقل بنجاح ');
+            ->with('success', 'تمت حذف بيانات التناقل بنجاح وتم إعادة الزبون القديم.');
     }
+
 
     public function random_string($length)
     {

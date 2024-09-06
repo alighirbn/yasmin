@@ -179,6 +179,40 @@ class ContractController extends Controller
 
 
 
+    public function dueInstallments($contract_id = null)
+    {
+        $currentDate = Carbon::now()->format('Y-m-d');
+
+        // Initialize the query for due installments
+        $query = Contract_Installment::with(['contract.customer', 'contract.building', 'payment'])
+            ->leftJoin('payments', 'contract_installments.id', '=', 'payments.contract_installment_id')
+            ->where('contract_installments.installment_date', '<=', $currentDate)
+            ->where(function ($query) {
+                $query->whereNull('payments.id')
+                    ->orWhere('payments.approved', false);
+            })
+            ->select('contract_installments.*'); // Select all columns from contract_installments
+
+        // If a contract_id is provided, filter by that contract
+        if ($contract_id) {
+            $query->where('contract_id', $contract_id);
+        }
+
+        // Execute the query and group by customer and contract
+        $dueInstallments = $query->get()
+            ->groupBy(function ($installment) {
+                return $installment->contract->customer->id; // Group by customer ID
+            })
+            ->map(function ($installments) {
+                return $installments->groupBy(function ($installment) {
+                    return $installment->contract->id; // Group by contract ID
+                });
+            });
+
+        // Return view with the due installments grouped by customer and contract
+        return view('contract.contract.due_installments', compact(['dueInstallments', 'contract_id']));
+    }
+
     /**
      * Display the statement of account for the given contract.
      *

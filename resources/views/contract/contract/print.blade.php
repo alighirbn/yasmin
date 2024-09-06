@@ -41,6 +41,8 @@
                                         style="h-6;max-width: 100%; height: auto;">
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
+                                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($contract->building->building_number, 'C39') }}"
+                                        alt="barcode" />
 
                                     <p><strong>{{ __('رقم العقد:') }}</strong>
                                         {{ $contract->id }}
@@ -51,10 +53,12 @@
                             </div>
 
                             <div style="text-align: center; margin: 0 auto; font-size: 0.875rem;">
-                                <p><strong>عقد شراء دار في مجمع واحة الياسمين السكني - النجف الاشرف</strong> </p>
+                                <p><strong>عقد شراء دار في مجمع واحة الياسمين الاستثماري السكني - النجف الاشرف</strong>
+                                </p>
                             </div>
                             <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>الطرف الاول - البائع - إدارة مجمع واحة الياسمين السكني في النجف الاشرف </p>
+                                <p>الطرف الاول - البائع - إدارة مجمع واحة الياسمين الاستثماري السكني في النجف الاشرف
+                                </p>
                             </div>
                             <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
                                 <p>الطرف الثاني - المشتري - {{ $contract->customer->customer_full_name }} بموجب الهوية
@@ -71,7 +75,8 @@
                                     الأول
                                     بيعه الى الطرف الثاني الدار المرقمة ({{ $contract->building->house_number }}) ضمن
                                     البلوك المرقم ({{ $contract->building->block_number }}) على قطعة أرض مساحتها
-                                    ({{ $contract->building->building_area }}) متر ضمن مجمع واحة الياسمين السكني في
+                                    ({{ $contract->building->building_area }}) متر ضمن مجمع واحة الياسمين الاستثماري
+                                    السكني في
                                     النجف
                                     الاشرف .</p>
                             </div>

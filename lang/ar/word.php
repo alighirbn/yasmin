@@ -37,7 +37,7 @@ return [
     'Map' => 'الخارطة',
     'contract' => 'العقود',
     'Building' => 'العقارات',
-    'payment' => 'السندات',
+    'payment' => 'الدفعات',
     'service' => 'الخدمات',
     'Customer' => 'الزبائن',
     'users' => 'المستخدمين',
@@ -55,6 +55,8 @@ return [
     'map_due_installments_0' => 'مستحق الان ',
     'map_due_installments_30' => 'مستحق بعد شهر',
     'map_due_installments_60' => 'مستحق بعد شهرين',
+    'map_buildings' => 'خارطة العقارات',
+    'map_empty_buildings' => 'خارطة العقارات المتوفرة',
 
 
     //************************************* contract        *******************************************
@@ -99,6 +101,7 @@ return [
 
     'oldcustomer' => 'الزبون السابق',
     'newcustomer' => 'الزبون الجديد',
+    'new_customer_id' => 'اسم الزبون الجديد',
 
     //nav
     'transfer_add' => 'اضافة تناقل',
@@ -107,6 +110,10 @@ return [
     'transfer_print' => 'طباعة التناقل',
     //transfer_info
     'transfer_info' => 'بيانات التناقل',
+
+    'old_customer_picture' => 'صورة الزبون السابق',
+    'new_customer_picture' => 'صورة الزبون الجديد',
+    'capture' => 'التقاط',
 
 
     //************************************* building        *******************************************
@@ -131,18 +138,18 @@ return [
 
     //************************************* payment        *******************************************
 
-    'payment_id' => 'عدد السند',
-    'payment_date' => 'تاريخ السند',
+    'payment_id' => 'عدد الدفعة',
+    'payment_date' => 'تاريخ الدفعة',
     'payment_amount' => 'المبلغ المستلم',
     'payment_note' => 'الملاحظات',
     'add_payment' => 'تسديد الدفعة',
 
     //nav
-    'payment_add' => 'اضافة سند',
-    'payment_search' => 'بحث عن سند',
+    'payment_add' => 'اضافة دفعة',
+    'payment_search' => 'بحث عن دفعة',
 
     //payment_info
-    'payment_info' => 'بيانات السند',
+    'payment_info' => 'بيانات الدفعة',
     'last_payment' => 'اخر دفعة',
 
 

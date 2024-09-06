@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('new_customer_id')->constrained('customers')->onDelete('cascade');
 
             $table->string('url_address', '60')->unique();
-            $table->string('webcam_image')->nullable();
+            $table->string('old_customer_picture')->nullable();
+            $table->string('new_customer_picture')->nullable();
             $table->integer('transfer_amount');
             $table->date('transfer_date');
             $table->string('transfer_note', '200')->nullable();

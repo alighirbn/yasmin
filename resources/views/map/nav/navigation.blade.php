@@ -4,6 +4,11 @@
     </a>
 @endcan
 @can('map-index')
+    <a href="{{ route('map.empty_building') }}" class="me-3">
+        {{ __('word.map_empty_buildings') }}
+    </a>
+@endcan
+@can('map-index')
     <a href="{{ route('map.index') }}" class="me-3">
         {{ __('word.map_contracts') }}
     </a>
