@@ -45,6 +45,7 @@ class Permission_Seeder extends Seeder
             'contract-update',
             'contract-delete',
             'contract-statement',
+            'contract-due',
             'contract-print',
 
             //**************************transfer******************************* */
@@ -110,6 +111,23 @@ class Permission_Seeder extends Seeder
         ]);
 
         $role = Role::create(['name' => 'admin']);
+
+        $per = Permission::pluck('id', 'id')->all();
+
+        $role->syncPermissions($per);
+
+        $user->assignRole([$role]);
+
+        $user = User::create([
+            'name' => 'accountant',
+            'email' => 'ali@admin.com',
+            'password' => bcrypt('12345678'),
+            'department_id' => 1,
+            'url_address' => $this->get_random_string(60),
+            'Status' => 'active',
+        ]);
+
+        $role = Role::create(['name' => 'accountant']);
 
         $per = Permission::pluck('id', 'id')->all();
 

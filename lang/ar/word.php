@@ -86,11 +86,13 @@ return [
     'contract_edit' => 'تعديل العقد',
     'contract_print' => 'طباعة العقد',
     'contract_transfer' => 'تناقل العقد',
+    'contract_due' => 'الدفعات المستحقة',
+    'statement' => 'كشف',
 
     //contract_info
     'contract_info' => 'بيانات العقد',
     'installment_info' => 'بيانات الدفعات',
-    'statement' => 'كشف',
+
 
     //************************************* transfer        *******************************************
 

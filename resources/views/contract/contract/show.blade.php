@@ -27,9 +27,9 @@
                                 {{ __('word.contract_edit') }}
                             </a>
                         @endcan
-                        @can('contract-statement')
+                        @can('contract-due')
                             <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
-                                class="btn btn-custom-edit">
+                                class="btn btn-custom-due">
                                 {{ __('word.contract_due') }}
                             </a>
                         @endcan

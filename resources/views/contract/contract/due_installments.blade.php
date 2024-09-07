@@ -78,9 +78,19 @@
                                             $contract = \App\Models\Contract\Contract::find($contractId);
                                             $contractTotal = 0;
                                         @endphp
+                                        <div class="flex">
+                                            <div class=" mx-2 my-2 w-full ">
+                                                {!! QrCode::size(90)->generate($contract->id) !!}
+                                            </div>
+                                            <div class=" mx-2 my-2 w-full ">
+                                                <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($contract->building->building_number, 'C39') }}"
+                                                    alt="barcode" />
+                                                <p class="font-bold">عدد العقد: {{ $contract->id }}</p>
+                                                <p class="font-bold">تاريخ العقد: {{ $contract->contract_date }}</p>
 
-                                        <p class="font-bold">عدد العقد: {{ $contract->id }}</p>
-                                        <p class="font-bold">تاريخ العقد: {{ $contract->contract_date }}</p>
+                                            </div>
+
+                                        </div>
 
                                         <table class="table table-bordered">
                                             <thead>
