@@ -16,6 +16,8 @@ Route::group(['prefix' => 'payment'], function () {
 
     //show
     Route::get('/show/{url_address}', [PaymentController::class, 'show'])->middleware(['auth', 'verified', 'permission:payment-show'])->name('payment.show');
+    //show
+    Route::get('/pending/{url_address}', [PaymentController::class, 'pending'])->middleware(['auth', 'verified', 'permission:payment-show'])->name('payment.pending');
 
     //update
     Route::get('/edit/{url_address}', [PaymentController::class, 'edit'])->middleware(['auth', 'verified', 'permission:payment-update'])->name('payment.edit');

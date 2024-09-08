@@ -38,10 +38,15 @@ class PaymentNotify extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        // Check if $this->request and its nested properties are not null
+        $contractInstallment = $this->request->contract_installment ?? null;
+        $installment = $contractInstallment->installment ?? null;
+        $customer = $this->request->contract->customer ?? null;
+
         return [
-            'action' => ' استلام الدفعة' . $this->request->contract_installment->installment->installment_name,
-            'name' => $this->request->contract->customer->customer_full_name,
-            'url_address' => $this->request->url_address,
+            'action' => $installment ? 'استلام الدفعة ' . $installment->installment_name : 'استلام دفعة ',
+            'name' => $customer ? $customer->customer_full_name : 'اسم العميل غير متوفر',
+            'url_address' => $this->request->url_address ?? 'رابط غير متوفر',
             'route' => 'payment.show',
         ];
     }

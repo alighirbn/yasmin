@@ -26,7 +26,7 @@ class ContractDataTable extends DataTable
             })
             ->addColumn('last_payment', function ($row) {
                 $lastPayment = $row->payments->last(); // Get the last payment
-                return $lastPayment ?  $lastPayment->contract_installment->installment->installment_name . ' في ' . $lastPayment->payment_date  : __('لا توجد دفعة');
+                return $lastPayment ? number_format($lastPayment->payment_amount, 0) . ' في ' . $lastPayment->payment_date  : __('لا توجد دفعة');
             })
             ->addColumn('action', 'contract.contract.action')
             ->rawColumns(['action'])

@@ -33,6 +33,11 @@
                                 {{ __('word.contract_due') }}
                             </a>
                         @endcan
+                        @can('payment-show')
+                            <a href="{{ route('payment.pending', $contract->url_address) }}" class="btn btn-custom-due">
+                                {{ __('word.payment_pending') }}
+                            </a>
+                        @endcan
                         @can('contract-print')
                             <a href="{{ route('contract.print', $contract->url_address) }}" class="btn btn-custom-print">
                                 {{ __('word.contract_print') }}

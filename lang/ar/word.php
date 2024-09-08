@@ -149,10 +149,13 @@ return [
     //nav
     'payment_add' => 'اضافة دفعة',
     'payment_search' => 'بحث عن دفعة',
+    'payment_approve' => 'قبول الدفعة',
 
     //payment_info
     'payment_info' => 'بيانات الدفعة',
     'last_payment' => 'اخر دفعة',
+    'payment_pending' => 'الدفعات غير الموافق عليها',
+
 
 
     //************************************* service        *******************************************

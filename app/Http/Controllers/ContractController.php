@@ -177,8 +177,6 @@ class ContractController extends Controller
         }
     }
 
-
-
     public function dueInstallments($contract_id = null)
     {
         $currentDate = Carbon::now()->format('Y-m-d');

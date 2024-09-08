@@ -74,6 +74,25 @@ class PaymentController extends Controller
         }
     }
 
+    public function pending($url_address)
+    {
+        // Retrieve the contract by its url_address
+        $contract = Contract::where('url_address', $url_address)->first();
+
+        if (!$contract) {
+            // Handle the case where the contract is not found
+            return redirect()->route('contract.index')
+                ->with('error', 'حدث خطا العقد غير موجود');
+        }
+
+        // Fetch all payments associated with the contract that are 'approved' is false
+        $pendingPayments = Payment::where('payment_contract_id', $contract->id)
+            ->where('approved', false)
+            ->get();
+
+        // Return the view with pending payments and contract details
+        return view('payment.pending', compact(['pendingPayments', 'contract']));
+    }
 
     /**
      * Show the form for editing the specified resource.
