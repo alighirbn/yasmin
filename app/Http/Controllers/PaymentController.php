@@ -9,15 +9,20 @@ use App\Models\Contract\Contract;
 use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\PaymentNotify;
+use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(PaymentDataTable $dataTable)
+    public function index(PaymentDataTable $dataTable, Request $request)
     {
-        return $dataTable->render('payment.index');
+        // Check if a contract ID is provided in the request
+        $contractId = $request->input('contract_id');
+
+        // Pass the contract ID to the DataTable if it exists
+        return $dataTable->forContract($contractId)->render('payment.index');
     }
 
     /**

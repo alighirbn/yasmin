@@ -155,6 +155,7 @@ return [
     'payment_info' => 'بيانات الدفعة',
     'last_payment' => 'اخر دفعة',
     'payment_pending' => 'الدفعات غير الموافق عليها',
+    'payment_status' => 'حالة الدفع',
 
 
 

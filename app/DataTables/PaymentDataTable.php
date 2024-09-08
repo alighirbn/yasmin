@@ -29,6 +29,15 @@ class PaymentDataTable extends DataTable
             ->setRowId('id');
     }
 
+    protected $contractId;
+
+    // New method to set the contract ID
+    public function forContract($contractId = null)
+    {
+        $this->contractId = $contractId;
+        return $this;
+    }
+
     /**
      * Get query source of dataTable.
      *
@@ -37,7 +46,15 @@ class PaymentDataTable extends DataTable
      */
     public function query(Payment $model): QueryBuilder
     {
-        return $model->newQuery()->with(['contract.customer', 'contract.building', 'contract_installment.installment']);
+        // Get the base query with relationships
+        $query = $model->newQuery()->with(['contract.customer', 'contract.building', 'contract_installment.installment']);
+
+        // If a contract ID is provided, filter by contract
+        if ($this->contractId) {
+            $query->where('payment_contract_id', $this->contractId);
+        }
+
+        return $query;
     }
 
     /**

@@ -71,7 +71,8 @@
                                 @endphp
 
                                 <div class="customer-section">
-                                    <p class="font-bold">الاسم: {{ $customer->customer_full_name }}</p>
+                                    <p class="font-bold"> {{ __('word.customer_full_name') }}:
+                                        {{ $customer->customer_full_name }}</p>
 
                                     @foreach ($contracts as $contractId => $installments)
                                         @php
@@ -95,11 +96,11 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th> الدفعة</th>
-                                                    <th>مبلغ الدفعة</th>
-                                                    <th>تأريخ استحقاق الدفعة</th>
-                                                    <th>رقم العقار</th>
-                                                    <th>حالة الدفع</th>
+                                                    <th> {{ __('word.installment_name') }}</th>
+                                                    <th> {{ __('word.installment_amount') }}</th>
+                                                    <th> {{ __('word.installment_date') }} </th>
+                                                    <th> {{ __('word.building_number') }} </th>
+                                                    <th> {{ __('word.payment_status') }} </th>
                                                 </tr>
                                             </thead>
                                             <tbody>

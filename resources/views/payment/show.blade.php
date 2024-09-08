@@ -29,9 +29,21 @@
                                     {{ __('word.payment_approve') }}</button>
                             </form>
                         @endif
+
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
+                        @can('payment-delete')
+                            <form action="{{ route('payment.destroy', $payment->url_address) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="my-1 mx-1 btn btn-custom-delete">
+                                    {{ __('word.delete') }}
+                                </button>
+
+                            </form>
+                        @endcan
                     </div>
                     @if (session('error'))
                         <div class="alert alert-danger">

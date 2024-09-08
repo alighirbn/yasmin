@@ -20,9 +20,12 @@
                             </a>
                         @endcan
                         @can('contract-update')
-                            <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
-                                {{ __('word.contract_edit') }}
-                            </a>
+                            @if ($contract->payments()->count() == 0)
+                                <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
+                                    {{ __('word.contract_edit') }}
+                                </a>
+                            @endif
+
                         @endcan
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}

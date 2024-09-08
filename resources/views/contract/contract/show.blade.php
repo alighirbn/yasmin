@@ -22,10 +22,14 @@
                                 {{ __('word.statement') }}
                             </a>
                         @endcan
+
                         @can('contract-update')
-                            <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
-                                {{ __('word.contract_edit') }}
-                            </a>
+                            @if ($contract->payments()->count() == 0)
+                                <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
+                                    {{ __('word.contract_edit') }}
+                                </a>
+                            @endif
+
                         @endcan
                         @can('contract-due')
                             <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
@@ -34,6 +38,10 @@
                             </a>
                         @endcan
                         @can('payment-show')
+                            <a href="{{ route('payment.index', ['contract_id' => $contract->id]) }}"
+                                class="btn btn-custom-show">
+                                {{ __('word.payment') }}
+                            </a>
                             <a href="{{ route('payment.pending', $contract->url_address) }}" class="btn btn-custom-due">
                                 {{ __('word.payment_pending') }}
                             </a>
