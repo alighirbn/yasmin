@@ -1,6 +1,9 @@
 <x-app-layout>
 
     <x-slot name="header">
+        <!-- app css-->
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
+
         @include('service.nav.navigation')
 
     </x-slot>
@@ -59,7 +62,7 @@
                             </div>
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
-                                <p id="customer_full_name" class="w-full h-9 block mt-1" type="text"
+                                <p id="customer_full_name" class="outlined-text" type="text"
                                     name="customer_full_name">
                                     {{ $service->contract->customer->customer_full_name }}
                             </div>

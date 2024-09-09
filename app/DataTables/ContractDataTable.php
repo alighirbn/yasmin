@@ -66,7 +66,7 @@ class ContractDataTable extends DataTable
             ])
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
+            ->orderBy(1, 'asc')
             /*   ->parameters([
             'dom' => 'B<"clear">lfrtip',
             'scrollX' => false,

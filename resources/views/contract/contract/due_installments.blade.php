@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <!-- app css-->
+        <!-- App CSS -->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         <style>
             .table tfoot td {
@@ -10,7 +10,6 @@
 
             .customer-section {
                 margin-bottom: 20px;
-                /* Space between each customer section */
             }
 
             .customer-total,
@@ -30,7 +29,6 @@
                 border: none;
                 border-top: 1px solid #000000;
                 margin: 20px 0;
-                /* Space around the horizontal line */
             }
         </style>
         @include('contract.nav.navigation')
@@ -44,7 +42,6 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
-
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
@@ -53,25 +50,20 @@
                     <div class="print-container a4-width mx-auto bg-white">
                         <p class="font-bold">الدفعات المستحقة</p>
 
-                        @php
-                            $grandTotal = 0;
-                        @endphp
+                        @php $grandTotal = 0; @endphp
 
                         @if ($dueInstallments->isEmpty())
                             <p>لا توجد دفعات مستحقة</p>
                         @else
-                            @php
-                                $customerRowCounter = 0;
-                            @endphp
-
                             @foreach ($dueInstallments as $customerId => $contracts)
                                 @php
                                     $customer = \App\Models\Customer\Customer::find($customerId);
                                     $customerTotal = 0;
+                                    $customerRowCounter = 0;
                                 @endphp
 
                                 <div class="customer-section">
-                                    <p class="font-bold"> {{ __('word.customer_full_name') }}:
+                                    <p class="font-bold">{{ __('word.customer_full_name') }}:
                                         {{ $customer->customer_full_name }}</p>
 
                                     @foreach ($contracts as $contractId => $installments)
@@ -79,28 +71,27 @@
                                             $contract = \App\Models\Contract\Contract::find($contractId);
                                             $contractTotal = 0;
                                         @endphp
+
                                         <div class="flex">
-                                            <div class=" mx-2 my-2 w-full ">
+                                            <div class="mx-2 my-2 w-full">
                                                 {!! QrCode::size(90)->generate($contract->id) !!}
                                             </div>
-                                            <div class=" mx-2 my-2 w-full ">
+                                            <div class="mx-2 my-2 w-full">
                                                 <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($contract->building->building_number, 'C39') }}"
                                                     alt="barcode" />
                                                 <p class="font-bold">عدد العقد: {{ $contract->id }}</p>
                                                 <p class="font-bold">تاريخ العقد: {{ $contract->contract_date }}</p>
-
                                             </div>
-
                                         </div>
 
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th> {{ __('word.installment_name') }}</th>
-                                                    <th> {{ __('word.installment_amount') }}</th>
-                                                    <th> {{ __('word.installment_date') }} </th>
-                                                    <th> {{ __('word.building_number') }} </th>
-                                                    <th> {{ __('word.payment_status') }} </th>
+                                                    <th>{{ __('word.installment_name') }}</th>
+                                                    <th>{{ __('word.installment_amount') }}</th>
+                                                    <th>{{ __('word.installment_date') }}</th>
+                                                    <th>{{ __('word.building_number') }}</th>
+                                                    <th>{{ __('word.payment_status') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -145,14 +136,12 @@
                                             </tfoot>
                                         </table>
                                     @endforeach
-                                    @if (!$contract_id)
-                                        <div class="customer-total">
-                                            <p class="font-bold">
-                                                مجموع المبالغ المستحقة على الزبون:
-                                                {{ number_format($customerTotal, 0) }}
-                                            </p>
-                                        </div>
-                                    @endif
+
+                                    <div class="customer-total">
+                                        <p class="font-bold">
+                                            مجموع المبالغ المستحقة على الزبون: {{ number_format($customerTotal, 0) }}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 @if (!$loop->last)
@@ -160,15 +149,12 @@
                                 @endif
                             @endforeach
 
-                            @if (!$contract_id)
-                                <div class="grand-total">
-                                    <p class="font-bold">
-                                        المجموع الكلي: {{ number_format($grandTotal, 0) }}
-                                    </p>
-                                </div>
-                            @endif
+                            <div class="grand-total">
+                                <p class="font-bold">
+                                    المجموع الكلي: {{ number_format($grandTotal, 0) }}
+                                </p>
+                            </div>
                         @endif
-
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@
                         @can('contract-due')
                             <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
                                 class="btn btn-custom-due">
-                                {{ __('word.contract_due') }}
+                                {{ __('word.contract_due') . ' (' . $due_installments_count . ')' }}
                             </a>
                         @endcan
                         @can('payment-show')
@@ -43,7 +43,7 @@
                                 {{ __('word.payment') }}
                             </a>
                             <a href="{{ route('payment.pending', $contract->url_address) }}" class="btn btn-custom-due">
-                                {{ __('word.payment_pending') }}
+                                {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
                             </a>
                         @endcan
                         @can('contract-print')
@@ -217,17 +217,17 @@
                                         </td>
                                         <td>
                                             @if ($installment->payment != null)
-                                                @can('contract-show')
-                                                    <a
-                                                        href="{{ route('payment.show', $installment->payment->url_address) }}">
+                                                @can('payment-show')
+                                                    <a href="{{ route('payment.show', $installment->payment->url_address) }}"
+                                                        class="btn btn-custom-show">
                                                         {{ __('word.view') }}
                                                     </a>
                                                 @endcan
                                             @else
                                                 @if ($hide == 0)
-                                                    @can('contract-show')
+                                                    @can('payment-create')
                                                         <a href="{{ route('contract.add', $installment->url_address) }}"
-                                                            class="add_payment">
+                                                            class="add_payment btn btn-custom-edit">
                                                             {{ __('word.add_payment') }}
                                                         </a>
 

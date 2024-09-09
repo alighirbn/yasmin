@@ -77,12 +77,14 @@
                                 <x-input-label for="payment_id" class="w-full mb-1" :value="__('word.payment_id')" />
                                 <p id="payment_id" class="w-full h-9 block mt-1" type="text" name="payment_id">
                                     {{ $payment->id }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="payment_date" class="w-full mb-1" :value="__('word.payment_date')" />
                                 <p id="payment_date" class="w-full h-9 block mt-1 " type="text" name="payment_date">
                                     {{ $payment->payment_date }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -94,6 +96,7 @@
                                     @else
                                         {{ __('بدون') }}
                                     @endif
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -101,6 +104,7 @@
                                 <p id="payment_amount" class="w-full h-9 block mt-1 " type="text"
                                     name="payment_amount">
                                     {{ number_format($payment->payment_amount, 0) }} دينار
+                                </p>
                             </div>
 
                         </div>
@@ -108,9 +112,10 @@
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
-                                <p id="customer_full_name" class="w-full h-9 block mt-1" type="text"
+                                <p id="customer_full_name" class="outlined-text" type="text"
                                     name="customer_full_name">
                                     {{ $payment->contract->customer->customer_full_name }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -118,12 +123,14 @@
                                 <p id="customer_card_number" class="w-full h-9 block mt-1 " type="text"
                                     name="customer_card_number">
                                     {{ $payment->contract->customer->customer_card_number }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="contract_id" class="w-full mb-1" :value="__('word.contract_id')" />
                                 <p id="contract_id" class="w-full h-9 block mt-1" type="text" name="contract_id">
                                     {{ $payment->contract->id }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -131,6 +138,7 @@
                                 <p id="contract_date" class="w-full h-9 block mt-1 " type="text"
                                     name="contract_date">
                                     {{ $payment->contract->contract_date }}
+                                </p>
                             </div>
 
                         </div>
@@ -141,6 +149,7 @@
                                 <p id="building_category_id" class="w-full h-9 block mt-1 " type="text"
                                     name="building_category_id">
                                     {{ $payment->contract->building->building_category->category_name }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -148,6 +157,7 @@
                                 <p id="building_number" class="w-full h-9 block mt-1 " type="text"
                                     name="building_number">
                                     {{ $payment->contract->building->building_number }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -155,6 +165,7 @@
                                 <p id="block_number" class="w-full h-9 block mt-1" type="text"
                                     name="block_number">
                                     {{ $payment->contract->building->block_number }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -162,6 +173,7 @@
                                 <p id="house_number" class="w-full h-9 block mt-1 " type="text"
                                     name="house_number">
                                     {{ $payment->contract->building->house_number }}
+                                </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
@@ -169,6 +181,7 @@
                                 <p id="building_area" class="w-full h-9 block mt-1 " type="text"
                                     name="building_area">
                                     {{ $payment->contract->building->building_area }}
+                                </p>
                             </div>
 
                         </div>
@@ -178,6 +191,7 @@
                                 <p id="payment_note" class="w-full h-9 block mt-1" type="text"
                                     name="payment_note">
                                     {{ $payment->payment_note }}
+                                </p>
                             </div>
 
                         </div>

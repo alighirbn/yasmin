@@ -184,3 +184,21 @@
 }
 
 
+.outlined-text {
+    padding: 8px;
+    /* Adds padding to keep the text inside the outline */
+    border: 1px solid #000000;
+    /* Outline the text */
+    box-sizing: border-box;
+    /* Includes padding and border in width */
+    width: 100%;
+    /* Ensures the element stays within the width of the container */
+    word-wrap: break-word;
+    /* Ensures long text breaks and wraps within the container */
+    overflow-wrap: break-word;
+    /* Same as above for long words */
+    white-space: normal;
+    /* Allows text to wrap to the next line */
+    text-align: center;
+    /* Centers the text (optional) */
+}

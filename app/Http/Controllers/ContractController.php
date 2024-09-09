@@ -111,15 +111,41 @@ class ContractController extends Controller
      */
     public function show(string $url_address)
     {
-        $contract = Contract::with(['customer', 'building', 'payment_method'])->where('url_address', '=', $url_address)->first();
-        $contract_installments = Contract_Installment::with(['installment', 'payment'])->where('contract_id', $contract->id)->get();
+        // Retrieve the contract with necessary relationships
+        $contract = Contract::with(['customer', 'building', 'payment_method'])
+            ->where('url_address', '=', $url_address)
+            ->first();
+
+        // Retrieve the installments for the contract
+        $contract_installments = Contract_Installment::with(['installment', 'payment'])
+            ->where('contract_id', $contract->id)
+            ->get();
+
+        // Count due installments
+        $currentDate = Carbon::now()->format('Y-m-d');
+        $due_installments_count = $contract_installments->filter(function ($installment) use ($currentDate) {
+            // Check if the installment date is due and no payment is made or payment is not approved
+            return $installment->installment_date <= $currentDate &&
+                (!$installment->payment || !$installment->payment->approved);
+        })->count();
+
+        // Count pending payments (not approved yet)
+        $pending_payments_count = $contract->payments()->where('approved', false)->count();
+
+        // Check if the contract exists and render the view
         if (isset($contract)) {
-            return view('contract.contract.show', compact(['contract', 'contract_installments']));
+            return view('contract.contract.show', compact(
+                'contract',
+                'contract_installments',
+                'due_installments_count',
+                'pending_payments_count'
+            ));
         } else {
             $ip = $this->getIPAddress();
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
     }
+
 
     public function print(string $url_address)
     {

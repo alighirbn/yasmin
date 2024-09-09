@@ -37,7 +37,7 @@ class PaymentRequest extends FormRequest
             //normal fields
             'payment_date' => ['required', 'date_format:Y-m-d'],
             'payment_amount' => ['required'],
-            'payment_note' => ['max:200'],
+            'payment_note' => ['required', 'max:200'],
         ];
     }
 
