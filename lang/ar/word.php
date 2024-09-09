@@ -112,6 +112,8 @@ return [
     'transfer_print' => 'طباعة التناقل',
     //transfer_info
     'transfer_info' => 'بيانات التناقل',
+    'transfer_contract' => 'عرض التناقلات',
+    'transfer_approve' => 'هل تم الموافقة',
 
     'old_customer_picture' => 'صورة الزبون السابق',
     'new_customer_picture' => 'صورة الزبون الجديد',

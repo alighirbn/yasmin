@@ -127,6 +127,21 @@ class ContractTransferHistoryController extends Controller
         }
     }
 
+    public function showTransfersForContract($url_address)
+    {
+        // Fetch the contract by URL address
+        $contract = Contract::where('url_address', $url_address)->firstOrFail();
+
+        // Fetch all transfers for the specific contract
+        $transfers = Contract_Transfer_History::where('contract_id', $contract->id)
+            ->with(['oldCustomer', 'newCustomer', 'contract'])
+            ->orderBy('created_at', 'desc') // Order by the most recent transfers
+            ->get();
+
+        // Pass the transfers and contract to the view
+        return view('contract.transfer.showForContract', compact('transfers', 'contract'));
+    }
+
     public function print(string $url_address)
     {
         $transfer = Contract_Transfer_History::with(['contract', 'newCustomer', 'oldCustomer'])->where('url_address', '=', $url_address)->first();

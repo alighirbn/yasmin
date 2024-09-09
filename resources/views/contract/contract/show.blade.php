@@ -57,6 +57,11 @@
                                 {{ __('word.contract_transfer') }}
                             </a>
                         @endcan
+                        @can('transfer-show')
+                            <a href="{{ route('transfer.contract', $contract->url_address) }}" class="btn btn-custom-show">
+                                {{ __('word.transfer_contract') }}
+                            </a>
+                        @endcan
 
                     </div>
                     <div>

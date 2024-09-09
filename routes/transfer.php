@@ -22,6 +22,7 @@ Route::group(['prefix' => 'transfer'], function () {
     Route::get('/show/{url_address}', [ContractTransferHistoryController::class, 'show'])->middleware(['auth', 'verified', 'permission:transfer-show'])->name('transfer.show');
     Route::get('/add/{url_address}', [ContractTransferHistoryController::class, 'add_payment'])->middleware(['auth', 'verified', 'permission:transfer-show'])->name('transfer.add');
     Route::get('/print/{url_address}', [ContractTransferHistoryController::class, 'print'])->middleware(['auth', 'verified', 'permission:transfer-print'])->name('transfer.print');
+    Route::get('/contract/{url_address}', [ContractTransferHistoryController::class, 'showTransfersForContract'])->middleware(['auth', 'verified', 'permission:transfer-show'])->name('transfer.contract');
     //update
     Route::get('/edit/{url_address}', [ContractTransferHistoryController::class, 'edit'])->middleware(['auth', 'verified', 'permission:transfer-update'])->name('transfer.edit');
     Route::patch('/update/{url_address}', [ContractTransferHistoryController::class, 'update'])->middleware(['auth', 'verified', 'permission:transfer-update'])->name('transfer.update');
