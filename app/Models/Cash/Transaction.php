@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    protected $table = 'cash_accounts';
+    protected $table = 'transactions';
 
     protected $fillable = [
+        'url_address',
         'cash_account_id',
         'transaction_amount',
         'transaction_date',

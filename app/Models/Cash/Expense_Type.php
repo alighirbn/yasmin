@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Expense_Type extends Model
 {
     use HasFactory;
-    protected $table = 'expenses';
+    protected $table = 'expense_types';
 
     protected $fillable = [
-        'url_address',
+
         'expense_type',
     ];
 }

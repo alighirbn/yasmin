@@ -32,7 +32,7 @@ class Expense extends Model
         return $this->morphMany(Transaction::class, 'transactionable');
     }
 
-    public function expenseType()
+    public function expense_type()
     {
         return $this->belongsTo(Expense_Type::class, 'expense_type_id');
     }

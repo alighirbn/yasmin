@@ -38,6 +38,7 @@ return [
     'contract' => 'العقود',
     'Building' => 'العقارات',
     'payment' => 'الدفعات',
+    'expense' => 'سندات الصرف',
     'service' => 'الخدمات',
     'Customer' => 'الزبائن',
     'users' => 'المستخدمين',
@@ -158,6 +159,27 @@ return [
     'last_payment' => 'اخر دفعة',
     'payment_pending' => 'الدفعات غير الموافق عليها',
     'payment_status' => 'حالة الدفع',
+
+
+    //************************************* expense        *******************************************
+
+    'expense_id' => 'عدد سند الصرف',
+    'expense_date' => 'تاريخ سند الصرف',
+    'expense_amount' => 'المبلغ ',
+    'expense_note' => 'الملاحظات',
+    'add_expense' => 'اضافة سند الصرف',
+    'expense_type_id' => 'باب الصرف',
+
+    //nav
+    'expense_add' => 'اضافة سند صرف',
+    'expense_search' => 'بحث عن سند صرف',
+    'expense_approve' => 'قبول سند الصرف',
+
+    //expense_info
+    'expense_info' => 'بيانات سند الصرف',
+    'expense_pending' => 'سندات الصرف غير الموافق عليها',
+    'expense_status' => 'حالة الدفع',
+
 
 
 

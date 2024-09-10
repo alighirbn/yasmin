@@ -47,12 +47,7 @@ class ExpenseDataTable extends DataTable
     public function query(Expense $model): QueryBuilder
     {
         // Get the base query with relationships (if any)
-        $query = $model->newQuery();
-
-        // If a URL address is provided, filter by URL address
-        if ($this->urlAddress) {
-            $query->where('url_address', $this->urlAddress);
-        }
+        $query = $model->newQuery()->with(['expense_type']);;
 
         return $query;
     }
@@ -117,14 +112,12 @@ class ExpenseDataTable extends DataTable
                 ->width(60)
                 ->title(__('word.action'))
                 ->addClass('text-center'),
-            Column::make('url_address')->title(__('word.expense_id'))->class('text-center'),
+            Column::make('id')->title(__('word.expense_id'))->class('text-center'),
             Column::make('expense_date')->title(__('word.expense_date'))->class('text-center'),
-            Column::make('expense_type')->title(__('word.expense_type'))->class('text-center'),
+            Column::make('expense_type')->title(__('word.expense_type_id'))->data('expense_type.expense_type')->name('expense_type.expense_type')->class('text-center'),
             Column::make('expense_amount')->title(__('word.expense_amount'))->class('text-center'),
             Column::make('expense_note')->title(__('word.expense_note'))->class('text-center'),
-            Column::make('approved')->title(__('word.approved'))->class('text-center')->data(function ($row) {
-                return $row->approved ? __('word.yes') : __('word.no');
-            }),
+
         ];
     }
 

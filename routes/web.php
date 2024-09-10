@@ -49,6 +49,9 @@ Route::group(['middleware' => 'checkStatus'], function () {
     //payment routes
     require __DIR__ . '/payment.php';
 
+    //expense routes
+    require __DIR__ . '/expense.php';
+
 
     //contract routes
     require __DIR__ . '/contract.php';

@@ -8,6 +8,7 @@ use App\Http\Requests\ExpenseRequest;
 use App\Models\Cash\Expense;
 use App\Models\Cash\Transaction;
 use App\Models\Cash\Cash_Account;
+use App\Models\Cash\Expense_Type;
 
 class ExpenseController extends Controller
 {
@@ -24,7 +25,8 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expense.create');
+        $expense_types = Expense_Type::all();
+        return view('expense.create', compact('expense_types'));
     }
 
     /**
@@ -66,8 +68,8 @@ class ExpenseController extends Controller
                 return redirect()->route('expense.index')
                     ->with('error', 'لا يمكن تعديل مصروف تمت الموافقة عليه.');
             }
-
-            return view('expense.edit', compact('expense'));
+            $expense_types = Expense_Type::all();
+            return view('expense.edit', compact(['expense', 'expense_types']));
         } else {
             $ip = $this->getIPAddress();
             return view('expense.accessdenied', ['ip' => $ip]);
@@ -106,6 +108,9 @@ class ExpenseController extends Controller
                 $cashAccount->adjustBalance($expense->expense_amount, 'credit');
             }
 
+            // Delete related transactions
+            $expense->transactions()->delete();
+
             // Delete the expense
             $expense->delete();
 
@@ -116,6 +121,7 @@ class ExpenseController extends Controller
             return view('expense.accessdenied', ['ip' => $ip]);
         }
     }
+
 
     /**
      * Approve the expense and create a transaction.
@@ -134,6 +140,7 @@ class ExpenseController extends Controller
 
             // Create a transaction for the approved expense
             Transaction::create([
+                'url_address' => $this->get_random_string(60),
                 'cash_account_id' => $cashAccount->id,
                 'transactionable_id' => $expense->id,
                 'transactionable_type' => Expense::class,
@@ -165,5 +172,18 @@ class ExpenseController extends Controller
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
+    }
+
+    function get_random_string($length)
+    {
+        $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $text = "";
+        $length = rand(22, $length);
+
+        for ($i = 0; $i < $length; $i++) {
+            $random = rand(0, 61);
+            $text .= $array[$random];
+        }
+        return $text;
     }
 }

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('expense_types', function (Blueprint $table) {
             $table->id();
-            $table->string('url_address', '60')->unique();
             $table->string('expense_type');   // e.g., 'salary', 'rent', 'electricity'
             $table->timestamps();
         });

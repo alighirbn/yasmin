@@ -84,6 +84,7 @@ class PaymentController extends Controller
 
             // Create a transaction for the approved payment
             Transaction::create([
+                'url_address' => $this->get_random_string(60),
                 'cash_account_id' => $cashAccount->id,
                 'transactionable_id' => $payment->id,
                 'transactionable_type' => Payment::class,
@@ -152,7 +153,7 @@ class PaymentController extends Controller
 
         //inform the user
         return redirect()->route('payment.index')
-            ->with('success', 'تمت تعديل الخدمة  بنجاح ');
+            ->with('success', 'تمت تعديل الدفعة  بنجاح ');
     }
 
 
@@ -161,10 +162,29 @@ class PaymentController extends Controller
      */
     public function destroy(string $url_address)
     {
-        $affected = Payment::where('url_address', $url_address)->delete();
-        return redirect()->route('payment.index')
-            ->with('success', 'تمت حذف السند بنجاح ');
+        $payment = Payment::where('url_address', $url_address)->first();
+
+        if (isset($payment)) {
+            if ($payment->approved) {
+                // Adjust the cash account balance by debiting the payment amount
+                $cashAccount = Cash_Account::find(1); // or find based on your logic
+                $cashAccount->adjustBalance($payment->payment_amount, 'debit');
+
+                // Delete related transactions
+                $payment->transactions()->delete();
+            }
+
+            // Delete the payment
+            $payment->delete();
+
+            return redirect()->route('payment.index')
+                ->with('success', 'تمت حذف الدفعة بنجاح ');
+        } else {
+            $ip = $this->getIPAddress();
+            return view('payment.accessdenied', ['ip' => $ip]);
+        }
     }
+
 
     public function getIPAddress()
     {
@@ -181,5 +201,17 @@ class PaymentController extends Controller
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
+    }
+    function get_random_string($length)
+    {
+        $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $text = "";
+        $length = rand(22, $length);
+
+        for ($i = 0; $i < $length; $i++) {
+            $random = rand(0, 61);
+            $text .= $array[$random];
+        }
+        return $text;
     }
 }

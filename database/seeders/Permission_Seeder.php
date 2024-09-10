@@ -66,6 +66,15 @@ class Permission_Seeder extends Seeder
             'payment-update',
             'payment-delete',
             'payment-approve',
+
+            //**************************expense******************************* */
+            //expense permissions
+            'expense-list',
+            'expense-show',
+            'expense-create',
+            'expense-update',
+            'expense-delete',
+            'expense-approve',
             //**************************service******************************* */
             //service permissions
             'service-list',
