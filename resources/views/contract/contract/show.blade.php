@@ -212,7 +212,11 @@
                                         <td>{{ $installment->installment_date }}</td>
                                         <td>
                                             @if ($installment->payment == null)
-                                                لم تسدد
+                                                @if ($installment->isDue($installment->installment_date))
+                                                    <span style="color: red;">لم تسدد - مستحقة</span>
+                                                @else
+                                                    <span>لم تسدد - غير مستحقة</span>
+                                                @endif
                                             @elseif ($installment->payment->approved)
                                                 مسددة في {{ $installment->payment->payment_date }}
                                             @else

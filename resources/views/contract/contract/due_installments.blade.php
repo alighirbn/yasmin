@@ -48,7 +48,10 @@
                     </div>
 
                     <div class="print-container a4-width mx-auto bg-white">
-                        <p class="font-bold">الدفعات المستحقة</p>
+                        <div style="text-align: center; margin: 1rem auto; font-size: 1rem;">
+                            <p><strong>الدفعات المستحقة</strong>
+                            </p>
+                        </div>
 
                         @php $grandTotal = 0; @endphp
 

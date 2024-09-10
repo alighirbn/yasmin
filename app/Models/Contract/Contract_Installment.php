@@ -3,6 +3,7 @@
 namespace App\Models\Contract;
 
 use App\Models\Payment\Payment;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,10 @@ class Contract_Installment extends Model
         return $this->hasOne(Payment::class, 'contract_installment_id', 'id');
     }
 
+    public function isDue($installmentDate)
+    {
+        return Carbon::parse($installmentDate)->isPast();
+    }
 
     public function contract()
     {

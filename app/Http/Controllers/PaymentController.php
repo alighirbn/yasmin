@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\PaymentDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
+use App\Models\Cash\Cash_Account;
+use App\Models\Cash\Transaction;
 use App\Models\Contract\Contract;
 use App\Models\Payment\Payment;
 use App\Models\User;
@@ -71,8 +73,27 @@ class PaymentController extends Controller
         $payment = Payment::where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
+            // Approve the payment
             $payment->approve();
-            return redirect()->route('contract.show', $payment->contract->url_address)->with('success', 'تم قبول الدفعة بنجاح');
+
+            // Get the cash account (assuming main account with ID 1)
+            $cashAccount = Cash_Account::find(1); // or find based on your logic
+
+            // Adjust the cash account balance by crediting the payment amount
+            $cashAccount->adjustBalance($payment->payment_amount, 'credit');
+
+            // Create a transaction for the approved payment
+            Transaction::create([
+                'cash_account_id' => $cashAccount->id,
+                'transactionable_id' => $payment->id,
+                'transactionable_type' => Payment::class,
+                'transaction_amount' => $payment->payment_amount,
+                'transaction_date' => now(),
+                'transaction_type' => 'credit', // Since it's a payment
+            ]);
+
+            return redirect()->route('contract.show', $payment->contract->url_address)
+                ->with('success', 'تم قبول الدفعة بنجاح وتم تسجيل المعاملة في الحساب النقدي.');
         } else {
             $ip = $this->getIPAddress();
             return view('payment.accessdenied', ['ip' => $ip]);
