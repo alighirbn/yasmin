@@ -8,7 +8,7 @@ use App\Http\Requests\BuildingRequest;
 use App\Models\Building\Building;
 use App\Models\Building\Building_Category;
 use App\Models\Building\Building_Type;
-
+use Illuminate\Http\Request;
 
 class BuildingController extends Controller
 {
@@ -19,6 +19,25 @@ class BuildingController extends Controller
     {
         return $dataTable->render('building.building.index');
     }
+    public function updateCoordinates(Request $request, $id)
+    {
+        $building = Building::findOrFail($id);
+
+        // Validate the request
+        $validated = $request->validate([
+            'building_map_x' => 'required|numeric',
+            'building_map_y' => 'required|numeric',
+        ]);
+
+        // Update the building coordinates
+        $building->building_map_x = $validated['building_map_x'];
+        $building->building_map_y = $validated['building_map_y'];
+        $building->save();
+
+        // Return a JSON response
+        return response()->json(['success' => true]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

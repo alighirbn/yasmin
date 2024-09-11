@@ -7,7 +7,7 @@ use App\Models\Building\Building;
 use App\Models\Contract\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class MapController extends Controller
 {
