@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Cash\Expense;
+use App\Models\Cash\Cash_Account;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Yajra\DataTables\EloquentDataTable;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ExpenseDataTable extends DataTable
+class CashAccountDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,8 +22,8 @@ class ExpenseDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'expense.action')
-            ->addColumn('expense_amount', function ($row) {
-                return number_format($row->expense_amount, 0);
+            ->addColumn('balance', function ($row) {
+                return number_format($row->balance, 0);
             })
             ->rawColumns(['action'])
             ->setRowId('url_address'); // Using url_address as the row ID
@@ -44,10 +44,10 @@ class ExpenseDataTable extends DataTable
      * @param \App\Models\Cash\Expense $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Expense $model): QueryBuilder
+    public function query(Cash_Account $model): QueryBuilder
     {
         // Get the base query with relationships (if any)
-        $query = $model->newQuery()->with(['expense_type']);
+        $query = $model->newQuery();
 
         return $query;
     }
@@ -60,7 +60,7 @@ class ExpenseDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('expense-table')
+            ->setTableId('cashaccount-table')
             ->language([
                 'sUrl' => url('/') . '/../lang/' . __(LaravelLocalization::getCurrentLocale()) . '/datatable.json'
             ])
@@ -112,11 +112,9 @@ class ExpenseDataTable extends DataTable
                 ->width(60)
                 ->title(__('word.action'))
                 ->addClass('text-center'),
-            Column::make('id')->title(__('word.expense_id'))->class('text-center'),
-            Column::make('expense_date')->title(__('word.expense_date'))->class('text-center'),
-            Column::make('expense_type')->title(__('word.expense_type_id'))->data('expense_type.expense_type')->name('expense_type.expense_type')->class('text-center'),
-            Column::make('expense_amount')->title(__('word.expense_amount'))->class('text-center'),
-            Column::make('expense_note')->title(__('word.expense_note'))->class('text-center'),
+            Column::make('id')->title(__('word.cash_account_id'))->class('text-center'),
+            Column::make('account_name')->title(__('word.account_name'))->class('text-center'),
+            Column::make('balance')->title(__('word.balance'))->class('text-center'),
 
         ];
     }
@@ -128,6 +126,6 @@ class ExpenseDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Expense_' . date('YmdHis');
+        return 'CashAccount_' . date('YmdHis');
     }
 }

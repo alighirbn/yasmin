@@ -14,8 +14,12 @@ class Cash_Account extends Model
     protected $table = 'cash_accounts';
 
     protected $fillable = [
+        'url_address',
         'account_name',  // e.g., 'Main Account', 'Savings Account'
         'balance',       // Current balance of the cash account
+
+        'user_id_create',
+        'user_id_update',
     ];
 
     // Relationship with transactions

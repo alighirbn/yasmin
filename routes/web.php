@@ -51,6 +51,8 @@ Route::group(['middleware' => 'checkStatus'], function () {
 
     //expense routes
     require __DIR__ . '/expense.php';
+    //cash_account routes
+    require __DIR__ . '/cash_account.php';
 
 
     //contract routes
