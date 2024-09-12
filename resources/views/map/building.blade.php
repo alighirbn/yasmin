@@ -26,7 +26,7 @@
                 border-radius: 100%;
                 text-align: center;
                 line-height: 1%;
-                background-color: rgb(0, 195, 255);
+                background-color: rgb(108, 220, 254);
                 mix-blend-mode: multiply;
             }
 
