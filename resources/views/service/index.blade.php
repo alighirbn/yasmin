@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+        @include('contract.nav.navigation')
         @include('service.nav.navigation')
     </x-slot>
 

@@ -3,6 +3,8 @@
     <x-slot name="header">
 
         @include('payment.nav.navigation')
+        @include('expense.nav.navigation')
+        @include('cash_account.nav.navigation')
 
     </x-slot>
 

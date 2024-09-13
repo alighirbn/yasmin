@@ -21,22 +21,14 @@ class CashAccountDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'expense.action')
+            ->addColumn('action', 'cash_account.action')
             ->addColumn('balance', function ($row) {
                 return number_format($row->balance, 0);
             })
             ->rawColumns(['action'])
-            ->setRowId('url_address'); // Using url_address as the row ID
+            ->setRowId('id');
     }
 
-    protected $urlAddress;
-
-    // New method to set the url_address
-    public function forUrlAddress($urlAddress = null)
-    {
-        $this->urlAddress = $urlAddress;
-        return $this;
-    }
 
     /**
      * Get query source of dataTable.
@@ -47,9 +39,7 @@ class CashAccountDataTable extends DataTable
     public function query(Cash_Account $model): QueryBuilder
     {
         // Get the base query with relationships (if any)
-        $query = $model->newQuery();
-
-        return $query;
+        return  $model->newQuery();
     }
 
     /**

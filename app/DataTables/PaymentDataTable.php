@@ -25,6 +25,9 @@ class PaymentDataTable extends DataTable
             ->addColumn('payment_amount', function ($row) {
                 return number_format($row->payment_amount, 0);
             })
+            ->addColumn('approved', function ($row) {
+                return $row->approved ? __('word.approved') : __('word.pending');
+            })
             ->rawColumns(['action'])
             ->setRowId('id');
     }
@@ -128,7 +131,11 @@ class PaymentDataTable extends DataTable
             Column::make('installment_name')->title(__('word.installment_name'))->data('contract_installment.installment.installment_name')->name('contract_installment.installment.installment_name')->class('text-center'),
 
             Column::make('payment_amount')->title(__('word.payment_amount'))->class('text-center'),
-
+            Column::make('approved')
+                ->title(__('word.approve_status'))
+                ->class('text-center')
+                ->orderable(false) // Disable sorting
+                ->searchable(false) // Disable searching
         ];
     }
 

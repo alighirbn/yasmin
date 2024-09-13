@@ -2,6 +2,7 @@
 
     <x-slot name="header">
         @include('contract.nav.navigation')
+        @include('service.nav.navigation')
     </x-slot>
 
     <div class="bg-custom py-4">

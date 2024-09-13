@@ -24,7 +24,7 @@ class CashAccountRequest extends FormRequest
     {
         return [
             'url_address' => 'required|string|max:255',
-            'balance' => 'required|numeric',
+            'balance' => 'numeric',
             'account_name' => 'required',
 
         ];

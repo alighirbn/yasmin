@@ -63,7 +63,6 @@ class CashAccountController extends Controller
         $cash_account = Cash_Account::where('url_address', $url_address)->first();
 
         if (isset($cash_account)) {
-
             return view('cash_account.edit', compact(['cash_account']));
         } else {
             $ip = $this->getIPAddress();
@@ -80,7 +79,6 @@ class CashAccountController extends Controller
 
         if (isset($cash_account)) {
             $cash_account->update($request->validated());
-
             return redirect()->route('cash_account.index')
                 ->with('success', 'تمت تعديل الصندوق بنجاح.');
         } else {

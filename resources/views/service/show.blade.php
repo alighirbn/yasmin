@@ -4,15 +4,50 @@
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
+        @include('contract.nav.navigation')
         @include('service.nav.navigation')
 
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div>
+                    <div class="header-buttons">
+                        <a href="{{ url()->previous() }}" class="btn btn-custom-back">
+                            {{ __('word.back') }}
+                        </a>
+                        @can('contract-show')
+                            <a href="{{ route('contract.show', $service->contract->url_address) }}"
+                                class="btn btn-custom-show">
+                                {{ __('word.contract_view') }}
+                            </a>
+                        @endcan
+
+                        <button id="print" class="btn btn-custom-print" onclick="window.print();">
+                            {{ __('word.print') }}
+                        </button>
+                    </div>
+                    <div class="print-container a4-width mx-auto  bg-white">
+                        <div class="flex">
+                            <div class=" mx-2 my-2 w-full ">
+                                {!! QrCode::size(90)->generate($service->contract->id) !!}
+                            </div>
+                            <div class=" mx-2 my-2 w-full ">
+                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
+                                    style="h-6;max-width: 100%; height: auto;">
+                            </div>
+                            <div class=" mx-2 my-2 w-full ">
+                                <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($service->id, 'C39') }}"
+                                    alt="barcode" />
+
+                                <p><strong>{{ __('عدد الخدمة:') }}</strong>
+                                    {{ $service->id }}
+                                </p>
+                                <p><strong>{{ __('تاريخ الخدمة:') }}</strong> {{ $service->service_date }}</p>
+
+                            </div>
+                        </div>
                         <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.service_info') }}
                         </h1>
@@ -31,8 +66,7 @@
 
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="service_type_id" class="w-full mb-1" :value="__('word.service_type_id')" />
-                                <p id="service_type_id" class="w-full h-9 block mt-1 " type="text"
-                                    name="service_type_id">
+                                <p id="service_type_id" class="outlined-text" type="text" name="service_type_id">
                                     {{ $service->service_type->type_name }}
                             </div>
 
@@ -65,20 +99,6 @@
                                 <p id="customer_full_name" class="outlined-text" type="text"
                                     name="customer_full_name">
                                     {{ $service->contract->customer->customer_full_name }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="customer_card_number" class="w-full mb-1" :value="__('word.customer_card_number')" />
-                                <p id="customer_card_number" class="w-full h-9 block mt-1 " type="text"
-                                    name="customer_card_number">
-                                    {{ $service->contract->customer->customer_card_number }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
-                                <p id="customer_phone" class="w-full h-9 block mt-1 " type="text"
-                                    name="customer_phone">
-                                    {{ $service->contract->customer->customer_phone }}
                             </div>
 
                         </div>

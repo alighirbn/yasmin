@@ -3,7 +3,9 @@
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
+        @include('payment.nav.navigation')
         @include('expense.nav.navigation')
+        @include('cash_account.nav.navigation')
     </x-slot>
 
     <div class="bg-custom py-6">
@@ -15,20 +17,11 @@
                             {{ __('word.back') }}
                         </a>
 
-                        @if (!$expense->approved)
-                            <form action="{{ route('expense.approve', $expense->url_address) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-custom-edit">
-                                    {{ __('word.expense_approve') }}</button>
-                            </form>
-                        @endif
-
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
-                        @can('expense-delete')
-                            <form action="{{ route('expense.destroy', $expense->url_address) }}" method="post">
+                        @can('cash_account-delete')
+                            <form action="{{ route('cash_account.destroy', $cash_account->url_address) }}" method="post">
                                 @csrf
                                 @method('DELETE')
 
@@ -46,62 +39,26 @@
                     @endif
                     <div class="print-container a4-width mx-auto  bg-white">
 
-                        <div class="flex">
-                            <div class=" mx-2 my-2 w-full ">
-                                {!! QrCode::size(90)->generate($expense->id) !!}
-                            </div>
-                            <div class=" mx-2 my-2 w-full ">
-                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
-                                    style="h-6;max-width: 100%; height: auto;">
-                            </div>
-                            <div class=" mx-2 my-2 w-full ">
-
-                                <p><strong>{{ __('عدد سند الصرف:') }}</strong>
-                                    {{ $expense->id }}
-                                </p>
-                                <p><strong>{{ __('تاريخ سند الصرف:') }}</strong> {{ $expense->expense_date }}</p>
-
-                            </div>
-                        </div>
-
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_id" class="w-full mb-1" :value="__('word.expense_id')" />
-                                <p id="expense_id" class="w-full h-9 block mt-1" type="text" name="expense_id">
-                                    {{ $expense->id }}
+                                <x-input-label for="cash_account_id" class="w-full mb-1" :value="__('word.cash_account_id')" />
+                                <p id="cash_account_id" class="w-full h-9 block mt-1" type="text"
+                                    name="cash_account_id">
+                                    {{ $cash_account->id }}
                                 </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_date" class="w-full mb-1" :value="__('word.expense_date')" />
-                                <p id="expense_date" class="w-full h-9 block mt-1 " type="text" name="expense_date">
-                                    {{ $expense->expense_date }}
+                                <x-input-label for="account_name" class="w-full mb-1" :value="__('word.account_name')" />
+                                <p id="account_name" class="w-full h-9 block mt-1" type="text" name="account_name">
+                                    {{ $cash_account->account_name }}
                                 </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_type_id" class="w-full mb-1" :value="__('word.expense_type_id')" />
-                                <p id="expense_type_id" class="w-full h-9 block mt-1" type="text"
-                                    name="expense_type_id">
-                                    {{ $expense->expense_type->expense_type }}
-                                </p>
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_amount" class="w-full mb-1" :value="__('word.expense_amount')" />
-                                <p id="expense_amount" class="w-full h-9 block mt-1 " type="text"
-                                    name="expense_amount">
-                                    {{ number_format($expense->expense_amount, 0) }} دينار
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="flex ">
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_note" class="w-full mb-1" :value="__('word.expense_note')" />
-                                <p id="expense_note" class="w-full h-9 block mt-1" type="text" name="expense_note">
-                                    {{ $expense->expense_note }}
+                                <x-input-label for="balance" class="w-full mb-1" :value="__('word.balance')" />
+                                <p id="balance" class="w-full h-9 block mt-1 " type="text" name="balance">
+                                    {{ number_format($cash_account->balance, 0) }} دينار
                                 </p>
                             </div>
 
@@ -109,17 +66,17 @@
 
                     </div>
                     <div class="flex">
-                        @if (isset($expense->user_id_create))
+                        @if (isset($cash_account->user_id_create))
                             <div class="mx-4 my-4 ">
-                                {{ __('word.user_create') }} {{ $expense->user_create->name }}
-                                {{ $expense->created_at }}
+                                {{ __('word.user_create') }} {{ $cash_account->user_create->name }}
+                                {{ $cash_account->created_at }}
                             </div>
                         @endif
 
-                        @if (isset($expense->user_id_update))
+                        @if (isset($cash_account->user_id_update))
                             <div class="mx-4 my-4 ">
-                                {{ __('word.user_update') }} {{ $expense->user_update->name }}
-                                {{ $expense->updated_at }}
+                                {{ __('word.user_update') }} {{ $cash_account->user_update->name }}
+                                {{ $cash_account->updated_at }}
                             </div>
                         @endif
                     </div>

@@ -36,6 +36,7 @@ return [
     'dashboard' => 'الرئيسية',
     'Map' => 'الخارطة',
     'contract' => 'العقود',
+    'accountant' => 'الحسابات',
     'Building' => 'العقارات',
     'payment' => 'الدفعات',
     'expense' => 'سندات الصرف',
@@ -153,12 +154,15 @@ return [
     'payment_add' => 'اضافة دفعة',
     'payment_search' => 'بحث عن دفعة',
     'payment_approve' => 'قبول الدفعة',
+    'approved' => 'مقبولة',
+    'pending' => 'في الانتظار',
 
     //payment_info
     'payment_info' => 'بيانات الدفعة',
     'last_payment' => 'اخر دفعة',
     'payment_pending' => 'الدفعات غير الموافق عليها',
     'payment_status' => 'حالة الدفع',
+    'approve_status' => 'الحالة',
 
 
     //************************************* expense        *******************************************

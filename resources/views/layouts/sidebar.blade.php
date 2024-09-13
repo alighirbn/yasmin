@@ -74,27 +74,18 @@
         <div class="item"><a class="sub-btn"> {{ __('word.contract') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
                 @include('contract.nav.navigation')
-            </div>
-        </div>
-    @endcan
-    @can('payment-list')
-        <div class="item"><a class="sub-btn"> {{ __('word.payment') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-            <div class="flex flex-col   sub-menu" style="display: none;">
-                @include('payment.nav.navigation')
-            </div>
-        </div>
-    @endcan
-    @can('service-list')
-        <div class="item"><a class="sub-btn"> {{ __('word.service') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-            <div class="flex flex-col   sub-menu" style="display: none;">
                 @include('service.nav.navigation')
             </div>
         </div>
     @endcan
+
     @can('expense-list')
-        <div class="item"><a class="sub-btn"> {{ __('word.expense') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+        <div class="item"><a class="sub-btn"> {{ __('word.accountant') }} <i class="bx bx-chevrons-down dropdown"></i>
+            </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('payment.nav.navigation')
                 @include('expense.nav.navigation')
+                @include('cash_account.nav.navigation')
             </div>
         </div>
     @endcan

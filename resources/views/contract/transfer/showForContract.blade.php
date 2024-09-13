@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
         @include('contract.nav.navigation')
+        @include('service.nav.navigation')
     </x-slot>
 
     <div class="bg-custom py-6">

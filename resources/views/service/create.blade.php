@@ -3,6 +3,7 @@
     <x-slot name="header">
         <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
         <script src="{{ asset('js/select2.min.js') }}"></script>
+        @include('contract.nav.navigation')
         @include('service.nav.navigation')
 
     </x-slot>

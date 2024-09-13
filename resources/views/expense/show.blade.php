@@ -3,7 +3,9 @@
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
+        @include('payment.nav.navigation')
         @include('expense.nav.navigation')
+        @include('cash_account.nav.navigation')
     </x-slot>
 
     <div class="bg-custom py-6">

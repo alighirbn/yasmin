@@ -26,16 +26,7 @@ class ExpenseDataTable extends DataTable
                 return number_format($row->expense_amount, 0);
             })
             ->rawColumns(['action'])
-            ->setRowId('url_address'); // Using url_address as the row ID
-    }
-
-    protected $urlAddress;
-
-    // New method to set the url_address
-    public function forUrlAddress($urlAddress = null)
-    {
-        $this->urlAddress = $urlAddress;
-        return $this;
+            ->setRowId('id');
     }
 
     /**
