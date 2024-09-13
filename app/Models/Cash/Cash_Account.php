@@ -25,7 +25,7 @@ class Cash_Account extends Model
     // Relationship with transactions
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'cash_account_id', 'id');
     }
 
     // Method to adjust balance
@@ -39,6 +39,23 @@ class Cash_Account extends Model
         }
 
         $this->save();
+    }
+
+    public function recalculateBalance()
+    {
+        // Sum all credits (transaction_type = 'credit')
+        $creditSum = $this->transactions()->where('transaction_type', 'credit')->sum('transaction_amount');
+
+        // Sum all debits (transaction_type = 'debit')
+        $debitSum = $this->transactions()->where('transaction_type', 'debit')->sum('transaction_amount');
+
+        // Set the new balance by subtracting debits from credits
+        $this->balance = $creditSum - $debitSum;
+
+        // Save the new balance
+        $this->save();
+
+        return $this->balance;
     }
 
     public function user_create()

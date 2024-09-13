@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('cash_transfers', function (Blueprint $table) {
+            $table->id();
+            $table->string('url_address', '60')->unique();
+            $table->date('transfer_date');
+            $table->foreignId('from_account_id')->constrained('cash_accounts')->onDelete('cascade');
+            $table->foreignId('to_account_id')->constrained('cash_accounts')->onDelete('cascade');
+            $table->decimal('amount', 15, 0);
+            $table->text('transfer_note')->nullable(); // Optional notes about the expense
+            $table->boolean('approved')->default(false); // New field for approval status
+
+            $table->unsignedBigInteger('user_id_create')->nullable();
+            $table->foreign('user_id_create')->references('id')->on('users');
+
+            $table->unsignedBigInteger('user_id_update')->nullable();
+            $table->foreign('user_id_update')->references('id')->on('users');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('cash_transfers');
+    }
+};

@@ -7,6 +7,11 @@
             {{ __('word.view') }}
         </a>
     @endcan
+    @can('cash_account-show')
+        <a href="{{ route('cash_account.statement', $url_address) }}" class="my-1 mx-1 btn btn-custom-statement">
+            {{ __('word.statement') }}
+        </a>
+    @endcan
     @can('cash_account-update')
         <a href="{{ route('cash_account.edit', $url_address) }}" class="my-1 mx-1 btn btn-custom-edit">
             {{ __('word.edit') }}

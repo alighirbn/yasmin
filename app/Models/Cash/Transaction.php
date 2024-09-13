@@ -23,9 +23,8 @@ class Transaction extends Model
 
     public function cash_account()
     {
-        return $this->belongsTo(Cash_Account::class);
+        return $this->belongsTo(Cash_Account::class, 'cash_account_id', 'id');
     }
-
     // Polymorphic relationship
     public function transactionable()
     {

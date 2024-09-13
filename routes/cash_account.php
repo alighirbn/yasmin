@@ -17,6 +17,9 @@ Route::group(['prefix' => 'cash_account'], function () {
     //show
     Route::get('/show/{url_address}', [CashAccountController::class, 'show'])->middleware(['auth', 'verified', 'permission:cash_account-show'])->name('cash_account.show');
 
+    //statement
+    Route::get('/statement/{url_address}', [CashAccountController::class, 'statement'])->middleware(['auth', 'verified', 'permission:cash_account-show'])->name('cash_account.statement');
+
     //update
     Route::get('/edit/{url_address}', [CashAccountController::class, 'edit'])->middleware(['auth', 'verified', 'permission:cash_account-update'])->name('cash_account.edit');
     Route::patch('/update/{url_address}', [CashAccountController::class, 'update'])->middleware(['auth', 'verified', 'permission:cash_account-update'])->name('cash_account.update');

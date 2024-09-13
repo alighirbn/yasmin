@@ -6,9 +6,10 @@ use App\DataTables\CashAccountDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CashAccountRequest;
 use App\Models\Cash\Cash_Account;
+use App\Models\Cash\CashTransfer;
 use App\Models\Cash\Transaction;
-
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CashAccountController extends Controller
 {
@@ -47,6 +48,8 @@ class CashAccountController extends Controller
     {
         $cash_account = Cash_Account::where('url_address', $url_address)->first();
 
+        $newBalance = $cash_account->recalculateBalance();
+
         if (isset($cash_account)) {
             return view('cash_account.show', compact('cash_account'));
         } else {
@@ -55,6 +58,40 @@ class CashAccountController extends Controller
         }
     }
 
+    public function statement(Request $request, $url_address)
+    {
+        // Retrieve the cash account by its URL address
+        $cashAccount = Cash_Account::where('url_address', $url_address)->firstOrFail();
+        $newBalance = $cashAccount->recalculateBalance();
+        // Get all transactions for the cash account, sorted by date
+        $transactions = $cashAccount->transactions()
+            ->orderBy('transaction_date', 'asc')
+            ->get();
+
+        // Initialize the running balance
+        $runningBalance = 0;
+
+        // Iterate over transactions to calculate the running balance
+        $transactions->each(function ($transaction) use (&$runningBalance) {
+            if ($transaction->transaction_type === 'credit') {
+                $runningBalance += $transaction->transaction_amount;
+            } elseif ($transaction->transaction_type === 'debit') {
+                $runningBalance -= $transaction->transaction_amount;
+            }
+
+            // Attach the running balance for display
+            $transaction->running_balance = $runningBalance;
+
+            // Load the polymorphic relation (e.g., Payment, Expense)
+            $transaction->transactionable;
+        });
+
+        // Get start and end dates from the request for filtering
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        return view('cash_account.statement', compact('cashAccount', 'transactions', 'startDate', 'endDate'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -95,12 +132,17 @@ class CashAccountController extends Controller
         $cash_account = Cash_Account::where('url_address', $url_address)->first();
 
         if (isset($cash_account)) {
+            // Check if the cash account ID is 1
+            if ($cash_account->id == 1) {
+                return redirect()->route('cash_account.index')
+                    ->with('error', 'لا يمكن حذف هذا الصندوق.');
+            }
 
             // Delete the cash_account
             $cash_account->delete();
 
             return redirect()->route('cash_account.index')
-                ->with('success', 'تمت حذف الصندوق بنجاح.');
+                ->with('success', 'تم حذف الصندوق بنجاح.');
         } else {
             $ip = $this->getIPAddress();
             return view('cash_account.accessdenied', ['ip' => $ip]);

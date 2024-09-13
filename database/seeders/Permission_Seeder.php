@@ -84,6 +84,15 @@ class Permission_Seeder extends Seeder
             'cash_account-update',
             'cash_account-delete',
 
+            //**************************cash_transfer******************************* */
+            //cash_transfer permissions
+            'cash_transfer-list',
+            'cash_transfer-show',
+            'cash_transfer-create',
+            'cash_transfer-update',
+            'cash_transfer-delete',
+            'cash_transfer-approve',
+
             //**************************service******************************* */
             //service permissions
             'service-list',

@@ -2,6 +2,7 @@
 
 namespace App\Models\Payment;
 
+use App\Models\Cash\Transaction;
 use App\Models\Contract\Contract;
 use App\Models\Contract\Contract_Installment;
 use App\Models\User;
@@ -32,6 +33,12 @@ class Payment extends Model
     public function contract_installment()
     {
         return $this->belongsTo(Contract_Installment::class, 'contract_installment_id', 'id');
+    }
+
+    // Define the polymorphic relationship with transactions
+    public function transactions()
+    {
+        return $this->morphMany(Transaction::class, 'transactionable');
     }
 
     public function approve()
