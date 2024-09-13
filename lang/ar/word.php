@@ -199,6 +199,22 @@ return [
     //cash_account_info
     'cash_account_info' => 'بيانات الصندوق',
 
+    //************************************* cash_transfer        *******************************************
+
+    'cash_transfer_id' => 'رقم التحويل',
+    'amount' => 'المبلغ ',
+
+    'transfer_date' => 'تأريخ التحويل',
+    'from_account_id' => 'من حساب',
+    'to_account_id' => 'الى حساب',
+    'transfer_note' => ' الملاحظات',
+
+    //nav
+    'cash_transfer_add' => 'اضافة تحويل',
+    'cash_transfer_search' => 'بحث عن تحويل',
+
+    //cash_transfer_info
+    'cash_transfer_info' => 'بيانات الصندوق',
 
 
 

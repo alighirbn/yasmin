@@ -4,6 +4,7 @@
         @include('payment.nav.navigation')
         @include('expense.nav.navigation')
         @include('cash_account.nav.navigation')
+        @include('cash_transfer.nav.navigation')
 
     </x-slot>
 

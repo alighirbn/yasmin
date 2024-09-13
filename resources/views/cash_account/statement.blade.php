@@ -5,6 +5,7 @@
         @include('payment.nav.navigation')
         @include('expense.nav.navigation')
         @include('cash_account.nav.navigation')
+        @include('cash_transfer.nav.navigation')
 
         <!-- Add this inline CSS to handle hiding the "Actions" column during printing -->
         <style>
