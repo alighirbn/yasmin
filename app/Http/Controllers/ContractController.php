@@ -32,38 +32,36 @@ class ContractController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function customercreate()
-    {
-        return view('contract.contract.customercreate');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function customerstore(CustomerRequest $request)
     {
         $customer = Customer::create($request->validated());
 
-        //inform the user
-        return redirect()->route('contract.create', ['customer_id' => $customer->id])
-            ->with('success', 'تمت أضافة الزبون بنجاح ');
+        return response()->json([
+            'success' => true,
+            'message' => 'تمت إضافة الزبون بنجاح',
+            'customer' => $customer // Return the created customer data
+        ]);
     }
+
 
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($customer_id = null)
+    public function create(Request $request)
     {
         $customers = Customer::all();
-        $buildings = Building::doesntHave('contract')->get();
-        // $buildings = Building::has('contract')->get();
         $payment_methods = Payment_Method::all();
+        $building_id = $request->input('building_id'); // Retrieve building_id from request
 
-        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'customer_id']));
+        // Fetch all buildings
+        $buildings = Building::doesntHave('contract')->get();
+
+        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id']));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -392,7 +390,7 @@ class ContractController extends Controller
         }
 
 
-        return redirect()->route('contract.index')
+        return redirect()->route('contract.show', $contract->url_address)
             ->with('success', 'تمت تعديل بيانات العقد وأقساطه بنجاح');
     }
 
