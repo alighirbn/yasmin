@@ -19,7 +19,6 @@ use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 class ContractController extends Controller
 {
@@ -401,12 +400,28 @@ class ContractController extends Controller
      */
     public function destroy(string $url_address)
     {
-        $affected = Contract::where('url_address', $url_address)->first();
+        $contract = Contract::where('url_address', $url_address)->first();
 
-        Contract_Installment::where('contract_id', $affected->id)->delete();
-        $affected->delete();
+        // Check if the contract exists
+        if (!$contract) {
+            return redirect()->route('contract.index')
+                ->with('error', 'العقد غير موجود');
+        }
+
+        // Check if the contract has associated payments
+        if ($contract->payments()->exists()) {
+            return redirect()->route('contract.index')
+                ->with('error', 'لا يمكن حذف العقد لأن هناك مدفوعات مرتبطة به');
+        }
+
+        // Delete associated installments
+        Contract_Installment::where('contract_id', $contract->id)->delete();
+
+        // Delete the contract
+        $contract->delete();
+
         return redirect()->route('contract.index')
-            ->with('success', 'تمت حذف بيانات العقد بنجاح ');
+            ->with('success', 'تمت حذف بيانات العقد بنجاح');
     }
 
     public function random_string($length)

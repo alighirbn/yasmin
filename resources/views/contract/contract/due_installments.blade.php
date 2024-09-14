@@ -68,7 +68,7 @@
 
                                 <div class="customer-section">
                                     <p class="font-bold">{{ __('word.customer_full_name') }}:
-                                        {{ $customer->customer_full_name }}</p>
+                                        {{ $customer->customer_full_name }} , {{ $customer->customer_phone }}</p>
 
                                     @foreach ($contracts as $contractId => $installments)
                                         @php

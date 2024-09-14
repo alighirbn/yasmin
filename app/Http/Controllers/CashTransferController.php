@@ -120,6 +120,7 @@ class CashTransferController extends Controller
     private function createTransaction($account, $amount, $type, $transfer)
     {
         $transaction = new Transaction();
+        $transaction->url_address = $this->random_string(60);
         $transaction->cash_account_id = $account->id;
         $transaction->transaction_amount = $amount;
         $transaction->transaction_date = $transfer->transfer_date;
@@ -136,14 +137,48 @@ class CashTransferController extends Controller
         if (!$transfer) {
             return Redirect::back()->with('error', 'لم يتم العثور على التحويل.');
         }
+        $amount = $transfer->amount;
+        $fromAccount = Cash_Account::find($transfer->from_account_id);
+        $toAccount = Cash_Account::find($transfer->to_account_id);
 
         if ($transfer->approved) {
             // Delete related transactions
             $transfer->transactions()->delete();
+            $fromAccount->adjustBalance($amount, 'credit');
+            $toAccount->adjustBalance($amount, 'debit');
         }
 
         $transfer->delete();
 
         return Redirect::route('cash_transfer.index')->with('success', 'تم حذف التحويل بنجاح.');
+    }
+
+    public function random_string($length)
+    {
+        $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        $text = "";
+        $length = rand(22, $length);
+
+        for ($i = 0; $i < $length; $i++) {
+            $random = rand(0, 61);
+            $text .= $array[$random];
+        }
+        return $text;
+    }
+    public function getIPAddress()
+    {
+        //whether ip is from the share internet
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        //whether ip is from the proxy
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        //whether ip is from the remote address
+        else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
     }
 }

@@ -201,12 +201,16 @@ return [
 
     //************************************* cash_transfer        *******************************************
 
-    'cash_transfer_id' => 'رقم التحويل',
+    'cash_transfer_id' => 'عدد التحويل',
     'amount' => 'المبلغ ',
 
     'transfer_date' => 'تأريخ التحويل',
     'from_account_id' => 'من حساب',
     'to_account_id' => 'الى حساب',
+    'from_account' => 'من حساب',
+    'to_account' => 'الى حساب',
+
+    'transfer_number' => 'عدد االتحويل',
     'transfer_note' => ' الملاحظات',
 
     //nav
