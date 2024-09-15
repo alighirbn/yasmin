@@ -37,6 +37,7 @@ return [
     'Map' => 'الخارطة',
     'contract' => 'العقود',
     'accountant' => 'الحسابات',
+    'report' => 'التقارير',
     'Building' => 'العقارات',
     'payment' => 'الدفعات',
     'expense' => 'سندات الصرف',
@@ -94,6 +95,8 @@ return [
     //contract_info
     'contract_info' => 'بيانات العقد',
     'installment_info' => 'بيانات الدفعات',
+    'due_installments_count' => 'عددها',
+    'due_installments_total' => 'مجموعها',
 
 
     //************************************* transfer        *******************************************
@@ -238,6 +241,18 @@ return [
     //service_info
     'service_info' => 'بيانات الخدمة',
 
+    //************************************* report        *******************************************
+
+    'report_category' => 'العقارات حسب الفئة',
+    'report_due_installments' => 'الدفعات المستحقة',
+    'report_unpaid_first_installment' => 'لم تدفع المقدمة',
+
+    //nav
+    'report_add' => 'اضافة عقار',
+    'report_search' => 'بحث عن عقار',
+
+    //report_info
+    'report_info' => 'بيانات العقار',
 
     //************************************* customer        *******************************************
 

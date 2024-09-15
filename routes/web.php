@@ -37,6 +37,9 @@ Route::group(['middleware' => 'checkStatus'], function () {
     //map routes
     require __DIR__ . '/map.php';
 
+    //report routes
+    require __DIR__ . '/report.php';
+
     //building routes
     require __DIR__ . '/building.php';
 

@@ -101,6 +101,13 @@ class Permission_Seeder extends Seeder
             'service-update',
             'service-delete',
 
+            //**************************report******************************* */
+            //report permissions
+            'report-list',
+            'report-category',
+            'report-due_installments',
+            'report-first_installment',
+
 
             // map
             'map-index',
