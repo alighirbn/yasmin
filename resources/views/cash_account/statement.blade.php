@@ -2,10 +2,12 @@
     <x-slot name="header">
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
 
-        @include('payment.nav.navigation')
-        @include('expense.nav.navigation')
-        @include('cash_account.nav.navigation')
-        @include('cash_transfer.nav.navigation')
+        <div class="flex justify-start">
+            @include('payment.nav.navigation')
+            @include('expense.nav.navigation')
+            @include('cash_account.nav.navigation')
+            @include('cash_transfer.nav.navigation')
+        </div>
 
         <!-- Add this inline CSS to handle hiding the "Actions" column during printing -->
         <style>

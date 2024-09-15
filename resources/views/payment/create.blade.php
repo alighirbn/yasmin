@@ -3,10 +3,12 @@
     <x-slot name="header">
         <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
         <script src="{{ asset('js/select2.min.js') }}"></script>
-        @include('payment.nav.navigation')
-        @include('expense.nav.navigation')
-        @include('cash_account.nav.navigation')
-        @include('cash_transfer.nav.navigation')
+        <div class="flex justify-start">
+            @include('payment.nav.navigation')
+            @include('expense.nav.navigation')
+            @include('cash_account.nav.navigation')
+            @include('cash_transfer.nav.navigation')
+        </div>
 
     </x-slot>
 

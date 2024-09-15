@@ -7,14 +7,16 @@ use App\Http\Requests\CashTransferRequest;
 use App\Models\Cash\CashTransfer;
 use App\Models\Cash\Cash_Account;
 use App\Models\Cash\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class CashTransferController extends Controller
 {
-    public function index(CashTransferDataTable $dataTable)
+    public function index(CashTransferDataTable $dataTable, Request $request)
     {
-        return $dataTable->render('cash_transfer.index');
+        $onlyPending = $request->input('onlyPending');
+        return $dataTable->onlyPending($onlyPending)->render('cash_transfer.index');
     }
 
     public function create()

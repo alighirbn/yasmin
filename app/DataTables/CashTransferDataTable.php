@@ -25,8 +25,18 @@ class CashTransferDataTable extends DataTable
             ->addColumn('amount', function ($row) {
                 return number_format($row->amount, 0);
             })
+            ->addColumn('approved', function ($row) {
+                return $row->approved ? __('word.approved') : __('word.pending');
+            })
             ->rawColumns(['action'])
             ->setRowId('id');
+    }
+    protected $onlyPending;
+
+    public function onlyPending($onlyPending = null)
+    {
+        $this->onlyPending = $onlyPending;
+        return $this;
     }
 
 
@@ -39,7 +49,12 @@ class CashTransferDataTable extends DataTable
     public function query(CashTransfer $model): QueryBuilder
     {
         // Get the base query with relationships (if any)
-        return  $model->newQuery();
+        $query = $model->newQuery();
+
+        if ($this->onlyPending) {
+            $query->where('approved', false);
+        }
+        return $query;
     }
 
     /**
@@ -106,7 +121,11 @@ class CashTransferDataTable extends DataTable
             Column::make('from_account_id')->title(__('word.from_account_id'))->class('text-center'),
             Column::make('to_account_id')->title(__('word.to_account_id'))->class('text-center'),
             Column::make('amount')->title(__('word.amount'))->class('text-center'),
-
+            Column::make('approved')
+                ->title(__('word.approve_status'))
+                ->class('text-center')
+                ->orderable(false) // Disable sorting
+                ->searchable(false) // Disable searching
         ];
     }
 

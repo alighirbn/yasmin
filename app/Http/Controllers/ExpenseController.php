@@ -9,6 +9,7 @@ use App\Models\Cash\Expense;
 use App\Models\Cash\Transaction;
 use App\Models\Cash\Cash_Account;
 use App\Models\Cash\Expense_Type;
+use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
@@ -16,9 +17,10 @@ class ExpenseController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index(ExpenseDataTable $dataTable)
+    public function index(ExpenseDataTable $dataTable, Request $request)
     {
-        return $dataTable->render('expense.index');
+        $onlyPending = $request->input('onlyPending');
+        return $dataTable->onlyPending($onlyPending)->render('expense.index');
     }
     /**
      * Show the form for creating a new resource.

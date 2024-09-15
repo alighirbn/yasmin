@@ -16,8 +16,10 @@
         /* Color of the underline */
     }
 </style>
+
 @can('payment-list')
-    <a href="{{ route('payment.index') }}" class="me-3 {{ request()->routeIs('payment.index') ? 'underline-active' : '' }}">
+    <a href="{{ route('payment.index') }}"
+        class="me-3 {{ request()->routeIs('payment.index') && !request()->has('onlyPending') ? 'underline-active' : '' }}">
         {{ __('word.payment_search') }}
     </a>
 @endcan
@@ -25,5 +27,12 @@
 @can('payment-create')
     <a href="{{ route('payment.create') }}" class="me-3 {{ request()->routeIs('payment.create') ? 'underline-active' : '' }}">
         {{ __('word.payment_add') }}
+    </a>
+@endcan
+
+@can('payment-list')
+    <a href="{{ route('payment.index', ['onlyPending' => true]) }}"
+        class="me-3 {{ request()->routeIs('payment.index') && request()->has('onlyPending') ? 'underline-active' : '' }}">
+        {{ __('word.payment_pending') }}
     </a>
 @endcan

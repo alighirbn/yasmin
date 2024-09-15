@@ -16,8 +16,10 @@
         /* Color of the underline */
     }
 </style>
+
 @can('expense-list')
-    <a href="{{ route('expense.index') }}" class="me-3 {{ request()->routeIs('expense.index') ? 'underline-active' : '' }}">
+    <a href="{{ route('expense.index') }}"
+        class="me-3 {{ request()->routeIs('expense.index') && !request('onlyPending') ? 'underline-active' : '' }}">
         {{ __('word.expense_search') }}
     </a>
 @endcan
@@ -25,5 +27,12 @@
 @can('expense-create')
     <a href="{{ route('expense.create') }}" class="me-3 {{ request()->routeIs('expense.create') ? 'underline-active' : '' }}">
         {{ __('word.expense_add') }}
+    </a>
+@endcan
+
+@can('expense-list')
+    <a href="{{ route('expense.index', ['onlyPending' => true]) }}"
+        class="me-3 {{ request()->routeIs('expense.index') && request('onlyPending') ? 'underline-active' : '' }}">
+        {{ __('word.expense_pending') }}
     </a>
 @endcan

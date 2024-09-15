@@ -23,8 +23,11 @@ class PaymentController extends Controller
         // Check if a contract ID is provided in the request
         $contractId = $request->input('contract_id');
 
+        // Check if a contract ID is provided in the request
+        $onlyPending = $request->input('onlyPending');
+
         // Pass the contract ID to the DataTable if it exists
-        return $dataTable->forContract($contractId)->render('payment.index');
+        return $dataTable->forContract($contractId)->onlyPending($onlyPending)->render('payment.index');
     }
 
     /**

@@ -16,9 +16,10 @@
         /* Color of the underline */
     }
 </style>
+
 @can('cash_transfer-list')
     <a href="{{ route('cash_transfer.index') }}"
-        class="me-3 {{ request()->routeIs('cash_transfer.index') ? 'underline-active' : '' }}">
+        class="me-3 {{ request()->routeIs('cash_transfer.index') && !request('onlyPending') ? 'underline-active' : '' }}">
         {{ __('word.cash_transfer_search') }}
     </a>
 @endcan
@@ -27,5 +28,12 @@
     <a href="{{ route('cash_transfer.create') }}"
         class="me-3 {{ request()->routeIs('cash_transfer.create') ? 'underline-active' : '' }}">
         {{ __('word.cash_transfer_add') }}
+    </a>
+@endcan
+
+@can('cash_transfer-list')
+    <a href="{{ route('cash_transfer.index', ['onlyPending' => true]) }}"
+        class="me-3 {{ request()->routeIs('cash_transfer.index') && request('onlyPending') ? 'underline-active' : '' }}">
+        {{ __('word.cash_transfer_pending') }}
     </a>
 @endcan

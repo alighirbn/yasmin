@@ -33,11 +33,20 @@ class PaymentDataTable extends DataTable
     }
 
     protected $contractId;
+    protected $onlyPending;
+
 
     // New method to set the contract ID
     public function forContract($contractId = null)
     {
         $this->contractId = $contractId;
+        return $this;
+    }
+
+    // New method to set the contract ID
+    public function onlyPending($onlyPending = null)
+    {
+        $this->onlyPending = $onlyPending;
         return $this;
     }
 
@@ -55,6 +64,11 @@ class PaymentDataTable extends DataTable
         // If a contract ID is provided, filter by contract
         if ($this->contractId) {
             $query->where('payment_contract_id', $this->contractId);
+        }
+
+        // If a contract ID is provided, filter by contract
+        if ($this->onlyPending) {
+            $query->where('approved', false);
         }
 
         return $query;

@@ -21,15 +21,10 @@
         padding-bottom: 5px;
     }
 
-    /* .item :hover {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-width: 3px;
-        border-style: ridge;
-        border-color: white;
-        border-right: none;
-        border-left: none;
-    } */
+    .item .sub-menu :hover {
+        color: yellow;
+    }
+
     .item i {
         margin-right: 10px;
         transition: 0.3s ease;

@@ -25,8 +25,18 @@ class ExpenseDataTable extends DataTable
             ->addColumn('expense_amount', function ($row) {
                 return number_format($row->expense_amount, 0);
             })
+            ->addColumn('approved', function ($row) {
+                return $row->approved ? __('word.approved') : __('word.pending');
+            })
             ->rawColumns(['action'])
             ->setRowId('id');
+    }
+    protected $onlyPending;
+
+    public function onlyPending($onlyPending = null)
+    {
+        $this->onlyPending = $onlyPending;
+        return $this;
     }
 
     /**
@@ -40,6 +50,9 @@ class ExpenseDataTable extends DataTable
         // Get the base query with relationships (if any)
         $query = $model->newQuery()->with(['expense_type']);
 
+        if ($this->onlyPending) {
+            $query->where('approved', false);
+        }
         return $query;
     }
 
@@ -108,7 +121,11 @@ class ExpenseDataTable extends DataTable
             Column::make('expense_type')->title(__('word.expense_type_id'))->data('expense_type.expense_type')->name('expense_type.expense_type')->class('text-center'),
             Column::make('expense_amount')->title(__('word.expense_amount'))->class('text-center'),
             Column::make('expense_note')->title(__('word.expense_note'))->class('text-center'),
-
+            Column::make('approved')
+                ->title(__('word.approve_status'))
+                ->class('text-center')
+                ->orderable(false) // Disable sorting
+                ->searchable(false) // Disable searching
         ];
     }
 
