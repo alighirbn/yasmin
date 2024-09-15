@@ -220,6 +220,7 @@ return [
     //cash_transfer_info
     'cash_transfer_info' => 'بيانات الصندوق',
     'cash_transfer_pending' => 'التحويلات غير الموافق عليها',
+    'cash_transfer_approve' => 'قبول التحويل',
 
 
     //************************************* service        *******************************************

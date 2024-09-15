@@ -1,0 +1,243 @@
+{
+    "emptyTable": "Aucune donnée disponible dans le tableau",
+    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+    "infoFiltered": "(filtré à partir de _MAX_ entrées au total)",
+    "infoThousands": ",",
+    "lengthMenu": "Afficher _MENU_ entrées",
+    "loadingRecords": "Chargement...",
+    "processing": "Traitement...",
+    "search": "Rechercher :",
+    "zeroRecords": "Aucun enregistrement correspondant trouvé",
+    "thousands": ",",
+    "paginate": {
+        "first": "Premier",
+        "last": "Dernier",
+        "next": "Suivant",
+        "previous": "Précédent"
+    },
+    "aria": {
+        "sortAscending": ": activer pour trier la colonne par ordre croissant",
+        "sortDescending": ": activer pour trier la colonne par ordre décroissant"
+    },
+    "autoFill": {
+        "cancel": "Annuler",
+        "fill": "Remplir toutes les cellules avec <i>%d<\/i>",
+        "fillHorizontal": "Remplir les cellules horizontalement",
+        "fillVertical": "Remplir les cellules verticalement"
+    },
+    "buttons": {
+        "collection": "Collection <span class='ui-button-icon-primary ui-icon ui-icon-triangle-1-s'\/>",
+        "colvis": "Visibilité des colonnes",
+        "colvisRestore": "Restaurer la visibilité",
+        "copy": "Copier",
+        "copyKeys": "Appuyez sur ctrl ou u2318 + C pour copier les données du tableau dans le presse-papiers de votre système.<br><br>Pour annuler, cliquez sur ce message ou appuyez sur échap.",
+        "copySuccess": {
+            "1": "1 ligne copiée dans le presse-papiers",
+            "_": "%d lignes copiées dans le presse-papiers"
+        },
+        "copyTitle": "Copier dans le presse-papiers",
+        "csv": "CSV",
+        "excel": "Excel",
+        "pageLength": {
+            "-1": "Afficher toutes les lignes",
+            "_": "Afficher %d lignes"
+        },
+        "pdf": "PDF",
+        "print": "Imprimer",
+        "updateState": "Mettre à jour",
+        "stateRestore": "État %d",
+        "savedStates": "États enregistrés",
+        "renameState": "Renommer",
+        "removeState": "Supprimer",
+        "removeAllStates": "Supprimer tous les états",
+        "createState": "Créer un état"
+    },
+    "searchBuilder": {
+        "add": "Ajouter une condition",
+        "button": {
+            "0": "Constructeur de recherche",
+            "_": "Constructeur de recherche (%d)"
+        },
+        "clearAll": "Tout effacer",
+        "condition": "Condition",
+        "conditions": {
+            "date": {
+                "after": "Après",
+                "before": "Avant",
+                "between": "Entre",
+                "empty": "Vide",
+                "equals": "Égal à",
+                "not": "Différent de",
+                "notBetween": "Non entre",
+                "notEmpty": "Non vide"
+            },
+            "number": {
+                "between": "Entre",
+                "empty": "Vide",
+                "equals": "Égal à",
+                "gt": "Supérieur à",
+                "gte": "Supérieur ou égal à",
+                "lt": "Inférieur à",
+                "lte": "Inférieur ou égal à",
+                "not": "Différent de",
+                "notBetween": "Non entre",
+                "notEmpty": "Non vide"
+            },
+            "string": {
+                "contains": "Contient",
+                "empty": "Vide",
+                "endsWith": "Se termine par",
+                "equals": "Égal à",
+                "not": "Différent de",
+                "notEmpty": "Non vide",
+                "startsWith": "Commence par",
+                "notContains": "Ne contient pas",
+                "notStartsWith": "Ne commence pas par",
+                "notEndsWith": "Ne se termine pas par"
+            },
+            "array": {
+                "without": "Sans",
+                "notEmpty": "Non vide",
+                "not": "Différent de",
+                "contains": "Contient",
+                "empty": "Vide",
+                "equals": "Égal à"
+            }
+        },
+        "data": "Données",
+        "deleteTitle": "Supprimer la règle de filtrage",
+        "leftTitle": "Diminuer les critères",
+        "logicAnd": "Et",
+        "logicOr": "Ou",
+        "rightTitle": "Augmenter les critères",
+        "title": {
+            "0": "Constructeur de recherche",
+            "_": "Constructeur de recherche (%d)"
+        },
+        "value": "Valeur"
+    },
+    "searchPanes": {
+        "clearMessage": "Tout effacer",
+        "collapse": {
+            "0": "Panneaux de recherche",
+            "_": "Panneaux de recherche (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "Aucun panneau de recherche",
+        "loadMessage": "Chargement des panneaux de recherche",
+        "title": "Filtres actifs - %d",
+        "showMessage": "Tout afficher",
+        "collapseMessage": "Réduire tout"
+    },
+    "select": {
+        "cells": {
+            "1": "1 cellule sélectionnée",
+            "_": "%d cellules sélectionnées"
+        },
+        "columns": {
+            "1": "1 colonne sélectionnée",
+            "_": "%d colonnes sélectionnées"
+        },
+        "rows": {
+            "1": "1 ligne sélectionnée",
+            "_": "%d lignes sélectionnées"
+        }
+    },
+    "datetime": {
+        "previous": "Précédent",
+        "next": "Suivant",
+        "hours": "Heure",
+        "minutes": "Minute",
+        "seconds": "Seconde",
+        "unknown": "-",
+        "amPm": [
+            "am",
+            "pm"
+        ],
+        "weekdays": [
+            "Dim",
+            "Lun",
+            "Mar",
+            "Mer",
+            "Jeu",
+            "Ven",
+            "Sam"
+        ],
+        "months": [
+            "Janvier",
+            "Février",
+            "Mars",
+            "Avril",
+            "Mai",
+            "Juin",
+            "Juillet",
+            "Août",
+            "Septembre",
+            "Octobre",
+            "Novembre",
+            "Décembre"
+        ]
+    },
+    "editor": {
+        "close": "Fermer",
+        "create": {
+            "button": "Nouveau",
+            "title": "Créer une nouvelle entrée",
+            "submit": "Créer"
+        },
+        "edit": {
+            "button": "Éditer",
+            "title": "Éditer l'entrée",
+            "submit": "Mettre à jour"
+        },
+        "remove": {
+            "button": "Supprimer",
+            "title": "Supprimer",
+            "submit": "Supprimer",
+            "confirm": {
+                "_": "Êtes-vous sûr de vouloir supprimer %d lignes ?",
+                "1": "Êtes-vous sûr de vouloir supprimer 1 ligne ?"
+            }
+        },
+        "error": {
+            "system": "Une erreur système est survenue (<a target=\"\\\" rel=\"nofollow\" href=\"\\\">Plus d'informations<\/a>)."
+        },
+        "multi": {
+            "title": "Valeurs multiples",
+            "info": "Les éléments sélectionnés contiennent des valeurs différentes pour cette entrée. Pour modifier et définir toutes les valeurs des éléments pour cette entrée sur la même valeur, cliquez ou appuyez ici, sinon elles conserveront leurs valeurs individuelles.",
+            "restore": "Annuler les modifications",
+            "noMulti": "Cette entrée peut être modifiée individuellement, mais pas en groupe."
+        }
+    },
+    "stateRestore": {
+        "renameTitle": "Renommer l'état",
+        "renameLabel": "Nouveau nom pour %s :",
+        "renameButton": "Renommer",
+        "removeTitle": "Supprimer l'état",
+        "removeSubmit": "Supprimer",
+        "removeJoiner": " et ",
+        "removeError": "Échec de la suppression de l'état.",
+        "removeConfirm": "Êtes-vous sûr de vouloir supprimer %s ?",
+        "emptyStates": "Aucun état enregistré",
+        "emptyError": "Le nom ne peut pas être vide.",
+        "duplicateError": "Un état avec ce nom existe déjà.",
+        "creationModal": {
+            "toggleLabel": "Inclut :",
+            "title": "Créer un nouvel état",
+            "select": "Sélectionner",
+            "searchBuilder": "Constructeur de recherche",
+            "search": "Recherche",
+            "scroller": "Position de défilement",
+            "paging": "Pagination",
+            "order": "Trier",
+            "name": "Nom :",
+            "columns": {
+                "visible": "Visibilité des colonnes",
+                "search": "Recherche dans les colonnes"
+            },
+            "button": "Créer"
+        }
+    }
+}
