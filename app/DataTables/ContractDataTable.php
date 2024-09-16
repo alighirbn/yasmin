@@ -25,13 +25,17 @@ class ContractDataTable extends DataTable
                 return number_format($row->contract_amount, 0);
             })
             ->addColumn('last_payment', function ($row) {
-                $lastPayment = $row->payments->last(); // Get the last payment
-                return $lastPayment ? number_format($lastPayment->payment_amount, 0) . ' في ' . $lastPayment->payment_date  : __('لا توجد دفعة');
+                // Get the last approved payment
+                $lastApprovedPayment = $row->payments->where('approved', true)->last();
+                return $lastApprovedPayment
+                    ? number_format($lastApprovedPayment->payment_amount, 0) . ' في ' . $lastApprovedPayment->payment_date
+                    : __('لا توجد دفعة معتمدة');
             })
             ->addColumn('action', 'contract.contract.action')
             ->rawColumns(['action'])
             ->setRowId('id');
     }
+
 
     /**
      * Get query source of dataTable.

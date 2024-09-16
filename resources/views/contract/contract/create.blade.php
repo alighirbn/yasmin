@@ -32,8 +32,8 @@
 
                         <!-- Modal Structure -->
                         <div id="customerModal"
-                            class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center">
-                            <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6">
+                            class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
+                            <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
                                 <button id="closeModal"
                                     class="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
                                     &times;

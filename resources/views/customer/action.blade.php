@@ -7,6 +7,11 @@
             {{ __('word.view') }}
         </a>
     @endcan
+    @can('customer-statement')
+        <a href="{{ route('customer.statement', $url_address) }}" class="my-1 mx-1 btn btn-custom-statement">
+            {{ __('word.statement') }}
+        </a>
+    @endcan
     @can('customer-update')
         <a href="{{ route('customer.edit', $url_address) }}" class="my-1 mx-1 btn btn-custom-edit">
             {{ __('word.edit') }}

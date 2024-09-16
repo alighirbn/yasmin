@@ -36,6 +36,7 @@ class Permission_Seeder extends Seeder
             'customer-create',
             'customer-update',
             'customer-delete',
+            'customer-statement',
 
             //**************************contract******************************* */
             //contract permissions

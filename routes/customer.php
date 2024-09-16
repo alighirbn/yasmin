@@ -17,6 +17,9 @@ Route::group(['prefix' => 'customer'], function () {
     //show
     Route::get('/show/{url_address}', [CustomerController::class, 'show'])->middleware(['auth', 'verified', 'permission:customer-show'])->name('customer.show');
 
+    //statement
+    Route::get('/statement/{url_address}', [CustomerController::class, 'statement'])->middleware(['auth', 'verified', 'permission:customer-statement'])->name('customer.statement');
+
     //update
     Route::get('/edit/{url_address}', [CustomerController::class, 'edit'])->middleware(['auth', 'verified', 'permission:customer-update'])->name('customer.edit');
     Route::patch('/update/{url_address}', [CustomerController::class, 'update'])->middleware(['auth', 'verified', 'permission:customer-update'])->name('customer.update');

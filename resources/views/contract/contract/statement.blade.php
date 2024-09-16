@@ -133,7 +133,7 @@
                             $runningTotal = 0;
                         @endphp
 
-                        <table class="table table-striped">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col"
