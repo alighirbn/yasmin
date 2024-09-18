@@ -58,7 +58,7 @@
     <div class="w-full h-auto p-2 flex justify-center " style="height:100dvh;position: sticky;top:0px;">
 
     </div>
-    @can('map-index')
+    @can('map-map')
         <div class="item"><a class="sub-btn"> {{ __('word.Map') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
                 @include('map.nav.navigation')

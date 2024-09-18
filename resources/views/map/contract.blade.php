@@ -47,7 +47,9 @@
                 z-index: 10;
             }
         </style>
-        @include('map.nav.navigation')
+        <div class="flex justify-start">
+            @include('map.nav.navigation')
+        </div>
 
     </x-slot>
 

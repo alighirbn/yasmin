@@ -12,25 +12,37 @@ use Illuminate\Http\Request;
 class MapController extends Controller
 {
 
-    public function index()
+    public function contract()
     {
         $contracts = Contract::with(['building'])->get();
-        return view('map.index', compact(['contracts']));
+        return view('map.contract', compact(['contracts']));
     }
 
-    public function building()
+    public function map()
+    {
+
+        return view('map.map');
+    }
+
+    public function edit()
     {
         $buildings = Building::all();
-        return view('map.building', compact('buildings'));
+        return view('map.edit', compact('buildings'));
     }
 
-    public function empty_building()
+    public function draw()
+    {
+        $buildings = Building::all();
+        return view('map.draw', compact('buildings'));
+    }
+
+    public function empty()
     {
         $buildings = Building::doesntHave('contract')->get();
-        return view('map.building', compact('buildings'));
+        return view('map.empty', compact('buildings'));
     }
 
-    public function due_installments(Request $request)
+    public function due(Request $request)
     {
         $daysBeforeDue = $request->input('days_before_due', 0); // Default to 0 days if not provided
         $dueDate = Carbon::today()->subDays($daysBeforeDue); // Calculate the due date
@@ -39,6 +51,6 @@ class MapController extends Controller
             $query->where('installment_date', '<=', $dueDate);
         })->get();
 
-        return view('map.index', compact(['contracts']));
+        return view('map.due', compact(['contracts']));
     }
 }

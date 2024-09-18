@@ -31,10 +31,12 @@
                 mix-blend-mode: multiply;
             }
 
+            /* Optional: Custom tooltip styling */
             .overlay-div:hover::after {
                 content: attr(data-tooltip);
                 position: absolute;
                 top: -35px;
+                /* Adjust as needed */
                 left: 50%;
                 transform: translateX(-50%);
                 background-color: rgba(0, 0, 0, 0.7);
@@ -48,25 +50,21 @@
         <div class="flex justify-start">
             @include('map.nav.navigation')
         </div>
+
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
                     <div class="image-container">
-                        <!-- Map Image -->
-                        <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image" id="mapImage">
+                        <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image">
 
-                        <!-- Building Overlays -->
-                        @foreach ($buildings as $building)
+                        @foreach ($contracts as $contract)
                             <div class="overlay-div"
-                                style="top: {{ $building->building_map_y }}%; left: {{ $building->building_map_x }}%;"
-                                data-tooltip=" {{ $building->building_number }}">
-                                <!-- Redirect to contract.create with building_id as a query parameter -->
-                                <a href="{{ route('contract.create', ['building_id' => $building->id]) }}"
-                                    class="fill-div"></a>
+                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; "
+                                data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
+                                <a href="{{ route('contract.show', $contract->url_address) }}" class="fill-div"></a>
                             </div>
                         @endforeach
                     </div>

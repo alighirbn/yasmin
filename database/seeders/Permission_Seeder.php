@@ -109,9 +109,15 @@ class Permission_Seeder extends Seeder
             'report-due_installments',
             'report-first_installment',
 
-
+            //**************************user******************************* */
             // map
-            'map-index',
+            'map-map',
+            'map-draw',
+            'map-empty',
+            'map-contract',
+            'map-due',
+            'map-edit',
+
             //**************************user******************************* */
 
             // user permissions

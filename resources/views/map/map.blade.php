@@ -59,16 +59,6 @@
                         <!-- Map Image -->
                         <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image" id="mapImage">
 
-                        <!-- Building Overlays -->
-                        @foreach ($buildings as $building)
-                            <div class="overlay-div"
-                                style="top: {{ $building->building_map_y }}%; left: {{ $building->building_map_x }}%;"
-                                data-tooltip=" {{ $building->building_number }}">
-                                <!-- Redirect to contract.create with building_id as a query parameter -->
-                                <a href="{{ route('contract.create', ['building_id' => $building->id]) }}"
-                                    class="fill-div"></a>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>

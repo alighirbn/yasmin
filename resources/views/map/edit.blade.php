@@ -46,7 +46,9 @@
                 z-index: 10;
             }
         </style>
-        @include('map.nav.navigation')
+        <div class="flex justify-start">
+            @include('map.nav.navigation')
+        </div>
     </x-slot>
 
     <div class="py-6">
@@ -65,8 +67,8 @@
                         @endforeach
                     </div>
 
-                    <p id="selected-building">No building selected.</p>
-                    <p id="coordinates">Click on the image to get new coordinates after selecting a building.</p>
+                    <p id="selected-building">لم يتم اختيار عقار</p>
+                    <p id="coordinates">قم بالنقر على العقار لتحديده </p>
                 </div>
             </div>
         </div>
@@ -82,7 +84,7 @@
                 selectedBuildingId = this.getAttribute('data-id');
                 const buildingNumber = this.getAttribute('data-tooltip');
                 document.getElementById('selected-building').textContent =
-                    `Selected Building: ${buildingNumber} (ID: ${selectedBuildingId})`;
+                    `تم اختيار العقار: ${buildingNumber} (الرقم التسلسلي: ${selectedBuildingId})`;
             });
         });
 
@@ -92,7 +94,7 @@
 
         image.addEventListener('click', function(event) {
             if (!selectedBuildingId) {
-                alert("Please select a building first!");
+                alert("يجب تحديد اللعقار اولا");
                 return;
             }
 
@@ -142,7 +144,7 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('فشل في الاتصال');
                     }
                     return response.json();
                 })
@@ -152,7 +154,7 @@
                         // Refresh the page after the update
                         location.reload();
                     } else {
-                        alert('Failed to update building coordinates.');
+                        alert('فشل في تعديل موقع العقار');
                     }
                 })
                 .catch(error => console.error('Error:', error));

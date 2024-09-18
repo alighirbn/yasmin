@@ -67,7 +67,9 @@
                 margin-right: 20px;
             }
         </style>
-        @include('map.nav.navigation')
+        <div class="flex justify-start">
+            @include('map.nav.navigation')
+        </div>
     </x-slot>
 
     <div class="py-6">
