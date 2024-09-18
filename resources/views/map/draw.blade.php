@@ -102,14 +102,6 @@
                         <!-- Canvas for Drawing -->
                         <canvas id="drawingCanvas"></canvas>
 
-                        <!-- Building Overlays -->
-                        @foreach ($buildings as $building)
-                            <div class="overlay-div"
-                                style="top: {{ $building->building_map_y }}%; left: {{ $building->building_map_x }}%;"
-                                data-tooltip=" {{ $building->building_number }}">
-                                <a href="{{ route('building.edit', $building->url_address) }}" class="fill-div"></a>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>

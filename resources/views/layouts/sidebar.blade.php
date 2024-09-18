@@ -85,14 +85,6 @@
         </div>
     @endcan
 
-    @can('report-list')
-        <div class="item"><a class="sub-btn"> {{ __('word.report') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
-            <div class="flex flex-col   sub-menu" style="display: none;">
-                @include('report.nav.navigation')
-            </div>
-        </div>
-    @endcan
-
     @can('building-list')
         <div class="item"><a class="sub-btn"> {{ __('word.Building') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
@@ -107,6 +99,15 @@
             </div>
         </div>
     @endcan
+
+    @can('report-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.report') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('report.nav.navigation')
+            </div>
+        </div>
+    @endcan
+
     @can('user-list')
         <div class="item"><a class="sub-btn"> {{ __('word.users') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
