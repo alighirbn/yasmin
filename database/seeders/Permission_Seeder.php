@@ -18,9 +18,8 @@ class Permission_Seeder extends Seeder
         $permissions = [
             //dashboard
 
-            'dashboard-Planning',
-            'dashboard-users',
-            'dashboard-roles',
+
+
             //**************************building******************************* */
             //building permissions
             'building-list',
@@ -121,6 +120,8 @@ class Permission_Seeder extends Seeder
             //**************************user******************************* */
 
             // user permissions
+            'dashboard-users',
+
             'user-list',
             'user-show',
             'user-create',
@@ -130,6 +131,7 @@ class Permission_Seeder extends Seeder
             //**************************role******************************* */
 
             // role permissions
+            'dashboard-roles',
             'role-list',
             'role-show',
             'role-create',

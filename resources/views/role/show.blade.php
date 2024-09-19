@@ -4,7 +4,6 @@
         @include('role.nav.navigation')
     </x-slot>
 
-
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -27,7 +26,7 @@
 
                                 @foreach ($rolePermissions as $permission)
                                     <tr>
-                                        <td>{{ $permission->name }}</td>
+                                        <td>{{ __('word.' . $permission->name) . ' -- ' . $permission->name }}</td>
                                         <td>{{ $permission->guard_name }}</td>
                                     </tr>
                                 @endforeach

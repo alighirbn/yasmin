@@ -61,7 +61,7 @@ return [
     'map_buildings' => 'خارطة العقارات',
     'map_empty_buildings' => 'خارطة العقارات المتوفرة',
     'map_draw' => 'رسم على الخارطة',
-    'map_edit' => 'تعديل موقع المباني',
+    'map_edit' => 'تعديل موقع العقارات',
 
 
     //************************************* contract        *******************************************
@@ -322,5 +322,109 @@ return [
     'readnotification' => 'الاشعارات المقروءة',
 
 
+    //permission
+
+    'dashboard-users' => 'المستخدمون',
+    'dashboard-roles' => 'الأدوار',
+
+    // Building permissions
+    'building-list' => 'قائمة العقارات',
+    'building-show' => 'عرض العقار',
+    'building-create' => 'إنشاء عقار',
+    'building-update' => 'تحديث العقار',
+    'building-delete' => 'حذف العقار',
+
+    // Customer permissions
+    'customer-list' => 'قائمة الزبائن',
+    'customer-show' => 'عرض الزبون',
+    'customer-create' => 'إنشاء زبون',
+    'customer-update' => 'تحديث الزبون',
+    'customer-delete' => 'حذف الزبون',
+    'customer-statement' => 'كشف حساب الزبون',
+
+    // Contract permissions
+    'contract-list' => 'قائمة العقود',
+    'contract-show' => 'عرض العقد',
+    'contract-create' => 'إنشاء عقد',
+    'contract-update' => 'تحديث العقد',
+    'contract-delete' => 'حذف العقد',
+    'contract-statement' => 'كشف حساب العقد',
+    'contract-due' => 'العقود المستحقة',
+    'contract-print' => 'طباعة العقد',
+
+    // Transfer permissions
+    'transfer-list' => 'قائمة التحويلات',
+    'transfer-show' => 'عرض التحويل',
+    'transfer-create' => 'إنشاء تحويل',
+    'transfer-update' => 'تحديث التحويل',
+    'transfer-delete' => 'حذف التحويل',
+    'transfer-approve' => 'الموافقة على التحويل',
+    'transfer-print' => 'طباعة التحويل',
+
+    // Payment permissions
+    'payment-list' => 'قائمة المدفوعات',
+    'payment-show' => 'عرض الدفع',
+    'payment-create' => 'إنشاء دفع',
+    'payment-update' => 'تحديث الدفع',
+    'payment-delete' => 'حذف الدفع',
+    'payment-approve' => 'الموافقة على الدفع',
+
+    // Expense permissions
+    'expense-list' => 'قائمة المصروفات',
+    'expense-show' => 'عرض المصروف',
+    'expense-create' => 'إنشاء مصروف',
+    'expense-update' => 'تحديث المصروف',
+    'expense-delete' => 'حذف المصروف',
+    'expense-approve' => 'الموافقة على المصروف',
+
+    // Cash account permissions
+    'cash_account-list' => 'قائمة حسابات النقد',
+    'cash_account-show' => 'عرض حساب النقد',
+    'cash_account-create' => 'إنشاء حساب نقد',
+    'cash_account-update' => 'تحديث حساب النقد',
+    'cash_account-delete' => 'حذف حساب النقد',
+
+    // Cash transfer permissions
+    'cash_transfer-list' => 'قائمة تحويلات النقد',
+    'cash_transfer-show' => 'عرض تحويل النقد',
+    'cash_transfer-create' => 'إنشاء تحويل نقد',
+    'cash_transfer-update' => 'تحديث تحويل النقد',
+    'cash_transfer-delete' => 'حذف تحويل النقد',
+    'cash_transfer-approve' => 'الموافقة على تحويل النقد',
+
+    // Service permissions
+    'service-list' => 'قائمة الخدمات',
+    'service-show' => 'عرض الخدمة',
+    'service-create' => 'إنشاء خدمة',
+    'service-update' => 'تحديث الخدمة',
+    'service-delete' => 'حذف الخدمة',
+
+    // Report permissions
+    'report-list' => 'قائمة التقارير',
+    'report-category' => 'فئة التقرير',
+    'report-due_installments' => 'التقارير المستحقة',
+    'report-first_installment' => 'التقارير لم تدفع المقدمة',
+
+    // Map permissions
+    'map-map' => 'خريطة العقارات',
+    'map-draw' => 'رسم على الخارطة',
+    'map-empty' => 'العقود المتوفرة ',
+    'map-contract' => 'خارطة العقود',
+    'map-due' => 'العقود المستحقة',
+    'map-edit' => 'تعديل موقع العقارات',
+
+    // User permissions
+    'user-list' => 'قائمة المستخدمين',
+    'user-show' => 'عرض المستخدم',
+    'user-create' => 'إنشاء مستخدم',
+    'user-update' => 'تحديث المستخدم',
+    'user-delete' => 'حذف المستخدم',
+
+    // Role permissions
+    'role-list' => 'قائمة الأدوار',
+    'role-show' => 'عرض الدور',
+    'role-create' => 'إنشاء دور',
+    'role-update' => 'تحديث الدور',
+    'role-delete' => 'حذف الدور',
 
 ];

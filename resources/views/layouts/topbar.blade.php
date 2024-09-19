@@ -1,6 +1,6 @@
 <div class="w-full p-2 flex justify-between" style="background-color: #2b6a9a;">
     <button onclick="myFunction()" x-on:click.prevent="isOpen = !isOpen">
-        <i class='bx bx-menu' style="color: #fff;">{{ __('word.dashboard') }}</i>
+        <i class='bx bx-menu' style="color: #fff;"> </i>
     </button>
 
     <div class="flex">
