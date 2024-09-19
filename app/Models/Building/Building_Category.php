@@ -15,4 +15,9 @@ class Building_Category extends Model
         'category_area',
         'category_cost',
     ];
+
+    public function buildings()
+    {
+        return $this->hasMany(Building::class, 'building_category_id', 'id');
+    }
 }

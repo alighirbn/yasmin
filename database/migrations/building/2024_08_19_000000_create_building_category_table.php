@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('url_address', '60')->unique();
             $table->string('category_name', '10');
             $table->string('category_area', '10');
-            $table->string('category_cost', '20');
-
+            $table->integer('category_cost');
             $table->timestamps();
         });
     }

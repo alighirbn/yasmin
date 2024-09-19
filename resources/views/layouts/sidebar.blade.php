@@ -36,12 +36,25 @@
 
     .item .sub-menu a {
         padding: 5px;
+        font-size: 14px;
     }
 
     .item .sub-menu a:focus {
-        border: 2px solid blue;
-        border-radius: 12px;
         padding: 5px;
+        /* Padding for sub-menu items */
+        color: #bcbbbb;
+        /* Lighter text color */
+        transition: background 0.3s;
+        /* Smooth transition */
+    }
+
+    .sub-menu {
+        padding-left: 20px;
+        /* Indent sub-menu items */
+        background-color: #2c2c4429;
+        /* Sub-menu background */
+        border-left: 4px solid #ffcc00;
+        /* Highlighted border for sub-menu */
     }
 </style>
 
@@ -49,15 +62,10 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <div id="sidebarmenu" class="py-2 " style="display: none">
-    <div class="w-full h-auto p-2 flex justify-center " style="height:100dvh;position: sticky;top:0px; z-index: 1;">
-        <img src="{{ URL('images/logo.png') }}">
+    <div class="p-2">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="h-6;max-width: auto; height: 150px;">
     </div>
-    <div class="w-full h-auto p-2 flex justify-center " style="height:100dvh;position: sticky;top:0px;">
 
-    </div>
-    <div class="w-full h-auto p-2 flex justify-center " style="height:100dvh;position: sticky;top:0px;">
-
-    </div>
     @can('map-map')
         <div class="item"><a class="sub-btn"> {{ __('word.Map') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
@@ -125,11 +133,19 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('.sub-btn').click(function() {
+        $('.sub-btn').on('click', function() {
+            const $subMenu = $(this).next('.sub-menu');
+            const isExpanded = $(this).attr('aria-expanded') === 'true';
 
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
+            $('.sub-menu').slideUp(); // Close all sub-menus
+            $('.sub-btn').attr('aria-expanded', 'false'); // Reset aria-expanded
 
+            if (!isExpanded) {
+                $subMenu.slideDown();
+                $(this).attr('aria-expanded', 'true'); // Update current state
+            }
+            $('.dropdown').removeClass('rotate'); // Reset all rotations
+            $(this).find('.dropdown').toggleClass('rotate'); // Rotate current icon
         });
     });
 </script>

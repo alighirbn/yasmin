@@ -18,31 +18,31 @@ class Building_Category_Seeder extends Seeder
         'url_address' => $this->get_random_string(60),
         'category_name' => 'A',
         'category_area' => '250',
-        'category_cost' => '210,000,000',
+        'category_cost' => '210000000',
       ],
       [
         'url_address' => $this->get_random_string(60),
         'category_name' => 'H',
         'category_area' => '400',
-        'category_cost' => '190,000,000',
+        'category_cost' => '190000000',
       ],
       [
         'url_address' => $this->get_random_string(60),
         'category_name' => 'R',
         'category_area' => '200',
-        'category_cost' => '170,000,000',
+        'category_cost' => '170000000',
       ],
       [
         'url_address' => $this->get_random_string(60),
         'category_name' => 'Y',
         'category_area' => '300',
-        'category_cost' => '140,000,000',
+        'category_cost' => '140000000',
       ],
       [
         'url_address' => $this->get_random_string(60),
         'category_name' => 'T',
         'category_area' => '200',
-        'category_cost' => '100,000,000',
+        'category_cost' => '100000000',
       ],
 
     ];
