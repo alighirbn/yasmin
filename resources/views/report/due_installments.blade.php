@@ -24,6 +24,23 @@
                             {{ __('word.print') }}
                         </button>
                     </div>
+                    <div class="filter-container a4-width mx-auto ">
+                        <form method="GET" action="{{ route('report.due_installments') }}">
+                            <!-- Update with the appropriate route -->
+                            <div class="flex items-center mb-4">
+                                <label for="block_number" class="mr-2">{{ __('word.block_number') }}</label>
+                                <select name="block_number" id="block_number" class="form-select">
+                                    <option value="">{{ __('word.all') }}</option>
+                                    @foreach ($block_numbers as $block)
+                                        <!-- Make sure to pass building blocks to the view -->
+                                        <option value="{{ $block }}">{{ $block }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit"
+                                    class="btn btn-custom-filter ml-2">{{ __('word.filter') }}</button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="print-container a4-width mx-auto bg-white">
                         <div class="flex">
                             <div class="mx-2 my-2 w-full">

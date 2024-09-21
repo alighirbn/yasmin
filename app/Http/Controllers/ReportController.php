@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Building\Building_Category;
 use App\Models\Contract\Contract;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -45,9 +46,12 @@ class ReportController extends Controller
         return view('report.category', compact('report'));
     }
 
-    public function due_installments()
+    public function due_installments(Request $request)
     {
-        // Fetch due installments with contract ID, customer name, customer phone, building number, and total due amount
+        // Get the building_block filter value from the request
+        $buildingBlock = $request->input('block_number');
+
+        // Fetch due installments with an optional building_block filter
         $dueInstallments = DB::table('contract_installments')
             ->join('contracts', 'contract_installments.contract_id', '=', 'contracts.id')
             ->join('customers', 'contracts.contract_customer_id', '=', 'customers.id')
@@ -59,6 +63,7 @@ class ReportController extends Controller
                 'contracts.url_address',
                 'customers.customer_phone',
                 'buildings.building_number',
+                'buildings.block_number', // Add this field if needed in the select
                 DB::raw('COUNT(contract_installments.id) as due_installments_count'),
                 DB::raw('SUM(contract_installments.installment_amount) as total_due_amount')
             )
@@ -66,10 +71,17 @@ class ReportController extends Controller
             ->where(function ($query) {
                 $query->whereNull('payments.id')
                     ->orWhere('payments.approved', false);
-            })
-            ->groupBy('contracts.id', 'customers.customer_full_name', 'customers.customer_phone', 'buildings.building_number')
-            ->orderBy('due_installments_count', 'desc') // Sorting by due installments count in descending order
-            ->orderBy('total_due_amount', 'desc') // Then sort by total due amount in descending order
+            });
+
+        // Apply building_block filter if provided
+        if ($buildingBlock) {
+            $dueInstallments->where('buildings.block_number', $buildingBlock);
+        }
+
+        $dueInstallments = $dueInstallments
+            ->groupBy('contracts.id', 'customers.customer_full_name', 'customers.customer_phone', 'buildings.block_number', 'buildings.block_number')
+            ->orderBy('due_installments_count', 'desc')
+            ->orderBy('total_due_amount', 'desc')
             ->get();
 
         // Prepare the report
@@ -77,9 +89,11 @@ class ReportController extends Controller
             'due_installments' => $dueInstallments,
         ];
 
+        $block_numbers = DB::table('buildings')->distinct()->pluck('block_number');
         // Return the view with the report data
-        return view('report.due_installments', compact('report'));
+        return view('report.due_installments', compact('report', 'block_numbers'));
     }
+
 
 
     public function first_installment()

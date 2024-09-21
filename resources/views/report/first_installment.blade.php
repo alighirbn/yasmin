@@ -35,20 +35,29 @@
                             </div>
                         </div>
 
-                        <h2>Unpaid Cash Contracts</h2>
+                        <h2>العقود نظام التسديد النقدي</h2>
                         <table class=" table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Contract ID</th>
-                                    <th>Customer</th>
-                                    <th>Building</th>
-                                    <th>Amount</th>
-                                    <th>Contract Date</th>
+                                    <th class="no-print">
+                                        {{ __('word.action') }}
+                                    </th>
+                                    <th>{{ __('word.contract_id') }}</th>
+                                    <th>{{ __('word.customer_full_name') }}</th>
+                                    <th>{{ __('word.building_number') }}</th>
+                                    <th>{{ __('word.contract_amount') }}</th>
+                                    <th>{{ __('word.contract_date') }} </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($unpaidCashContracts as $contract)
                                     <tr>
+                                        <td class="no-print">
+                                            <a href="{{ route('contract.show', $contract->url_address) }}"
+                                                class="btn btn-custom-show">
+                                                {{ __('word.view') }}
+                                            </a>
+                                        </td>
                                         <td>{{ $contract->url_address }}</td>
                                         <td>{{ $contract->customer->customer_full_name }}</td>
                                         <td>{{ $contract->building->building_number }}</td>
@@ -59,20 +68,29 @@
                             </tbody>
                         </table>
 
-                        <h2>Unpaid First Installment Contracts</h2>
+                        <h2>العقود نظام الدفعات</h2>
                         <table class=" table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Contract ID</th>
-                                    <th>Customer</th>
-                                    <th>Building</th>
-                                    <th>Amount</th>
-                                    <th>Contract Date</th>
+                                    <th class="no-print">
+                                        {{ __('word.action') }}
+                                    </th>
+                                    <th>{{ __('word.contract_id') }}</th>
+                                    <th>{{ __('word.customer_full_name') }}</th>
+                                    <th>{{ __('word.building_number') }}</th>
+                                    <th>{{ __('word.contract_amount') }}</th>
+                                    <th>{{ __('word.contract_date') }} </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($unpaidFirstInstallmentContracts as $contract)
                                     <tr>
+                                        <td class="no-print">
+                                            <a href="{{ route('contract.show', $contract->url_address) }}"
+                                                class="btn btn-custom-show">
+                                                {{ __('word.view') }}
+                                            </a>
+                                        </td>
                                         <td>{{ $contract->id }}</td>
                                         <td>{{ $contract->customer->customer_full_name }}</td>
                                         <td>{{ $contract->building->building_number }}</td>

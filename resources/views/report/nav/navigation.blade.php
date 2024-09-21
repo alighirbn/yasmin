@@ -29,3 +29,10 @@
         {{ __('word.report_due_installments') }}
     </a>
 @endcan
+
+@can('report-first_installment')
+    <a href="{{ route('report.first_installment') }}"
+        class="me-3 {{ request()->routeIs('report.first_installment') ? 'underline-active' : '' }}">
+        {{ __('word.report_first_installment') }}
+    </a>
+@endcan
