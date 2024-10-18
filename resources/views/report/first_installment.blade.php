@@ -61,7 +61,7 @@
                                         <td>{{ $contract->url_address }}</td>
                                         <td>{{ $contract->customer->customer_full_name }}</td>
                                         <td>{{ $contract->building->building_number }}</td>
-                                        <td>{{ $contract->contract_amount }}</td>
+                                        <td>{{ number_format($contract->contract_amount, 0) . ' دينار ' }}</td>
                                         <td>{{ $contract->contract_date }}</td>
                                     </tr>
                                 @endforeach
@@ -94,7 +94,7 @@
                                         <td>{{ $contract->id }}</td>
                                         <td>{{ $contract->customer->customer_full_name }}</td>
                                         <td>{{ $contract->building->building_number }}</td>
-                                        <td>{{ $contract->contract_amount }}
+                                        <td>{{ number_format($contract->contract_amount, 0) . ' دينار ' }}
                                         </td>
                                         <td>{{ $contract->contract_date }}</td>
                                     </tr>
