@@ -65,13 +65,14 @@ class PaymentController extends Controller
         $payment = Payment::with(['contract.customer', 'contract.building.building_category', 'contract_installment.installment'])->where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
-            return view('payment.show', compact('payment'));
+            $cash_accounts = Cash_Account::all();
+            return view('payment.show', compact(['payment', 'cash_accounts']));
         } else {
             $ip = $this->getIPAddress();
             return view('payment.accessdenied', ['ip' => $ip]);
         }
     }
-    public function approve(string $url_address)
+    public function approve(Request $request, string $url_address)
     {
         $payment = Payment::where('url_address', '=', $url_address)->first();
 
@@ -79,8 +80,14 @@ class PaymentController extends Controller
             // Approve the payment
             $payment->approve();
 
+            $cash_account_id = $request->cash_account_id;
+
+            // Update the cash_account_id in the Payment model
+            $payment->cash_account_id = $cash_account_id;
+            $payment->save(); // Save the updated payment model
+
             // Get the cash account (assuming main account with ID 1)
-            $cashAccount = Cash_Account::find(1); // or find based on your logic
+            $cashAccount = Cash_Account::find($cash_account_id); // or find based on your logic
 
             // Adjust the cash account balance by crediting the payment amount
             $cashAccount->adjustBalance($payment->payment_amount, 'credit');
@@ -95,6 +102,7 @@ class PaymentController extends Controller
                 'transaction_date' => now(),
                 'transaction_type' => 'credit', // Since it's a payment
             ]);
+
 
             return redirect()->route('contract.show', $payment->contract->url_address)
                 ->with('success', 'تم قبول الدفعة بنجاح وتم تسجيل المعاملة في الحساب النقدي.');
@@ -170,7 +178,7 @@ class PaymentController extends Controller
         if (isset($payment)) {
             if ($payment->approved) {
                 // Adjust the cash account balance by debiting the payment amount
-                $cashAccount = Cash_Account::find(1); // or find based on your logic
+                $cashAccount = Cash_Account::find($payment->cash_account_id); // or find based on your logic
                 $cashAccount->adjustBalance($payment->payment_amount, 'debit');
 
                 // Delete related transactions

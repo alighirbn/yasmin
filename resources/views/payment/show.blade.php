@@ -25,15 +25,6 @@
                             </a>
                         @endcan
 
-                        @if (!$payment->approved)
-                            <form action="{{ route('payment.approve', $payment->url_address) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-custom-edit">
-                                    {{ __('word.payment_approve') }}</button>
-                            </form>
-                        @endif
-
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
@@ -48,7 +39,23 @@
 
                             </form>
                         @endcan
+
+                        @if (!$payment->approved)
+                            <form action="{{ route('payment.approve', $payment->url_address) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <label for="cash_account_id">الصندوق</label>
+                                <select name="cash_account_id" required>
+                                    @foreach ($cash_accounts as $account)
+                                        <option value="{{ $account->id }}">{{ $account->account_name }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-custom-edit">
+                                    {{ __('word.payment_approve') }}</button>
+                            </form>
+                        @endif
                     </div>
+
                     @if (session('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}

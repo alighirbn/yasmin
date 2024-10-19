@@ -2,6 +2,7 @@
 
 namespace App\Models\Payment;
 
+use App\Models\Cash\Cash_Account;
 use App\Models\Cash\Transaction;
 use App\Models\Contract\Contract;
 use App\Models\Contract\Contract_Installment;
@@ -28,6 +29,11 @@ class Payment extends Model
     public function contract()
     {
         return $this->belongsTo(Contract::class, 'payment_contract_id', 'id');
+    }
+
+    public function cash_account()
+    {
+        return $this->belongsTo(Cash_Account::class, 'cash_account_id', 'id');
     }
 
     public function contract_installment()
@@ -57,6 +63,7 @@ class Payment extends Model
 
         'payment_contract_id',
         'contract_installment_id',
+        'cash_account_id',
 
         'user_id_create',
         'user_id_update',

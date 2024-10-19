@@ -28,6 +28,10 @@ return new class extends Migration
             $table->foreign('contract_installment_id')->references('id')->on('contract_installments')->onDelete('cascade');
 
 
+            $table->unsignedBigInteger('cash_account_id')->nullable();
+            $table->foreign('cash_account_id')->references('id')->on('cash_accounts')->onDelete('cascade');
+
+
             $table->string('url_address', '60')->unique();
 
             $table->integer('payment_amount');
