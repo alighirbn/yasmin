@@ -39,7 +39,8 @@
 
                             </form>
                         @endcan
-
+                    </div>
+                    <div class="header-buttons">
                         @if (!$payment->approved)
                             <form action="{{ route('payment.approve', $payment->url_address) }}" method="POST">
                                 @csrf
