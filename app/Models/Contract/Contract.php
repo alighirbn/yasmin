@@ -79,6 +79,10 @@ class Contract extends Model
         'contract_date',
         'contract_amount',
         'contract_note',
+        'stage',
+        'temporary_at',
+        'accepted_at',
+        'contract_at',
 
         'contract_customer_id',
         'contract_building_id',
@@ -87,4 +91,20 @@ class Contract extends Model
         'user_id_create',
         'user_id_update',
     ];
+
+    // Transition to accepted stage
+    public function acceptContract()
+    {
+        $this->stage = 'accepted';
+        $this->accepted_at = now();
+        $this->save();
+    }
+
+    // Transition to final contract stage
+    public function approveByLaw()
+    {
+        $this->stage = 'contract';
+        $this->contract_at = now();
+        $this->save();
+    }
 }

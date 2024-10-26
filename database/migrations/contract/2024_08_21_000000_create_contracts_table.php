@@ -35,6 +35,10 @@ return new class extends Migration
             $table->integer('contract_amount');
             $table->date('contract_date');
             $table->string('contract_note', '200')->nullable();
+            $table->enum('stage', ['temporary', 'accepted', 'contract'])->default('temporary');
+            $table->timestamp('temporary_at')->nullable();
+            $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('contract_at')->nullable();
 
             $table->timestamps();
         });

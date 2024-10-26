@@ -12,6 +12,7 @@ use App\DataTables\ContractDataTable;
 use App\Http\Requests\ContractRequest;
 
 use App\Http\Requests\CustomerRequest;
+use App\Jobs\AutoDeleteTemporaryContract;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
 
@@ -97,10 +98,34 @@ class ContractController extends Controller
                 ]);
             }
         }
+        // Optionally, set up a job to auto-delete if not approved
+        AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
         //inform the user
         return redirect()->route('contract.show', $contract->url_address)
             ->with('success', 'تمت أضافة العقد بنجاح ');
+    }
+
+    public function acceptContract(string $url_address)
+    {
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+        if ($contract->stage === 'temporary') {
+            $contract->acceptContract();
+            return response()->json(['message' => 'Contract accepted.']);
+        }
+
+        return response()->json(['message' => 'Contract is not in temporary stage.'], 400);
+    }
+
+    public function approveContract(string $url_address)
+    {
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+        if ($contract->stage === 'accepted') {
+            $contract->approveByLaw();
+            return response()->json(['message' => 'Contract finalized.']);
+        }
+
+        return response()->json(['message' => 'Contract is not in accepted stage.'], 400);
     }
 
     /**

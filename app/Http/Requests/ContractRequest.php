@@ -35,7 +35,7 @@ class ContractRequest extends FormRequest
             'contract_payment_method_id' => ['required'],
 
             //normal fields
-            'contract_date' => ['required','date_format:Y-m-d'],
+            'contract_date' => ['required', 'date_format:Y-m-d'],
             'contract_amount' => ['required'],
             'contract_note' => ['max:200'],
         ];
@@ -45,6 +45,9 @@ class ContractRequest extends FormRequest
     {
         //add url address
         $this->mergeIfMissing(['url_address' => $this->get_random_string(60)]);
+        $this->mergeIfMissing(['stage' => 'temporary']);
+        $this->mergeIfMissing(['temporary_at' => now()]);
+
 
         //add user_id base on route
         if (request()->routeIs('contract.store')) {
@@ -52,8 +55,6 @@ class ContractRequest extends FormRequest
         } elseif (request()->routeIs('contract.update')) {
             $this->mergeIfMissing(['user_id_update' =>  auth()->user()->id]);
         }
-        
-       
     }
 
 
