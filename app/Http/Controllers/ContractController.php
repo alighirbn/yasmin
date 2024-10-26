@@ -106,26 +106,30 @@ class ContractController extends Controller
             ->with('success', 'تمت أضافة العقد بنجاح ');
     }
 
-    public function accepted(string $url_address)
+    public function accept(string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)->first();
         if ($contract->stage === 'temporary') {
-            $contract->accepted();
-            return response()->json(['message' => 'Contract accepted.']);
+            $contract->accept();
+            return redirect()->route('contract.show', $contract->url_address)
+                ->with('success', 'تم قبول العقد.');
         }
 
-        return response()->json(['message' => 'Contract is not in temporary stage.'], 400);
+        $ip = $this->getIPAddress();
+        return view('contract.contract.accessdenied', ['ip' => $ip]);
     }
 
-    public function Authenticated(string $url_address)
+    public function authenticat(string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)->first();
         if ($contract->stage === 'accepted') {
-            $contract->Authenticated();
-            return response()->json(['message' => 'Contract Authenticated.']);
+            $contract->authenticat();
+            return redirect()->route('contract.show', $contract->url_address)
+                ->with('success', 'تم مصادقة العقد.');
         }
 
-        return response()->json(['message' => 'Contract is not in accepted stage.'], 400);
+        $ip = $this->getIPAddress();
+        return view('contract.contract.accessdenied', ['ip' => $ip]);
     }
 
     /**

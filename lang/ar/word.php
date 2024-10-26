@@ -115,10 +115,12 @@ return [
     'stage_date' => 'تأريخ المرحلة',
     'temporary' => 'حجز اولي',
     'accepted' => 'موافق عليه',
-    'Authenticated' => 'مصادق عليه',
+    'authenticated' => 'مصادق عليه',
     'temporary_at' => 'حجز في',
     'accepted_at' => 'موافق عليه في',
-    'Authenticated_at' => 'مصادق عليه في',
+    'authenticated_at' => 'مصادق عليه في',
+    'contract_accept' => 'قبول العقد',
+    'contract_authenticat' => 'مصادقة العقد',
 
     //************************************* transfer        *******************************************
 

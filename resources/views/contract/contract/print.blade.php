@@ -20,11 +20,7 @@
                                 {{ __('word.contract_view') }}
                             </a>
                         @endcan
-                        @can('contract-update')
-                            <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
-                                {{ __('word.contract_edit') }}
-                            </a>
-                        @endcan
+
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>

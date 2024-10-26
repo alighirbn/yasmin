@@ -69,6 +69,22 @@
     /* Text color */
 }
 
+.btn-custom-approve {
+    background-color: #3bd342;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-approve:hover {
+    background-color: #39b830;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
+
+
 .btn-custom-statement {
     background-color: #5f4de7;
     /* Replace with your desired color */

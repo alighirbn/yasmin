@@ -29,6 +29,13 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/edit/{url_address}', [ContractController::class, 'edit'])->middleware(['auth', 'verified', 'permission:contract-update'])->name('contract.edit');
     Route::patch('/update/{url_address}', [ContractController::class, 'update'])->middleware(['auth', 'verified', 'permission:contract-update'])->name('contract.update');
 
+    //accept 
+    Route::get('/accept/{url_address}', [ContractController::class, 'accept'])->middleware(['auth', 'verified', 'permission:contract-accept'])->name('contract.accept');
+
+    //authenticat 
+    Route::get('/authenticat/{url_address}', [ContractController::class, 'authenticat'])->middleware(['auth', 'verified', 'permission:contract-authenticat'])->name('contract.authenticat');
+
+
     //statement
     Route::get('/statement/{url_address}', [ContractController::class, 'statement'])->middleware(['auth', 'verified', 'permission:contract-statement'])->name('contract.statement');
 

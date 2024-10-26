@@ -35,7 +35,7 @@
                         @can('contract-accept')
                             @if ($contract->stage == 'temporary')
                                 <a href="{{ route('contract.accept', $contract->url_address) }}"
-                                    class="btn btn-custom-edit">
+                                    class="btn btn-custom-approve">
                                     {{ __('word.contract_accept') }}
                                 </a>
                             @endif
@@ -44,7 +44,7 @@
                         @can('contract-authenticat')
                             @if ($contract->stage == 'accepted')
                                 <a href="{{ route('contract.authenticat', $contract->url_address) }}"
-                                    class="btn btn-custom-edit">
+                                    class="btn btn-custom-approve">
                                     {{ __('word.contract_authenticat') }}
                                 </a>
                             @endif
@@ -65,7 +65,7 @@
                                 {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
                             </a>
                         @endcan
-                        @if ($contract->stage == 'Authenticated')
+                        @if ($contract->stage == 'authenticated')
                             @can('contract-print')
                                 <a href="{{ route('contract.print', $contract->url_address) }}"
                                     class="btn btn-custom-print">
