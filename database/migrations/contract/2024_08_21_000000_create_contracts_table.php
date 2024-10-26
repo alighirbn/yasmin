@@ -32,13 +32,13 @@ return new class extends Migration
 
             $table->string('url_address', '60')->unique();
 
-            $table->integer('contract_amount');
+            $table->decimal('contract_amount', 15, 0);
             $table->date('contract_date');
             $table->string('contract_note', '200')->nullable();
-            $table->enum('stage', ['temporary', 'accepted', 'contract'])->default('temporary');
-            $table->timestamp('temporary_at')->nullable();
+            $table->enum('stage', ['temporary', 'accepted', 'Authenticated'])->default('temporary');
+            $table->timestamp('temporary_at')->nullable()->useCurrent(); // Sets default to NOW()
             $table->timestamp('accepted_at')->nullable();
-            $table->timestamp('contract_at')->nullable();
+            $table->timestamp('Authenticated_at')->nullable();
 
             $table->timestamps();
         });

@@ -34,7 +34,7 @@ return new class extends Migration
 
             $table->string('url_address', '60')->unique();
 
-            $table->integer('payment_amount');
+            $table->decimal('payment_amount', 15, 0);
             $table->date('payment_date');
             $table->string('payment_note', '200')->nullable();
             $table->boolean('approved')->default(false); // Add the approved column, default to false

@@ -45,9 +45,6 @@ class ContractRequest extends FormRequest
     {
         //add url address
         $this->mergeIfMissing(['url_address' => $this->get_random_string(60)]);
-        $this->mergeIfMissing(['stage' => 'temporary']);
-        $this->mergeIfMissing(['temporary_at' => now()]);
-
 
         //add user_id base on route
         if (request()->routeIs('contract.store')) {

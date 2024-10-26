@@ -24,6 +24,9 @@ class ContractDataTable extends DataTable
             ->addColumn('contract_amount', function ($row) {
                 return number_format($row->contract_amount, 0);
             })
+            ->addColumn('stage', function ($row) {
+                return __('word.' . $row->stage);
+            })
             ->addColumn('last_payment', function ($row) {
                 // Get the last approved payment
                 $lastApprovedPayment = $row->payments->where('approved', true)->last();
@@ -124,6 +127,7 @@ class ContractDataTable extends DataTable
             Column::make('payment_method')->title(__('word.method_name'))->data('payment_method.method_name')->name('payment_method.method_name')->class('text-center'),
             Column::make('last_payment')->title(__('word.last_payment'))->class('text-center'), // New Column
             Column::make('contract_note')->title(__('word.contract_note'))->class('text-center'),
+            Column::make('stage')->title(__('word.stage'))->class('text-center'),
         ];
     }
 

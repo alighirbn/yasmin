@@ -90,6 +90,23 @@
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="stage" class="w-full mb-1" :value="__('word.stage')" />
+                                <p id="stage" class="w-full h-9 block mt-1 " type="text" name="stage">
+                                    {{ __('word.' . $contract->stage) }}
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="stage_date" class="w-full mb-1" :value="__('word.stage_date')" />
+                                <p id="stage_date" class="w-full h-9 block mt-1 " type="text" name="stage_date">
+                                    @if ($contract->stage == 'temporary')
+                                        {{ $contract->temporary_at }}
+                                    @elseif ($contract->stage == 'accepted')
+                                        {{ $contract->accepted_at }}
+                                    @elseif ($contract->stage == 'Authenticated')
+                                        {{ $contract->Authenticated_at }}
+                                    @endif
+                            </div>
+                            <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="method_name" class="w-full mb-1" :value="__('word.method_name')" />
                                 <p id="method_name" class="w-full h-9 block mt-1 " type="text" name="method_name">
                                     {{ $contract->payment_method->method_name }}
@@ -101,6 +118,7 @@
                                     name="contract_amount">
                                     {{ number_format($contract->contract_amount, 0) }} دينار
                             </div>
+
                         </div>
                         <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.customer_info') }}

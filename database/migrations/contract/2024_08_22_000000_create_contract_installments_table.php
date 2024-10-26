@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('installment_id')->references('id')->on('installments')->onDelete('cascade');
 
             $table->string('url_address', '60')->unique()->nullable();
-            $table->integer('installment_amount');
+            $table->decimal('installment_amount', 15, 0);
             $table->date('installment_date');
             $table->boolean('paid')->default(false);
 

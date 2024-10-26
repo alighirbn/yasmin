@@ -106,23 +106,23 @@ class ContractController extends Controller
             ->with('success', 'تمت أضافة العقد بنجاح ');
     }
 
-    public function acceptContract(string $url_address)
+    public function accepted(string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)->first();
         if ($contract->stage === 'temporary') {
-            $contract->acceptContract();
+            $contract->accepted();
             return response()->json(['message' => 'Contract accepted.']);
         }
 
         return response()->json(['message' => 'Contract is not in temporary stage.'], 400);
     }
 
-    public function approveContract(string $url_address)
+    public function Authenticated(string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)->first();
         if ($contract->stage === 'accepted') {
-            $contract->approveByLaw();
-            return response()->json(['message' => 'Contract finalized.']);
+            $contract->Authenticated();
+            return response()->json(['message' => 'Contract Authenticated.']);
         }
 
         return response()->json(['message' => 'Contract is not in accepted stage.'], 400);

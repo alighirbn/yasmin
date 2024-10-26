@@ -93,7 +93,7 @@ class Contract extends Model
     ];
 
     // Transition to accepted stage
-    public function acceptContract()
+    public function accepted()
     {
         $this->stage = 'accepted';
         $this->accepted_at = now();
@@ -101,7 +101,7 @@ class Contract extends Model
     }
 
     // Transition to final contract stage
-    public function approveByLaw()
+    public function Authenticated()
     {
         $this->stage = 'contract';
         $this->contract_at = now();

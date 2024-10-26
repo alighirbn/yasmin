@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Contract\Contract;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,7 +31,7 @@ class AutoDeleteTemporaryContract implements ShouldQueue
     {
         if (
             $this->contract->stage === 'temporary' &&
-            $this->contract->temporary_at->lt(now()->subWeek())
+            Carbon::parse($this->contract->temporary_at)->lt(now()->subWeek())
         ) {
             $this->contract->delete();
         }
