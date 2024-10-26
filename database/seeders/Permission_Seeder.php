@@ -47,6 +47,8 @@ class Permission_Seeder extends Seeder
             'contract-statement',
             'contract-due',
             'contract-print',
+            'contract-accept',
+            'contract-authenticat',
 
             //**************************transfer******************************* */
             //transfer permissions

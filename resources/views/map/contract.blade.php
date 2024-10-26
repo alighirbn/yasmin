@@ -31,6 +31,10 @@
                 mix-blend-mode: multiply;
             }
 
+            .fill-div.temporary {
+                background-color: rgb(255, 125, 125);
+            }
+
             /* Optional: Custom tooltip styling */
             .overlay-div:hover::after {
                 content: attr(data-tooltip);
@@ -64,7 +68,8 @@
                             <div class="overlay-div"
                                 style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; "
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
-                                <a href="{{ route('contract.show', $contract->url_address) }}" class="fill-div"></a>
+                                <a href="{{ route('contract.show', $contract->url_address) }}"
+                                    class="fill-div {{ $contract->stage === 'temporary' ? 'temporary' : '' }}"></a>
                             </div>
                         @endforeach
                     </div>

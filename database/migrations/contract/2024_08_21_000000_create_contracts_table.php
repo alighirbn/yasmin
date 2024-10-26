@@ -35,10 +35,10 @@ return new class extends Migration
             $table->decimal('contract_amount', 15, 0);
             $table->date('contract_date');
             $table->string('contract_note', '200')->nullable();
-            $table->enum('stage', ['temporary', 'accepted', 'Authenticated'])->default('temporary');
+            $table->enum('stage', ['temporary', 'accepted', 'authenticated'])->default('temporary');
             $table->timestamp('temporary_at')->nullable()->useCurrent(); // Sets default to NOW()
             $table->timestamp('accepted_at')->nullable();
-            $table->timestamp('Authenticated_at')->nullable();
+            $table->timestamp('authenticated_at')->nullable();
 
             $table->timestamps();
         });

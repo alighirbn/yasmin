@@ -32,6 +32,24 @@
                             @endif
 
                         @endcan
+                        @can('contract-accept')
+                            @if ($contract->stage == 'temporary')
+                                <a href="{{ route('contract.accept', $contract->url_address) }}"
+                                    class="btn btn-custom-edit">
+                                    {{ __('word.contract_accept') }}
+                                </a>
+                            @endif
+
+                        @endcan
+                        @can('contract-authenticat')
+                            @if ($contract->stage == 'accepted')
+                                <a href="{{ route('contract.authenticat', $contract->url_address) }}"
+                                    class="btn btn-custom-edit">
+                                    {{ __('word.contract_authenticat') }}
+                                </a>
+                            @endif
+
+                        @endcan
                         @can('contract-due')
                             <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
                                 class="btn btn-custom-due">
@@ -47,11 +65,15 @@
                                 {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
                             </a>
                         @endcan
-                        @can('contract-print')
-                            <a href="{{ route('contract.print', $contract->url_address) }}" class="btn btn-custom-print">
-                                {{ __('word.contract_print') }}
-                            </a>
-                        @endcan
+                        @if ($contract->stage == 'Authenticated')
+                            @can('contract-print')
+                                <a href="{{ route('contract.print', $contract->url_address) }}"
+                                    class="btn btn-custom-print">
+                                    {{ __('word.contract_print') }}
+                                </a>
+                            @endcan
+                        @endif
+
                         @can('transfer-create')
                             <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
                                 class="btn btn-custom-transfer">
@@ -102,8 +124,8 @@
                                         {{ $contract->temporary_at }}
                                     @elseif ($contract->stage == 'accepted')
                                         {{ $contract->accepted_at }}
-                                    @elseif ($contract->stage == 'Authenticated')
-                                        {{ $contract->Authenticated_at }}
+                                    @elseif ($contract->stage == 'authenticated')
+                                        {{ $contract->authenticated_at }}
                                     @endif
                             </div>
                             <div class=" mx-4 my-4 w-full ">
@@ -244,26 +266,28 @@
 
                                         </td>
                                         <td>
-                                            @if ($installment->payment != null)
-                                                @can('payment-show')
-                                                    <a href="{{ route('payment.show', $installment->payment->url_address) }}"
-                                                        class="btn btn-custom-show">
-                                                        {{ __('word.view') }}
-                                                    </a>
-                                                @endcan
-                                            @else
-                                                @if ($hide == 0)
-                                                    @can('payment-create')
-                                                        <a href="{{ route('contract.add', $installment->url_address) }}"
-                                                            class="add_payment btn btn-custom-edit">
-                                                            {{ __('word.add_payment') }}
+                                            @if ($contract->stage != 'temporary')
+                                                @if ($installment->payment != null)
+                                                    @can('payment-show')
+                                                        <a href="{{ route('payment.show', $installment->payment->url_address) }}"
+                                                            class="btn btn-custom-show">
+                                                            {{ __('word.view') }}
                                                         </a>
-
-                                                        @php
-                                                            $hide = 1;
-                                                        @endphp
                                                     @endcan
                                                 @else
+                                                    @if ($hide == 0)
+                                                        @can('payment-create')
+                                                            <a href="{{ route('contract.add', $installment->url_address) }}"
+                                                                class="add_payment btn btn-custom-edit">
+                                                                {{ __('word.add_payment') }}
+                                                            </a>
+
+                                                            @php
+                                                                $hide = 1;
+                                                            @endphp
+                                                        @endcan
+                                                    @else
+                                                    @endif
                                                 @endif
                                             @endif
 

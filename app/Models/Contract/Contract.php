@@ -82,7 +82,7 @@ class Contract extends Model
         'stage',
         'temporary_at',
         'accepted_at',
-        'contract_at',
+        'authenticated_at',
 
         'contract_customer_id',
         'contract_building_id',
@@ -101,9 +101,9 @@ class Contract extends Model
     }
 
     // Transition to final contract stage
-    public function Authenticated()
+    public function authenticated()
     {
-        $this->stage = 'contract';
+        $this->stage = 'authenticated';
         $this->contract_at = now();
         $this->save();
     }
