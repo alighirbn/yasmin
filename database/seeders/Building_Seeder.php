@@ -21,14 +21,142 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "DzVLjqVpGHkPNr344MKXEAWN",
-        "building_number" => "B1.H1",
-        "house_number" => "H1",
+        "building_number" => "B1.M1",
+        "house_number" => "M1",
         "block_number" => "B1",
         "building_area" => 400,
         "building_map_x" => 71.3,
         "building_map_y" => 87,
         "created_at" => null,
         "updated_at" => null
+      ],
+      [
+        "id" => 2,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "khqBc9uECwV1HXLch37p1VtON29V",
+        "building_number" => "B1.R2",
+        "house_number" => "R2",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 70.7,
+        "building_map_y" => 82.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 3,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "m8nVC3Q3Stdiqo67NXuQ9BKIMcNkZDwf",
+        "building_number" => "B1.R3",
+        "house_number" => "R3",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 72.4,
+        "building_map_y" => 84.2,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 4,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "yAS8ofEDAIojarXBvW8fhIMKNpbd",
+        "building_number" => "B1.R4",
+        "house_number" => "R4",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 71.2,
+        "building_map_y" => 81.2,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 5,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "lMvC9YurKfCjzHOjYwxXYX1ddu0N59qGibyPuYlf",
+        "building_number" => "B1.R5",
+        "house_number" => "R5",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 72.9,
+        "building_map_y" => 82.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 6,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "9WdaZCQA4JPZ67p89HJdYeiiHrJ1Gl",
+        "building_number" => "B1.R6",
+        "house_number" => "R6",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 71.6,
+        "building_map_y" => 79.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 7,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "ADNOV4mNbTmDojdUp107dtkleEmR8RafKYkDgGHcGgzWzpVJWo2vtp",
+        "building_number" => "B1.R7",
+        "house_number" => "R7",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 73.3,
+        "building_map_y" => 81.2,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 8,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "R1hqJfjsvCrGdyCj5ZtxhY9WVCx0qqyWRAT",
+        "building_number" => "B1.R8",
+        "house_number" => "R8",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 72,
+        "building_map_y" => 78.1,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 9,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "TLNRE5l15fGOt1Np9XlUwmK1orIMpNKHR673H4WvMIDTpEwk6YJux5",
+        "building_number" => "B1.R9",
+        "house_number" => "R9",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 73.7,
+        "building_map_y" => 79.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 10,
@@ -44,7 +172,1431 @@ class Building_Seeder extends Seeder
         "building_map_x" => 72.5,
         "building_map_y" => 76.7,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 11,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "aNcQnvmNkoEenxLClo3piXmEh5Z2z1W41ivu",
+        "building_number" => "B1.R11",
+        "house_number" => "R11",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 74.1,
+        "building_map_y" => 78.1,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 12,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "KXZORCdLo6SF7OkTZJ80qt6QSru0Ftqp6vCdJDkZ0oy02eu1H",
+        "building_number" => "B1.R12",
+        "house_number" => "R12",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 73,
+        "building_map_y" => 75.2,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 13,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "f4ZvKAyE1Uy7yMHv4nFIujya29NmOXfDpf",
+        "building_number" => "B1.R13",
+        "house_number" => "R13",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 74.6,
+        "building_map_y" => 76.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 14,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "8U4f74uCuM6JwN2jTB2aWKS4ebYNd1ksmsB5l2x",
+        "building_number" => "B1.R14",
+        "house_number" => "R14",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 73.5,
+        "building_map_y" => 73.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 15,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "B1Dk39ZkcAq2g5XvQwmuBu5EfkqfTlQTuaGEFz0nEk",
+        "building_number" => "B1.R15",
+        "house_number" => "R15",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 75,
+        "building_map_y" => 75.1,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 16,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "hEtbLgIoujdkIOqRTgocrc9wSRsT7jKl5EhluvHmXSCNi4D990Al",
+        "building_number" => "B1.R16",
+        "house_number" => "R16",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 74,
+        "building_map_y" => 72.1,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 17,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "JQq7bdpccJrAMWcmClw2Q5i25TBcEj6z9bGzaflhldkXzRy0BAbT",
+        "building_number" => "B1.R17",
+        "house_number" => "R17",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 75.5,
+        "building_map_y" => 73.6,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 18,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "2CCR4vbJ1fut3znlYt0L5ilzra5vkCG4SvFr66fL5xaJnnHeMA",
+        "building_number" => "B1.R18",
+        "house_number" => "R18",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 74.4,
+        "building_map_y" => 70.6,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 19,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "vfCUh5Phms7zo0MRQSIAiUL",
+        "building_number" => "B1.R19",
+        "house_number" => "R19",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 76,
+        "building_map_y" => 72,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 20,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "W3nGn5s3BCANgdkecTWGfQcQ7jBkQVJt",
+        "building_number" => "B1.R20",
+        "house_number" => "R20",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 74.8,
+        "building_map_y" => 69,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 21,
+        "user_id_create" => null,
+        "user_id_update" => 1,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "YQujiSG46sb1drA3xnd8Myiij3DX",
+        "building_number" => "B1.R21",
+        "house_number" => "R21",
+        "block_number" => "B1",
+        "building_area" => 200,
+        "building_map_x" => 76.4,
+        "building_map_y" => 70.5,
+        "created_at" => null,
+        "updated_at" => "2024-09-11 00:00:00"
+      ],
+      [
+        "id" => 22,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "bpp44gxOBBXAyc7uW1XjIiBeCQoMmEa5VKIelbD3s",
+        "building_number" => "B2.R1",
+        "house_number" => "R1",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 77.8,
+        "building_map_y" => 67,
+        "created_at" => null,
+        "updated_at" => null
+      ],
+      [
+        "id" => 23,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "h0713tCaV6e5bAb9sDLyY3J86nVo5pbT4fsNnxf",
+        "building_number" => "B2.R2",
+        "house_number" => "R2",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 75.92,
+        "building_map_y" => 65.5,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 24,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "0OdKph1SvKBuWPoeCo73shzAneQGC7ChdnVrOHVGz46CAOGGi",
+        "building_number" => "B2.R3",
+        "house_number" => "R3",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 78.13,
+        "building_map_y" => 65.5,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 25,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "bjg6qadRyPjBwxBFFjUgFeHtA5spna",
+        "building_number" => "B2.R4",
+        "house_number" => "R4",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 76.44,
+        "building_map_y" => 63.96,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 26,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "Iqk2fukD1SpYpIacCIwfn1aTSj43",
+        "building_number" => "B2.R5",
+        "house_number" => "R5",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 78.57,
+        "building_map_y" => 63.96,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 27,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "fkeP6gj9AHDE4z9WYM07ldl",
+        "building_number" => "B2.R6",
+        "house_number" => "R6",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 76.88,
+        "building_map_y" => 62.42,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 28,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "M8dbzHV47PysvhDdsWgCstmA7455QzKPIOGjD9",
+        "building_number" => "B2.R7",
+        "house_number" => "R7",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 79.09,
+        "building_map_y" => 62.55,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 29,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "WIj9uUvvPUIzSig9MTFtpuJY0CQkaOzD3Rr3QB8tpIFyiR",
+        "building_number" => "B2.R8",
+        "house_number" => "R8",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 77.32,
+        "building_map_y" => 60.89,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 30,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "2U6fa0zRzlhTaDl7wOkSjqSi4",
+        "building_number" => "B2.R9",
+        "house_number" => "R9",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 79.53,
+        "building_map_y" => 61.02,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 31,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "EthNr8yovseNl63fsCgDxWOCShV80aP5wMK",
+        "building_number" => "B2.R10",
+        "house_number" => "R10",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 77.84,
+        "building_map_y" => 59.48,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 32,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "jxfDUWFF7CX9WFC4Fd2SjiXSfSgZ4e0E",
+        "building_number" => "B2.R11",
+        "house_number" => "R11",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 79.83,
+        "building_map_y" => 59.35,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 33,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "sD14oxwazOqwGhR14I0pzpAUBVu6u4O43fZNqQiM7avXmhTRGop",
+        "building_number" => "B2.R12",
+        "house_number" => "R12",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 78.2,
+        "building_map_y" => 57.94,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 34,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "Ml8hulZpe0GwuCVQIERdowL3jD4udAtHzLrCI2TK5NapThf0VX8LzrEAeo",
+        "building_number" => "B2.R13",
+        "house_number" => "R13",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 80.27,
+        "building_map_y" => 57.94,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 35,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "bOQDsBIpcoxBUIwaYsLl3HO1IOqxkKzydC",
+        "building_number" => "B2.R14",
+        "house_number" => "R14",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 78.65,
+        "building_map_y" => 56.41,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 36,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "h0xeXkJowGMbAxjADMHerlh1Q4xdERNEO71kYhQ84QWOlmCjw",
+        "building_number" => "B2.R15",
+        "house_number" => "R15",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 80.71,
+        "building_map_y" => 56.41,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 37,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "AhiW6LZAelwqwgFzI3nlUgD9RrkJxrpo0WtLrblEwZ5bW3d9hr4L5lEqb7r",
+        "building_number" => "B2.R16",
+        "house_number" => "R16",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 79.16,
+        "building_map_y" => 54.87,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 38,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "ewIPCiU7tOl42cfocySEmvXRwTuqyRCeQ5Q55kthlaoBrYUmsj3QChWUmr",
+        "building_number" => "B2.R17",
+        "house_number" => "R17",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 81.15,
+        "building_map_y" => 54.87,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 39,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "WEHKVxEbU366wdMT2nnYmSP9uIOWaMwkK7FJitL95bEH8",
+        "building_number" => "B2.R18",
+        "house_number" => "R18",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 79.6,
+        "building_map_y" => 53.59,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 40,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "ce9xqmFBEBpi7RWVF8CBNtCNWaq8Y9",
+        "building_number" => "B2.R19",
+        "house_number" => "R19",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 81.59,
+        "building_map_y" => 53.46,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 41,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "xXQJx9XzOkMl1eAvXopmN7UaFJCFy8oAkz8z3",
+        "building_number" => "B2.R20",
+        "house_number" => "R20",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 80.05,
+        "building_map_y" => 51.92,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 42,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "GlDm66yb392gyIjFUffEUD79iYJztqKKrhfiYty188jM",
+        "building_number" => "B2.R21",
+        "house_number" => "R21",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 82.18,
+        "building_map_y" => 51.8,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 43,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "vPto6Ges5s3NSUuj5gH8EOENcEKMKWv4u0yg380FNfSNx1S2kgrFJsYZ6xq",
+        "building_number" => "B2.R22",
+        "house_number" => "R22",
+        "block_number" => "B2",
+        "building_area" => 200,
+        "building_map_x" => 80.49,
+        "building_map_y" => 50.52,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 44,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 2,
+        "building_type_id" => 1,
+        "url_address" => "g4VgsvXrlLwXz8Ebfde3Xp0XOmNXWQ3hZSCXbXIOiJhHaLoSiF7LJls",
+        "building_number" => "B2.M23",
+        "house_number" => "M23",
+        "block_number" => "B2",
+        "building_area" => 400,
+        "building_map_x" => 82.99,
+        "building_map_y" => 50.13,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 45,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 2,
+        "building_type_id" => 1,
+        "url_address" => "bFE6ueGYcu4xr2Qj9bQknPaMXv3AqJNp6x2PynlO96Rr2ooOdgIfZXYOw",
+        "building_number" => "B2.M24",
+        "house_number" => "M24",
+        "block_number" => "B2",
+        "building_area" => 400,
+        "building_map_x" => 81.23,
+        "building_map_y" => 48.47,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 46,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 3,
+        "building_type_id" => 1,
+        "url_address" => "yVQd3nS8xxTT4J8Qt3JGoeLarRLNRRh1baLthJMBDDjtSDsRtNjzQu40y",
+        "building_number" => "B3.R1",
+        "house_number" => "R1",
+        "block_number" => "B3",
+        "building_area" => 200,
+        "building_map_x" => 77.1,
+        "building_map_y" => 51.3,
+        "created_at" => null,
+        "updated_at" => null
+      ],
+      [
+        "id" => 47,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 2,
+        "building_type_id" => 1,
+        "url_address" => "v1RPt0rKX9um47TyzMOqnlo4yHOtrXAMYiZEq1S3cUIb",
+        "building_number" => "B3.M2",
+        "house_number" => "M2",
+        "block_number" => "B3",
+        "building_area" => 400,
+        "building_map_x" => 77.32,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 48,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "OPFsqTZaqJgfKk67b4TYghco",
+        "building_number" => "B3.Y3",
+        "house_number" => "Y3",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 75.48,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 49,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "1uio061RYoK6ag8g3NblohpPwkgzMp",
+        "building_number" => "B3.Y4",
+        "house_number" => "Y4",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 75.48,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 50,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "Jot0hn0doS8esE7x1R5794UB4uuDSwawLxp7cRPXB2jG9ov",
+        "building_number" => "B3.Y5",
+        "house_number" => "Y5",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 74,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 51,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "QIwQQmTX2uMSRvnfrYHpOutvC0jUPoiNU8w94k9LT3BKaNY",
+        "building_number" => "B3.Y6",
+        "house_number" => "Y6",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 74,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 52,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "UfLFNiO9BkyEaIpelDtNtZAjNJ",
+        "building_number" => "B3.Y7",
+        "house_number" => "Y7",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 72.53,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 53,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "3qpPpmSYFNiNaJvsINoKdlLOBIm5RU3uzkoS",
+        "building_number" => "B3.Y8",
+        "house_number" => "Y8",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 72.53,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 54,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "VoMcsyjP74oRoqd414VjsvzInwl4wK0qLly2r5",
+        "building_number" => "B3.Y9",
+        "house_number" => "Y9",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 71.06,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 55,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "rXAMUARJ2y2dImqX9nHnlFw7H2fIXpU",
+        "building_number" => "B3.Y10",
+        "house_number" => "Y10",
+        "block_number" => "B3",
+        "building_area" => 300,
+        "building_map_x" => 70.84,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 56,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "goy3B4Jbr6f6B498r26Y9oK8xTCFK145AAwAJt5uwOc",
+        "building_number" => "B4.Y1",
+        "house_number" => "Y1",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 68.2,
+        "building_map_y" => 51.3,
+        "created_at" => null,
+        "updated_at" => null
+      ],
+      [
+        "id" => 57,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "KfK0RxgxjosXcu1PcWAMGG0M5sUyAQqgWydvI1IuziGvY0YA5NvxRQy4sHhh",
+        "building_number" => "B4.Y2",
+        "house_number" => "Y2",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 68.18,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 58,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "mtmXDAvgEZdJLsE9z0mbgQgmdGQBOdALvSFA9UWNzB9ysNk0lEygZESuY",
+        "building_number" => "B4.Y3",
+        "house_number" => "Y3",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 66.63,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 59,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "wjvJmrr8AAKdHBX7FQ2KqPtqz8DXgxgQvnoRwdkOxL6vGXW2cm9kST9SOz",
+        "building_number" => "B4.Y4",
+        "house_number" => "Y4",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 66.71,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 60,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "LkLfVby8FYnkrWTSQP7HU8UsAytvxHkk80s5IYEq8CczwaJGf0pogSf",
+        "building_number" => "B4.Y5",
+        "house_number" => "Y5",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 65.16,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 61,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "yoRHWDdF5aTUKhrSkmYfBD6eK859CRbhehkSB00zEKnTyw",
+        "building_number" => "B4.Y6",
+        "house_number" => "Y6",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 65.16,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 62,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "ah7XueLK8o7q9wst6H8ad3etFRD9cG6dWZNssUXu5bSIyu6TK",
+        "building_number" => "B4.Y7",
+        "house_number" => "Y7",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 63.69,
+        "building_map_y" => 51.28,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 63,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "QEQQJoCKKxYDpLRwhKibB4Iajfu3bgS0k3XuTA5lYMnXR7ATv7cA8hGnki",
+        "building_number" => "B4.Y8",
+        "house_number" => "Y8",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 63.76,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 64,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "L7j7WvGGx8MIFecybS4M8lPiEWV",
+        "building_number" => "B4.Y9",
+        "house_number" => "Y9",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 62.29,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 65,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "QO8E8iSaKgNbvQNbMr2GPPp5hJaJUqLgBH3bH9GDuvGBVso",
+        "building_number" => "B4.Y10",
+        "house_number" => "Y10",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 62.07,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 66,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "GtBUraUamzpHSZzcFSkS03yda9",
+        "building_number" => "B4.Y11",
+        "house_number" => "Y11",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 60.67,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 67,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "8klndqhanyglFpLRj64965gfUyrgyQ7UTfWu52J0gGxvfs",
+        "building_number" => "B4.Y12",
+        "house_number" => "Y12",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 60.59,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 68,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "NL62gCTL5qTHzjwhN3dEyqxKpHnoaz",
+        "building_number" => "B4.Y13",
+        "house_number" => "Y13",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 59.12,
+        "building_map_y" => 51.28,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 69,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "OtbpkHq6h8Azfh8fyAMLRkRXeER9e7iFucKAkfaKHE",
+        "building_number" => "B4.Y14",
+        "house_number" => "Y14",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 59.19,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 70,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "5uaF3Rzdq0A3l51Uyt85T9eA7rGvSYWtZPZBX6ZwJs8",
+        "building_number" => "B4.Y15",
+        "house_number" => "Y15",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 57.64,
+        "building_map_y" => 51.28,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 71,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "IeOZ6vZzeGSTz5M4vXhuOGzy0aaQcEJn7ygfkLtqJ1oNsFky",
+        "building_number" => "B4.Y16",
+        "house_number" => "Y16",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 57.64,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 72,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "BWN4qFddYmmnYaOzYHRLCniq25sjA6BpMdvjv4eDrRdNQeD6",
+        "building_number" => "B4.Y17",
+        "house_number" => "Y17",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 56.17,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 73,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "nYWvsQkFd1FgTRKqnO4ixehsWyYEHvKJBKoOw",
+        "building_number" => "B4.Y18",
+        "house_number" => "Y18",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 56.24,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 74,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "tN4G35t0IqHQRdSUbWTysPl4xRClEWkBUlWy0sDFlGuMeFRUoM",
+        "building_number" => "B4.Y19",
+        "house_number" => "Y19",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 54.77,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 75,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "lLLXZvJJUfkG8Dd5O3N8wF70KH4gSUUw7qSjVGdeAIllXIjOCIwMcHDxWNOS",
+        "building_number" => "B4.Y20",
+        "house_number" => "Y20",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 54.77,
+        "building_map_y" => 47.7,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 76,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "NcLZZybx6enyAp6Kaxo7y0lov7nt3jtm4AZ9Ycnt",
+        "building_number" => "B4.Y21",
+        "house_number" => "Y21",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 53.37,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 77,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "GsYoWJ81O5u4GBK5wMx1YQbLXuKUfEoMuLYEl2Oj1dQOXlTuH2hd",
+        "building_number" => "B4.Y22",
+        "house_number" => "Y22",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 53.3,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 78,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "LCUfxVl5NX6xyJU0Mp451njdlwKAsQ",
+        "building_number" => "B4.Y23",
+        "house_number" => "Y23",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 51.75,
+        "building_map_y" => 51.16,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 79,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 4,
+        "building_type_id" => 1,
+        "url_address" => "p1ixkqQM8BONJ8oGlJBjUOe5SogS",
+        "building_number" => "B4.Y24",
+        "house_number" => "Y24",
+        "block_number" => "B4",
+        "building_area" => 300,
+        "building_map_x" => 51.82,
+        "building_map_y" => 47.83,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 80,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "hooZoTF7rGLMPBS0M7vLH16pR",
+        "building_number" => "B5.A1",
+        "house_number" => "A1",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 65.7,
+        "building_map_y" => 61,
+        "created_at" => null,
+        "updated_at" => null
+      ],
+      [
+        "id" => 81,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "FmgNU6O5slE4lwQyQqh1nfL4WFrlrsrxB3JKUxj5SUzs",
+        "building_number" => "B5.A2",
+        "house_number" => "A2",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 65.75,
+        "building_map_y" => 57.56,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 82,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "sVEwvIHlmnpttLdn0QipmAORi6xa4XJtPY7lpWiOfTgFA",
+        "building_number" => "B5.A3",
+        "house_number" => "A3",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 64.57,
+        "building_map_y" => 61.02,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 83,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "jVUl0CHCBPiqBTdAxYwg6PxIsMPAO2ocg87eOM",
+        "building_number" => "B5.A4",
+        "house_number" => "A4",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 64.5,
+        "building_map_y" => 57.69,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 84,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "AOPrzryNex9s4MwiPRj0Ld7kUJ1wMTp5i5TDPbGb",
+        "building_number" => "B5.A5",
+        "house_number" => "A5",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 63.32,
+        "building_map_y" => 61.02,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 85,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "o1yGhX74aqGGCrMinD2hn1Wv43Lt1PMIKCHnNFnd0aLDax99",
+        "building_number" => "B5.A6",
+        "house_number" => "A6",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 63.32,
+        "building_map_y" => 57.69,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 86,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "Zx0rbs1qmMN5w16hZOrrau12xaT3WQgP7Yedp1BOOx4yhiDC9M9pZRj",
+        "building_number" => "B5.A7",
+        "house_number" => "A7",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 62.07,
+        "building_map_y" => 60.89,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 87,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "AMKocipX4dfTe32StYAzD15q8xNPGUQllvtmNSnSQckBaY6ilZBi8zfnYX",
+        "building_number" => "B5.A8",
+        "house_number" => "A8",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 62.14,
+        "building_map_y" => 57.43,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 88,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "SL1oVQhm7j1WgvOLwL9AItuqRioU7HYZHLDLl7ZGOg7SL4X",
+        "building_number" => "B5.A9",
+        "house_number" => "A9",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 60.89,
+        "building_map_y" => 61.02,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 89,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "Ny1hMTojtESPimt6rd7IebxIBaAY2zxOz4YW9CzzeJpNzXnghFT2g5",
+        "building_number" => "B5.A10",
+        "house_number" => "A10",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 60.89,
+        "building_map_y" => 57.81,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 90,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "LEyO0J1uZ0PqnvIYsl5rBBxBLnCnw5RO56ZdMvuHDhnNltathVdk038",
+        "building_number" => "B5.A11",
+        "house_number" => "A11",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 59.63,
+        "building_map_y" => 61.14,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 91,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "TRDXVmwkX7Xc22Y33wesDI",
+        "building_number" => "B5.A12",
+        "house_number" => "A12",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 59.63,
+        "building_map_y" => 57.94,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 92,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "ZiaFvPyLyUTd33K7kGQ1bAX",
+        "building_number" => "B5.A13",
+        "house_number" => "A13",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 58.45,
+        "building_map_y" => 61.27,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 93,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "uvTVP1TmqNcYnONu76EV4FTFGxsIycVaUgz0ljG9H3",
+        "building_number" => "B5.A14",
+        "house_number" => "A14",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 58.45,
+        "building_map_y" => 57.94,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 94,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "FmKqiBLhgqzsckM6xJFBVcDGZmgHs",
+        "building_number" => "B5.A15",
+        "house_number" => "A15",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 57.2,
+        "building_map_y" => 61.4,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 95,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "nhhPq5gWaVMuw6LaJW36KEPiSppkFDhl0DkdCqo0ALZHjun6D",
+        "building_number" => "B5.A16",
+        "house_number" => "A16",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 57.2,
+        "building_map_y" => 57.81,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 96,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "M6fJW4iTODi7GxgqmV78IJjVrrI",
+        "building_number" => "B5.A17",
+        "house_number" => "A17",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 55.95,
+        "building_map_y" => 61.4,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 97,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "41NOg6Wtfs9hHGVPGboNUlHQh0CAF9x",
+        "building_number" => "B5.A18",
+        "house_number" => "A18",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 55.95,
+        "building_map_y" => 57.94,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 98,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "TRu90yByOlJKDTmpjbHUuT8d",
+        "building_number" => "B5.A19",
+        "house_number" => "A19",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 54.77,
+        "building_map_y" => 61.27,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
+      ],
+      [
+        "id" => 99,
+        "user_id_create" => null,
+        "user_id_update" => null,
+        "building_category_id" => 1,
+        "building_type_id" => 1,
+        "url_address" => "KNUbcwzQwZjyP0DEEks7EnwBst",
+        "building_number" => "B5.A20",
+        "house_number" => "A20",
+        "block_number" => "B5",
+        "building_area" => 250,
+        "building_map_x" => 54.7,
+        "building_map_y" => 57.81,
+        "created_at" => null,
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 100,
@@ -60,7 +1612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.52,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 101,
@@ -76,7 +1628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.44,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 102,
@@ -92,7 +1644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.34,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 103,
@@ -108,7 +1660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.26,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 104,
@@ -140,7 +1692,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.75,
         "building_map_y" => 66.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 106,
@@ -156,7 +1708,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.5,
         "building_map_y" => 70.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 107,
@@ -172,7 +1724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.5,
         "building_map_y" => 66.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 108,
@@ -188,7 +1740,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.32,
         "building_map_y" => 70.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 109,
@@ -204,23 +1756,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.32,
         "building_map_y" => 67.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 11,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "aNcQnvmNkoEenxLClo3piXmEh5Z2z1W41ivu",
-        "building_number" => "B1.R11",
-        "house_number" => "R11",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 74.1,
-        "building_map_y" => 78.1,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 110,
@@ -236,7 +1772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.07,
         "building_map_y" => 70.23,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 111,
@@ -252,7 +1788,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.07,
         "building_map_y" => 66.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 112,
@@ -268,7 +1804,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.89,
         "building_map_y" => 70.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 113,
@@ -284,7 +1820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.89,
         "building_map_y" => 67.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 114,
@@ -300,7 +1836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.56,
         "building_map_y" => 70.62,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 115,
@@ -316,7 +1852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 67.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 116,
@@ -332,7 +1868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.38,
         "building_map_y" => 70.62,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 117,
@@ -348,7 +1884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.45,
         "building_map_y" => 67.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 118,
@@ -364,7 +1900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.2,
         "building_map_y" => 70.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 119,
@@ -380,23 +1916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.2,
         "building_map_y" => 67.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 12,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "KXZORCdLo6SF7OkTZJ80qt6QSru0Ftqp6vCdJDkZ0oy02eu1H",
-        "building_number" => "B1.R12",
-        "house_number" => "R12",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 73,
-        "building_map_y" => 75.2,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 120,
@@ -412,7 +1932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.95,
         "building_map_y" => 70.62,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 121,
@@ -428,7 +1948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.95,
         "building_map_y" => 67.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 122,
@@ -444,7 +1964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.77,
         "building_map_y" => 70.62,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 123,
@@ -460,7 +1980,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.7,
         "building_map_y" => 67.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 124,
@@ -476,7 +1996,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.59,
         "building_map_y" => 70.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 125,
@@ -492,7 +2012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.52,
         "building_map_y" => 67.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 126,
@@ -508,7 +2028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.26,
         "building_map_y" => 70.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 127,
@@ -524,7 +2044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.26,
         "building_map_y" => 67.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 128,
@@ -556,23 +2076,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.68,
         "building_map_y" => 75.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 13,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "f4ZvKAyE1Uy7yMHv4nFIujya29NmOXfDpf",
-        "building_number" => "B1.R13",
-        "house_number" => "R13",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 74.6,
-        "building_map_y" => 76.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 130,
@@ -588,7 +2092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.72,
         "building_map_y" => 79.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 131,
@@ -604,7 +2108,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.72,
         "building_map_y" => 75.74,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 132,
@@ -620,7 +2124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.76,
         "building_map_y" => 79.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 133,
@@ -636,7 +2140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.76,
         "building_map_y" => 75.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 134,
@@ -652,7 +2156,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.73,
         "building_map_y" => 79.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 135,
@@ -668,7 +2172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.73,
         "building_map_y" => 75.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 136,
@@ -684,7 +2188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 61.77,
         "building_map_y" => 79.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 137,
@@ -700,7 +2204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 61.77,
         "building_map_y" => 76.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 138,
@@ -716,7 +2220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.81,
         "building_map_y" => 79.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 139,
@@ -732,23 +2236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.81,
         "building_map_y" => 76.12,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 14,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "8U4f74uCuM6JwN2jTB2aWKS4ebYNd1ksmsB5l2x",
-        "building_number" => "B1.R14",
-        "house_number" => "R14",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 73.5,
-        "building_map_y" => 73.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 140,
@@ -764,7 +2252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.86,
         "building_map_y" => 79.45,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 141,
@@ -780,7 +2268,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.86,
         "building_map_y" => 76.12,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 142,
@@ -796,7 +2284,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.82,
         "building_map_y" => 79.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 143,
@@ -812,7 +2300,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.9,
         "building_map_y" => 76.12,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 144,
@@ -828,7 +2316,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 79.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 145,
@@ -844,7 +2332,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 76.12,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 146,
@@ -860,7 +2348,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 56.02,
         "building_map_y" => 80.22,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 147,
@@ -876,7 +2364,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.95,
         "building_map_y" => 77.92,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 148,
@@ -892,7 +2380,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 56.02,
         "building_map_y" => 76.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 149,
@@ -908,23 +2396,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.95,
         "building_map_y" => 74.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 15,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "B1Dk39ZkcAq2g5XvQwmuBu5EfkqfTlQTuaGEFz0nEk",
-        "building_number" => "B1.R15",
-        "house_number" => "R15",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 75,
-        "building_map_y" => 75.1,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 150,
@@ -956,7 +2428,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.4,
         "building_map_y" => 84.32,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 152,
@@ -972,7 +2444,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.59,
         "building_map_y" => 87.9,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 153,
@@ -988,7 +2460,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.45,
         "building_map_y" => 84.58,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 154,
@@ -1004,7 +2476,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 66.63,
         "building_map_y" => 88.16,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 155,
@@ -1020,7 +2492,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 66.41,
         "building_map_y" => 84.58,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 156,
@@ -1036,7 +2508,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.6,
         "building_map_y" => 88.29,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 157,
@@ -1052,7 +2524,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.46,
         "building_map_y" => 84.83,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 158,
@@ -1068,7 +2540,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.65,
         "building_map_y" => 88.29,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 159,
@@ -1084,23 +2556,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.5,
         "building_map_y" => 85.22,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 16,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "hEtbLgIoujdkIOqRTgocrc9wSRsT7jKl5EhluvHmXSCNi4D990Al",
-        "building_number" => "B1.R16",
-        "house_number" => "R16",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 74,
-        "building_map_y" => 72.1,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 160,
@@ -1116,7 +2572,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.69,
         "building_map_y" => 88.8,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 161,
@@ -1132,7 +2588,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.54,
         "building_map_y" => 85.22,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 162,
@@ -1148,7 +2604,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.73,
         "building_map_y" => 88.93,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 163,
@@ -1164,7 +2620,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.51,
         "building_map_y" => 85.47,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 164,
@@ -1180,7 +2636,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 61.77,
         "building_map_y" => 89.06,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 165,
@@ -1196,7 +2652,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 61.55,
         "building_map_y" => 85.47,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 166,
@@ -1212,7 +2668,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.81,
         "building_map_y" => 89.06,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 167,
@@ -1228,7 +2684,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60.59,
         "building_map_y" => 85.6,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 168,
@@ -1244,7 +2700,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.78,
         "building_map_y" => 89.44,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 169,
@@ -1260,23 +2716,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.56,
         "building_map_y" => 85.98,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 17,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "JQq7bdpccJrAMWcmClw2Q5i25TBcEj6z9bGzaflhldkXzRy0BAbT",
-        "building_number" => "B1.R17",
-        "house_number" => "R17",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 75.5,
-        "building_map_y" => 73.6,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 170,
@@ -1292,7 +2732,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.9,
         "building_map_y" => 89.44,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 171,
@@ -1308,7 +2748,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 58.6,
         "building_map_y" => 85.86,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 172,
@@ -1324,7 +2764,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 89.57,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 173,
@@ -1340,7 +2780,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.72,
         "building_map_y" => 86.24,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 174,
@@ -1356,7 +2796,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 56.83,
         "building_map_y" => 89.7,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 175,
@@ -1372,7 +2812,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 56.69,
         "building_map_y" => 86.37,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 176,
@@ -1388,7 +2828,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.88,
         "building_map_y" => 89.95,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 177,
@@ -1404,7 +2844,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.8,
         "building_map_y" => 86.37,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 178,
@@ -1420,7 +2860,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.92,
         "building_map_y" => 90.08,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 179,
@@ -1436,23 +2876,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.7,
         "building_map_y" => 86.5,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 18,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "2CCR4vbJ1fut3znlYt0L5ilzra5vkCG4SvFr66fL5xaJnnHeMA",
-        "building_number" => "B1.R18",
-        "house_number" => "R18",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 74.4,
-        "building_map_y" => 70.6,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 180,
@@ -1468,7 +2892,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.96,
         "building_map_y" => 90.08,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 181,
@@ -1484,7 +2908,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.66,
         "building_map_y" => 86.62,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 182,
@@ -1500,7 +2924,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.12,
         "building_map_y" => 89.57,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 183,
@@ -1516,7 +2940,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.97,
         "building_map_y" => 86.37,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 184,
@@ -1548,7 +2972,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.89,
         "building_map_y" => 66.78,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 186,
@@ -1564,7 +2988,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 64.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 187,
@@ -1580,7 +3004,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.89,
         "building_map_y" => 64.6,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 188,
@@ -1596,7 +3020,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 62.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 189,
@@ -1612,23 +3036,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.81,
         "building_map_y" => 62.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 19,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "vfCUh5Phms7zo0MRQSIAiUL",
-        "building_number" => "B1.R19",
-        "house_number" => "R19",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 76,
-        "building_map_y" => 72,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 190,
@@ -1644,7 +3052,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 60.5,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 191,
@@ -1660,7 +3068,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.89,
         "building_map_y" => 60.5,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 192,
@@ -1676,7 +3084,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.8,
         "building_map_y" => 58.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 193,
@@ -1692,7 +3100,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 58.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 194,
@@ -1708,7 +3116,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.73,
         "building_map_y" => 56.15,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 195,
@@ -1724,7 +3132,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 56.15,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 196,
@@ -1740,7 +3148,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.65,
         "building_map_y" => 54.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 197,
@@ -1756,7 +3164,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 53.97,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 198,
@@ -1772,7 +3180,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.58,
         "building_map_y" => 51.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 199,
@@ -1788,39 +3196,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 51.92,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 2,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "khqBc9uECwV1HXLch37p1VtON29V",
-        "building_number" => "B1.R2",
-        "house_number" => "R2",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 70.7,
-        "building_map_y" => 82.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 20,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "W3nGn5s3BCANgdkecTWGfQcQ7jBkQVJt",
-        "building_number" => "B1.R20",
-        "house_number" => "R20",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 74.8,
-        "building_map_y" => 69,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 200,
@@ -1836,7 +3212,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.65,
         "building_map_y" => 49.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 201,
@@ -1852,7 +3228,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 49.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 202,
@@ -1868,7 +3244,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.73,
         "building_map_y" => 47.32,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 203,
@@ -1884,7 +3260,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.52,
         "building_map_y" => 47.19,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 204,
@@ -1916,7 +3292,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.96,
         "building_map_y" => 90.72,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 206,
@@ -1932,7 +3308,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 88.54,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 207,
@@ -1948,7 +3324,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.81,
         "building_map_y" => 88.42,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 208,
@@ -1964,7 +3340,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 86.37,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 209,
@@ -1980,23 +3356,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.89,
         "building_map_y" => 86.37,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 21,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "YQujiSG46sb1drA3xnd8Myiij3DX",
-        "building_number" => "B1.R21",
-        "house_number" => "R21",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 76.4,
-        "building_map_y" => 70.5,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 210,
@@ -2012,7 +3372,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.8,
         "building_map_y" => 84.19,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 211,
@@ -2028,7 +3388,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.89,
         "building_map_y" => 84.19,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 212,
@@ -2044,7 +3404,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.87,
         "building_map_y" => 82.27,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 213,
@@ -2060,7 +3420,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 82.14,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 214,
@@ -2076,7 +3436,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.73,
         "building_map_y" => 79.97,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 215,
@@ -2092,7 +3452,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 79.97,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 216,
@@ -2108,7 +3468,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.73,
         "building_map_y" => 77.92,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 217,
@@ -2124,7 +3484,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 77.79,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 218,
@@ -2140,7 +3500,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.65,
         "building_map_y" => 75.74,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 219,
@@ -2156,23 +3516,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 75.74,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 22,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "bpp44gxOBBXAyc7uW1XjIiBeCQoMmEa5VKIelbD3s",
-        "building_number" => "B2.R1",
-        "house_number" => "R1",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 77.8,
-        "building_map_y" => 67,
-        "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 220,
@@ -2188,7 +3532,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.65,
         "building_map_y" => 73.56,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 221,
@@ -2204,7 +3548,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 73.56,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 222,
@@ -2220,7 +3564,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.65,
         "building_map_y" => 71.52,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 223,
@@ -2236,7 +3580,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 71.39,
         "created_at" => null,
-        "updated_at" => "11-Sep-24"
+        "updated_at" => "2024-09-11 00:00:00"
       ],
       [
         "id" => 224,
@@ -2268,7 +3612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.2,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 226,
@@ -2284,7 +3628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.73,
         "building_map_y" => 51.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 227,
@@ -2300,7 +3644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.73,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 228,
@@ -2316,7 +3660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.25,
         "building_map_y" => 51.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 229,
@@ -2332,23 +3676,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.25,
         "building_map_y" => 47.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 23,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "h0713tCaV6e5bAb9sDLyY3J86nVo5pbT4fsNnxf",
-        "building_number" => "B2.R2",
-        "house_number" => "R2",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 75.92,
-        "building_map_y" => 65.5,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 230,
@@ -2364,7 +3692,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.85,
         "building_map_y" => 51.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 231,
@@ -2380,7 +3708,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.78,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 232,
@@ -2396,7 +3724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.31,
         "building_map_y" => 51.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 233,
@@ -2412,7 +3740,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.16,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 234,
@@ -2428,7 +3756,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.76,
         "building_map_y" => 51.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 235,
@@ -2444,7 +3772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.76,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 236,
@@ -2460,7 +3788,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 34.21,
         "building_map_y" => 51.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 237,
@@ -2476,7 +3804,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 34.21,
         "building_map_y" => 47.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 238,
@@ -2492,7 +3820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.74,
         "building_map_y" => 51.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 239,
@@ -2508,23 +3836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.74,
         "building_map_y" => 47.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 24,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "0OdKph1SvKBuWPoeCo73shzAneQGC7ChdnVrOHVGz46CAOGGi",
-        "building_number" => "B2.R3",
-        "house_number" => "R3",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 78.13,
-        "building_map_y" => 65.5,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 240,
@@ -2540,7 +3852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.26,
         "building_map_y" => 51.28,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 241,
@@ -2556,7 +3868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.34,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 242,
@@ -2572,7 +3884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.79,
         "building_map_y" => 51.28,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 243,
@@ -2588,7 +3900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.86,
         "building_map_y" => 47.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 244,
@@ -2604,7 +3916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.39,
         "building_map_y" => 51.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 245,
@@ -2620,7 +3932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.39,
         "building_map_y" => 47.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 246,
@@ -2636,7 +3948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 27.5,
         "building_map_y" => 51.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 247,
@@ -2652,7 +3964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.84,
         "building_map_y" => 47.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 248,
@@ -2668,7 +3980,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.47,
         "building_map_y" => 51.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 249,
@@ -2687,22 +3999,6 @@ class Building_Seeder extends Seeder
         "updated_at" => null
       ],
       [
-        "id" => 25,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "bjg6qadRyPjBwxBFFjUgFeHtA5spna",
-        "building_number" => "B2.R4",
-        "house_number" => "R4",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 76.44,
-        "building_map_y" => 63.96,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
         "id" => 250,
         "user_id_create" => null,
         "user_id_update" => null,
@@ -2716,7 +4012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.72,
         "building_map_y" => 57.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 251,
@@ -2732,7 +4028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.46,
         "building_map_y" => 61.02,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 252,
@@ -2748,7 +4044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.46,
         "building_map_y" => 57.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 253,
@@ -2764,7 +4060,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.28,
         "building_map_y" => 61.02,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 254,
@@ -2780,7 +4076,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.28,
         "building_map_y" => 57.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 255,
@@ -2796,7 +4092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.11,
         "building_map_y" => 61.02,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 256,
@@ -2812,7 +4108,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.03,
         "building_map_y" => 57.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 257,
@@ -2828,7 +4124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.78,
         "building_map_y" => 61.02,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 258,
@@ -2844,7 +4140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.85,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 259,
@@ -2860,23 +4156,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.6,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 26,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "Iqk2fukD1SpYpIacCIwfn1aTSj43",
-        "building_number" => "B2.R5",
-        "house_number" => "R5",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 78.57,
-        "building_map_y" => 63.96,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 260,
@@ -2892,7 +4172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.67,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 261,
@@ -2908,7 +4188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 36.35,
         "building_map_y" => 61.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 262,
@@ -2924,7 +4204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 36.35,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 263,
@@ -2940,7 +4220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.17,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 264,
@@ -2956,7 +4236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.17,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 265,
@@ -2972,7 +4252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 33.99,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 266,
@@ -2988,7 +4268,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 33.99,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 267,
@@ -3004,7 +4284,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.74,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 268,
@@ -3020,7 +4300,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.81,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 269,
@@ -3036,23 +4316,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.56,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 27,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "fkeP6gj9AHDE4z9WYM07ldl",
-        "building_number" => "B2.R6",
-        "house_number" => "R6",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 76.88,
-        "building_map_y" => 62.42,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 270,
@@ -3068,7 +4332,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.56,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 271,
@@ -3084,7 +4348,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.38,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 272,
@@ -3100,7 +4364,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.3,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 273,
@@ -3116,7 +4380,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.05,
         "building_map_y" => 61.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 274,
@@ -3132,7 +4396,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.98,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 275,
@@ -3148,7 +4412,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.09,
         "building_map_y" => 61.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 276,
@@ -3164,7 +4428,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.09,
         "building_map_y" => 57.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 277,
@@ -3180,7 +4444,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 27.06,
         "building_map_y" => 61.27,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 278,
@@ -3196,7 +4460,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 27.06,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 279,
@@ -3212,23 +4476,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.81,
         "building_map_y" => 61.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 28,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "M8dbzHV47PysvhDdsWgCstmA7455QzKPIOGjD9",
-        "building_number" => "B2.R7",
-        "house_number" => "R7",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 79.09,
-        "building_map_y" => 62.55,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 280,
@@ -3244,7 +4492,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.96,
         "building_map_y" => 57.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 281,
@@ -3276,7 +4524,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.06,
         "building_map_y" => 91.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 283,
@@ -3292,7 +4540,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.98,
         "building_map_y" => 89.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 284,
@@ -3308,7 +4556,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.06,
         "building_map_y" => 89.44,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 285,
@@ -3324,7 +4572,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.98,
         "building_map_y" => 87.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 286,
@@ -3340,7 +4588,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.99,
         "building_map_y" => 87.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 287,
@@ -3356,7 +4604,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.05,
         "building_map_y" => 85.09,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 288,
@@ -3372,7 +4620,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.99,
         "building_map_y" => 85.09,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 289,
@@ -3388,23 +4636,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.05,
         "building_map_y" => 82.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 29,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "WIj9uUvvPUIzSig9MTFtpuJY0CQkaOzD3Rr3QB8tpIFyiR",
-        "building_number" => "B2.R8",
-        "house_number" => "R8",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 77.32,
-        "building_map_y" => 60.89,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 290,
@@ -3420,7 +4652,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.84,
         "building_map_y" => 82.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 291,
@@ -3436,7 +4668,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.83,
         "building_map_y" => 80.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 292,
@@ -3452,7 +4684,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 80.86,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 293,
@@ -3468,7 +4700,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.83,
         "building_map_y" => 78.81,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 294,
@@ -3484,7 +4716,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 78.69,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 295,
@@ -3500,7 +4732,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.83,
         "building_map_y" => 76.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 296,
@@ -3516,7 +4748,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 76.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 297,
@@ -3532,7 +4764,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.83,
         "building_map_y" => 74.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 298,
@@ -3548,7 +4780,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 74.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 299,
@@ -3564,39 +4796,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.91,
         "building_map_y" => 72.28,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 3,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "m8nVC3Q3Stdiqo67NXuQ9BKIMcNkZDwf",
-        "building_number" => "B1.R3",
-        "house_number" => "R3",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 72.4,
-        "building_map_y" => 84.2,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 30,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "2U6fa0zRzlhTaDl7wOkSjqSi4",
-        "building_number" => "B2.R9",
-        "house_number" => "R9",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 79.53,
-        "building_map_y" => 61.02,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 300,
@@ -3612,7 +4812,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.84,
         "building_map_y" => 72.28,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 301,
@@ -3628,7 +4828,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.91,
         "building_map_y" => 70.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 302,
@@ -3644,7 +4844,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 70.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 303,
@@ -3660,7 +4860,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.76,
         "building_map_y" => 67.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 304,
@@ -3676,7 +4876,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.77,
         "building_map_y" => 68.06,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 305,
@@ -3692,7 +4892,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.76,
         "building_map_y" => 65.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 306,
@@ -3708,7 +4908,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.84,
         "building_map_y" => 65.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 307,
@@ -3740,7 +4940,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.62,
         "building_map_y" => 68.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 309,
@@ -3756,23 +4956,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 21.76,
         "building_map_y" => 67.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 31,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "EthNr8yovseNl63fsCgDxWOCShV80aP5wMK",
-        "building_number" => "B2.R10",
-        "house_number" => "R10",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 77.84,
-        "building_map_y" => 59.48,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 310,
@@ -3788,7 +4972,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.77,
         "building_map_y" => 67.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 311,
@@ -3804,7 +4988,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 21.76,
         "building_map_y" => 65.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 312,
@@ -3820,7 +5004,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.84,
         "building_map_y" => 65.24,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 313,
@@ -3836,7 +5020,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.05,
         "building_map_y" => 64.22,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 314,
@@ -3852,7 +5036,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.06,
         "building_map_y" => 63.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 315,
@@ -3868,7 +5052,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.12,
         "building_map_y" => 62.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 316,
@@ -3884,7 +5068,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.21,
         "building_map_y" => 62.04,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 317,
@@ -3900,7 +5084,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.12,
         "building_map_y" => 60.76,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 318,
@@ -3916,7 +5100,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.28,
         "building_map_y" => 60.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 319,
@@ -3932,23 +5116,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.2,
         "building_map_y" => 59.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 32,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "jxfDUWFF7CX9WFC4Fd2SjiXSfSgZ4e0E",
-        "building_number" => "B2.R11",
-        "house_number" => "R11",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 79.83,
-        "building_map_y" => 59.35,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 320,
@@ -3964,7 +5132,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.43,
         "building_map_y" => 58.45,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 321,
@@ -3980,7 +5148,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.35,
         "building_map_y" => 57.3,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 322,
@@ -3996,7 +5164,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.58,
         "building_map_y" => 56.92,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 323,
@@ -4012,7 +5180,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.49,
         "building_map_y" => 55.77,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 324,
@@ -4028,7 +5196,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.72,
         "building_map_y" => 55.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 325,
@@ -4044,7 +5212,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.64,
         "building_map_y" => 54.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 326,
@@ -4060,7 +5228,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.87,
         "building_map_y" => 53.59,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 327,
@@ -4076,7 +5244,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.79,
         "building_map_y" => 52.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 328,
@@ -4092,7 +5260,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 21.02,
         "building_map_y" => 51.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 329,
@@ -4108,23 +5276,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.94,
         "building_map_y" => 50.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 33,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "sD14oxwazOqwGhR14I0pzpAUBVu6u4O43fZNqQiM7avXmhTRGop",
-        "building_number" => "B2.R12",
-        "house_number" => "R12",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 78.2,
-        "building_map_y" => 57.94,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 330,
@@ -4140,7 +5292,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 21.02,
         "building_map_y" => 50.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 331,
@@ -4149,14 +5301,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "BF0AwheZhixdswQxXNZv3SUpAMYcx6DxNOn587L9tMWr",
-        "building_number" => "B14.H25",
-        "house_number" => "H25",
+        "building_number" => "B14.M25",
+        "house_number" => "M25",
         "block_number" => "B14",
         "building_area" => 400,
         "building_map_x" => 23.23,
         "building_map_y" => 47.96,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 332,
@@ -4165,14 +5317,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "t9dawJy9RcYFdEfeBpspYUlJcRU5gAc6KHp3t1bL",
-        "building_number" => "B14.H26",
-        "house_number" => "H26",
+        "building_number" => "B14.M26",
+        "house_number" => "M26",
         "block_number" => "B14",
         "building_area" => 400,
         "building_map_x" => 21.24,
         "building_map_y" => 47.96,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 333,
@@ -4204,7 +5356,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 17.48,
         "building_map_y" => 94.69,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 335,
@@ -4220,7 +5372,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.47,
         "building_map_y" => 93.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 336,
@@ -4236,7 +5388,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 17.56,
         "building_map_y" => 92.51,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 337,
@@ -4252,7 +5404,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.62,
         "building_map_y" => 91.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 338,
@@ -4268,7 +5420,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 17.7,
         "building_map_y" => 90.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 339,
@@ -4284,23 +5436,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.77,
         "building_map_y" => 89.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 34,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "Ml8hulZpe0GwuCVQIERdowL3jD4udAtHzLrCI2TK5NapThf0VX8LzrEAeo",
-        "building_number" => "B2.R13",
-        "house_number" => "R13",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 80.27,
-        "building_map_y" => 57.94,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 340,
@@ -4316,7 +5452,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 17.85,
         "building_map_y" => 89.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 341,
@@ -4332,7 +5468,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.91,
         "building_map_y" => 88.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 342,
@@ -4348,7 +5484,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 17.92,
         "building_map_y" => 87.39,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 343,
@@ -4364,7 +5500,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.91,
         "building_map_y" => 86.24,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 344,
@@ -4380,7 +5516,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.07,
         "building_map_y" => 85.86,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 345,
@@ -4396,7 +5532,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.99,
         "building_map_y" => 84.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 346,
@@ -4412,7 +5548,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.22,
         "building_map_y" => 84.19,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 347,
@@ -4428,7 +5564,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.14,
         "building_map_y" => 83.04,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 348,
@@ -4444,7 +5580,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.37,
         "building_map_y" => 82.53,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 349,
@@ -4460,23 +5596,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.28,
         "building_map_y" => 81.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 35,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "bOQDsBIpcoxBUIwaYsLl3HO1IOqxkKzydC",
-        "building_number" => "B2.R14",
-        "house_number" => "R14",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 78.65,
-        "building_map_y" => 56.41,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 350,
@@ -4492,7 +5612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.51,
         "building_map_y" => 80.86,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 351,
@@ -4508,7 +5628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.43,
         "building_map_y" => 79.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 352,
@@ -4524,7 +5644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.73,
         "building_map_y" => 79.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 353,
@@ -4540,7 +5660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.58,
         "building_map_y" => 78.05,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 354,
@@ -4556,7 +5676,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.81,
         "building_map_y" => 77.53,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 355,
@@ -4572,7 +5692,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.72,
         "building_map_y" => 76.25,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 356,
@@ -4588,7 +5708,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 18.88,
         "building_map_y" => 75.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 357,
@@ -4604,7 +5724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.87,
         "building_map_y" => 74.59,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 358,
@@ -4620,7 +5740,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.1,
         "building_map_y" => 74.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 359,
@@ -4636,23 +5756,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 20.95,
         "building_map_y" => 72.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 36,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "h0xeXkJowGMbAxjADMHerlh1Q4xdERNEO71kYhQ84QWOlmCjw",
-        "building_number" => "B2.R15",
-        "house_number" => "R15",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 80.71,
-        "building_map_y" => 56.41,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 360,
@@ -4668,7 +5772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 19.25,
         "building_map_y" => 72.41,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 361,
@@ -4677,8 +5781,8 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "8cogkijer8sVbFWAa14PRZmDCuQx9sv48U8v8ghKG",
-        "building_number" => "B16.H1",
-        "house_number" => "H1",
+        "building_number" => "B16.M1",
+        "house_number" => "M1",
         "block_number" => "B16",
         "building_area" => 400,
         "building_map_x" => 86.9,
@@ -4693,14 +5797,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "vBK8YajYbAfNVXAJDAJwQndD0CzzsRsqG82JSrExHpGMejILkbU34kDzx1",
-        "building_number" => "B16.H2",
-        "house_number" => "H2",
+        "building_number" => "B16.M2",
+        "house_number" => "M2",
         "block_number" => "B16",
         "building_area" => 400,
         "building_map_x" => 85.43,
         "building_map_y" => 35.54,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 363,
@@ -4716,7 +5820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.64,
         "building_map_y" => 34.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 364,
@@ -4732,7 +5836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 85.94,
         "building_map_y" => 32.97,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 365,
@@ -4748,7 +5852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 88.15,
         "building_map_y" => 33.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 366,
@@ -4764,7 +5868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 86.46,
         "building_map_y" => 31.57,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 367,
@@ -4780,7 +5884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 88.59,
         "building_map_y" => 31.69,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 368,
@@ -4796,7 +5900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 86.9,
         "building_map_y" => 30.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 369,
@@ -4812,23 +5916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.04,
         "building_map_y" => 30.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 37,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "AhiW6LZAelwqwgFzI3nlUgD9RrkJxrpo0WtLrblEwZ5bW3d9hr4L5lEqb7r",
-        "building_number" => "B2.R16",
-        "house_number" => "R16",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 79.16,
-        "building_map_y" => 54.87,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 370,
@@ -4844,7 +5932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.34,
         "building_map_y" => 28.49,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 371,
@@ -4860,7 +5948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.41,
         "building_map_y" => 28.24,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 372,
@@ -4876,7 +5964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.86,
         "building_map_y" => 26.96,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 373,
@@ -4892,7 +5980,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.92,
         "building_map_y" => 26.83,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 374,
@@ -4908,7 +5996,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 88.23,
         "building_map_y" => 25.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 375,
@@ -4924,7 +6012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 90.29,
         "building_map_y" => 25.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 376,
@@ -4940,7 +6028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 88.74,
         "building_map_y" => 24.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 377,
@@ -4956,7 +6044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 90.73,
         "building_map_y" => 24.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 378,
@@ -4972,7 +6060,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.18,
         "building_map_y" => 22.48,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 379,
@@ -4988,23 +6076,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 91.25,
         "building_map_y" => 22.48,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 38,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "ewIPCiU7tOl42cfocySEmvXRwTuqyRCeQ5Q55kthlaoBrYUmsj3QChWUmr",
-        "building_number" => "B2.R17",
-        "house_number" => "R17",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 81.15,
-        "building_map_y" => 54.87,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 380,
@@ -5020,7 +6092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.63,
         "building_map_y" => 20.94,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 381,
@@ -5052,7 +6124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 90.81,
         "building_map_y" => 17.35,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 383,
@@ -5068,7 +6140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 93.09,
         "building_map_y" => 17.35,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 384,
@@ -5084,7 +6156,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 91.32,
         "building_map_y" => 15.69,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 385,
@@ -5100,7 +6172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 93.53,
         "building_map_y" => 15.95,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 386,
@@ -5116,7 +6188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 91.76,
         "building_map_y" => 14.41,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 387,
@@ -5132,7 +6204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 93.97,
         "building_map_y" => 14.54,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 388,
@@ -5148,7 +6220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 92.28,
         "building_map_y" => 12.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 389,
@@ -5164,23 +6236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 94.34,
         "building_map_y" => 12.74,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 39,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "WEHKVxEbU366wdMT2nnYmSP9uIOWaMwkK7FJitL95bEH8",
-        "building_number" => "B2.R18",
-        "house_number" => "R18",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 79.6,
-        "building_map_y" => 53.59,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 390,
@@ -5196,7 +6252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 92.72,
         "building_map_y" => 11.21,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 391,
@@ -5212,7 +6268,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 94.71,
         "building_map_y" => 11.34,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 392,
@@ -5228,7 +6284,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 93.09,
         "building_map_y" => 9.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 393,
@@ -5244,7 +6300,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 95.15,
         "building_map_y" => 9.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 394,
@@ -5260,7 +6316,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 93.53,
         "building_map_y" => 8.39,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 395,
@@ -5276,7 +6332,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 95.6,
         "building_map_y" => 8.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 396,
@@ -5285,14 +6341,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "g15i8diyXaxPtSQKiQQnQbcrt2zQ3cAry3f44CuMZ3Xmsba96uL",
-        "building_number" => "B17.H16",
-        "house_number" => "H16",
+        "building_number" => "B17.M16",
+        "house_number" => "M16",
         "block_number" => "B17",
         "building_area" => 400,
         "building_map_x" => 94.2,
         "building_map_y" => 6.47,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 397,
@@ -5301,14 +6357,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "Wd9uDGhDT6Kqdg6ZOQuNQGnaRuH6sIdeiGZ7jZjI59HfCrj6h9s9XQqiz5Da",
-        "building_number" => "B17.H17",
-        "house_number" => "H17",
+        "building_number" => "B17.M17",
+        "house_number" => "M17",
         "block_number" => "B17",
         "building_area" => 400,
         "building_map_x" => 96.55,
         "building_map_y" => 6.47,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 398,
@@ -5340,39 +6396,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 82.26,
         "building_map_y" => 34.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 4,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "yAS8ofEDAIojarXBvW8fhIMKNpbd",
-        "building_number" => "B1.R4",
-        "house_number" => "R4",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 71.2,
-        "building_map_y" => 81.2,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 40,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "ce9xqmFBEBpi7RWVF8CBNtCNWaq8Y9",
-        "building_number" => "B2.R19",
-        "house_number" => "R19",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 81.59,
-        "building_map_y" => 53.46,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 400,
@@ -5388,7 +6412,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.24,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 401,
@@ -5404,7 +6428,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.71,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 402,
@@ -5420,7 +6444,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.76,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 403,
@@ -5436,7 +6460,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.16,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 404,
@@ -5452,7 +6476,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 76.29,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 405,
@@ -5468,7 +6492,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.69,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 406,
@@ -5484,7 +6508,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.81,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 407,
@@ -5500,7 +6524,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 76.14,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 408,
@@ -5516,7 +6540,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.19,
         "building_map_y" => 37.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 409,
@@ -5532,23 +6556,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.59,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 41,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "xXQJx9XzOkMl1eAvXopmN7UaFJCFy8oAkz8z3",
-        "building_number" => "B2.R20",
-        "house_number" => "R20",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 80.05,
-        "building_map_y" => 51.92,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 410,
@@ -5564,7 +6572,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.65,
         "building_map_y" => 37.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 411,
@@ -5580,7 +6588,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.19,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 412,
@@ -5596,7 +6604,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.17,
         "building_map_y" => 37.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 413,
@@ -5612,7 +6620,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.72,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 414,
@@ -5628,7 +6636,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.77,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 415,
@@ -5644,7 +6652,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.25,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 416,
@@ -5660,7 +6668,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.3,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 417,
@@ -5676,7 +6684,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.77,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 418,
@@ -5692,7 +6700,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.9,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 419,
@@ -5708,23 +6716,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.3,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 42,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "GlDm66yb392gyIjFUffEUD79iYJztqKKrhfiYty188jM",
-        "building_number" => "B2.R21",
-        "house_number" => "R21",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 82.18,
-        "building_map_y" => 51.8,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 420,
@@ -5740,7 +6732,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.35,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 421,
@@ -5756,7 +6748,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.82,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 422,
@@ -5772,7 +6764,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.88,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 423,
@@ -5788,7 +6780,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.35,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 424,
@@ -5804,7 +6796,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 62.88,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 425,
@@ -5836,7 +6828,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 83.14,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 427,
@@ -5852,7 +6844,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.96,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 428,
@@ -5868,7 +6860,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.96,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 429,
@@ -5884,23 +6876,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.78,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 43,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "vPto6Ges5s3NSUuj5gH8EOENcEKMKWv4u0yg380FNfSNx1S2kgrFJsYZ6xq",
-        "building_number" => "B2.R22",
-        "house_number" => "R22",
-        "block_number" => "B2",
-        "building_area" => 200,
-        "building_map_x" => 80.49,
-        "building_map_y" => 50.52,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 430,
@@ -5916,7 +6892,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.71,
         "building_map_y" => 25.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 431,
@@ -5932,7 +6908,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.46,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 432,
@@ -5948,7 +6924,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.46,
         "building_map_y" => 25.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 433,
@@ -5964,7 +6940,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 78.2,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 434,
@@ -5980,7 +6956,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 78.28,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 435,
@@ -5996,7 +6972,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.1,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 436,
@@ -6012,7 +6988,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.17,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 437,
@@ -6028,7 +7004,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.85,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 438,
@@ -6044,7 +7020,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.85,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 439,
@@ -6063,22 +7039,6 @@ class Building_Seeder extends Seeder
         "updated_at" => null
       ],
       [
-        "id" => 44,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 2,
-        "building_type_id" => 1,
-        "url_address" => "g4VgsvXrlLwXz8Ebfde3Xp0XOmNXWQ3hZSCXbXIOiJhHaLoSiF7LJls",
-        "building_number" => "B2.H23",
-        "house_number" => "H23",
-        "block_number" => "B2",
-        "building_area" => 400,
-        "building_map_x" => 82.99,
-        "building_map_y" => 50.13,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
         "id" => 440,
         "user_id_create" => null,
         "user_id_update" => null,
@@ -6092,7 +7052,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.12,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 441,
@@ -6108,7 +7068,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.87,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 442,
@@ -6124,7 +7084,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.94,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 443,
@@ -6140,7 +7100,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.69,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 444,
@@ -6156,7 +7116,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.69,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 445,
@@ -6172,7 +7132,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 69.43,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 446,
@@ -6188,7 +7148,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 69.43,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 447,
@@ -6204,7 +7164,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.18,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 448,
@@ -6220,7 +7180,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.33,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 449,
@@ -6236,23 +7196,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.08,
         "building_map_y" => 29.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 45,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 2,
-        "building_type_id" => 1,
-        "url_address" => "bFE6ueGYcu4xr2Qj9bQknPaMXv3AqJNp6x2PynlO96Rr2ooOdgIfZXYOw",
-        "building_number" => "B2.H24",
-        "house_number" => "H24",
-        "block_number" => "B2",
-        "building_area" => 400,
-        "building_map_x" => 81.23,
-        "building_map_y" => 48.47,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 450,
@@ -6268,7 +7212,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.08,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 451,
@@ -6284,7 +7228,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.82,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 452,
@@ -6300,7 +7244,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.82,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 453,
@@ -6316,7 +7260,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.57,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 454,
@@ -6332,7 +7276,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.65,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 455,
@@ -6348,7 +7292,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.32,
         "building_map_y" => 29.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 456,
@@ -6364,7 +7308,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.32,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 457,
@@ -6396,7 +7340,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 83.07,
         "building_map_y" => 16.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 459,
@@ -6412,23 +7356,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.89,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 46,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "yVQd3nS8xxTT4J8Qt3JGoeLarRLNRRh1baLthJMBDDjtSDsRtNjzQu40y",
-        "building_number" => "B3.R1",
-        "house_number" => "R1",
-        "block_number" => "B3",
-        "building_area" => 200,
-        "building_map_x" => 77.1,
-        "building_map_y" => 51.3,
-        "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 460,
@@ -6444,7 +7372,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.82,
         "building_map_y" => 15.95,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 461,
@@ -6460,7 +7388,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.64,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 462,
@@ -6476,7 +7404,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.71,
         "building_map_y" => 16.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 463,
@@ -6492,7 +7420,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.31,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 464,
@@ -6508,7 +7436,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 79.46,
         "building_map_y" => 15.95,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 465,
@@ -6524,7 +7452,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 78.2,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 466,
@@ -6540,7 +7468,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 78.2,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 467,
@@ -6556,7 +7484,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 76.95,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 468,
@@ -6572,7 +7500,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.03,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 469,
@@ -6588,23 +7516,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.77,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 47,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 2,
-        "building_type_id" => 1,
-        "url_address" => "v1RPt0rKX9um47TyzMOqnlo4yHOtrXAMYiZEq1S3cUIb",
-        "building_number" => "B3.H2",
-        "house_number" => "H2",
-        "block_number" => "B3",
-        "building_area" => 400,
-        "building_map_x" => 77.32,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 470,
@@ -6620,7 +7532,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.77,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 471,
@@ -6636,7 +7548,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.52,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 472,
@@ -6652,7 +7564,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.52,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 473,
@@ -6668,7 +7580,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.27,
         "building_map_y" => 19.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 474,
@@ -6684,7 +7596,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.34,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 475,
@@ -6700,7 +7612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 72.09,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 476,
@@ -6716,7 +7628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 72.09,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 477,
@@ -6732,7 +7644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.84,
         "building_map_y" => 19.66,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 478,
@@ -6748,7 +7660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.84,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 479,
@@ -6764,23 +7676,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.7,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 48,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "OPFsqTZaqJgfKk67b4TYghco",
-        "building_number" => "B3.Y3",
-        "house_number" => "Y3",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 75.48,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 480,
@@ -6796,7 +7692,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.62,
         "building_map_y" => 18.12,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 481,
@@ -6812,7 +7708,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.7,
         "building_map_y" => 16.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 482,
@@ -6828,7 +7724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.55,
         "building_map_y" => 14.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 483,
@@ -6837,8 +7733,8 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "ReCAgGwkVmNRunUlTYV8fStTZS",
-        "building_number" => "B22.H1",
-        "house_number" => "H1",
+        "building_number" => "B22.M1",
+        "house_number" => "M1",
         "block_number" => "B22",
         "building_area" => 400,
         "building_map_x" => 89.6,
@@ -6853,14 +7749,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "EgAAnyD2AzSzlr5Mt1GbYDQ0K",
-        "building_number" => "B22.H2",
-        "house_number" => "H2",
+        "building_number" => "B22.M2",
+        "house_number" => "M2",
         "block_number" => "B22",
         "building_area" => 400,
         "building_map_x" => 90.44,
         "building_map_y" => 6.34,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 485,
@@ -6876,7 +7772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.93,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 486,
@@ -6892,7 +7788,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 89.04,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 487,
@@ -6908,7 +7804,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.05,
         "building_map_y" => 9.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 488,
@@ -6924,7 +7820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 88.01,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 489,
@@ -6940,23 +7836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 86.02,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 49,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "1uio061RYoK6ag8g3NblohpPwkgzMp",
-        "building_number" => "B3.Y4",
-        "house_number" => "Y4",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 75.48,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 490,
@@ -6972,7 +7852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 87.05,
         "building_map_y" => 6.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 491,
@@ -6988,7 +7868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 85.06,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 492,
@@ -7004,7 +7884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 86.02,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 493,
@@ -7020,7 +7900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 84.1,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 494,
@@ -7036,7 +7916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 85.13,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 495,
@@ -7052,7 +7932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 83.14,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 496,
@@ -7068,7 +7948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 84.03,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 497,
@@ -7084,7 +7964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 82.04,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 498,
@@ -7100,7 +7980,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 83.14,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 499,
@@ -7116,39 +7996,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.15,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 5,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "lMvC9YurKfCjzHOjYwxXYX1ddu0N59qGibyPuYlf",
-        "building_number" => "B1.R5",
-        "house_number" => "R5",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 72.9,
-        "building_map_y" => 82.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 50,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "Jot0hn0doS8esE7x1R5794UB4uuDSwawLxp7cRPXB2jG9ov",
-        "building_number" => "B3.Y5",
-        "house_number" => "Y5",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 74,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 500,
@@ -7164,7 +8012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 82.11,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 501,
@@ -7180,7 +8028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.19,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 502,
@@ -7196,7 +8044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 81.15,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 503,
@@ -7212,7 +8060,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 80.12,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 504,
@@ -7244,7 +8092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 77.69,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 506,
@@ -7260,7 +8108,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 76.73,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 507,
@@ -7276,7 +8124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 76.73,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 508,
@@ -7292,7 +8140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.77,
         "building_map_y" => 10.06,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 509,
@@ -7308,23 +8156,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 75.77,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 51,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "QIwQQmTX2uMSRvnfrYHpOutvC0jUPoiNU8w94k9LT3BKaNY",
-        "building_number" => "B3.Y6",
-        "house_number" => "Y6",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 74,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 510,
@@ -7340,7 +8172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.81,
         "building_map_y" => 10.06,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 511,
@@ -7356,7 +8188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 74.81,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 512,
@@ -7372,7 +8204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.78,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 513,
@@ -7388,7 +8220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 73.86,
         "building_map_y" => 7.24,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 514,
@@ -7404,7 +8236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 72.82,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 515,
@@ -7420,7 +8252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 72.82,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 516,
@@ -7436,7 +8268,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.87,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 517,
@@ -7452,7 +8284,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 71.87,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 518,
@@ -7468,7 +8300,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.84,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 519,
@@ -7484,23 +8316,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 70.91,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 52,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "UfLFNiO9BkyEaIpelDtNtZAjNJ",
-        "building_number" => "B3.Y7",
-        "house_number" => "Y7",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 72.53,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 520,
@@ -7516,7 +8332,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 69.88,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 521,
@@ -7532,7 +8348,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 69.88,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 522,
@@ -7548,7 +8364,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.92,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 523,
@@ -7564,7 +8380,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 68.99,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 524,
@@ -7580,7 +8396,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.89,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 525,
@@ -7596,7 +8412,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67.96,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 526,
@@ -7612,7 +8428,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 66.93,
         "building_map_y" => 10.44,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 527,
@@ -7628,7 +8444,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 67,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 528,
@@ -7644,7 +8460,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.97,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 529,
@@ -7660,23 +8476,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.97,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 53,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "3qpPpmSYFNiNaJvsINoKdlLOBIm5RU3uzkoS",
-        "building_number" => "B3.Y8",
-        "house_number" => "Y8",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 72.53,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 530,
@@ -7692,7 +8492,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 65.01,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 531,
@@ -7708,7 +8508,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.94,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 532,
@@ -7724,7 +8524,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.98,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 533,
@@ -7740,7 +8540,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 64.06,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 534,
@@ -7756,7 +8556,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.02,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 535,
@@ -7772,7 +8572,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 63.02,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 536,
@@ -7804,7 +8604,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 37.97,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 538,
@@ -7820,7 +8620,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60,
         "building_map_y" => 35.41,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 539,
@@ -7836,23 +8636,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 35.41,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 54,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "VoMcsyjP74oRoqd414VjsvzInwl4wK0qLly2r5",
-        "building_number" => "B3.Y9",
-        "house_number" => "Y9",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 71.06,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 540,
@@ -7868,7 +8652,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60,
         "building_map_y" => 32.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 541,
@@ -7884,7 +8668,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 32.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 542,
@@ -7900,7 +8684,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 60,
         "building_map_y" => 30.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 543,
@@ -7916,7 +8700,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 30.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 544,
@@ -7948,7 +8732,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 546,
@@ -7964,7 +8748,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.78,
         "building_map_y" => 24.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 547,
@@ -7980,7 +8764,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 24.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 548,
@@ -7996,7 +8780,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.78,
         "building_map_y" => 22.35,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 549,
@@ -8012,23 +8796,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 22.22,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 55,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "rXAMUARJ2y2dImqX9nHnlFw7H2fIXpU",
-        "building_number" => "B3.Y10",
-        "house_number" => "Y10",
-        "block_number" => "B3",
-        "building_area" => 300,
-        "building_map_x" => 70.84,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 550,
@@ -8044,7 +8812,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.78,
         "building_map_y" => 20.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 551,
@@ -8060,7 +8828,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 20.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 552,
@@ -8076,7 +8844,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.86,
         "building_map_y" => 18.89,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 553,
@@ -8092,7 +8860,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 18.89,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 554,
@@ -8108,7 +8876,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.71,
         "building_map_y" => 17.23,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 555,
@@ -8124,7 +8892,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 17.23,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 556,
@@ -8140,7 +8908,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 15.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 557,
@@ -8156,7 +8924,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 15.56,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 558,
@@ -8172,7 +8940,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 13.9,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 559,
@@ -8188,23 +8956,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 13.9,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 56,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "goy3B4Jbr6f6B498r26Y9oK8xTCFK145AAwAJt5uwOc",
-        "building_number" => "B4.Y1",
-        "house_number" => "Y1",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 68.2,
-        "building_map_y" => 51.3,
-        "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 560,
@@ -8220,7 +8972,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 12.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 561,
@@ -8236,7 +8988,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 12.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 562,
@@ -8252,7 +9004,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 10.44,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 563,
@@ -8268,7 +9020,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.79,
         "building_map_y" => 10.44,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 564,
@@ -8284,7 +9036,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.71,
         "building_map_y" => 8.78,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 565,
@@ -8300,7 +9052,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 8.9,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 566,
@@ -8316,7 +9068,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.56,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 567,
@@ -8332,7 +9084,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 568,
@@ -8348,7 +9100,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 59.63,
         "building_map_y" => 5.45,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 569,
@@ -8364,23 +9116,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 57.87,
         "building_map_y" => 5.32,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 57,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "KfK0RxgxjosXcu1PcWAMGG0M5sUyAQqgWydvI1IuziGvY0YA5NvxRQy4sHhh",
-        "building_number" => "B4.Y2",
-        "house_number" => "Y2",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 68.18,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 570,
@@ -8412,7 +9148,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.77,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 572,
@@ -8428,7 +9164,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.3,
         "building_map_y" => 37.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 573,
@@ -8444,7 +9180,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.3,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 574,
@@ -8460,7 +9196,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.82,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 575,
@@ -8476,7 +9212,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.82,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 576,
@@ -8492,7 +9228,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.35,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 577,
@@ -8508,7 +9244,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.35,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 578,
@@ -8524,7 +9260,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.95,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 579,
@@ -8540,23 +9276,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.73,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 58,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "mtmXDAvgEZdJLsE9z0mbgQgmdGQBOdALvSFA9UWNzB9ysNk0lEygZESuY",
-        "building_number" => "B4.Y3",
-        "house_number" => "Y3",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 66.63,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 580,
@@ -8572,7 +9292,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.33,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 581,
@@ -8588,7 +9308,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.18,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 582,
@@ -8604,7 +9324,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.78,
         "building_map_y" => 37.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 583,
@@ -8620,7 +9340,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.78,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 584,
@@ -8636,7 +9356,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 585,
@@ -8652,7 +9372,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 586,
@@ -8668,7 +9388,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.91,
         "building_map_y" => 37.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 587,
@@ -8684,7 +9404,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 42.83,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 588,
@@ -8700,7 +9420,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.36,
         "building_map_y" => 37.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 589,
@@ -8716,23 +9436,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.36,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 59,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "wjvJmrr8AAKdHBX7FQ2KqPtqz8DXgxgQvnoRwdkOxL6vGXW2cm9kST9SOz",
-        "building_number" => "B4.Y4",
-        "house_number" => "Y4",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 66.71,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 590,
@@ -8748,7 +9452,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.96,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 591,
@@ -8764,7 +9468,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.96,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 592,
@@ -8780,7 +9484,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.41,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 593,
@@ -8796,7 +9500,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.48,
         "building_map_y" => 34.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 594,
@@ -8812,7 +9516,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 36.94,
         "building_map_y" => 37.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 595,
@@ -8828,7 +9532,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.01,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 596,
@@ -8860,7 +9564,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 34.21,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 598,
@@ -8876,7 +9580,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.81,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 599,
@@ -8892,39 +9596,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.81,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 6,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "9WdaZCQA4JPZ67p89HJdYeiiHrJ1Gl",
-        "building_number" => "B1.R6",
-        "house_number" => "R6",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 71.6,
-        "building_map_y" => 79.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 60,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "LkLfVby8FYnkrWTSQP7HU8UsAytvxHkk80s5IYEq8CczwaJGf0pogSf",
-        "building_number" => "B4.Y5",
-        "house_number" => "Y5",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 65.16,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 600,
@@ -8940,7 +9612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.26,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 601,
@@ -8956,7 +9628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.34,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 602,
@@ -8972,7 +9644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.86,
         "building_map_y" => 37.58,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 603,
@@ -8988,7 +9660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.86,
         "building_map_y" => 34.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 604,
@@ -8997,14 +9669,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "JfBKRm0zDECD01cYZlNK9BYDyudr",
-        "building_number" => "B27.H9",
-        "house_number" => "H9",
+        "building_number" => "B27.M9",
+        "house_number" => "M9",
         "block_number" => "B27",
         "building_area" => 400,
         "building_map_x" => 28.09,
         "building_map_y" => 37.97,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 605,
@@ -9013,14 +9685,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "9E5ac2DAWWL708k9XqlKqs4dk5pTqDyjYNQqUqYgXPkIgcED3kU",
-        "building_number" => "B27.H10",
-        "house_number" => "H10",
+        "building_number" => "B27.M10",
+        "house_number" => "M10",
         "block_number" => "B27",
         "building_area" => 400,
         "building_map_x" => 27.95,
         "building_map_y" => 34.38,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 606,
@@ -9052,7 +9724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.36,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 608,
@@ -9068,7 +9740,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.18,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 609,
@@ -9084,23 +9756,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.03,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 61,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "yoRHWDdF5aTUKhrSkmYfBD6eK859CRbhehkSB00zEKnTyw",
-        "building_number" => "B4.Y6",
-        "house_number" => "Y6",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 65.16,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 610,
@@ -9116,7 +9772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.78,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 611,
@@ -9132,7 +9788,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.93,
         "building_map_y" => 25.29,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 612,
@@ -9148,7 +9804,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.6,
         "building_map_y" => 28.75,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 613,
@@ -9164,7 +9820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.6,
         "building_map_y" => 25.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 614,
@@ -9180,7 +9836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.42,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 615,
@@ -9196,7 +9852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.35,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 616,
@@ -9212,7 +9868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.17,
         "building_map_y" => 29.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 617,
@@ -9228,7 +9884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.17,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 618,
@@ -9244,7 +9900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.99,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 619,
@@ -9260,23 +9916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.92,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 62,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "ah7XueLK8o7q9wst6H8ad3etFRD9cG6dWZNssUXu5bSIyu6TK",
-        "building_number" => "B4.Y7",
-        "house_number" => "Y7",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 63.69,
-        "building_map_y" => 51.28,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 620,
@@ -9292,7 +9932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.66,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 621,
@@ -9308,7 +9948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.74,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 622,
@@ -9324,7 +9964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.56,
         "building_map_y" => 29.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 623,
@@ -9340,7 +9980,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.63,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 624,
@@ -9356,7 +9996,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 625,
@@ -9372,7 +10012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 626,
@@ -9388,7 +10028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.05,
         "building_map_y" => 29.01,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 627,
@@ -9404,7 +10044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.13,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 628,
@@ -9420,7 +10060,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.8,
         "building_map_y" => 29.13,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 629,
@@ -9436,23 +10076,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.8,
         "building_map_y" => 25.68,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 63,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "QEQQJoCKKxYDpLRwhKibB4Iajfu3bgS0k3XuTA5lYMnXR7ATv7cA8hGnki",
-        "building_number" => "B4.Y8",
-        "house_number" => "Y8",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 63.76,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 630,
@@ -9468,7 +10092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 29.26,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 631,
@@ -9484,7 +10108,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 27.6,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 632,
@@ -9500,7 +10124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 25.8,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 633,
@@ -9516,7 +10140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 24.14,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 634,
@@ -9548,7 +10172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.29,
         "building_map_y" => 16.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 636,
@@ -9564,7 +10188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.11,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 637,
@@ -9580,7 +10204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.11,
         "building_map_y" => 15.95,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 638,
@@ -9596,7 +10220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.85,
         "building_map_y" => 19.53,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 639,
@@ -9612,23 +10236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.85,
         "building_map_y" => 16.07,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 64,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "L7j7WvGGx8MIFecybS4M8lPiEWV",
-        "building_number" => "B4.Y9",
-        "house_number" => "Y9",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 62.29,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 640,
@@ -9644,7 +10252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.6,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 641,
@@ -9660,7 +10268,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.68,
         "building_map_y" => 15.95,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 642,
@@ -9676,7 +10284,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.42,
         "building_map_y" => 19.4,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 643,
@@ -9692,7 +10300,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.42,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 644,
@@ -9708,7 +10316,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.24,
         "building_map_y" => 19.66,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 645,
@@ -9724,7 +10332,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.17,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 646,
@@ -9740,7 +10348,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.99,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 647,
@@ -9756,7 +10364,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.99,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 648,
@@ -9772,7 +10380,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.81,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 649,
@@ -9788,23 +10396,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.81,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 65,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "QO8E8iSaKgNbvQNbMr2GPPp5hJaJUqLgBH3bH9GDuvGBVso",
-        "building_number" => "B4.Y10",
-        "house_number" => "Y10",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 62.07,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 650,
@@ -9820,7 +10412,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.49,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 651,
@@ -9836,7 +10428,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.49,
         "building_map_y" => 16.2,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 652,
@@ -9852,7 +10444,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 653,
@@ -9868,7 +10460,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.31,
         "building_map_y" => 16.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 654,
@@ -9884,7 +10476,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.05,
         "building_map_y" => 19.66,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 655,
@@ -9900,7 +10492,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.13,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 656,
@@ -9916,7 +10508,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.87,
         "building_map_y" => 19.79,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 657,
@@ -9932,7 +10524,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.87,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 658,
@@ -9948,7 +10540,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 19.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 659,
@@ -9964,23 +10556,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 18.38,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 66,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "GtBUraUamzpHSZzcFSkS03yda9",
-        "building_number" => "B4.Y11",
-        "house_number" => "Y11",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 60.67,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 660,
@@ -9996,7 +10572,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.74,
         "building_map_y" => 16.46,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 661,
@@ -10012,7 +10588,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.66,
         "building_map_y" => 14.92,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 662,
@@ -10044,7 +10620,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 55.29,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 664,
@@ -10060,7 +10636,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.25,
         "building_map_y" => 10.06,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 665,
@@ -10076,7 +10652,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 54.25,
         "building_map_y" => 6.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 666,
@@ -10092,7 +10668,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.3,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 667,
@@ -10108,7 +10684,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 53.3,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 668,
@@ -10124,7 +10700,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.34,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 669,
@@ -10140,23 +10716,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 52.34,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 67,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "8klndqhanyglFpLRj64965gfUyrgyQ7UTfWu52J0gGxvfs",
-        "building_number" => "B4.Y12",
-        "house_number" => "Y12",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 60.59,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 670,
@@ -10172,7 +10732,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.38,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 671,
@@ -10188,7 +10748,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 51.31,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 672,
@@ -10204,7 +10764,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.35,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 673,
@@ -10220,7 +10780,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 50.35,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 674,
@@ -10236,7 +10796,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.39,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 675,
@@ -10252,7 +10812,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 49.39,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 676,
@@ -10268,7 +10828,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.43,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 677,
@@ -10284,7 +10844,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 48.43,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 678,
@@ -10300,7 +10860,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.47,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 679,
@@ -10316,23 +10876,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 47.47,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 68,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "NL62gCTL5qTHzjwhN3dEyqxKpHnoaz",
-        "building_number" => "B4.Y13",
-        "house_number" => "Y13",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 59.12,
-        "building_map_y" => 51.28,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 680,
@@ -10348,7 +10892,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.52,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 681,
@@ -10364,7 +10908,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 46.37,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 682,
@@ -10380,7 +10924,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.41,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 683,
@@ -10396,7 +10940,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 45.49,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 684,
@@ -10412,7 +10956,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.45,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 685,
@@ -10428,7 +10972,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 44.53,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 686,
@@ -10444,7 +10988,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.5,
         "building_map_y" => 10.44,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 687,
@@ -10460,7 +11004,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 43.57,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 688,
@@ -10492,23 +11036,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 41.06,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 69,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "OtbpkHq6h8Azfh8fyAMLRkRXeER9e7iFucKAkfaKHE",
-        "building_number" => "B4.Y14",
-        "house_number" => "Y14",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 59.19,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 690,
@@ -10524,7 +11052,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.03,
         "building_map_y" => 10.06,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 691,
@@ -10540,7 +11068,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 40.11,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 692,
@@ -10556,7 +11084,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.15,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 693,
@@ -10572,7 +11100,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 39.15,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 694,
@@ -10588,7 +11116,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.19,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 695,
@@ -10604,7 +11132,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 38.12,
         "building_map_y" => 6.73,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 696,
@@ -10620,7 +11148,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.08,
         "building_map_y" => 9.93,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 697,
@@ -10636,7 +11164,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 37.16,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 698,
@@ -10652,7 +11180,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 36.2,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 699,
@@ -10668,39 +11196,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 36.2,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 7,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "ADNOV4mNbTmDojdUp107dtkleEmR8RafKYkDgGHcGgzWzpVJWo2vtp",
-        "building_number" => "B1.R7",
-        "house_number" => "R7",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 73.3,
-        "building_map_y" => 81.2,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 70,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "5uaF3Rzdq0A3l51Uyt85T9eA7rGvSYWtZPZBX6ZwJs8",
-        "building_number" => "B4.Y15",
-        "house_number" => "Y15",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 57.64,
-        "building_map_y" => 51.28,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 700,
@@ -10716,7 +11212,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.24,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 701,
@@ -10732,7 +11228,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 35.17,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 702,
@@ -10748,7 +11244,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 34.28,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 703,
@@ -10764,7 +11260,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 34.21,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 704,
@@ -10780,7 +11276,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 33.25,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 705,
@@ -10796,7 +11292,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 33.25,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 706,
@@ -10812,7 +11308,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.29,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 707,
@@ -10828,7 +11324,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 32.22,
         "building_map_y" => 7.11,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 708,
@@ -10844,7 +11340,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.34,
         "building_map_y" => 10.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 709,
@@ -10860,23 +11356,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.26,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 71,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "IeOZ6vZzeGSTz5M4vXhuOGzy0aaQcEJn7ygfkLtqJ1oNsFky",
-        "building_number" => "B4.Y16",
-        "house_number" => "Y16",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 57.64,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 710,
@@ -10892,7 +11372,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.16,
         "building_map_y" => 10.31,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 711,
@@ -10908,7 +11388,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.3,
         "building_map_y" => 6.98,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 712,
@@ -10940,7 +11420,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.45,
         "building_map_y" => 28.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 714,
@@ -10956,7 +11436,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.53,
         "building_map_y" => 27.21,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 715,
@@ -10972,7 +11452,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.61,
         "building_map_y" => 26.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 716,
@@ -10988,7 +11468,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.67,
         "building_map_y" => 25.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 717,
@@ -11004,7 +11484,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.76,
         "building_map_y" => 25.16,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 718,
@@ -11020,7 +11500,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.82,
         "building_map_y" => 23.88,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 719,
@@ -11036,23 +11516,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.83,
         "building_map_y" => 23.5,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 72,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "BWN4qFddYmmnYaOzYHRLCniq25sjA6BpMdvjv4eDrRdNQeD6",
-        "building_number" => "B4.Y17",
-        "house_number" => "Y17",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 56.17,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 720,
@@ -11068,7 +11532,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.97,
         "building_map_y" => 22.22,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 721,
@@ -11084,7 +11548,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 28.98,
         "building_map_y" => 21.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 722,
@@ -11100,7 +11564,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 30.89,
         "building_map_y" => 20.55,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 723,
@@ -11116,7 +11580,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.13,
         "building_map_y" => 20.04,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 724,
@@ -11132,7 +11596,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.04,
         "building_map_y" => 18.76,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 725,
@@ -11148,7 +11612,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.2,
         "building_map_y" => 18.51,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 726,
@@ -11164,7 +11628,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.19,
         "building_map_y" => 17.1,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 727,
@@ -11180,7 +11644,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.35,
         "building_map_y" => 16.71,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 728,
@@ -11196,7 +11660,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 31.34,
         "building_map_y" => 15.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 729,
@@ -11212,23 +11676,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 29.49,
         "building_map_y" => 14.92,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 73,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "nYWvsQkFd1FgTRKqnO4ixehsWyYEHvKJBKoOw",
-        "building_number" => "B4.Y18",
-        "house_number" => "Y18",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 56.24,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 730,
@@ -11237,8 +11685,8 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "uncWZ7kDUF6hgUF2VndQpy3l2w",
-        "building_number" => "B33.H1",
-        "house_number" => "H1",
+        "building_number" => "B33.M1",
+        "house_number" => "M1",
         "block_number" => "B33",
         "building_area" => 400,
         "building_map_x" => 24.4,
@@ -11253,14 +11701,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 2,
         "building_type_id" => 1,
         "url_address" => "8mG8bMW4zqXsmjJ4VIv4hPKOTFwVx95rzyGsk7EMTYI30cATflPxyVP",
-        "building_number" => "B33.H2",
-        "house_number" => "H2",
+        "building_number" => "B33.M2",
+        "house_number" => "M2",
         "block_number" => "B33",
         "building_area" => 400,
         "building_map_x" => 22.35,
         "building_map_y" => 37.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 732,
@@ -11276,7 +11724,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.41,
         "building_map_y" => 35.15,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 733,
@@ -11292,7 +11740,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.49,
         "building_map_y" => 34.64,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 734,
@@ -11308,7 +11756,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.56,
         "building_map_y" => 33.49,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 735,
@@ -11324,7 +11772,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.64,
         "building_map_y" => 32.97,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 736,
@@ -11340,7 +11788,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.7,
         "building_map_y" => 31.69,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 737,
@@ -11356,7 +11804,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.79,
         "building_map_y" => 31.18,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 738,
@@ -11372,7 +11820,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.85,
         "building_map_y" => 30.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 739,
@@ -11388,23 +11836,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 22.86,
         "building_map_y" => 29.52,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 74,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "tN4G35t0IqHQRdSUbWTysPl4xRClEWkBUlWy0sDFlGuMeFRUoM",
-        "building_number" => "B4.Y19",
-        "house_number" => "Y19",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 54.77,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 740,
@@ -11420,7 +11852,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.85,
         "building_map_y" => 28.37,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 741,
@@ -11436,7 +11868,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.08,
         "building_map_y" => 27.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 742,
@@ -11452,7 +11884,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.93,
         "building_map_y" => 26.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 743,
@@ -11468,7 +11900,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.16,
         "building_map_y" => 26.32,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 744,
@@ -11484,7 +11916,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.07,
         "building_map_y" => 24.91,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 745,
@@ -11500,7 +11932,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.3,
         "building_map_y" => 24.52,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 746,
@@ -11516,7 +11948,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.15,
         "building_map_y" => 23.37,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 747,
@@ -11532,7 +11964,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.45,
         "building_map_y" => 22.86,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 748,
@@ -11564,23 +11996,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.82,
         "building_map_y" => 19.15,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 75,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "lLLXZvJJUfkG8Dd5O3N8wF70KH4gSUUw7qSjVGdeAIllXIjOCIwMcHDxWNOS",
-        "building_number" => "B4.Y20",
-        "house_number" => "Y20",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 54.77,
-        "building_map_y" => 47.7,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 750,
@@ -11596,7 +12012,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.88,
         "building_map_y" => 17.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 751,
@@ -11612,7 +12028,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 23.89,
         "building_map_y" => 17.48,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 752,
@@ -11628,7 +12044,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.03,
         "building_map_y" => 16.33,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 753,
@@ -11644,7 +12060,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.04,
         "building_map_y" => 15.82,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 754,
@@ -11660,7 +12076,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.18,
         "building_map_y" => 14.66,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 755,
@@ -11676,7 +12092,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.26,
         "building_map_y" => 14.15,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 756,
@@ -11692,7 +12108,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.25,
         "building_map_y" => 12.87,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 757,
@@ -11708,7 +12124,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.34,
         "building_map_y" => 12.36,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 758,
@@ -11724,7 +12140,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.25,
         "building_map_y" => 11.08,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 759,
@@ -11740,23 +12156,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.48,
         "building_map_y" => 10.7,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 76,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "NcLZZybx6enyAp6Kaxo7y0lov7nt3jtm4AZ9Ycnt",
-        "building_number" => "B4.Y21",
-        "house_number" => "Y21",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 53.37,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 760,
@@ -11772,7 +12172,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.33,
         "building_map_y" => 9.42,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 761,
@@ -11788,7 +12188,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.56,
         "building_map_y" => 9.03,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 762,
@@ -11804,7 +12204,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 27.5,
         "building_map_y" => 7.49,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 763,
@@ -11820,7 +12220,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 26.55,
         "building_map_y" => 7.37,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 764,
@@ -11836,7 +12236,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 25.59,
         "building_map_y" => 7.24,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 765,
@@ -11852,7 +12252,7 @@ class Building_Seeder extends Seeder
         "building_map_x" => 24.63,
         "building_map_y" => 6.85,
         "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-09-12 00:00:00"
       ],
       [
         "id" => 766,
@@ -11861,14 +12261,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "g1noiawtNPoyE7cmSP8zpWRyflaeFXXdU",
-        "building_number" => "T1.1",
+        "building_number" => "T1.H1",
         "house_number" => 1,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 13.5,
+        "building_map_x" => 15.39,
+        "building_map_y" => 13.11,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:02"
       ],
       [
         "id" => 767,
@@ -11877,14 +12277,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "rcX1zBCHMrRQVwoarMuFSU2qxjWDrcBPz0QohZUnYaRu9p3jwS7WvETBU",
-        "building_number" => "T1.2",
+        "building_number" => "T1.H2",
         "house_number" => 2,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 15.5,
+        "building_map_x" => 15.25,
+        "building_map_y" => 15.84,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:35"
       ],
       [
         "id" => 768,
@@ -11893,14 +12293,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "OKUxwlcBDkyVQpnth3Og1PNEYNE5XmHTXjeuPYJLYQjFA",
-        "building_number" => "T1.3",
+        "building_number" => "T1.H3",
         "house_number" => 3,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 13.5,
+        "building_map_x" => 14.32,
+        "building_map_y" => 12.73,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:05"
       ],
       [
         "id" => 769,
@@ -11909,30 +12309,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "pbOCNnrdFSIfftnhkW1mllEgygxZrwgCt",
-        "building_number" => "T1.4",
+        "building_number" => "T1.H4",
         "house_number" => 4,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 15.5,
+        "building_map_x" => 14.18,
+        "building_map_y" => 15.84,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 77,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "GsYoWJ81O5u4GBK5wMx1YQbLXuKUfEoMuLYEl2Oj1dQOXlTuH2hd",
-        "building_number" => "B4.Y22",
-        "house_number" => "Y22",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 53.3,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:32:39"
       ],
       [
         "id" => 770,
@@ -11941,14 +12325,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "4a03t1ym0l96lSazFV9oaI5",
-        "building_number" => "T1.5",
+        "building_number" => "T1.H5",
         "house_number" => 5,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 13.5,
+        "building_map_x" => 13.32,
+        "building_map_y" => 12.73,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:08"
       ],
       [
         "id" => 771,
@@ -11957,14 +12341,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "XNSK2RXRKLnxgMQQt6jfZFEwx3xUxTJrThuD4AipuqM9Z0W8NzDcsbbB",
-        "building_number" => "T1.6",
+        "building_number" => "T1.H6",
         "house_number" => 6,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 15.5,
+        "building_map_x" => 13.18,
+        "building_map_y" => 15.59,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:41"
       ],
       [
         "id" => 772,
@@ -11973,14 +12357,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "LraUjTF0udtxiStWb88Nfh0CMZfWZaAB5",
-        "building_number" => "T1.7",
+        "building_number" => "T1.H7",
         "house_number" => 7,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 13.5,
+        "building_map_x" => 12.32,
+        "building_map_y" => 12.48,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:11"
       ],
       [
         "id" => 773,
@@ -11989,14 +12373,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "srvZnXrWxyy6OL5mNQ2eeCJjEyzZf73l4h0pkpaB7jRofC8lqg",
-        "building_number" => "T1.8",
+        "building_number" => "T1.H8",
         "house_number" => 8,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 15.5,
+        "building_map_x" => 12.1,
+        "building_map_y" => 15.47,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:44"
       ],
       [
         "id" => 774,
@@ -12005,14 +12389,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "dCquvHuu5nuHbgAlzjZH3tXM9wanZgflEUH4tGShRKm38lw3S7o5fTEO",
-        "building_number" => "T1.9",
+        "building_number" => "T1.H9",
         "house_number" => 9,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 13.5,
+        "building_map_x" => 11.24,
+        "building_map_y" => 12.48,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:14"
       ],
       [
         "id" => 775,
@@ -12021,14 +12405,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "r2QeDWVWV7v8STsH9p98zfEKwek5GwvFLVzXNubtqkPmzGy0mi03",
-        "building_number" => "T1.10",
+        "building_number" => "T1.H10",
         "house_number" => 10,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 15.5,
+        "building_map_x" => 11.1,
+        "building_map_y" => 15.47,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:46"
       ],
       [
         "id" => 776,
@@ -12037,14 +12421,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "UHyjcur5LogisA423DFbY451p6daEFP",
-        "building_number" => "T1.11",
+        "building_number" => "T1.H11",
         "house_number" => 11,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 13.5,
+        "building_map_x" => 10.24,
+        "building_map_y" => 12.36,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:17"
       ],
       [
         "id" => 777,
@@ -12053,14 +12437,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "FHJfWzgpvZWOjUtDNOVZIgdxdDIk9alZGbG87DqWUQ747A",
-        "building_number" => "T1.12",
+        "building_number" => "T1.H12",
         "house_number" => 12,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 15.5,
+        "building_map_x" => 10.03,
+        "building_map_y" => 15.22,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:49"
       ],
       [
         "id" => 778,
@@ -12069,14 +12453,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "SRfFEdrDogHVErxxF6HOKmGQV",
-        "building_number" => "T1.13",
+        "building_number" => "T1.H13",
         "house_number" => 13,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 13.5,
+        "building_map_x" => 9.17,
+        "building_map_y" => 12.36,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:20"
       ],
       [
         "id" => 779,
@@ -12085,30 +12469,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "ubTyEO1qthU8ChRINdUbNgT5MwQ",
-        "building_number" => "T1.14",
+        "building_number" => "T1.H14",
         "house_number" => 14,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 15.5,
+        "building_map_x" => 8.95,
+        "building_map_y" => 14.97,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 78,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "LCUfxVl5NX6xyJU0Mp451njdlwKAsQ",
-        "building_number" => "B4.Y23",
-        "house_number" => "Y23",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 51.75,
-        "building_map_y" => 51.16,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:32:53"
       ],
       [
         "id" => 780,
@@ -12117,14 +12485,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "LqGmrz1h7xoC1by7R2dJt2R2YtXNVdfKU5t",
-        "building_number" => "T1.15",
+        "building_number" => "T1.H15",
         "house_number" => 15,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 13.5,
+        "building_map_x" => 8.09,
+        "building_map_y" => 12.11,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:23"
       ],
       [
         "id" => 781,
@@ -12133,14 +12501,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "eFgV1ceCqMnPaOKsgMkE749nIiHb8IAlpTobpGQAdtaUAwL2H",
-        "building_number" => "T1.16",
+        "building_number" => "T1.H16",
         "house_number" => 16,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 15.5,
+        "building_map_x" => 7.95,
+        "building_map_y" => 14.85,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:32:57"
       ],
       [
         "id" => 782,
@@ -12149,14 +12517,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "4HgVKZDc0kueiruDcFiUvEVFG284vFjCROpZ1NfiWQ0xT70kr4JMuY",
-        "building_number" => "T1.17",
+        "building_number" => "T1.H17",
         "house_number" => 17,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 13.5,
+        "building_map_x" => 7.09,
+        "building_map_y" => 11.99,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:26"
       ],
       [
         "id" => 783,
@@ -12165,14 +12533,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "LJRRmgsCyvEC8hX40hoHxEzu",
-        "building_number" => "T1.18",
+        "building_number" => "T1.H18",
         "house_number" => 18,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 15.5,
+        "building_map_x" => 6.95,
+        "building_map_y" => 14.85,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:33"
       ],
       [
         "id" => 784,
@@ -12181,14 +12549,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "U1Ib4Jcb41MjkBa1KTUhMBDJOBB9QWt7ocj",
-        "building_number" => "T1.19",
+        "building_number" => "T1.H19",
         "house_number" => 19,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 13.5,
+        "building_map_x" => 6.02,
+        "building_map_y" => 11.86,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:29"
       ],
       [
         "id" => 785,
@@ -12197,14 +12565,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "y4PkucVNZeurpajlOVtTj9L",
-        "building_number" => "T1.20",
+        "building_number" => "T1.H20",
         "house_number" => 20,
         "block_number" => "T1",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 15.5,
+        "building_map_x" => 5.87,
+        "building_map_y" => 14.6,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:33:36"
       ],
       [
         "id" => 786,
@@ -12213,14 +12581,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Mnv2Ffxgd9vBL2lKvw6df9RcE27SzHcM",
-        "building_number" => "T2.1",
+        "building_number" => "T2.H1",
         "house_number" => 1,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 22,
+        "building_map_x" => 14.75,
+        "building_map_y" => 21.44,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:04"
       ],
       [
         "id" => 787,
@@ -12229,14 +12597,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "35wwPqLj7KpHc34bBxK3uANA867mSWCW6LXIAZq986a3k6FhF",
-        "building_number" => "T2.2",
+        "building_number" => "T2.H2",
         "house_number" => 2,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 24,
+        "building_map_x" => 14.61,
+        "building_map_y" => 24.42,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:02"
       ],
       [
         "id" => 788,
@@ -12245,14 +12613,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "sBQw0UmWZtn1HJH4M3cia0m5gB5ur5Q2JGR",
-        "building_number" => "T2.3",
+        "building_number" => "T2.H3",
         "house_number" => 3,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 22,
+        "building_map_x" => 13.68,
+        "building_map_y" => 21.31,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:07"
       ],
       [
         "id" => 789,
@@ -12261,30 +12629,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "KSScUGPuUnZxnjimT9We799gjSh9Z4d9VMPniLTl998G9hycv",
-        "building_number" => "T2.4",
+        "building_number" => "T2.H4",
         "house_number" => 4,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 24,
+        "building_map_x" => 13.53,
+        "building_map_y" => 24.18,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 79,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 4,
-        "building_type_id" => 1,
-        "url_address" => "p1ixkqQM8BONJ8oGlJBjUOe5SogS",
-        "building_number" => "B4.Y24",
-        "house_number" => "Y24",
-        "block_number" => "B4",
-        "building_area" => 300,
-        "building_map_x" => 51.82,
-        "building_map_y" => 47.83,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:34:10"
       ],
       [
         "id" => 790,
@@ -12293,14 +12645,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "247t8taXadExxTsTm1xveDlkh4wIDRUtO9HkJ7UzDM5SwYewFE3Gupnd",
-        "building_number" => "T2.5",
+        "building_number" => "T2.H5",
         "house_number" => 5,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 22,
+        "building_map_x" => 12.53,
+        "building_map_y" => 21.19,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:16"
       ],
       [
         "id" => 791,
@@ -12309,14 +12661,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "bTpam1cqYgxAft2QlJSMqaUSOf5lFb4fAE9PKKl16bQlT",
-        "building_number" => "T2.6",
+        "building_number" => "T2.H6",
         "house_number" => 6,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 24,
+        "building_map_x" => 12.46,
+        "building_map_y" => 24.05,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:13"
       ],
       [
         "id" => 792,
@@ -12325,14 +12677,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "CXtYj0g9n82wvqsEcnOeIg3ZbK3U2F5DA8GeXPw7bDQhHpNGQ8n",
-        "building_number" => "T2.7",
+        "building_number" => "T2.H7",
         "house_number" => 7,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 22,
+        "building_map_x" => 11.53,
+        "building_map_y" => 21.07,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:19"
       ],
       [
         "id" => 793,
@@ -12341,14 +12693,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "S8iE1MlOVeQ2fwuUAUfXCu",
-        "building_number" => "T2.8",
+        "building_number" => "T2.H8",
         "house_number" => 8,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 24,
+        "building_map_x" => 11.46,
+        "building_map_y" => 23.8,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:22"
       ],
       [
         "id" => 794,
@@ -12357,14 +12709,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "WsXKcjGOrq6wE7hwkgFeSRgrp0VtAXTkTyHi5TbFS9PJSLn7PPD",
-        "building_number" => "T2.9",
+        "building_number" => "T2.H9",
         "house_number" => 9,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 22,
+        "building_map_x" => 10.38,
+        "building_map_y" => 20.94,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:28"
       ],
       [
         "id" => 795,
@@ -12373,14 +12725,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "3Iy48YvcTtZ5yNjwhQMsKOWZfefFKqO",
-        "building_number" => "T2.10",
+        "building_number" => "T2.H10",
         "house_number" => 10,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 24,
+        "building_map_x" => 10.38,
+        "building_map_y" => 23.8,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:25"
       ],
       [
         "id" => 796,
@@ -12389,14 +12741,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "t5vTvhkuNsVylWsqEtDIsd7kEO2GuOPi2hjsVI2mccRgDLL282UYq81K1",
-        "building_number" => "T2.11",
+        "building_number" => "T2.H11",
         "house_number" => 11,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 22,
+        "building_map_x" => 9.45,
+        "building_map_y" => 20.94,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:31"
       ],
       [
         "id" => 797,
@@ -12405,14 +12757,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "UIsMlpFx6iM3iQ0YXKR4UoCPLL2kiifq1h272hfb2Vu4KZ73nxpD",
-        "building_number" => "T2.12",
+        "building_number" => "T2.H12",
         "house_number" => 12,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 24,
+        "building_map_x" => 9.31,
+        "building_map_y" => 23.8,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:45"
       ],
       [
         "id" => 798,
@@ -12421,14 +12773,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "x17lCIBB1f1wVFBxWHsiTtx3NtJg9IekufdN4QJAVUQ",
-        "building_number" => "T2.13",
+        "building_number" => "T2.H13",
         "house_number" => 13,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 22,
+        "building_map_x" => 8.38,
+        "building_map_y" => 20.82,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:34"
       ],
       [
         "id" => 799,
@@ -12437,46 +12789,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "aJ0wrVF0I7gSjVhL99DVhcmjDRvU39blyE6DMP5lVQ1S",
-        "building_number" => "T2.14",
+        "building_number" => "T2.H14",
         "house_number" => 14,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 24,
+        "building_map_x" => 8.31,
+        "building_map_y" => 23.68,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 8,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "R1hqJfjsvCrGdyCj5ZtxhY9WVCx0qqyWRAT",
-        "building_number" => "B1.R8",
-        "house_number" => "R8",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 72,
-        "building_map_y" => 78.1,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 80,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "hooZoTF7rGLMPBS0M7vLH16pR",
-        "building_number" => "B5.A1",
-        "house_number" => "A1",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 65.7,
-        "building_map_y" => 61,
-        "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:48"
       ],
       [
         "id" => 800,
@@ -12485,14 +12805,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "qZ328DYXNS0S8GesSkXAOHw1j0s32AHAR8in518wU04i",
-        "building_number" => "T2.15",
+        "building_number" => "T2.H15",
         "house_number" => 15,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 22,
+        "building_map_x" => 7.45,
+        "building_map_y" => 20.44,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:36"
       ],
       [
         "id" => 801,
@@ -12501,14 +12821,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "4d70xAPEzRbiGuE8J0q9ZCEpz4",
-        "building_number" => "T2.16",
+        "building_number" => "T2.H16",
         "house_number" => 16,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 24,
+        "building_map_x" => 7.31,
+        "building_map_y" => 23.43,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:51"
       ],
       [
         "id" => 802,
@@ -12517,14 +12837,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "u4Draqv7p7pNxujiGqCewf",
-        "building_number" => "T2.17",
+        "building_number" => "T2.H17",
         "house_number" => 17,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 22,
+        "building_map_x" => 6.38,
+        "building_map_y" => 20.44,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:39"
       ],
       [
         "id" => 803,
@@ -12533,14 +12853,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "5aQcru3qupjRPJyLs2kx1UevnnvZkBVGCRZcfKg",
-        "building_number" => "T2.18",
+        "building_number" => "T2.H18",
         "house_number" => 18,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 24,
+        "building_map_x" => 6.3,
+        "building_map_y" => 23.3,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:53"
       ],
       [
         "id" => 804,
@@ -12549,14 +12869,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "XA2U0bdEbLta29A7ugbLsMwn26GKBAY4sVvWvXcOjvNrnGlNDhM6buQb",
-        "building_number" => "T2.19",
+        "building_number" => "T2.H19",
         "house_number" => 19,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 22,
+        "building_map_x" => 5.37,
+        "building_map_y" => 20.32,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:42"
       ],
       [
         "id" => 805,
@@ -12565,14 +12885,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Pe13pXE0l17PriUTbCwzUhcQky816EJHVTb7D",
-        "building_number" => "T2.20",
+        "building_number" => "T2.H20",
         "house_number" => 20,
         "block_number" => "T2",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 24,
+        "building_map_x" => 5.16,
+        "building_map_y" => 23.06,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:34:56"
       ],
       [
         "id" => 806,
@@ -12581,14 +12901,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "hEJRzx2hBWFdx9eaZbiM3u",
-        "building_number" => "T3.1",
+        "building_number" => "T3.H1",
         "house_number" => 1,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 62,
+        "building_map_x" => 11.53,
+        "building_map_y" => 61.24,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:52"
       ],
       [
         "id" => 807,
@@ -12597,14 +12917,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "KIZiYmlEVDq0jtaaVxuTQGD",
-        "building_number" => "T3.2",
+        "building_number" => "T3.H2",
         "house_number" => 2,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 64,
+        "building_map_x" => 11.39,
+        "building_map_y" => 64.35,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:34"
       ],
       [
         "id" => 808,
@@ -12613,14 +12933,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "MOE6KZ8ITMjRJKeTsll4CZde",
-        "building_number" => "T3.3",
+        "building_number" => "T3.H3",
         "house_number" => 3,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 62,
+        "building_map_x" => 10.53,
+        "building_map_y" => 60.99,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:57"
       ],
       [
         "id" => 809,
@@ -12629,30 +12949,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "oALN5zNVjhEJ7uwSzGvssl",
-        "building_number" => "T3.4",
+        "building_number" => "T3.H4",
         "house_number" => 4,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 64,
+        "building_map_x" => 10.17,
+        "building_map_y" => 63.98,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 81,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "FmgNU6O5slE4lwQyQqh1nfL4WFrlrsrxB3JKUxj5SUzs",
-        "building_number" => "B5.A2",
-        "house_number" => "A2",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 65.75,
-        "building_map_y" => 57.56,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:54:40"
       ],
       [
         "id" => 810,
@@ -12661,14 +12965,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "p4sP6gfDlNebnUuRmb7Q1z4SuK8arGcBxuMb2rMNGpu3PjUDT3",
-        "building_number" => "T3.5",
+        "building_number" => "T3.H5",
         "house_number" => 5,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 62,
+        "building_map_x" => 9.38,
+        "building_map_y" => 60.87,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:01"
       ],
       [
         "id" => 811,
@@ -12677,14 +12981,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "BUwqbuYHJWzkTEel3GHk6NUnissnx",
-        "building_number" => "T3.6",
+        "building_number" => "T3.H6",
         "house_number" => 6,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 64,
+        "building_map_x" => 9.31,
+        "building_map_y" => 63.98,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:44"
       ],
       [
         "id" => 812,
@@ -12693,14 +12997,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "AwOE84QGUp6ggg0vYcllcsXvVVNxvpYi",
-        "building_number" => "T3.7",
+        "building_number" => "T3.H7",
         "house_number" => 7,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 62,
+        "building_map_x" => 8.31,
+        "building_map_y" => 60.87,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:05"
       ],
       [
         "id" => 813,
@@ -12709,14 +13013,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "8oyxygQbjcGWxnTlmWi4GNy8asmAymLg5fSUoQK",
-        "building_number" => "T3.8",
+        "building_number" => "T3.H8",
         "house_number" => 8,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 64,
+        "building_map_x" => 8.24,
+        "building_map_y" => 63.85,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:48"
       ],
       [
         "id" => 814,
@@ -12725,14 +13029,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "pVtJFnB2RMOtwZKb8cbSk6qJohUp80asKaUOdrpG",
-        "building_number" => "T3.9",
+        "building_number" => "T3.H9",
         "house_number" => 9,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 62,
+        "building_map_x" => 7.31,
+        "building_map_y" => 60.62,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:09"
       ],
       [
         "id" => 815,
@@ -12741,14 +13045,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "JbAwYRJRWjxgA4t6oWbh9UKmRikGX6W0JGyd7Frmy1HTeuadve",
-        "building_number" => "T3.10",
+        "building_number" => "T3.H10",
         "house_number" => 10,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 64,
+        "building_map_x" => 7.23,
+        "building_map_y" => 63.85,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:51"
       ],
       [
         "id" => 816,
@@ -12757,14 +13061,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "oGJ1gTTrBkrtIGBx8SXXGYzyLrssMw5aZ0qW",
-        "building_number" => "T3.11",
+        "building_number" => "T3.H11",
         "house_number" => 11,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 62,
+        "building_map_x" => 6.23,
+        "building_map_y" => 60.62,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:13"
       ],
       [
         "id" => 817,
@@ -12773,14 +13077,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "bZjxYeVTudGNCvWR6henCKZPkMHBxM97CR5ZieYz2N",
-        "building_number" => "T3.12",
+        "building_number" => "T3.H12",
         "house_number" => 12,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 64,
+        "building_map_x" => 6.16,
+        "building_map_y" => 63.73,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:55"
       ],
       [
         "id" => 818,
@@ -12789,14 +13093,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "KM62UQpTibasnRA8LFyj77OVuHf",
-        "building_number" => "T3.13",
+        "building_number" => "T3.H13",
         "house_number" => 13,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 62,
+        "building_map_x" => 5.16,
+        "building_map_y" => 60.49,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:17"
       ],
       [
         "id" => 819,
@@ -12805,30 +13109,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "LgE5vJvVS5eH1xstu0MC0Ny5yA5ZAB2r",
-        "building_number" => "T3.14",
+        "building_number" => "T3.H14",
         "house_number" => 14,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 64,
+        "building_map_x" => 5.09,
+        "building_map_y" => 63.35,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 82,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "sVEwvIHlmnpttLdn0QipmAORi6xa4XJtPY7lpWiOfTgFA",
-        "building_number" => "B5.A3",
-        "house_number" => "A3",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 64.57,
-        "building_map_y" => 61.02,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:54:57"
       ],
       [
         "id" => 820,
@@ -12837,14 +13125,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "31FBUwfML2N64rJaFFkRmx7rWZqNoobSke1AHVFFK7",
-        "building_number" => "T3.15",
+        "building_number" => "T3.H15",
         "house_number" => 15,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 62,
+        "building_map_x" => 4.16,
+        "building_map_y" => 60.49,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:20"
       ],
       [
         "id" => 821,
@@ -12853,14 +13141,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "5dSRrLvpQKj4P4OoEu67RZwlYwvPyZJxsmyx",
-        "building_number" => "T3.16",
+        "building_number" => "T3.H16",
         "house_number" => 16,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 64,
+        "building_map_x" => 4.01,
+        "building_map_y" => 63.23,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:00"
       ],
       [
         "id" => 822,
@@ -12869,14 +13157,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "cA0wmDBJSO3HhWVuVdLiM1otmbtNUfoXSbho",
-        "building_number" => "T3.17",
+        "building_number" => "T3.H17",
         "house_number" => 17,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 62,
+        "building_map_x" => 3.15,
+        "building_map_y" => 60.25,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:24"
       ],
       [
         "id" => 823,
@@ -12885,14 +13173,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "inbihzsbGgN3yr5Sh1tMJlBhJ6gHBpZU41dcu4sC7LPiQ",
-        "building_number" => "T3.18",
+        "building_number" => "T3.H18",
         "house_number" => 18,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 64,
+        "building_map_x" => 3.01,
+        "building_map_y" => 63.23,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:11"
       ],
       [
         "id" => 824,
@@ -12901,14 +13189,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Te2myaGhqSOkhA5wRELdRwJJdY17Cymddd54MoisM6f",
-        "building_number" => "T3.19",
+        "building_number" => "T3.H19",
         "house_number" => 19,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 62,
+        "building_map_x" => 2.15,
+        "building_map_y" => 60.12,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:54:30"
       ],
       [
         "id" => 825,
@@ -12917,14 +13205,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "4qXMxf7Ca9iIiFbWaIoCChdP9oS2dmPUE8slx6XS80rbd6nVx",
-        "building_number" => "T3.20",
+        "building_number" => "T3.H20",
         "house_number" => 20,
         "block_number" => "T3",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 64,
+        "building_map_x" => 1.87,
+        "building_map_y" => 63.11,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:14"
       ],
       [
         "id" => 826,
@@ -12933,14 +13221,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "cTBNcfJ4G9f3kA3CTooD2EOYtfvFoIJp5dIbO1wkZZpBxokMx",
-        "building_number" => "T4.1",
+        "building_number" => "T4.H1",
         "house_number" => 1,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 70,
+        "building_map_x" => 10.81,
+        "building_map_y" => 70.07,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:47"
       ],
       [
         "id" => 827,
@@ -12949,14 +13237,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Ef8AeYE7GN0XOKjKuRQNz36",
-        "building_number" => "T4.2",
+        "building_number" => "T4.H2",
         "house_number" => 2,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 72,
+        "building_map_x" => 10.6,
+        "building_map_y" => 73.06,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:32"
       ],
       [
         "id" => 828,
@@ -12965,14 +13253,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "fpfYtxGtPk3mqVgViSZjNCbCsc5eUbinhSd1yLBPsiyBqIBP",
-        "building_number" => "T4.3",
+        "building_number" => "T4.H3",
         "house_number" => 3,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 70,
+        "building_map_x" => 9.74,
+        "building_map_y" => 69.95,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:20"
       ],
       [
         "id" => 829,
@@ -12981,30 +13269,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "j8rIXX08EiXzBQg2oe9zpyh4zq0ffWYWxdZBDV34AgFze2t3o43zmRYc",
-        "building_number" => "T4.4",
+        "building_number" => "T4.H4",
         "house_number" => 4,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 72,
+        "building_map_x" => 9.52,
+        "building_map_y" => 72.81,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 83,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "jVUl0CHCBPiqBTdAxYwg6PxIsMPAO2ocg87eOM",
-        "building_number" => "B5.A4",
-        "house_number" => "A4",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 64.5,
-        "building_map_y" => 57.69,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:55:36"
       ],
       [
         "id" => 830,
@@ -13013,14 +13285,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "rbWryx2V1DuznVMqMZXY9aRhxlAvM4nBoOwcJFGTk1",
-        "building_number" => "T4.5",
+        "building_number" => "T4.H5",
         "house_number" => 5,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 70,
+        "building_map_x" => 8.59,
+        "building_map_y" => 69.82,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:23"
       ],
       [
         "id" => 831,
@@ -13029,14 +13301,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "FAMOADBLJtwZroJEMAI8b4y2qLvqRVNmQPLGr",
-        "building_number" => "T4.6",
+        "building_number" => "T4.H6",
         "house_number" => 6,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 72,
+        "building_map_x" => 8.52,
+        "building_map_y" => 72.56,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:40"
       ],
       [
         "id" => 832,
@@ -13045,14 +13317,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "90ogEXiqPM5A50Ge4v1UeMdADqZo3WqphIUPKkgpi1j2",
-        "building_number" => "T4.7",
+        "building_number" => "T4.H7",
         "house_number" => 7,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 70,
+        "building_map_x" => 7.59,
+        "building_map_y" => 69.7,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:28"
       ],
       [
         "id" => 833,
@@ -13061,14 +13333,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "wvGZYUsZhn6aB1yM5WTFV8rXBI8Ppnezd3",
-        "building_number" => "T4.8",
+        "building_number" => "T4.H8",
         "house_number" => 8,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 72,
+        "building_map_x" => 7.45,
+        "building_map_y" => 72.56,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:08"
       ],
       [
         "id" => 834,
@@ -13077,14 +13349,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "0sYGVtJe5WQB6GoQXG1nqk5n2Xbs",
-        "building_number" => "T4.9",
+        "building_number" => "T4.H9",
         "house_number" => 9,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 70,
+        "building_map_x" => 6.59,
+        "building_map_y" => 69.45,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:44"
       ],
       [
         "id" => 835,
@@ -13093,14 +13365,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "BKvJZ8TeSIM0smOcfb1N0r",
-        "building_number" => "T4.10",
+        "building_number" => "T4.H10",
         "house_number" => 10,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 72,
+        "building_map_x" => 6.38,
+        "building_map_y" => 72.19,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:12"
       ],
       [
         "id" => 836,
@@ -13109,14 +13381,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "k2MVAIDYNdZtRBil11IwCcttckIdSVkmOfbx9HD54CaP2lnktq8eyb6Qh",
-        "building_number" => "T4.11",
+        "building_number" => "T4.H11",
         "house_number" => 11,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 70,
+        "building_map_x" => 5.52,
+        "building_map_y" => 69.45,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:48"
       ],
       [
         "id" => 837,
@@ -13125,14 +13397,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "pbOtzX1vJ1oW73ZjInUdg8JEoGur9eA5EKhH41",
-        "building_number" => "T4.12",
+        "building_number" => "T4.H12",
         "house_number" => 12,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 72,
+        "building_map_x" => 5.3,
+        "building_map_y" => 72.43,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:16"
       ],
       [
         "id" => 838,
@@ -13141,14 +13413,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "kNaWtWbIP1S8hR1YdSG41vUhQRE",
-        "building_number" => "T4.13",
+        "building_number" => "T4.H13",
         "house_number" => 13,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 70,
+        "building_map_x" => 4.37,
+        "building_map_y" => 69.2,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:52"
       ],
       [
         "id" => 839,
@@ -13157,30 +13429,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "BKOifOIsl3JqHu8nx5hlD1ZWW6awerHqevCEObtCylZetxUi2QcZtdoMdO",
-        "building_number" => "T4.14",
+        "building_number" => "T4.H14",
         "house_number" => 14,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 72,
+        "building_map_x" => 4.3,
+        "building_map_y" => 72.06,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 84,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "AOPrzryNex9s4MwiPRj0Ld7kUJ1wMTp5i5TDPbGb",
-        "building_number" => "B5.A5",
-        "house_number" => "A5",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 63.32,
-        "building_map_y" => 61.02,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:56:19"
       ],
       [
         "id" => 840,
@@ -13189,14 +13445,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "sLOEqCeInxie3aJfjFy0xO245eRGfUzu",
-        "building_number" => "T4.15",
+        "building_number" => "T4.H15",
         "house_number" => 15,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 70,
+        "building_map_x" => 3.44,
+        "building_map_y" => 69.08,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:55:56"
       ],
       [
         "id" => 841,
@@ -13205,14 +13461,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "0ljzMSoCYzKrc6LQPYbKTA8LsnDY2h8",
-        "building_number" => "T4.16",
+        "building_number" => "T4.H16",
         "house_number" => 16,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 72,
+        "building_map_x" => 3.37,
+        "building_map_y" => 72.06,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:23"
       ],
       [
         "id" => 842,
@@ -13221,14 +13477,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "susxLiWxCqOqGmQXsbeCinI",
-        "building_number" => "T4.17",
+        "building_number" => "T4.H17",
         "house_number" => 17,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 70,
+        "building_map_x" => 2.37,
+        "building_map_y" => 69.08,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:01"
       ],
       [
         "id" => 843,
@@ -13237,14 +13493,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "F91CDQsZECQXBqCh1edFDrLO6AVM4k",
-        "building_number" => "T4.18",
+        "building_number" => "T4.H18",
         "house_number" => 18,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 72,
+        "building_map_x" => 2.3,
+        "building_map_y" => 71.94,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:26"
       ],
       [
         "id" => 844,
@@ -13253,14 +13509,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "ypBCRI9Mh89ivkaI1JrJO7eN",
-        "building_number" => "T4.19",
+        "building_number" => "T4.H19",
         "house_number" => 19,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 70,
+        "building_map_x" => 1.36,
+        "building_map_y" => 68.83,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:05"
       ],
       [
         "id" => 845,
@@ -13269,14 +13525,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "jB3SfktXc9elk8l2ruyQXqwTfq8x8DdnACoBQjfAAaD",
-        "building_number" => "T4.20",
+        "building_number" => "T4.H20",
         "house_number" => 20,
         "block_number" => "T4",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 72,
+        "building_map_x" => 1.15,
+        "building_map_y" => 71.81,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:56:30"
       ],
       [
         "id" => 846,
@@ -13285,14 +13541,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "vGsr42qBw6j47AdtIykot4KzTaCB56BEhInDBeGs47mHTmKjVU",
-        "building_number" => "T5.1",
+        "building_number" => "T5.H1",
         "house_number" => 1,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 82,
+        "building_map_x" => 9.88,
+        "building_map_y" => 80.64,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:20"
       ],
       [
         "id" => 847,
@@ -13301,14 +13557,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "MvkRtrNU8ejUNF7pLwq64CmXW38wFLBHHdPxX",
-        "building_number" => "T5.2",
+        "building_number" => "T5.H2",
         "house_number" => 2,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 9,
-        "building_map_y" => 84,
+        "building_map_x" => 9.67,
+        "building_map_y" => 83.26,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:38:25"
       ],
       [
         "id" => 848,
@@ -13317,14 +13573,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "8onzflNIPO0o4t5cJnXbkjegxxj7XyF72krBiGjrI",
-        "building_number" => "T5.3",
+        "building_number" => "T5.H3",
         "house_number" => 3,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 82,
+        "building_map_x" => 8.81,
+        "building_map_y" => 80.27,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:28"
       ],
       [
         "id" => 849,
@@ -13333,30 +13589,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "vJyA9RaUTMkUDtCaKL8Ggjs1wTRI1SIUq3hcWCyPToy5ypLTbGLIp8hK",
-        "building_number" => "T5.4",
+        "building_number" => "T5.H4",
         "house_number" => 4,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 8,
-        "building_map_y" => 84,
+        "building_map_x" => 8.67,
+        "building_map_y" => 83.26,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 85,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "o1yGhX74aqGGCrMinD2hn1Wv43Lt1PMIKCHnNFnd0aLDax99",
-        "building_number" => "B5.A6",
-        "house_number" => "A6",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 63.32,
-        "building_map_y" => 57.69,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:38:29"
       ],
       [
         "id" => 850,
@@ -13365,14 +13605,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Xley4J9UVE66uNq9xpCD7RYLofrKAqMjkaZA2EU8R55ixNYNKij",
-        "building_number" => "T5.5",
+        "building_number" => "T5.H5",
         "house_number" => 5,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 82,
+        "building_map_x" => 7.74,
+        "building_map_y" => 80.15,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:36"
       ],
       [
         "id" => 851,
@@ -13381,14 +13621,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "CPIEqZCXJMplwJNLPnreoZUaMtKZzDUTVzn0kp3Fzg",
-        "building_number" => "T5.6",
+        "building_number" => "T5.H6",
         "house_number" => 6,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 7,
-        "building_map_y" => 84,
+        "building_map_x" => 7.66,
+        "building_map_y" => 83.01,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:38:33"
       ],
       [
         "id" => 852,
@@ -13397,14 +13637,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Z6rpKrQ3n3LnofK3SxOeo7ZfZCTvy9MzqzHCbWX0ImOgBXu8E9f1GbZCJ",
-        "building_number" => "T5.7",
+        "building_number" => "T5.H7",
         "house_number" => 7,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 82,
+        "building_map_x" => 6.66,
+        "building_map_y" => 80.15,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:39"
       ],
       [
         "id" => 853,
@@ -13413,14 +13653,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "RLgweFNtUcJkABqRymuXCjqYl6pauKpvICsFwthluW3FG6C5nqFh3P",
-        "building_number" => "T5.8",
+        "building_number" => "T5.H8",
         "house_number" => 8,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 6,
-        "building_map_y" => 84,
+        "building_map_x" => 6.52,
+        "building_map_y" => 82.88,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:38:37"
       ],
       [
         "id" => 854,
@@ -13429,14 +13669,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "wvdf6oWb9RQNFziZHPDOX7OuyHfOWG0Ek8aQ",
-        "building_number" => "T5.9",
+        "building_number" => "T5.H9",
         "house_number" => 9,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 82,
+        "building_map_x" => 5.66,
+        "building_map_y" => 79.9,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:43"
       ],
       [
         "id" => 855,
@@ -13445,14 +13685,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "AtckHdVwgn75m2EgOYbNVC",
-        "building_number" => "T5.10",
+        "building_number" => "T5.H10",
         "house_number" => 10,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 5,
-        "building_map_y" => 84,
+        "building_map_x" => 5.59,
+        "building_map_y" => 82.88,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:21"
       ],
       [
         "id" => 856,
@@ -13461,14 +13701,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "0q5qVEJQW0CCyFwvgx2O1sXeAFURnsiDsbnPPsGUVxEAl",
-        "building_number" => "T5.11",
+        "building_number" => "T5.H11",
         "house_number" => 11,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 82,
+        "building_map_x" => 4.66,
+        "building_map_y" => 79.77,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:46"
       ],
       [
         "id" => 857,
@@ -13477,14 +13717,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "xcWgxe3y9cYBSFMI6DmS92BWOH",
-        "building_number" => "T5.12",
+        "building_number" => "T5.H12",
         "house_number" => 12,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 4,
-        "building_map_y" => 84,
+        "building_map_x" => 4.44,
+        "building_map_y" => 82.63,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:24"
       ],
       [
         "id" => 858,
@@ -13493,14 +13733,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "5Sgfv3EAn9wH2pervaMz4MdJnHdLxUS8zyPOdRwdLbRukwY2i4jgY82CDhu",
-        "building_number" => "T5.13",
+        "building_number" => "T5.H13",
         "house_number" => 13,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 82,
+        "building_map_x" => 3.51,
+        "building_map_y" => 79.77,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:50"
       ],
       [
         "id" => 859,
@@ -13509,30 +13749,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "CJ5qTYpxEHtRlTnXPg4MSQtpOVM2wc2lD4ZTXqaXeo9y1AeEWpcI9M",
-        "building_number" => "T5.14",
+        "building_number" => "T5.H14",
         "house_number" => 14,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 3,
-        "building_map_y" => 84,
+        "building_map_x" => 3.37,
+        "building_map_y" => 82.63,
         "created_at" => null,
-        "updated_at" => null
-      ],
-      [
-        "id" => 86,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "Zx0rbs1qmMN5w16hZOrrau12xaT3WQgP7Yedp1BOOx4yhiDC9M9pZRj",
-        "building_number" => "B5.A7",
-        "house_number" => "A7",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 62.07,
-        "building_map_y" => 60.89,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
+        "updated_at" => "2024-10-26 19:53:28"
       ],
       [
         "id" => 860,
@@ -13541,14 +13765,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "vYX41XI0PWIfyFagClHekGvB54KZS19d7TZA",
-        "building_number" => "T5.15",
+        "building_number" => "T5.H15",
         "house_number" => 15,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 82,
+        "building_map_x" => 2.58,
+        "building_map_y" => 79.65,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:55"
       ],
       [
         "id" => 861,
@@ -13557,14 +13781,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Q7yPZrvrWvR3pqlegYCMD38hpg6KXPXP5IQSa2rBFI6MQ",
-        "building_number" => "T5.16",
+        "building_number" => "T5.H16",
         "house_number" => 16,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 2,
-        "building_map_y" => 84,
+        "building_map_x" => 2.37,
+        "building_map_y" => 82.38,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:32"
       ],
       [
         "id" => 862,
@@ -13573,14 +13797,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "9hEfsi17gXcneXAeSHBK1uRgG3L39l1aku",
-        "building_number" => "T5.17",
+        "building_number" => "T5.H17",
         "house_number" => 17,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 82,
+        "building_map_x" => 1.44,
+        "building_map_y" => 79.4,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:35:59"
       ],
       [
         "id" => 863,
@@ -13589,14 +13813,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "Cg9EI2WkMKfbZYhhvfdwVTQ8PagnMwVvmcRUC6gFKOb9SVz2iGy",
-        "building_number" => "T5.18",
+        "building_number" => "T5.H18",
         "house_number" => 18,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 1,
-        "building_map_y" => 84,
+        "building_map_x" => 1.36,
+        "building_map_y" => 82.26,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:36"
       ],
       [
         "id" => 864,
@@ -13605,14 +13829,14 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "MKYGki4jUnALKqZeD8Y9zygTHmCNnt4gDSujNIjdlz",
-        "building_number" => "T5.19",
+        "building_number" => "T5.H19",
         "house_number" => 19,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 82,
+        "building_map_x" => 0.43,
+        "building_map_y" => 79.15,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:36:04"
       ],
       [
         "id" => 865,
@@ -13621,239 +13845,15 @@ class Building_Seeder extends Seeder
         "building_category_id" => 5,
         "building_type_id" => 2,
         "url_address" => "t5521wN4Fxa1PcXsq2MibgXrWyyuvSJLwDlxF4IB8T",
-        "building_number" => "T5.20",
+        "building_number" => "T5.H20",
         "house_number" => 20,
         "block_number" => "T5",
         "building_area" => 200,
-        "building_map_x" => 0,
-        "building_map_y" => 84,
+        "building_map_x" => 0.29,
+        "building_map_y" => 82.14,
         "created_at" => null,
-        "updated_at" => null
+        "updated_at" => "2024-10-26 19:53:41"
       ],
-      [
-        "id" => 87,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "AMKocipX4dfTe32StYAzD15q8xNPGUQllvtmNSnSQckBaY6ilZBi8zfnYX",
-        "building_number" => "B5.A8",
-        "house_number" => "A8",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 62.14,
-        "building_map_y" => 57.43,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 88,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "SL1oVQhm7j1WgvOLwL9AItuqRioU7HYZHLDLl7ZGOg7SL4X",
-        "building_number" => "B5.A9",
-        "house_number" => "A9",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 60.89,
-        "building_map_y" => 61.02,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 89,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "Ny1hMTojtESPimt6rd7IebxIBaAY2zxOz4YW9CzzeJpNzXnghFT2g5",
-        "building_number" => "B5.A10",
-        "house_number" => "A10",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 60.89,
-        "building_map_y" => 57.81,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 9,
-        "user_id_create" => null,
-        "user_id_update" => 1,
-        "building_category_id" => 3,
-        "building_type_id" => 1,
-        "url_address" => "TLNRE5l15fGOt1Np9XlUwmK1orIMpNKHR673H4WvMIDTpEwk6YJux5",
-        "building_number" => "B1.R9",
-        "house_number" => "R9",
-        "block_number" => "B1",
-        "building_area" => 200,
-        "building_map_x" => 73.7,
-        "building_map_y" => 79.7,
-        "created_at" => null,
-        "updated_at" => "11-Sep-24"
-      ],
-      [
-        "id" => 90,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "LEyO0J1uZ0PqnvIYsl5rBBxBLnCnw5RO56ZdMvuHDhnNltathVdk038",
-        "building_number" => "B5.A11",
-        "house_number" => "A11",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 59.63,
-        "building_map_y" => 61.14,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 91,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "TRDXVmwkX7Xc22Y33wesDI",
-        "building_number" => "B5.A12",
-        "house_number" => "A12",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 59.63,
-        "building_map_y" => 57.94,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 92,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "ZiaFvPyLyUTd33K7kGQ1bAX",
-        "building_number" => "B5.A13",
-        "house_number" => "A13",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 58.45,
-        "building_map_y" => 61.27,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 93,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "uvTVP1TmqNcYnONu76EV4FTFGxsIycVaUgz0ljG9H3",
-        "building_number" => "B5.A14",
-        "house_number" => "A14",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 58.45,
-        "building_map_y" => 57.94,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 94,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "FmKqiBLhgqzsckM6xJFBVcDGZmgHs",
-        "building_number" => "B5.A15",
-        "house_number" => "A15",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 57.2,
-        "building_map_y" => 61.4,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 95,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "nhhPq5gWaVMuw6LaJW36KEPiSppkFDhl0DkdCqo0ALZHjun6D",
-        "building_number" => "B5.A16",
-        "house_number" => "A16",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 57.2,
-        "building_map_y" => 57.81,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 96,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "M6fJW4iTODi7GxgqmV78IJjVrrI",
-        "building_number" => "B5.A17",
-        "house_number" => "A17",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 55.95,
-        "building_map_y" => 61.4,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 97,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "41NOg6Wtfs9hHGVPGboNUlHQh0CAF9x",
-        "building_number" => "B5.A18",
-        "house_number" => "A18",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 55.95,
-        "building_map_y" => 57.94,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 98,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "TRu90yByOlJKDTmpjbHUuT8d",
-        "building_number" => "B5.A19",
-        "house_number" => "A19",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 54.77,
-        "building_map_y" => 61.27,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ],
-      [
-        "id" => 99,
-        "user_id_create" => null,
-        "user_id_update" => null,
-        "building_category_id" => 1,
-        "building_type_id" => 1,
-        "url_address" => "KNUbcwzQwZjyP0DEEks7EnwBst",
-        "building_number" => "B5.A20",
-        "house_number" => "A20",
-        "block_number" => "B5",
-        "building_area" => 250,
-        "building_map_x" => 54.7,
-        "building_map_y" => 57.81,
-        "created_at" => null,
-        "updated_at" => "12-Sep-24"
-      ]
     ];
     foreach ($buildings as $building) {
       Building::create($building);
