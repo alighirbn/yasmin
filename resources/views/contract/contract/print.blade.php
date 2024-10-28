@@ -49,23 +49,23 @@
                                 </div>
                             </div>
 
-                            <div style="text-align: center; margin: 0 auto; font-size: 0.875rem;">
+                            <div style="text-align: center; margin: 0.8rem auto; font-size: 0.875rem;">
                                 <p><strong>عقد شراء دار في مجمع واحة الياسمين الاستثماري السكني - النجف الاشرف</strong>
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>الطرف الاول - البائع - إدارة مجمع واحة الياسمين الاستثماري السكني في النجف الاشرف
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>الطرف الاول - البائع - عبدالله صبحي عيسى / المدير المفوض لشركة بوابة العلم
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>الطرف الثاني - المشتري - {{ $contract->customer->customer_full_name }} بموجب الهوية
                                     المرقمة {{ $contract->customer->customer_card_number }}
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>إتفق الطرفان على ما يلي :</p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>اولاً - إستناد إلى إجازة الاستثمار المرقمة (318) والصادرة من هيئة إستثمار النجف
                                     الأشرف
                                     في (18-2-2024) ولتوفير دار سكني لدى الطرف الأول فقد اتفق الطرفان على قيام الطرف
@@ -77,8 +77,12 @@
                                     النجف
                                     الاشرف .</p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>ثانياً
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>ثانياً - يكون التعامل بالدينار العراقي فقط.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>ثالثاً
                                     - إن بدل شراء الدار مبلغاً إجمالياً قدره (
                                     {{ number_format($contract->contract_amount, 0) }}) دينار
                                     عراقي فقط لا غير. يكون تسديد مبلغ الدار على {{ $contract_installments->count() }}
@@ -98,29 +102,33 @@
                                     @endforeach
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>ثالثا - في حالة رغبة المشتري الاستفادة من تمويل أحد المصارف فيتم ذلك بموجب عقد منفصل
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>رابعاً - في حالة رغبة المشتري الاستفادة من قرض تمويل أحد المصارف فيتم ذلك بموجب عقد
+                                    منفصل
                                     بين
                                     الطرف الثاني والمصرف كما أن الطرف الأول. سيبذل الجهد من أجل استحصال موافقة أحد
-                                    المصارف
-                                    على تمويل ما يحدده المصرف من مبلغ للرهن من قيمة العقد على أن يبقى الاتفاق على هذا
-                                    التمويل وشروطه بين الطرف الثاني والمصرف بعيداً عن أي التزام على الطرف الأول.
+                                    المصارف عند توفر قرض التمويل
+                                    على ما يحدده المصرف من مبلغ للرهن من قيمة العقد على أن يبقى الاتفاق على هذا
+                                    التمويل وشروطه بين الطرف الثاني والمصرف بعيداً عن أي التزام على الطرف الأول بشرط
+                                    انزال مبلغ القرض في حساب الطرف الاول.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>رابعا - يلتزم الطرف الثاني بتسديد الأقساط المشار إليها في الفقرة (2-3) من بنود العقد
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>خامساً - يلتزم الطرف الثاني بتسديد الأقساط المشار إليها في الفقرة (ثالثاً-رابعاً) من
+                                    بنود العقد
                                     وفي
                                     الأوقات المحددة إزاء كل منها وفي حاله عدم تسديد الدفعات المستحقة أعلاه بوقتها المحدد
                                     أو
-                                    التلكؤ في تسديد الدفعة المستحقة بعد مرور 30 يوم من تاريخ الاستحقاق يحق للطرف الأول
+                                    التلكؤ في تسديد الدفعة المستحقة بعد مرور 15 يوم من تاريخ الاستحقاق يحق للطرف الأول
                                     فسخ
-                                    العقد دون الحاجه الى أي انذار رسمي واعادة تمليك الوحدة السكنية الى شخص اخر ويتم
+                                    العقد دون الحاجه الى أي انذار رسمي واعادة تمليك الوحدة السكنية الى شخص اخر بعد سحبها
+                                    من الطرف الثاني ويتم
                                     اعادة ما
                                     نسبتة (50%) من مجموع المبالغ المستلمة الى الطرف الثاني ويسقط حق الطرف الثاني
                                     بالمطالبة
                                     ببقيه المبلغ ويصبح من حق الطرف الأول ولا يحق للطرف الثاني المطالبة بهذا المبلغ
                                     مطلقاً مع
-                                    الاعتبار ان استفادة الطرف الثاني من مدة السماح البالغة (30 يوم) تكون لمرة واحده فقط
+                                    الاعتبار ان استفادة الطرف الثاني من مدة السماح البالغة (15 يوم) تكون لمرة واحده فقط
                                     وفي
                                     حاله تلكؤ الطرف الثاني مره أخرى فمن حق الطرف الأول فسخ العقد واعادة تمليك الوحدة
                                     السكنية
@@ -128,52 +136,76 @@
                                     الثاني المطالبة بالأموال التي سددها وتصبح من حق الطرف الاول.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>خامسا - في حاله رغبه الطرف الثاني (المشتري) ببيع الوحدة السكنية الى شخص اخر او
-                                    التنازل عن
-                                    العقد فيجب ان يقترن ذلك بموافقة الطرف الاول على أن يدفع الطرف الثاني رسوم لذلك تحدد
-                                    فيما
-                                    بعد من قبل الطرف الاول وعند تاريخ التحويل .
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>سادساً - في حالة رغبة الطرف الثاني فسخ العقد وتنظيم عقد لمشتري جديد فينظم عقد
+                                    للمستفيد الجديد بعد موافقة الطرف الاول ودفع الطرف الثاني مبلغ وقدرة 5،000،000 دينار
+                                    للطرف الاول كأجور تنظيم عقد جديد وتسري بنود هذا العقد الجديد على الطرف الذي تحول له
+                                    الوحدة السكنية.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>سادسا - لا يحق للطرف الثاني التنازل عن العقد او تحويله الى شخص اخر بالوكاله او
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>سابعاً - لا يحق للطرف الثاني التنازل عن العقد او تحويله الى شخص اخر بالوكاله او
                                     التخويل
                                     وانما يتم التنازل عن العقد بحضوره شخصياً ويكون التوقيع على التنازل من قبله بالذات .
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>سابعا - لا يحق للطرف الثاني مطالبه الطرف الأول باي اعمال خارج بنود العقد وخارج
-                                    التصاميم
-                                    الأساسية والمخططات الخاصة بالمشروع من خدمات اضافيه او فقرات مكمله خارج بنود العقد
-                                    وخارج
-                                    التصميم والمخططات الخاصة بالمشروع. وفي حاله القيام بها واكمالها فان الطرف الأول
-                                    يستحق
-                                    قيمتها وقت انشاءها واكمال العمل بها .
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>ثامناً - في حالة مطالبة الطرف الثاني اجراء بعض الاظافات الداخلية فقط للوحدة السكنية
+                                    يكون ملزم بدفع كافة النفقات والمصاريف بعد موافقة الطرف الاول والتنفيذ من قبل القسم
+                                    الهندسي للشركة حصراً.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>ثامنا - عند التعرض الى اي ظروف طارئه استثنائيه قاهره يراعى ذلك بالنسبه للمده الخاصه
-                                    بانهاء العمل ولاجل ذلك يحق للطرف الأول تمديد مد تسليم الوحدات السكنيه للفتره الخاصه
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>تاسعاً - عند التعرض الى اي ظروف طارئه استثنائيه قاهره يراعى ذلك بالنسبه للمده الخاصه
+                                    بانهاء العمل ولاجل ذلك يحق للطرف الأول تمديد مدة تسليم الوحدات السكنيه للفتره الخاصه
                                     بتوقف الاعمال نتيجه للظروف القاهره ويلتزم الطرف الثاني بقبول ذلك .
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>تاسعا - يلتزم الطرف الثاني بدفع جميع الرسوم والمصاريف المتعلقة للدوائر ذات العلاقة
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>عاشراً - يلتزم الطرف الثاني بدفع جميع الرسوم والمصاريف المتعلقة للدوائر ذات العلاقة
                                     اللازم
-                                    دفعها لتسجيل الوحدة السكنية بما في ذلك رسوم جميع الدوائر الخدمية.
+                                    دفعها لتسجيل الوحدة السكنية بما في ذلك رسوم جميع الدوائر الخدمية واتعاب المحاماة.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p>عاشرا - تكون مده تسليم الدار الى الطرف الثاني بمدة لا تتجاوز 30 شهرا من تاريخ توقيع
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>احد عشر - في حالة مطالبة الطرف الثاني بفسخ العقد لأي سبب كان يتم استقطاع 50 % من قيمة
+                                    المبلغ المدفوع من قبل الطرف الاول ولايحق للطرف الثاني المطالبة بأي مبلغ اخر.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>اثنى عشر - يلتزم الطرف الثاني بتقديم البيانات المطلوبة الخاصة به وتحديد محل اقامته
+                                    ويكون هذا المحل هو العنوان المختار للتبليغ والانذارات وعنده تغيره وجب عليه اعلام
+                                    الطرف الاول بالمحل الجديد والا يعتبر اخلالا بالالتزام.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>ثلاثة عشر - في حال غياب الطرف الثاني المستفيد او فقدانه او انقطعت اخباره او فارق
+                                    الحياة او فقد الاهلية ولم يراجع ذويه او راجعوا دون التوصل الى حل فيما يخص المبالغ
+                                    التي في ذمته الناشئة على الوحدة السكنية او استحالت تنفيذ التزاماته الواردة في هذا
+                                    العقد يتم ايداع الاموال المذكوره في الفقرة خامسا من هذا العقد 50% في الدوائر
+                                    المختصة.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>اربعة عشر - في حالة نشوء اي خلاف بين اطراف العقد يكون القضاء العراقي ومحكمة بداءة
+                                    النجف هي المختصة بالفصل في النزاع الناشئ.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>خمسة عشر - يلتزم الطرف الثاني بدفع اجور الخدمات وتشمل الحراسات ورفع النفايات والخدمات
+                                    التشغيلية الخاصة بالمشروع وتحدد من قبل الطرف الاول.
+                                </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>سته عشر - تكون مده تسليم الدار الى الطرف الثاني بمدة لا تتجاوز 36 شهرا من تاريخ توقيع
                                     العقد
                                     ولا يحق للطرف الثاني مطالبه الطرف الاول بتسليم الدار قبل هذة الفترة حتى وان تم تسجيل
                                     الدار بأسمه في
                                     دائرة التسجيل العقاري.
                                 </p>
                             </div>
-                            <div style="text-align: right; margin: 0 auto; font-size: 0.8rem; font-weight: bold;">
-                                <p> احد عشر - على بركة الله حرر هذا العقد في النجف الأشرف بتاريخ
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p> سبعة عشر - على بركة الله حرر هذا العقد في النجف الأشرف بتاريخ
                                     {{ $contract->contract_date }}</p>
                             </div>
                             <div class="flex ">
@@ -188,12 +220,14 @@
                                 </div>
                             </div>
                             <div class="flex">
-                                <div style="text-align: right; margin: 0 auto; font-size: 0.875rem; font-weight: bold;">
+                                <div
+                                    style="text-align: right; margin: 0.8rem auto; font-size: 0.875rem; font-weight: bold;">
                                     <p>{{ $contract->customer->customer_full_name }}</p>
                                 </div>
 
-                                <div style="text-align: right; margin: 0 auto; font-size: 0.875rem; font-weight: bold;">
-                                    <p>.....</p>
+                                <div
+                                    style="text-align: right; margin: 0.8rem auto; font-size: 0.875rem; font-weight: bold;">
+                                    <p>عبدالله صبحي عيسى / المدير المفوض</p>
                                 </div>
                             </div>
                         </div>
