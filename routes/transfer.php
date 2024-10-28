@@ -11,7 +11,7 @@ Route::group(['prefix' => 'transfer'], function () {
     Route::get('/', [ContractTransferHistoryController::class, 'index'])->middleware(['auth', 'verified', 'permission:transfer-list'])->name('transfer.index');
 
     //customercreate
-    Route::get('/customercreate', [ContractTransferHistoryController::class, 'customercreate'])->middleware(['auth', 'verified', 'permission:customer-create'])->name('transfer.customercreate');
+
     Route::post('/customercreate', [ContractTransferHistoryController::class, 'customerstore'])->middleware(['auth', 'verified', 'permission:customer-create'])->name('transfer.customerstore');
 
     //create

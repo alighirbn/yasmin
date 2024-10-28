@@ -93,23 +93,17 @@ class ContractTransferHistoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function customercreate()
-    {
-        return view('contract.transfer.customercreate');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function customerstore(CustomerRequest $request)
     {
         $customer = Customer::create($request->validated());
 
-        //inform the user
-        return redirect()->route('transfer.create')
-            ->with('success', 'تمت أضافة الزبون بنجاح ');
+        return response()->json([
+            'success' => true,
+            'message' => 'تمت إضافة الزبون بنجاح',
+            'customer' => $customer // Return the created customer data
+        ]);
     }
 
     /**

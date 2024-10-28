@@ -33,13 +33,86 @@
                             {{ __('word.back') }}
                         </a>
                         @can('customer-create')
-                            <a href="{{ route('transfer.customercreate') }}" class="my-1 mx-1 btn btn-custom-edit">
+                            <button id="openModal" class="btn btn-primary">
                                 {{ __('word.customer_add') }}
-                            </a>
+                            </button>
                         @endcan
 
                     </div>
+                    <!-- Modal Structure -->
+                    <div id="customerModal"
+                        class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
+                        <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
+                            <button id="closeModal" class=" text-gray-800 hover:text-gray-900">
+                                &times;
+                            </button>
+                            <form id="customerForm" method="post" action="{{ route('transfer.customerstore') }}">
+                                @csrf
+                                <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_info') }}
+                                </h1>
 
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
+                                        <x-text-input id="customer_full_name" class="w-full block mt-1" type="text"
+                                            name="customer_full_name" value="{{ old('customer_full_name') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
+                                        <x-text-input id="customer_phone" class="w-full block mt-1" type="text"
+                                            name="customer_phone" value="{{ old('customer_phone') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_email" class="w-full mb-1" :value="__('word.customer_email')" />
+                                        <x-text-input id="customer_email" class="w-full block mt-1" type="text"
+                                            name="customer_email" value="{{ old('customer_email') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_card') }}
+                                </h2>
+
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_card_number" class="w-full mb-1"
+                                            :value="__('word.customer_card_number')" />
+                                        <x-text-input id="customer_card_number" class="w-full block mt-1" type="text"
+                                            name="customer_card_number" value="{{ old('customer_card_number') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_card_issud_auth" class="w-full mb-1"
+                                            :value="__('word.customer_card_issud_auth')" />
+                                        <x-text-input id="customer_card_issud_auth" class="w-full block mt-1"
+                                            type="text" name="customer_card_issud_auth"
+                                            value="{{ old('customer_card_issud_auth') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_card_issud_date" class="w-full mb-1"
+                                            :value="__('word.customer_card_issud_date')" />
+                                        <x-text-input id="customer_card_issud_date" class="w-full block mt-1"
+                                            type="text" name="customer_card_issud_date"
+                                            value="{{ old('customer_card_issud_date') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mx-4 my-4 w-full">
+                                    <x-primary-button id="submitButton" class="ml-4">
+                                        {{ __('word.save') }}
+                                    </x-primary-button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <form action="{{ route('transfer.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
@@ -95,8 +168,9 @@
                                         :value="__('word.transfer_amount')" />
 
                                     <!-- Displayed input for formatted number -->
-                                    <x-text-input id="transfer_amount_display" class="w-full block mt-1" type="text"
-                                        value="{{ number_format(old('transfer_amount', 0), 0) }}" placeholder="0" />
+                                    <x-text-input id="transfer_amount_display" class="w-full block mt-1"
+                                        type="text" value="{{ number_format(old('transfer_amount', 0), 0) }}"
+                                        placeholder="0" />
 
                                     <!-- Hidden input for the actual number -->
                                     <input type="hidden" id="transfer_amount" name="transfer_amount"
@@ -126,7 +200,8 @@
                                                 class="btn btn-custom-edit mt-2">
                                                 {{ __('word.capture') }}
                                             </button>
-                                            <input type="hidden" id="old_customer_picture" name="old_customer_picture">
+                                            <input type="hidden" id="old_customer_picture"
+                                                name="old_customer_picture">
                                         </div>
                                     </div>
                                 </div>
@@ -159,6 +234,86 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('customerModal');
+            var closeModal = document.getElementById('closeModal');
+            var form = document.getElementById('customerForm');
+            var submitButton = document.getElementById('submitButton');
+            var customerSelect = document.getElementById('new_customer_id');
+
+            // Open the modal
+            document.getElementById('openModal').addEventListener('click', function() {
+                modal.classList.remove('hidden');
+            });
+
+            // Close the modal
+            closeModal.addEventListener('click', function() {
+                modal.classList.add('hidden');
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var formData = new FormData(form);
+
+                fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // alert(data.message); // Inform the user
+
+                            // Add the new customer to the select dropdown
+                            var newOption = document.createElement('option');
+                            newOption.value = data.customer.id;
+                            newOption.text = data.customer.customer_full_name;
+                            customerSelect.add(newOption);
+
+                            // Optionally set the new customer as selected
+                            customerSelect.value = data.customer.id;
+
+                            modal.classList.add('hidden'); // Close the modal
+                        } else {
+                            // Clear previous errors
+                            document.querySelectorAll('.input-error').forEach(element => {
+                                element.innerHTML = '';
+                            });
+
+                            // Display validation errors
+                            for (const [field, errors] of Object.entries(data.errors)) {
+                                const errorElement = document.querySelector(`#${field} ~ .input-error`);
+                                if (errorElement) {
+                                    errorElement.innerHTML = errors.join('<br>');
+                                }
+                            }
+
+                            // Re-enable the submit button and reset its text
+                            submitButton.textContent = '{{ __('word.save') }}';
+                            submitButton.disabled = false;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            // Prevent double submission
+            form.addEventListener('submit', function() {
+                submitButton.textContent = 'جاري الحفظ';
+                submitButton.disabled = true;
+            });
+        });
+    </script>
+
     <script>
         // Initialize WebcamJS for old customer
         Webcam.set({

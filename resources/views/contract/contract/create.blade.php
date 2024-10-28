@@ -19,192 +19,191 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
-                        <button id="openModal" class="btn btn-primary">
-                            {{ __('word.customer_add') }}
-                        </button>
+                        @can('customer-create')
+                            <button id="openModal" class="btn btn-primary">
+                                {{ __('word.customer_add') }}
+                            </button>
+                        @endcan
                     </div>
-                    <div>
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success">
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
 
-                        <!-- Modal Structure -->
-                        <div id="customerModal"
-                            class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
-                            <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
-                                <button id="closeModal"
-                                    class="absolute top-4 right-4 text-gray-600 hover:text-gray-900">
-                                    &times;
-                                </button>
-                                <form id="customerForm" method="post" action="{{ route('contract.customerstore') }}">
-                                    @csrf
-                                    <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
-                                        {{ __('word.customer_info') }}
-                                    </h1>
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
 
-                                    <div class="flex">
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_full_name" class="w-full mb-1"
-                                                :value="__('word.customer_full_name')" />
-                                            <x-text-input id="customer_full_name" class="w-full block mt-1"
-                                                type="text" name="customer_full_name"
-                                                value="{{ old('customer_full_name') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
-                                            <x-text-input id="customer_phone" class="w-full block mt-1" type="text"
-                                                name="customer_phone" value="{{ old('customer_phone') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_email" class="w-full mb-1" :value="__('word.customer_email')" />
-                                            <x-text-input id="customer_email" class="w-full block mt-1" type="text"
-                                                name="customer_email" value="{{ old('customer_email') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
+                    <!-- Modal Structure -->
+                    <div id="customerModal"
+                        class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
+                        <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
+                            <button id="closeModal" class=" text-gray-800 hover:text-gray-900">
+                                &times;
+                            </button>
+                            <form id="customerForm" method="post" action="{{ route('contract.customerstore') }}">
+                                @csrf
+                                <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_info') }}
+                                </h1>
+
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
+                                        <x-text-input id="customer_full_name" class="w-full block mt-1" type="text"
+                                            name="customer_full_name" value="{{ old('customer_full_name') }}" />
+                                        <div class="input-error w-full mt-2"></div>
                                     </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
+                                        <x-text-input id="customer_phone" class="w-full block mt-1" type="text"
+                                            name="customer_phone" value="{{ old('customer_phone') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_email" class="w-full mb-1" :value="__('word.customer_email')" />
+                                        <x-text-input id="customer_email" class="w-full block mt-1" type="text"
+                                            name="customer_email" value="{{ old('customer_email') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
 
-                                    <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
-                                        {{ __('word.customer_card') }}
-                                    </h2>
+                                <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_card') }}
+                                </h2>
 
-                                    <div class="flex">
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_card_number" class="w-full mb-1"
-                                                :value="__('word.customer_card_number')" />
-                                            <x-text-input id="customer_card_number" class="w-full block mt-1"
-                                                type="text" name="customer_card_number"
-                                                value="{{ old('customer_card_number') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
-
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_card_issud_auth" class="w-full mb-1"
-                                                :value="__('word.customer_card_issud_auth')" />
-                                            <x-text-input id="customer_card_issud_auth" class="w-full block mt-1"
-                                                type="text" name="customer_card_issud_auth"
-                                                value="{{ old('customer_card_issud_auth') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
-
-                                        <div class="mx-4 my-4 w-full">
-                                            <x-input-label for="customer_card_issud_date" class="w-full mb-1"
-                                                :value="__('word.customer_card_issud_date')" />
-                                            <x-text-input id="customer_card_issud_date" class="w-full block mt-1"
-                                                type="text" name="customer_card_issud_date"
-                                                value="{{ old('customer_card_issud_date') }}" />
-                                            <div class="input-error w-full mt-2"></div>
-                                        </div>
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_card_number" class="w-full mb-1"
+                                            :value="__('word.customer_card_number')" />
+                                        <x-text-input id="customer_card_number" class="w-full block mt-1" type="text"
+                                            name="customer_card_number" value="{{ old('customer_card_number') }}" />
+                                        <div class="input-error w-full mt-2"></div>
                                     </div>
 
                                     <div class="mx-4 my-4 w-full">
-                                        <x-primary-button id="submitButton" class="ml-4">
-                                            {{ __('word.save') }}
-                                        </x-primary-button>
+                                        <x-input-label for="customer_card_issud_auth" class="w-full mb-1"
+                                            :value="__('word.customer_card_issud_auth')" />
+                                        <x-text-input id="customer_card_issud_auth" class="w-full block mt-1"
+                                            type="text" name="customer_card_issud_auth"
+                                            value="{{ old('customer_card_issud_auth') }}" />
+                                        <div class="input-error w-full mt-2"></div>
                                     </div>
-                                </form>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="customer_card_issud_date" class="w-full mb-1"
+                                            :value="__('word.customer_card_issud_date')" />
+                                        <x-text-input id="customer_card_issud_date" class="w-full block mt-1"
+                                            type="text" name="customer_card_issud_date"
+                                            value="{{ old('customer_card_issud_date') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mx-4 my-4 w-full">
+                                    <x-primary-button id="submitButton" class="ml-4">
+                                        {{ __('word.save') }}
+                                    </x-primary-button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <form method="post" action="{{ route('contract.store') }}">
+                        @csrf
+
+                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
+                            {{ __('word.contract_info') }}
+                        </h1>
+
+                        <div class="flex ">
+                            <div class="mx-4 my-4 w-full">
+                                <x-input-label for="contract_customer_id" class="w-full mb-1" :value="__('word.contract_customer_id')" />
+                                <select id="contract_customer_id" class="js-example-basic-single w-full block mt-1"
+                                    name="contract_customer_id" data-placeholder="ادخل اسم الزبون">
+                                    <option value=""></option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}"
+                                            {{ old('contract_customer_id') == $customer->id ? 'selected' : '' }}>
+                                            {{ $customer->customer_full_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('contract_customer_id')" class="w-full mt-2" />
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full">
+                                <x-input-label for="contract_building_id" class="w-full mb-1" :value="__('word.contract_building_id')" />
+                                <select id="contract_building_id" class="js-example-basic-single w-full block mt-1"
+                                    name="contract_building_id" data-placeholder="ادخل رقم العقار">
+                                    <option value=""></option>
+                                    @foreach ($buildings as $building)
+                                        <option value="{{ $building->id }}"
+                                            {{ $building->id == $building_id ? 'selected' : '' }}>
+                                            {{ $building->building_number }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <x-input-error :messages="$errors->get('contract_building_id')" class="w-full mt-2" />
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full">
+                                <x-input-label for="contract_payment_method_id" class="w-full mb-1"
+                                    :value="__('word.contract_payment_method_id')" />
+                                <select id="contract_payment_method_id"
+                                    class="js-example-basic-single w-full block mt-1 "
+                                    name="contract_payment_method_id"data-placeholder="ادخل طريقة الدفع">
+                                    <option value="">
+
+                                    </option>
+                                    @foreach ($payment_methods as $payment_method)
+                                        <option value="{{ $payment_method->id }}"
+                                            {{ old('contract_payment_method_id') == $payment_method->id ? 'selected' : '' }}>
+                                            {{ $payment_method->method_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('contract_payment_method_id')" class="w-full mt-2" />
                             </div>
                         </div>
 
-                        <form method="post" action="{{ route('contract.store') }}">
-                            @csrf
+                        <div class="flex">
 
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4 my-8 w-full">
-                                {{ __('word.contract_info') }}
-                            </h1>
+                            <div class=" mx-4 my-4 w-full">
+                                <x-input-label for="contract_date" class="w-full mb-1" :value="__('word.contract_date')" />
+                                <x-text-input id="contract_date" class="w-full block mt-1" type="text"
+                                    name="contract_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                    placeholder="yyyy-mm-dd" />
+                                <x-input-error :messages="$errors->get('contract_date')" class="w-full mt-2" />
+                            </div>
 
-                    </div>
-                    <div class="flex ">
-                        <div class="mx-4 my-4 w-full">
-                            <x-input-label for="contract_customer_id" class="w-full mb-1" :value="__('word.contract_customer_id')" />
-                            <select id="contract_customer_id" class="js-example-basic-single w-full block mt-1"
-                                name="contract_customer_id" data-placeholder="ادخل اسم الزبون">
-                                <option value=""></option>
-                                @foreach ($customers as $customer)
-                                    <option value="{{ $customer->id }}"
-                                        {{ old('contract_customer_id') == $customer->id ? 'selected' : '' }}>
-                                        {{ $customer->customer_full_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('contract_customer_id')" class="w-full mt-2" />
+                            <div class="mx-4 my-4 w-full">
+                                <x-input-label for="contract_amount_display" class="w-full mb-1" :value="__('word.contract_amount')" />
+
+                                <!-- Displayed input for formatted number -->
+                                <x-text-input id="contract_amount_display" class="w-full block mt-1" type="text"
+                                    value="{{ number_format(old('contract_amount', 0), 0) }}" placeholder="0" />
+
+                                <!-- Hidden input for the actual number -->
+                                <input type="hidden" id="contract_amount" name="contract_amount"
+                                    value="{{ old('contract_amount') }}">
+
+                                <x-input-error :messages="$errors->get('contract_amount')" class="w-full mt-2" />
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full">
+                                <x-input-label for="contract_note" class="w-full mb-1" :value="__('word.contract_note')" />
+                                <x-text-input id="contract_note" class="w-full block mt-1" type="text"
+                                    name="contract_note" value="{{ old('contract_note') }}" />
+                                <x-input-error :messages="$errors->get('contract_note')" class="w-full mt-2" />
+                            </div>
+
                         </div>
 
                         <div class=" mx-4 my-4 w-full">
-                            <x-input-label for="contract_building_id" class="w-full mb-1" :value="__('word.contract_building_id')" />
-                            <select id="contract_building_id" class="js-example-basic-single w-full block mt-1"
-                                name="contract_building_id" data-placeholder="ادخل رقم العقار">
-                                <option value=""></option>
-                                @foreach ($buildings as $building)
-                                    <option value="{{ $building->id }}"
-                                        {{ $building->id == $building_id ? 'selected' : '' }}>
-                                        {{ $building->building_number }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            <x-input-error :messages="$errors->get('contract_building_id')" class="w-full mt-2" />
+                            <x-primary-button x-primary-button class="ml-4">
+                                {{ __('word.save') }}
+                            </x-primary-button>
                         </div>
-
-                        <div class=" mx-4 my-4 w-full">
-                            <x-input-label for="contract_payment_method_id" class="w-full mb-1" :value="__('word.contract_payment_method_id')" />
-                            <select id="contract_payment_method_id" class="js-example-basic-single w-full block mt-1 "
-                                name="contract_payment_method_id"data-placeholder="ادخل طريقة الدفع">
-                                <option value="">
-
-                                </option>
-                                @foreach ($payment_methods as $payment_method)
-                                    <option value="{{ $payment_method->id }}"
-                                        {{ old('contract_payment_method_id') == $payment_method->id ? 'selected' : '' }}>
-                                        {{ $payment_method->method_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('contract_payment_method_id')" class="w-full mt-2" />
-                        </div>
-                    </div>
-
-                    <div class="flex">
-
-                        <div class=" mx-4 my-4 w-full">
-                            <x-input-label for="contract_date" class="w-full mb-1" :value="__('word.contract_date')" />
-                            <x-text-input id="contract_date" class="w-full block mt-1" type="text"
-                                name="contract_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                placeholder="yyyy-mm-dd" />
-                            <x-input-error :messages="$errors->get('contract_date')" class="w-full mt-2" />
-                        </div>
-
-                        <div class="mx-4 my-4 w-full">
-                            <x-input-label for="contract_amount_display" class="w-full mb-1" :value="__('word.contract_amount')" />
-
-                            <!-- Displayed input for formatted number -->
-                            <x-text-input id="contract_amount_display" class="w-full block mt-1" type="text"
-                                value="{{ number_format(old('contract_amount', 0), 0) }}" placeholder="0" />
-
-                            <!-- Hidden input for the actual number -->
-                            <input type="hidden" id="contract_amount" name="contract_amount"
-                                value="{{ old('contract_amount') }}">
-
-                            <x-input-error :messages="$errors->get('contract_amount')" class="w-full mt-2" />
-                        </div>
-
-                        <div class=" mx-4 my-4 w-full">
-                            <x-input-label for="contract_note" class="w-full mb-1" :value="__('word.contract_note')" />
-                            <x-text-input id="contract_note" class="w-full block mt-1" type="text"
-                                name="contract_note" value="{{ old('contract_note') }}" />
-                            <x-input-error :messages="$errors->get('contract_note')" class="w-full mt-2" />
-                        </div>
-
-                    </div>
-
-                    <div class=" mx-4 my-4 w-full">
-                        <x-primary-button x-primary-button class="ml-4">
-                            {{ __('word.save') }}
-                        </x-primary-button>
-                    </div>
                     </form>
                 </div>
             </div>
