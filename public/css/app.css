@@ -83,6 +83,20 @@
     /* Text color */
 }
 
+.btn-custom-archive {
+    background-color: #d33bbc;
+    /* Replace with your desired color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.btn-custom-archive:hover {
+    background-color: #af30b8;
+    /* Darker shade on hover */
+    color: #ffffff;
+    /* Text color */
+}
+
 
 
 .btn-custom-statement {

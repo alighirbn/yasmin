@@ -121,6 +121,8 @@ return [
     'authenticated_at' => 'مصادق عليه في',
     'contract_accept' => 'قبول العقد',
     'contract_authenticat' => 'مصادقة العقد',
+    'contract_archive' => 'اضافة مرفق',
+    'archiveshow' => 'المرفقات',
 
     //************************************* transfer        *******************************************
 

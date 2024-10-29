@@ -35,6 +35,10 @@ Route::group(['prefix' => 'contract'], function () {
     //authenticat 
     Route::get('/authenticat/{url_address}', [ContractController::class, 'authenticat'])->middleware(['auth', 'verified', 'permission:contract-authenticat'])->name('contract.authenticat');
 
+    //archive
+    Route::get('/archiveshow/{url_address}', [ContractController::class, 'archiveshow'])->middleware(['auth', 'verified', 'permission:contract-archiveshow'])->name('contract.archiveshow');
+    Route::get('/archive/{url_address}', [ContractController::class, 'archivecreate'])->middleware(['auth', 'verified', 'permission:contract-archive'])->name('contract.archivecreate');
+    Route::post('/archive/{url_address}', [ContractController::class, 'archivestore'])->middleware(['auth', 'verified', 'permission:contract-archive'])->name('contract.archivestore');
 
     //statement
     Route::get('/statement/{url_address}', [ContractController::class, 'statement'])->middleware(['auth', 'verified', 'permission:contract-statement'])->name('contract.statement');

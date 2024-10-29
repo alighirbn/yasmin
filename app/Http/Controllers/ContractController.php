@@ -20,6 +20,7 @@ use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContractController extends Controller
 {
@@ -45,6 +46,54 @@ class ContractController extends Controller
         ]);
     }
 
+    public function archivecreate(string $url_address)
+    {
+        // Retrieve the contract with necessary relationships
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+
+        return view('contract.contract.archivecreate', compact(['contract']));
+    }
+
+    public function archivestore(Request $request, string $url_address)
+    {
+        // Retrieve the contract
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+
+        $request->validate([
+            'images' => 'required|array',
+            'images.*' => 'string', // Expecting an array of base64 strings
+        ]);
+
+        foreach ($request->input('images') as $image) {
+            // Decode the base64 string
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = 'contract_image_' . time() . '_' . uniqid() . '.jpeg'; // Unique names for each image
+            $imagePath = 'public/contract_images/' . $imageName;
+            // Save the image to storage
+            Storage::put($imagePath, base64_decode($image));
+
+            // Store the image path in the database
+            $contract->images()->create(['image_path' => str_replace('public/', 'storage/', $imagePath)]);
+        }
+
+        return redirect()->route('contract.show', $contract->url_address)->with('success', 'Images uploaded successfully.');
+    }
+
+
+    public function archiveshow(string $url_address)
+    {
+        // Retrieve the contract with necessary relationships
+        $contract = Contract::with('images')->where('url_address', '=', $url_address)->first();
+
+
+        if (isset($contract)) {
+            return view('contract.contract.archiveshow', compact(['contract']));
+        } else {
+            $ip = $this->getIPAddress();
+            return view('contract.transfer.accessdenied', ['ip' => $ip]);
+        }
+    }
 
 
     /**
@@ -138,7 +187,7 @@ class ContractController extends Controller
     public function show(string $url_address)
     {
         // Retrieve the contract with necessary relationships
-        $contract = Contract::with(['customer', 'building', 'payment_method'])
+        $contract = Contract::with(['customer', 'building', 'payment_method', 'images'])
             ->where('url_address', '=', $url_address)
             ->first();
 

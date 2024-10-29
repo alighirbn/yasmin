@@ -42,13 +42,35 @@
 
                         @endcan
                         @can('contract-authenticat')
-                            @if ($contract->stage == 'accepted')
+                            @if (
+                                $contract->stage == 'accepted' &&
+                                    count($contract->images) >= 1 &&
+                                    $contract->payments->where('approved', true)->count() >= 1)
                                 <a href="{{ route('contract.authenticat', $contract->url_address) }}"
                                     class="btn btn-custom-approve">
                                     {{ __('word.contract_authenticat') }}
                                 </a>
                             @endif
 
+                        @endcan
+                        @can('contract-archive')
+                            @if ($contract->stage != 'temporary' && $contract->payments->where('approved', true)->count() >= 1)
+                                <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
+                                    class="btn btn-custom-archive">
+                                    {{ __('word.contract_archive') }}
+                                </a>
+                            @endif
+                        @endcan
+                        @can('contract-archiveshow')
+                            @if (
+                                $contract->stage != 'temporary' &&
+                                    $contract->payments->where('approved', true)->count() >= 1 &&
+                                    count($contract->images) >= 1)
+                                <a href="{{ route('contract.archiveshow', $contract->url_address) }}"
+                                    class="btn btn-custom-archive">
+                                    {{ __('word.archiveshow') }}
+                                </a>
+                            @endif
                         @endcan
                         @can('contract-due')
                             <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
@@ -65,15 +87,14 @@
                                 {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
                             </a>
                         @endcan
-                        @if ($contract->stage == 'authenticated')
-                            @can('contract-print')
+                        @can('contract-print')
+                            @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
                                 <a href="{{ route('contract.print', $contract->url_address) }}"
                                     class="btn btn-custom-print">
                                     {{ __('word.contract_print') }}
                                 </a>
-                            @endcan
-                        @endif
-
+                            @endif
+                        @endcan
                         @can('transfer-create')
                             <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
                                 class="btn btn-custom-transfer">

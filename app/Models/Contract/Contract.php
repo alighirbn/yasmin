@@ -62,6 +62,10 @@ class Contract extends Model
         return $this->belongsTo(Payment_Method::class, 'contract_payment_method_id', 'id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ContractArchive::class, 'contract_id', 'id');
+    }
 
     public function user_create()
     {
