@@ -59,14 +59,13 @@
         {{ __('word.map_due_installments_60') }}
     </a>
 @endcan
-@can('map-edit')
-    <a href="{{ route('map.edit') }}" class="me-3 {{ request()->routeIs('map.edit') ? 'underline-active' : '' }}">
-        {{ __('word.map_edit') }}
-    </a>
-@endcan
-
 @can('map-hidden')
     <a href="{{ route('map.hidden') }}" class="me-3 {{ request()->routeIs('map.hidden') ? 'underline-active' : '' }}">
         {{ __('word.map_hidden') }}
+    </a>
+@endcan
+@can('map-edit')
+    <a href="{{ route('map.edit') }}" class="me-3 {{ request()->routeIs('map.edit') ? 'underline-active' : '' }}">
+        {{ __('word.map_edit') }}
     </a>
 @endcan

@@ -29,12 +29,12 @@
                 mix-blend-mode: multiply;
             }
 
-            .visible {
+            a.visible {
                 background-color: rgb(108, 220, 254);
                 /* Green */
             }
 
-            .hidden {
+            a.hidden {
                 background-color: red;
                 /* Red */
             }

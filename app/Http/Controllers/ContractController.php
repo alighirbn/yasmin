@@ -106,7 +106,7 @@ class ContractController extends Controller
         $building_id = $request->input('building_id'); // Retrieve building_id from request
 
         // Fetch all buildings
-        $buildings = Building::doesntHave('contract')->get();
+        $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
 
         return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id']));
     }
