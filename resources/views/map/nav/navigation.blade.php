@@ -64,3 +64,9 @@
         {{ __('word.map_edit') }}
     </a>
 @endcan
+
+@can('map-hidden')
+    <a href="{{ route('map.hidden') }}" class="me-3 {{ request()->routeIs('map.hidden') ? 'underline-active' : '' }}">
+        {{ __('word.map_hidden') }}
+    </a>
+@endcan

@@ -38,6 +38,21 @@ class BuildingController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function toggleVisibility(Request $request, $id)
+    {
+        // Find the building by its ID
+        $building = Building::findOrFail($id);
+
+        // Toggle the 'hidden' attribute
+        $building->hidden = !$building->hidden;
+
+        // Save the updated building
+        $building->save();
+
+        // Optionally return a response
+        return response()->json(['success' => true, 'hidden' => $building->hidden]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

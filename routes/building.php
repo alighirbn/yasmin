@@ -21,7 +21,8 @@ Route::group(['prefix' => 'building'], function () {
     Route::get('/edit/{url_address}', [BuildingController::class, 'edit'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.edit');
     Route::patch('/update/{url_address}', [BuildingController::class, 'update'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.update');
     Route::post('/update-building-coordinates/{id}', [BuildingController::class, 'updateCoordinates'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.updateCoordinates');
-
+    //toggleVisibility
+    Route::post('/{id}/toggle', [BuildingController::class, 'toggleVisibility'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.toggleVisibility');
     //delete
 
     Route::delete('/delete/{url_address}', [BuildingController::class, 'destroy'])->middleware(['auth', 'verified', 'permission:building-delete'])->name('building.destroy');

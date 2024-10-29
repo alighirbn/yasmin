@@ -30,6 +30,12 @@ class MapController extends Controller
         return view('map.edit', compact('buildings'));
     }
 
+    public function hidden()
+    {
+        $buildings = Building::all();
+        return view('map.hidden', compact('buildings'));
+    }
+
     public function draw()
     {
         $buildings = Building::all();
@@ -38,7 +44,8 @@ class MapController extends Controller
 
     public function empty()
     {
-        $buildings = Building::doesntHave('contract')->get();
+        // Exclude buildings that are marked as hidden
+        $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
         return view('map.empty', compact('buildings'));
     }
 

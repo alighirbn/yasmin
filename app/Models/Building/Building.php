@@ -41,6 +41,7 @@ class Building extends Model
     protected $fillable = [
         'url_address',
 
+        'hidden',
         'building_number',
         'block_number',
         'house_number',

@@ -21,6 +21,9 @@ Route::group(['prefix' => 'map'], function () {
     //edit
     Route::get('/edit', [MapController::class, 'edit'])->middleware(['auth', 'verified', 'permission:map-edit'])->name('map.edit');
 
+    //edit
+    Route::get('/hidden', [MapController::class, 'hidden'])->middleware(['auth', 'verified', 'permission:map-hidden'])->name('map.hidden');
+
     //index
     Route::get('/due', [MapController::class, 'due'])->middleware(['auth', 'verified', 'permission:map-due'])->name('map.due');
 });

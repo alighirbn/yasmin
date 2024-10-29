@@ -28,6 +28,7 @@ class Permission_Seeder extends Seeder
             'building-update',
             'building-delete',
 
+
             //**************************customer******************************* */
             //customer permissions
             'customer-list',
@@ -121,6 +122,8 @@ class Permission_Seeder extends Seeder
             'map-contract',
             'map-due',
             'map-edit',
+            'map-hidden',
+
 
             //**************************user******************************* */
 
