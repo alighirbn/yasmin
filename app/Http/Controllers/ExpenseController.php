@@ -51,7 +51,8 @@ class ExpenseController extends Controller
         $expense = Expense::where('url_address', $url_address)->first();
 
         if (isset($expense)) {
-            return view('expense.show', compact('expense'));
+            $cash_accounts = Cash_Account::all();
+            return view('expense.show', compact(['expense', 'cash_accounts']));
         } else {
             $ip = $this->getIPAddress();
             return view('expense.accessdenied', ['ip' => $ip]);
@@ -128,7 +129,7 @@ class ExpenseController extends Controller
     /**
      * Approve the expense and create a transaction.
      */
-    public function approve(string $url_address)
+    public function approve(Request $request, string $url_address)
     {
         $expense = Expense::where('url_address', $url_address)->first();
 
@@ -136,8 +137,13 @@ class ExpenseController extends Controller
             // Approve the expense
             $expense->approve();
 
+            $cash_account_id = $request->cash_account_id;
+            $expense->cash_account_id = $cash_account_id;
+            $expense->save(); // Save the updated payment model
+
+
             // Adjust cash account balance
-            $cashAccount = Cash_Account::find(1); // or find based on your logic
+            $cashAccount = Cash_Account::find($cash_account_id); // or find based on your logic
             $cashAccount->adjustBalance($expense->expense_amount, 'debit');
 
             // Create a transaction for the approved expense

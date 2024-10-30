@@ -75,15 +75,7 @@
                                                         class="btn btn-custom-show">
                                                         {{ __('word.view') }}
                                                     </a>
-                                                    <form
-                                                        action="{{ route('payment.approve', $payment->url_address) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="btn btn-custom-edit">
-                                                            {{ __('word.payment_approve') }}
-                                                        </button>
-                                                    </form>
+
                                                 </div>
                                             </td>
                                             <td>{{ $payment->id }}</td>

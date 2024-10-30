@@ -35,7 +35,7 @@
             }
 
             a.hidden {
-                background-color: red;
+                background-color: black;
                 /* Red */
             }
 
@@ -81,25 +81,30 @@
     </div>
 
     <script>
+        const toggleVisibilityUrl = "{{ route('building.toggleVisibility', ':id') }}";
+
         function toggleVisibility(event, buildingId) {
             const target = event.currentTarget;
             target.classList.toggle('hidden');
             target.classList.toggle('visible');
 
-            // Optionally send an AJAX request to update the visibility in the database
-            fetch(`/building/${buildingId}/toggle`, {
+            // Replace ':id' with the actual building ID
+            const url = toggleVisibilityUrl.replace(':id', buildingId);
+
+            fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        /* any necessary data */
-                    })
+                    }
                 })
-                .then(response => {
-                    if (!response.ok) {
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
                         console.error('Failed to update visibility');
+                        // Optionally revert the class toggle if the update fails
+                        target.classList.toggle('hidden');
+                        target.classList.toggle('visible');
                     }
                 })
                 .catch(error => console.error('Error:', error));

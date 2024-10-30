@@ -18,6 +18,7 @@ class Expense extends Model
         'expense_date',
         'expense_note',
         'approved', // New field
+        'cash_account_id',
         'user_id_create',
         'user_id_update',
     ];

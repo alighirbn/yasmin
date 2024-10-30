@@ -23,6 +23,9 @@ return new class extends Migration
             $table->text('expense_note')->nullable(); // Optional notes about the expense
             $table->boolean('approved')->default(false); // New field for approval status
 
+            $table->unsignedBigInteger('cash_account_id')->nullable();
+            $table->foreign('cash_account_id')->references('id')->on('cash_accounts')->onDelete('cascade');
+
             $table->unsignedBigInteger('user_id_create')->nullable();
             $table->foreign('user_id_create')->references('id')->on('users');
 

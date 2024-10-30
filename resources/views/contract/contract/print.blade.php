@@ -54,7 +54,8 @@
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
-                                <p>الطرف الاول - البائع - عبدالله صبحي عيسى / المدير المفوض لشركة بوابة العلم
+                                <p>الطرف الاول - البائع - عبدالله صبحي عيسى / المدير المفوض لشركة بوابة العلم للمقاولات
+                                    والتجارة العامة والاستثمارات العقارية محدودة المسؤولية.
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
@@ -100,6 +101,8 @@
                                             ' دينار عراقي فقط لا غير. ' }}
                                         <br>
                                     @endforeach
+                                    وفي حالة تم تسليم الدار قبل انهاء الدفعات يلتزم الطرف الثاني بدفع جميع الدفعات
+                                    المتبقية قبل التسليم.
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
