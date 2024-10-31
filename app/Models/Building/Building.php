@@ -26,6 +26,14 @@ class Building extends Model
         return $this->belongsTo(Building_Category::class, 'building_category_id', 'id');
     }
 
+    public function calculatePrice()
+    {
+        $defaultValue = DefaultValue::first(); // Get the first/default record
+        if ($defaultValue) {
+            return $this->building_area * $defaultValue->price_per_meter;
+        }
+        return 0; // or handle as needed if no default value is set
+    }
 
 
     public function user_create()

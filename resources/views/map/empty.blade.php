@@ -63,7 +63,7 @@
                         @foreach ($buildings as $building)
                             <div class="overlay-div"
                                 style="top: {{ $building->building_map_y }}%; left: {{ $building->building_map_x }}%;"
-                                data-tooltip=" {{ $building->building_number }}">
+                                data-tooltip="رقم العقار: {{ $building->building_number }} | مساحة العقار: {{ $building->building_area }}  | سعر العقار: {{ number_format($building->building_area * $pricePerMeter, 0) }} دينار">
                                 <!-- Redirect to contract.create with building_id as a query parameter -->
                                 <a href="{{ route('contract.create', ['building_id' => $building->id]) }}"
                                     class="fill-div"></a>

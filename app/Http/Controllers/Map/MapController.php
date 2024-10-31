@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Map;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building\Building;
+use App\Models\Building\DefaultValue;
 use App\Models\Contract\Contract;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,7 +47,12 @@ class MapController extends Controller
     {
         // Exclude buildings that are marked as hidden
         $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
-        return view('map.empty', compact('buildings'));
+        // Get the default price per meter
+        $defaultValue = DefaultValue::first();
+        $pricePerMeter = $defaultValue ? $defaultValue->price_per_meter : 0;
+
+        // Pass the buildings and price per meter to the view
+        return view('map.empty', compact(['buildings', 'pricePerMeter']));
     }
 
     public function due(Request $request)
