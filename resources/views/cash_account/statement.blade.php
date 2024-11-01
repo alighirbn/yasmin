@@ -114,6 +114,11 @@
                                                         class="btn btn-custom-show">
                                                         {{ __('عرض ') }}
                                                     </a>
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
+                                                    <a href="{{ route('cash_transfer.show', $transaction->transactionable->url_address) }}"
+                                                        class="btn btn-custom-show">
+                                                        {{ __('عرض ') }}
+                                                    </a>
                                                 @endif
                                             </td>
                                             <td>{{ $transaction->transaction_date }}</td>
@@ -134,6 +139,12 @@
                                                     ,
                                                     النوع:
                                                     {{ $transaction->transactionable->expense_type->expense_type }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
+                                                    تحويل مبلغ من:
+                                                    {{ $transaction->transactionable->fromAccount->account_name }}
+                                                    ,
+                                                    الى:
+                                                    {{ $transaction->transactionable->toAccount->account_name }}
                                                 @endif
                                             </td>
                                             <td>
@@ -156,6 +167,8 @@
                                                     {{ $transaction->transactionable->payment_note }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\Expense')
                                                     {{ $transaction->transactionable->expense_note }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
+                                                    {{ $transaction->transactionable->transfer_note }}
                                                 @endif
                                             </td>
 

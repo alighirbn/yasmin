@@ -31,58 +31,77 @@
 
                         <form action="{{ route('cash_transfer.store') }}" method="POST">
                             @csrf
+                            <div class="flex ">
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="from_account_id" class="w-full mb-1" :value="__('word.from_account_id')" />
+                                    <select id="from_account_id" class="js-example-basic-single w-full block mt-1 "
+                                        name="from_account_id" data-placeholder="من حساب">
+                                        <option value="">
 
-                            <div class="form-group">
-                                <label for="from_account_id">من حساب:</label>
-                                <select name="from_account_id" id="from_account_id" class="form-control">
-                                    @foreach ($accounts as $account)
-                                        <option value="{{ $account->id }}">{{ $account->account_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('from_account_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                        </option>
+                                        @foreach ($accounts as $account)
+                                            <option value="{{ $account->id }}"
+                                                {{ old('from_account_id') == $account->id ? 'selected' : '' }}>
+                                                {{ $account->account_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('from_account_id')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="to_account_id" class="w-full mb-1" :value="__('word.to_account_id')" />
+                                    <select id="to_account_id" class="js-example-basic-single w-full block mt-1 "
+                                        name="to_account_id" data-placeholder="الى حساب">
+                                        <option value="">
+
+                                        </option>
+                                        @foreach ($accounts as $account)
+                                            <option value="{{ $account->id }}"
+                                                {{ old('to_account_id') == $account->id ? 'selected' : '' }}>
+                                                {{ $account->account_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('to_account_id')" class="w-full mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex ">
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="amount_display" class="w-full mb-1" :value="__('word.amount')" />
+
+                                    <!-- Displayed input for formatted number -->
+                                    <x-text-input id="amount_display" class="w-full block mt-1" type="text"
+                                        value="{{ number_format(old('amount', 0), 0) }}" placeholder="0" />
+
+                                    <!-- Hidden input for the actual number -->
+                                    <input type="hidden" id="amount" name="amount" value="{{ old('amount') }}">
+
+                                    <x-input-error :messages="$errors->get('amount')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="transfer_date" class="w-full mb-1" :value="__('word.transfer_date')" />
+                                    <x-text-input id="transfer_date" class="w-full block mt-1" type="text"
+                                        name="transfer_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                    <x-input-error :messages="$errors->get('transfer_date')" class="w-full mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex ">
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="transfer_note" class="w-full mb-1" :value="__('word.transfer_note')" />
+                                    <x-text-input id="transfer_note" class="w-full block mt-1" type="text"
+                                        name="transfer_note" value="{{ old('transfer_note') }}" />
+                                    <x-input-error :messages="$errors->get('transfer_note')" class="w-full mt-2" />
+                                </div>
+
                             </div>
 
-                            <div class="form-group">
-                                <label for="to_account_id">إلى حساب:</label>
-                                <select name="to_account_id" id="to_account_id" class="form-control">
-                                    @foreach ($accounts as $account)
-                                        <option value="{{ $account->id }}">{{ $account->account_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('to_account_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            <div class=" mx-4 my-4 w-full">
+                                <x-primary-button x-primary-button class="ml-4">
+                                    {{ __('word.save') }}
+                                </x-primary-button>
                             </div>
-
-                            <div class="form-group">
-                                <label for="amount">المبلغ:</label>
-                                <input type="number" name="amount" id="amount" class="form-control" step="0.01"
-                                    required>
-                                @error('amount')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="transfer_date">تاريخ التحويل:</label>
-                                <input type="date" name="transfer_date" id="transfer_date" class="form-control"
-                                    required>
-                                @error('transfer_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="transfer_note">ملاحظات:</label>
-                                <textarea name="transfer_note" id="transfer_note" class="form-control"></textarea>
-                                @error('transfer_note')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">حفظ</button>
                         </form>
                     </div>
                 </div>
@@ -90,6 +109,32 @@
         </div>
     </div>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var displayInput = document.getElementById('amount_display');
+            var hiddenInput = document.getElementById('amount');
+
+            function formatNumber(value) {
+                return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            function unformatNumber(value) {
+                return value.replace(/,/g, '');
+            }
+
+            displayInput.addEventListener('input', function() {
+                var formattedValue = formatNumber(displayInput.value);
+                displayInput.value = formattedValue;
+                hiddenInput.value = unformatNumber(formattedValue);
+            });
+
+            // On form submission, make sure the hidden input is set correctly
+            document.querySelector('form').addEventListener('submit', function() {
+                hiddenInput.value = unformatNumber(displayInput.value);
+            });
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
         $('form').on('submit', function() {
             // Find the submit button
             var $submitButton = $(this).find('button[type="submit"]');

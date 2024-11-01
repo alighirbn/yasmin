@@ -49,7 +49,7 @@ class CashTransferDataTable extends DataTable
     public function query(CashTransfer $model): QueryBuilder
     {
         // Get the base query with relationships (if any)
-        $query = $model->newQuery();
+        $query = $model->newQuery()->with(['fromaccount', 'toaccount']);
 
         if ($this->onlyPending) {
             $query->where('approved', false);
@@ -118,8 +118,8 @@ class CashTransferDataTable extends DataTable
                 ->title(__('word.action'))
                 ->addClass('text-center'),
             Column::make('id')->title(__('word.cash_transfer_id'))->class('text-center'),
-            Column::make('from_account_id')->title(__('word.from_account_id'))->class('text-center'),
-            Column::make('to_account_id')->title(__('word.to_account_id'))->class('text-center'),
+            Column::make('fromaccount')->title(__('word.from_account_id'))->data('fromaccount.account_name')->name('fromaccount.account_name')->class('text-center'),
+            Column::make('toaccount')->title(__('word.to_account_id'))->data('toaccount.account_name')->name('toaccount.account_name')->class('text-center'),
             Column::make('amount')->title(__('word.amount'))->class('text-center'),
             Column::make('approved')
                 ->title(__('word.approve_status'))

@@ -72,14 +72,14 @@
                             <div class="mx-4 my-4 w-full">
                                 <x-input-label for="from_account_id" class="w-full mb-1" :value="__('word.from_account')" />
                                 <p id="from_account_id" class="w-full h-9 block mt-1">
-                                    {{ $cashTransfer->fromAccount->name }}
+                                    {{ $cashTransfer->fromAccount->account_name }}
                                 </p>
                             </div>
 
                             <div class="mx-4 my-4 w-full">
                                 <x-input-label for="to_account_id" class="w-full mb-1" :value="__('word.to_account')" />
                                 <p id="to_account_id" class="w-full h-9 block mt-1">
-                                    {{ $cashTransfer->toAccount->name }}
+                                    {{ $cashTransfer->toAccount->account_name }}
                                 </p>
                             </div>
 

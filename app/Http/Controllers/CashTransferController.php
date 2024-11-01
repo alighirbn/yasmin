@@ -51,7 +51,6 @@ class CashTransferController extends Controller
     public function edit($url_address)
     {
         $transfer = CashTransfer::where('url_address', $url_address)->first();
-
         if (!$transfer) {
             return Redirect::back()->with('error', 'لم يتم العثور على التحويل.');
         }
