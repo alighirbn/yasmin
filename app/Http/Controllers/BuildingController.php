@@ -117,7 +117,7 @@ class BuildingController extends Controller
         Building::where('url_address', $url_address)->update($request->validated());
 
         //inform the user
-        return redirect()->route('map.building')
+        return redirect()->route('building.index')
             ->with('success', 'تمت تعديل بيانات البناية بنجاح ');
     }
 

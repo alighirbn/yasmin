@@ -13,6 +13,7 @@ use App\Http\Requests\ContractRequest;
 
 use App\Http\Requests\CustomerRequest;
 use App\Jobs\AutoDeleteTemporaryContract;
+use App\Models\Building\DefaultValue;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
 
@@ -74,7 +75,11 @@ class ContractController extends Controller
             Storage::put($imagePath, base64_decode($image));
 
             // Store the image path in the database
-            $contract->images()->create(['image_path' => str_replace('public/', 'storage/', $imagePath)]);
+            $contract->images()->create([
+                'image_path' => str_replace('public/', 'storage/', $imagePath),
+                'customer_id' => $contract->contract_customer_id, // Add the customer ID here
+                'user_id_create' => auth()->id(), // Assuming you're tracking the creator
+            ]);
         }
 
         return redirect()->route('contract.show', $contract->url_address)->with('success', 'Images uploaded successfully.');
@@ -84,16 +89,21 @@ class ContractController extends Controller
     public function archiveshow(string $url_address)
     {
         // Retrieve the contract with necessary relationships
-        $contract = Contract::with('images')->where('url_address', '=', $url_address)->first();
-
+        $contract = Contract::with(['images.customer'])->where('url_address', '=', $url_address)->first();
 
         if (isset($contract)) {
-            return view('contract.contract.archiveshow', compact(['contract']));
+            // Group images by customer_full_name
+            $groupedImages = $contract->images->groupBy(function ($image) {
+                return $image->customer->customer_full_name;
+            });
+
+            return view('contract.contract.archiveshow', compact(['contract', 'groupedImages']));
         } else {
             $ip = $this->getIPAddress();
-            return view('contract.transfer.accessdenied', ['ip' => $ip]);
+            return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
     }
+
 
 
     /**
@@ -104,11 +114,13 @@ class ContractController extends Controller
         $customers = Customer::all();
         $payment_methods = Payment_Method::all();
         $building_id = $request->input('building_id'); // Retrieve building_id from request
+        $defaultValue = DefaultValue::first();
+        $pricePerMeter = $defaultValue ? $defaultValue->price_per_meter : 0;
 
         // Fetch all buildings
         $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
 
-        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id']));
+        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id', 'pricePerMeter']));
     }
 
 

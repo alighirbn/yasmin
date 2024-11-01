@@ -137,6 +137,8 @@
                                     <option value=""></option>
                                     @foreach ($buildings as $building)
                                         <option value="{{ $building->id }}"
+                                            data-area="{{ $building->building_area }}"
+                                            data-price="{{ $pricePerMeter }}"
                                             {{ $building->id == $building_id ? 'selected' : '' }}>
                                             {{ $building->building_number }}
                                         </option>
@@ -318,6 +320,31 @@
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
+
+            // Function to calculate contract amount
+            function calculateContractAmount() {
+                var selectedOption = $('#contract_building_id').find('option:selected');
+                var buildingArea = parseFloat(selectedOption.data('area')) || 0;
+                var pricePerMeter = parseFloat(selectedOption.data('price')) || 0;
+
+                var contractAmount = buildingArea * pricePerMeter;
+                $('#contract_amount').val(contractAmount);
+                $('#contract_amount_display').val(numberWithCommas(contractAmount));
+            }
+
+            // Call the function on page load
+            calculateContractAmount();
+
+            // Event listener for change on building selection
+            $('#contract_building_id').change(function() {
+                calculateContractAmount();
+            });
+
+            // Function to format number with commas
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
         });
         // Prevent double submission
         $('form').on('submit', function() {

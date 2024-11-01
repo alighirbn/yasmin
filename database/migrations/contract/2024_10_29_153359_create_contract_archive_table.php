@@ -22,6 +22,10 @@ return new class extends Migration
 
             $table->unsignedBigInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade');
+
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+
             $table->string('image_path'); // or 'image_url' if you're storing URLs
             $table->timestamps();
         });
