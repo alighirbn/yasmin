@@ -1,6 +1,6 @@
 <div class="w-full p-2 flex justify-between" style="background-color: #2b6a9a;">
     <button onclick="myFunction()" x-on:click.prevent="isOpen = !isOpen">
-        <i class='bx bx-menu' style="color: #fff;"> </i>
+        <i class='bx bx-menu' style="color: #fff;"></i>
     </button>
 
     <div class="flex">
@@ -43,11 +43,9 @@
                     <button
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                         <span class="inline-flex">
-                            @if (auth()->user()->unreadNotifications()->count() > 0)
-                                <span class="w-4 h-4 font-bold bg-red-600 text-white rounded">
-                                    {{ auth()->user()->unreadNotifications->count() }}
-                                </span>
-                            @endif
+                            <span class="notification-count hidden w-4 h-4 font-bold bg-red-600 text-white rounded">
+                                {{ auth()->user()->unreadNotifications()->count() }}
+                            </span>
                             <svg class="w-5 h-5 text-gray-700 fill-current" viewBox="0 0 20 20">
                                 <path
                                     d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
@@ -62,7 +60,7 @@
                     </button>
                 </x-slot>
                 <x-slot name="content">
-                    <ul>
+                    <ul id="notification-dropdown">
                         @if (auth()->user()->unreadNotifications()->count() > 0)
                             <li class="border border-solid">
                                 <a rel="alternate" href="{{ route('notification.markallasread') }}"
@@ -85,15 +83,6 @@
                                     {{ __('word.nonotification') }}
                                 </a>
                             </li>
-                        @endforelse
-                        @forelse (auth()->user()->readNotifications()->take(5)->get() as $notification)
-                            <li class="border border-solid">
-                                <a rel="alternate" href="{{ route('notification.markasread', $notification) }}"
-                                    class="block w-full px-4 py-2 text-center text-sm leading-5 text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                    {{ $notification->data['name'] . ' - ' . $notification->data['action'] . ' - ' . \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}
-                                </a>
-                            </li>
-                        @empty
                         @endforelse
                         <li class="border border-solid">
                             <a rel="alternate" href="{{ route('notification.index') }}"
@@ -135,3 +124,53 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        function fetchNotifications() {
+            $.ajax({
+                url: '{{ route('notifications.fetch') }}',
+                method: 'GET',
+                success: function(data) {
+                    updateNotificationDropdown(data);
+                    updateNotificationCount(data.length);
+                },
+                error: function(xhr) {
+                    console.error('Error fetching notifications:', xhr);
+                }
+            });
+        }
+
+        function updateNotificationDropdown(notifications) {
+            const dropdown = $('#notification-dropdown');
+            dropdown.empty();
+
+            if (notifications.length > 0) {
+                notifications.forEach(notification => {
+                    const item = `<li class="border border-solid">
+                                   <a href="{{ route('notification.markasread', '') }}/${notification.id}" class="block w-full px-4 py-2 text-center leading-5 text-gray-700 hover:bg-gray-100">
+                                       ${notification.data.name} - ${notification.data.action} - ${new Date(notification.created_at).toLocaleString()}
+                                   </a>
+                                 </li>`;
+                    dropdown.append(item);
+                });
+            } else {
+                dropdown.append(
+                    '<li><a class="block w-full px-4 py-2 text-center leading-5 text-gray-700">No new notifications</a></li>'
+                    );
+            }
+        }
+
+        function updateNotificationCount(count) {
+            const notificationCountElement = $('.notification-count');
+            if (count > 0) {
+                notificationCountElement.text(count).show();
+            } else {
+                notificationCountElement.hide();
+            }
+        }
+
+        // Fetch notifications every 30 seconds
+        setInterval(fetchNotifications, 30000);
+    });
+</script>

@@ -11,23 +11,28 @@ class NotificationController extends Controller
     return view('notification.index');
   }
 
-  public function markasread($id) 
-  { 
-    if($id)
-    {
+  public function markasread($id)
+  {
+    if ($id) {
       $notification = auth()->user()->notifications->where('id', $id)->first();
       if ($notification) {
         $notification->markAsRead();
-        return redirect()->route($notification->data['route'],$notification->data['url_address']);
+        return redirect()->route($notification->data['route'], $notification->data['url_address']);
       }
     }
   }
-  
-  public function markallasread() 
-  { 
+
+  public function markallasread()
+  {
     auth()->user()->unreadnotifications->markAsRead();
     return back();
   }
-      
- }
 
+  public function fetch()
+  {
+    // Fetch the unread notifications
+    $unreadNotifications = auth()->user()->unreadNotifications()->take(5)->get();
+
+    return response()->json($unreadNotifications);
+  }
+}
