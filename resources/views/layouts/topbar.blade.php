@@ -49,7 +49,7 @@
                             <svg class="w-5 h-5 text-gray-700 fill-current" viewBox="0 0 20 20">
                                 <path
                                     d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
-                                    clip-rule="evenodd" fill-rule="evenodd" />
+                                    fill-rule="evenodd" clip-rule="evenodd" />
                             </svg>
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"
@@ -127,6 +127,7 @@
 
 <script>
     $(document).ready(function() {
+        // Function to fetch notifications
         function fetchNotifications() {
             $.ajax({
                 url: '{{ route('notifications.fetch') }}',
@@ -141,17 +142,19 @@
             });
         }
 
+        // Update the notifications dropdown
         function updateNotificationDropdown(notifications) {
             const dropdown = $('#notification-dropdown');
             dropdown.empty();
 
             if (notifications.length > 0) {
                 notifications.forEach(notification => {
-                    const item = `<li class="border border-solid">
-                                   <a href="{{ route('notification.markasread', '') }}/${notification.id}" class="block w-full px-4 py-2 text-center leading-5 text-gray-700 hover:bg-gray-100">
-                                       ${notification.data.name} - ${notification.data.action} - ${new Date(notification.created_at).toLocaleString()}
-                                   </a>
-                                 </li>`;
+                    const item = `
+                        <li class="border border-solid">
+                            <a href="{{ route('notification.markasread', '') }}/${notification.id}" class="block w-full px-4 py-2 text-center leading-5 text-gray-700 hover:bg-gray-100">
+                                ${notification.data.name} - ${notification.data.action} - ${new Date(notification.created_at).toLocaleString()}
+                            </a>
+                        </li>`;
                     dropdown.append(item);
                 });
             } else {
@@ -161,6 +164,7 @@
             }
         }
 
+        // Update the notification count
         function updateNotificationCount(count) {
             const notificationCountElement = $('.notification-count');
             if (count > 0) {
