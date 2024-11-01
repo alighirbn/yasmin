@@ -47,12 +47,6 @@ class PaymentController extends Controller
     {
         $payment = Payment::create($request->validated());
 
-        // Notify all users with 'accountant' role
-        $accountants = User::role('accountant')->get(); // Assuming you're using a role system
-        foreach ($accountants as $accountant) {
-            $accountant->notify(new PaymentNotify($payment));
-        }
-
         return redirect()->route('payment.index')
             ->with('success', 'تمت أضافة الدفعة بنجاح في انتظار الموافقة عليها ');
     }
@@ -104,6 +98,13 @@ class PaymentController extends Controller
             ]);
 
 
+            if (in_array($payment->contract_installment->installment->id, [1, 2])) {
+                // Notify all users with 'lawyer' role
+                $lawyers = User::role('lawyer')->get(); // Assuming you're using a role system
+                foreach ($lawyers as $lawyer) {
+                    $lawyer->notify(new PaymentNotify($payment));
+                }
+            }
             return redirect()->route('contract.show', $payment->contract->url_address)
                 ->with('success', 'تم قبول الدفعة بنجاح وتم تسجيل المعاملة في الحساب النقدي.');
         } else {

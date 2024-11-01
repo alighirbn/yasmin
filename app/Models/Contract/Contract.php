@@ -96,6 +96,19 @@ class Contract extends Model
         'user_id_update',
     ];
 
+    const STAGES = [
+
+        'temporary',
+        'accepted',
+        'authenticated',
+
+    ];
+
+    public function getCurrentStageIndex()
+    {
+        return array_search($this->stage, self::STAGES);
+    }
+
     // Transition to accepted stage
     public function accept()
     {

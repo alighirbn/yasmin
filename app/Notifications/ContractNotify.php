@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage; */
 use Illuminate\Notifications\Notification;
 
-class PaymentNotify extends Notification
+class ContractNotify extends Notification
 {
     use Queueable;
 
@@ -39,15 +39,13 @@ class PaymentNotify extends Notification
     public function toArray(object $notifiable): array
     {
         // Check if $this->request and its nested properties are not null
-        $contractInstallment = $this->request->contract_installment ?? null;
-        $installment = $contractInstallment->installment ?? null;
-        $customer = $this->request->contract->customer ?? null;
-
+        $building = $this->request->building ?? null;
+        $customer = $this->request->customer ?? null;
 
         return [
-            'action' => 'استلام الدفعة  ' . $installment->installment_name,
-            'name' => $customer->customer_full_name,
-            'url_address' => $this->request->contract->url_address,
+            'action' =>  'حجز اولي للعقار : ' . $building->building_number,
+            'name' => $customer ? $customer->customer_full_name : 'اسم المشتري غير متوفر',
+            'url_address' => $this->request->url_address ?? 'رابط غير متوفر',
             'route' => 'contract.show',
         ];
     }

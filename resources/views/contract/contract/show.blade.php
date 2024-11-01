@@ -117,6 +117,31 @@
                         <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.contract_info') }}
                         </h1>
+
+                        <div class="progress-bar-container">
+                            <!-- Background Line -->
+                            <div class="progress-line-background"></div>
+                            <!-- Foreground Line for Progress -->
+                            <div class="progress-line-foreground"
+                                style="width: {{ (($contract->getCurrentStageIndex() + 1) / count($contract::STAGES)) * 100 }}%;">
+                            </div>
+
+                            @foreach ($contract::STAGES as $index => $stage)
+                                <div class="stage">
+                                    <div
+                                        class="circle {{ $index <= $contract->getCurrentStageIndex() ? 'completed' : '' }}">
+                                        @if ($index <= $contract->getCurrentStageIndex())
+                                            &#10003; <!-- Checkmark symbol for completed stages -->
+                                        @endif
+                                    </div>
+                                    <span
+                                        class="stage-label {{ $index <= $contract->getCurrentStageIndex() ? 'completed-text' : '' }}">
+                                        {{ __('word.' . $stage) }}
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+
                         <div class="flex ">
 
                             <div class=" mx-4 my-4 w-full ">

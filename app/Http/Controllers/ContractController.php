@@ -19,6 +19,7 @@ use App\Models\Contract\Contract_Installment;
 
 use App\Models\Payment\Payment;
 use App\Models\User;
+use App\Notifications\ContractNotify;
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -82,7 +83,7 @@ class ContractController extends Controller
             ]);
         }
 
-        return redirect()->route('contract.show', $contract->url_address)->with('success', 'Images uploaded successfully.');
+        return redirect()->route('contract.show', $contract->url_address)->with('success', 'تم ارشفة الصور بنجاح');
     }
 
 
@@ -162,6 +163,10 @@ class ContractController extends Controller
         // Optionally, set up a job to auto-delete if not approved
         AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
+        $accountants = User::role('accountant')->get(); // Assuming you're using a role system
+        foreach ($accountants as $accountant) {
+            $accountant->notify(new ContractNotify($contract));
+        }
         //inform the user
         return redirect()->route('contract.show', $contract->url_address)
             ->with('success', 'تمت أضافة العقد بنجاح ');
@@ -273,12 +278,6 @@ class ContractController extends Controller
                 'user_id_create' => auth()->user()->id,
             ]);
 
-
-            // Notify all users with 'accountant' role
-            $accountants = User::role('accountant')->get(); // Assuming you're using a role system
-            foreach ($accountants as $accountant) {
-                $accountant->notify(new PaymentNotify($payment));
-            }
 
 
             // Redirect to the payment details page
