@@ -34,32 +34,33 @@
                                     {!! QrCode::size(90)->generate($contract->id) !!}
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
-                                    <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
-                                        style="h-6;max-width: 100%; height: auto;">
+                                    .
+                                </div>
+                                <div class=" mx-2 my-2 w-full ">
+                                    .
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
                                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($contract->building->building_number, 'C39') }}"
                                         alt="barcode" />
 
-                                    <p><strong>{{ __('رقم العقد:') }}</strong>
+                                    <p><strong>{{ __('العدد :') }}</strong>
                                         {{ $contract->id }}
                                     </p>
-                                    <p><strong>{{ __('تاريخ العقد:') }}</strong> {{ $contract->contract_date }}</p>
+                                    <p><strong>{{ __('التاريخ :') }}</strong> {{ $contract->contract_date }}</p>
 
                                 </div>
                             </div>
 
-                            <div style="text-align: center; margin: 0.8rem auto; font-size: 0.875rem;">
-                                <p><strong>عقد شراء دار في مجمع واحة الياسمين الاستثماري السكني - النجف الاشرف</strong>
+                            <div style="text-align: center; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>عقد شراء دار في مجمع واحة الياسمين الاستثماري السكني - النجف الاشرف </p>
+                            </div>
+                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
+                                <p>الطرف الاول - البائع / المدير المفوض لشركة بوابة العلم للمقاولات
+                                    والتجارة العامة والاستثمارات العقارية محدودة المسؤولية / عبدالله صبحي عيسى.
                                 </p>
                             </div>
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
-                                <p>الطرف الاول - البائع - عبدالله صبحي عيسى / المدير المفوض لشركة بوابة العلم للمقاولات
-                                    والتجارة العامة والاستثمارات العقارية محدودة المسؤولية.
-                                </p>
-                            </div>
-                            <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
-                                <p>الطرف الثاني - المشتري - {{ $contract->customer->customer_full_name }} بموجب الهوية
+                                <p>الطرف الثاني - المشتري / {{ $contract->customer->customer_full_name }} بموجب الهوية
                                     المرقمة {{ $contract->customer->customer_card_number }}
                                 </p>
                             </div>
@@ -139,6 +140,13 @@
                                     الثاني المطالبة بالأموال التي سددها وتصبح من حق الطرف الاول.
                                 </p>
                             </div>
+                            @if ($contract_installments->count() > 1)
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            @endif
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>سادساً - في حالة رغبة الطرف الثاني فسخ العقد وتنظيم عقد لمشتري جديد فينظم عقد
                                     للمستفيد الجديد بعد موافقة الطرف الاول ودفع الطرف الثاني مبلغ وقدرة 5،000،000 دينار
@@ -164,6 +172,13 @@
                                     بتوقف الاعمال نتيجه للظروف القاهره ويلتزم الطرف الثاني بقبول ذلك .
                                 </p>
                             </div>
+                            @if ($contract_installments->count() == 1)
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            @endif
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>عاشراً - يلتزم الطرف الثاني بدفع جميع الرسوم والمصاريف المتعلقة للدوائر ذات العلاقة
                                     اللازم
@@ -211,6 +226,10 @@
                                 <p> سبعة عشر - على بركة الله حرر هذا العقد في النجف الأشرف بتاريخ
                                     {{ $contract->contract_date }}</p>
                             </div>
+                            <br>
+                            <br>
+                            <br>
+
                             <div class="flex ">
                                 <div
                                     style="text-align: right; margin: 1rem auto; font-size: 0.875rem; font-weight: bold;">
@@ -230,7 +249,7 @@
 
                                 <div
                                     style="text-align: right; margin: 0.8rem auto; font-size: 0.875rem; font-weight: bold;">
-                                    <p>عبدالله صبحي عيسى / المدير المفوض</p>
+                                    <p>المدير المفوض / عبدالله صبحي عيسى </p>
                                 </div>
                             </div>
                         </div>

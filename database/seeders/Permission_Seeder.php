@@ -390,6 +390,35 @@ class Permission_Seeder extends Seeder
         // Sync only the lawyer permissions
         $lawyerRole->syncPermissions($lawyerPermissions);
         $user->assignRole($lawyerRole);
+
+        // create user -- lawyer 
+        $user = User::create([
+            'name' => 'sale',
+            'email' => 'sale@admin.com',
+            'password' => bcrypt('12345678'),
+            'department_id' => 1,
+            'url_address' => $this->get_random_string(60),
+            'Status' => 'active',
+        ]);
+        $salesRole = Role::create(['name' => 'sales']);
+
+        // Define a subset of permissions for the sales role
+        $salesPermissions = [
+
+
+            'customer-create',
+
+            'contract-create',
+
+            'map-map',
+            'map-draw',
+            'map-empty',
+
+        ];
+
+        // Sync only the sales permissions
+        $salesRole->syncPermissions($salesPermissions);
+        $user->assignRole($salesRole);
     }
 
     public function get_random_string($length)

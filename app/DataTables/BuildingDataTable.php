@@ -47,7 +47,7 @@ class BuildingDataTable extends DataTable
         return $this->builder()
             ->setTableId('building-table')
             ->language([
-                'sUrl' =>  url('/') . '/../lang/' . __(LaravelLocalization::getCurrentLocale()) . '/datatable.json'
+                'sUrl' => url('/') . '/../lang/' . __(LaravelLocalization::getCurrentLocale()) . '/datatable.json'
             ])
             ->columns($this->getColumns())
             ->minifiedAjax()
