@@ -67,7 +67,9 @@
                                 </p>
                             </div>
                         </div>
-
+                        <div style="text-align: center; margin: 0.8rem auto; font-size: 1.2rem; font-weight: bold;">
+                            <p>سند تحويل </p>
+                        </div>
                         <div class="flex">
                             <div class="mx-4 my-4 w-full">
                                 <x-input-label for="from_account_id" class="w-full mb-1" :value="__('word.from_account')" />
