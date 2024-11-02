@@ -22,7 +22,7 @@ class Building_Category_Seeder extends Seeder
       ],
       [
         'url_address' => $this->get_random_string(60),
-        'category_name' => 'H',
+        'category_name' => 'M',
         'category_area' => '400',
         'category_cost' => '190000000',
       ],

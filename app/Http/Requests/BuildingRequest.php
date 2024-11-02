@@ -31,6 +31,7 @@ class BuildingRequest extends FormRequest
             //foreign id and reference
             'building_category_id' => ['required'],
             'building_type_id' => ['required'],
+            'classification_id' => ['required'],
 
             //normal fields
             'building_number' => ['required', 'max:10'],

@@ -8,6 +8,7 @@ use App\Http\Requests\BuildingRequest;
 use App\Models\Building\Building;
 use App\Models\Building\Building_Category;
 use App\Models\Building\Building_Type;
+use App\Models\Building\Classification;
 use Illuminate\Http\Request;
 
 class BuildingController extends Controller
@@ -62,7 +63,8 @@ class BuildingController extends Controller
 
         $building_categorys = Building_Category::all();
         $building_types = Building_Type::all();
-        return view('building.building.create', compact(['building_categorys', 'building_types']));
+        $classifications = Classification::all();
+        return view('building.building.create', compact(['building_categorys', 'building_types', 'classifications']));
     }
 
     /**
@@ -98,10 +100,11 @@ class BuildingController extends Controller
     {
         $building_categorys = Building_Category::all();
         $building_types = Building_Type::all();
+        $classifications = Classification::all();
 
         $building = Building::where('url_address', '=', $url_address)->first();
         if (isset($building)) {
-            return view('building.building.edit', compact('building', 'building_categorys', 'building_types'));
+            return view('building.building.edit', compact('building', 'building_categorys', 'building_types', 'classifications'));
         } else {
             $ip = $this->getIPAddress();
             return view('building.building.accessdenied', ['ip' => $ip]);

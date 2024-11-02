@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
       Service_Type_Seeder::class,
       Expense_Type_Seeder::class,
       Cash_Account_Seeder::class,
+      ClassificationSeeder::class,
       Building_Seeder::class,
-      DefaultValueSeeder::class,
     ]);
   }
 }

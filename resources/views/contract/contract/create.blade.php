@@ -137,8 +137,7 @@
                                     <option value=""></option>
                                     @foreach ($buildings as $building)
                                         <option value="{{ $building->id }}"
-                                            data-area="{{ $building->building_area }}"
-                                            data-price="{{ $pricePerMeter }}"
+                                            data-price="{{ $building->calculatePrice() }}"
                                             {{ $building->id == $building_id ? 'selected' : '' }}>
                                             {{ $building->building_number }}
                                         </option>
@@ -324,10 +323,8 @@
             // Function to calculate contract amount
             function calculateContractAmount() {
                 var selectedOption = $('#contract_building_id').find('option:selected');
-                var buildingArea = parseFloat(selectedOption.data('area')) || 0;
-                var pricePerMeter = parseFloat(selectedOption.data('price')) || 0;
+                var contractAmount = parseFloat(selectedOption.data('price')) || 0;
 
-                var contractAmount = buildingArea * pricePerMeter;
                 $('#contract_amount').val(contractAmount);
                 $('#contract_amount_display').val(numberWithCommas(contractAmount));
             }

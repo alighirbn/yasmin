@@ -47,7 +47,20 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('building_status_id')" class="w-full mt-2" />
+                                    <x-input-error :messages="$errors->get('building_type_id')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="classification_id" class="w-full mb-1" :value="__('word.classification_id')" />
+                                    <select id="classification_id" class="w-full block mt-1 " name="classification_id">
+                                        @foreach ($classifications as $classification)
+                                            <option value="{{ $classification->id }}"
+                                                {{ old('classification_id') == $classification->id ? 'selected' : '' }}>
+                                                {{ $classification->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('classification_id')" class="w-full mt-2" />
                                 </div>
                             </div>
 

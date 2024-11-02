@@ -5,11 +5,11 @@ namespace App\Models\Building;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DefaultValue extends Model
+class Classification extends Model
 {
     use HasFactory;
 
-    protected $table = 'default_values';
+    protected $table = 'classifications';
 
-    protected $fillable = ['price_per_meter'];
+    protected $fillable = ['name', 'price_per_meter'];
 }

@@ -163,6 +163,11 @@ return [
 
     'building_category_id' => 'الفئة',
     'building_type_id' => 'النوع',
+    'classification_id' => 'المزايا',
+
+    'type_name' => 'النوع',
+    'category_name' => 'الفئة',
+    'classification' => 'المزايا',
 
     //nav
     'building_add' => 'اضافة عقار',

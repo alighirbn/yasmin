@@ -34,7 +34,7 @@ class BuildingDataTable extends DataTable
      */
     public function query(Building $model): QueryBuilder
     {
-        return $model->newQuery()->with(['building_type', 'building_category']);
+        return $model->newQuery()->with(['building_type', 'building_category', 'classification']);
     }
 
     /**
@@ -100,6 +100,7 @@ class BuildingDataTable extends DataTable
             Column::make('building_number')->title(__('word.building_number'))->class('text-center'),
             Column::make('building_category')->title(__('word.category_name'))->data('building_category.category_name')->name('building_category.category_name')->class('text-center'),
             Column::make('building_type')->title(__('word.type_name'))->data('building_type.type_name')->name('building_type.type_name')->class('text-center'),
+            Column::make('classification')->title(__('word.classification'))->data('classification.name')->name('classification.name')->class('text-center'),
             Column::make('house_number')->title(__('word.house_number'))->class('text-center'),
             Column::make('block_number')->title(__('word.block_number'))->class('text-center'),
             Column::make('building_area')->title(__('word.building_area'))->class('text-center'),

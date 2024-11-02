@@ -13,7 +13,6 @@ use App\Http\Requests\ContractRequest;
 
 use App\Http\Requests\CustomerRequest;
 use App\Jobs\AutoDeleteTemporaryContract;
-use App\Models\Building\DefaultValue;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
 
@@ -115,13 +114,11 @@ class ContractController extends Controller
         $customers = Customer::all();
         $payment_methods = Payment_Method::all();
         $building_id = $request->input('building_id'); // Retrieve building_id from request
-        $defaultValue = DefaultValue::first();
-        $pricePerMeter = $defaultValue ? $defaultValue->price_per_meter : 0;
 
         // Fetch all buildings
         $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
 
-        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id', 'pricePerMeter']));
+        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id']));
     }
 
 

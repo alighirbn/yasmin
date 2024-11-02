@@ -26,8 +26,12 @@ return new class extends Migration
             $table->unsignedBigInteger('building_type_id')->nullable();
             $table->foreign('building_type_id')->references('id')->on('building_type');
 
+            $table->unsignedBigInteger('classification_id')->nullable()->default(3);
+            $table->foreign('classification_id')->references('id')->on('classifications');
+
             $table->string('url_address', '60')->unique()->nullable();
             $table->boolean('hidden')->default(false); // or true, depending on your default
+
             $table->string('building_number', '10');
             $table->string('house_number', '10');
             $table->string('block_number', '10');

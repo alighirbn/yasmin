@@ -47,12 +47,8 @@ class MapController extends Controller
     {
         // Exclude buildings that are marked as hidden
         $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
-        // Get the default price per meter
-        $defaultValue = DefaultValue::first();
-        $pricePerMeter = $defaultValue ? $defaultValue->price_per_meter : 0;
-
         // Pass the buildings and price per meter to the view
-        return view('map.empty', compact(['buildings', 'pricePerMeter']));
+        return view('map.empty', compact(['buildings']));
     }
 
     public function due(Request $request)
