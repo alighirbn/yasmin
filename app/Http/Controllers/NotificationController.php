@@ -30,8 +30,8 @@ class NotificationController extends Controller
 
   public function fetch()
   {
-    // Fetch the unread notifications
-    $unreadNotifications = auth()->user()->unreadNotifications()->take(5)->get();
+    // Fetch all unread notifications
+    $unreadNotifications = auth()->user()->unreadNotifications()->get();
 
     return response()->json($unreadNotifications);
   }

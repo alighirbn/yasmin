@@ -158,12 +158,21 @@ class ContractController extends Controller
             }
         }
         // Optionally, set up a job to auto-delete if not approved
-        AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
+        // AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
-        $accountants = User::role('accountant')->get(); // Assuming you're using a role system
+        $accountants = User::role('accountant')->get(); // Fetch accountants
+        $admins = User::role('admin')->get(); // Fetch admins
+
+        // Notify accountants
         foreach ($accountants as $accountant) {
             $accountant->notify(new ContractNotify($contract));
         }
+
+        // Notify admins
+        foreach ($admins as $admin) {
+            $admin->notify(new ContractNotify($contract));
+        }
+
         //inform the user
         return redirect()->route('contract.temp', $contract->url_address)
             ->with('success', 'تمت أضافة العقد بنجاح ');
@@ -187,6 +196,13 @@ class ContractController extends Controller
         $contract = Contract::where('url_address', '=', $url_address)->first();
         if ($contract->stage === 'accepted') {
             $contract->authenticat();
+
+            $admins = User::role('admin')->get(); // Fetch admins
+
+            // Notify admins
+            foreach ($admins as $admin) {
+                $admin->notify(new ContractNotify($contract));
+            }
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('success', 'تم مصادقة العقد.');
         }

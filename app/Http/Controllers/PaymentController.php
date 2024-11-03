@@ -100,9 +100,17 @@ class PaymentController extends Controller
 
             if (in_array($payment->contract_installment->installment->id, [1, 2])) {
                 // Notify all users with 'lawyer' role
-                $lawyers = User::role('lawyer')->get(); // Assuming you're using a role system
+                $lawyers = User::role('lawyer')->get(); // Fetch lawyers
+                $admins = User::role('admin')->get(); // Fetch admins
+
+                // Notify lawyers
                 foreach ($lawyers as $lawyer) {
                     $lawyer->notify(new PaymentNotify($payment));
+                }
+
+                // Notify admins
+                foreach ($admins as $admin) {
+                    $admin->notify(new PaymentNotify($payment));
                 }
             }
             return redirect()->route('contract.show', $payment->contract->url_address)
