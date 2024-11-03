@@ -28,10 +28,21 @@ class NotificationController extends Controller
     return back();
   }
 
+  /**
+   * Fetch all unread notifications for the authenticated user.
+   *
+   * @return \Illuminate\Http\JsonResponse
+   */
   public function fetch()
   {
+    $user = auth()->user();
+
+    if (!$user) {
+      return response()->json(['error' => 'Unauthenticated'], 401);
+    }
+
     // Fetch all unread notifications
-    $unreadNotifications = auth()->user()->unreadNotifications()->get();
+    $unreadNotifications = $user->notifications()->whereNull('read_at')->get();
 
     return response()->json($unreadNotifications);
   }

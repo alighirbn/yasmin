@@ -18,6 +18,7 @@ use App\Models\Contract\Contract_Installment;
 
 use App\Models\Payment\Payment;
 use App\Models\User;
+use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
@@ -201,7 +202,7 @@ class ContractController extends Controller
 
             // Notify admins
             foreach ($admins as $admin) {
-                $admin->notify(new ContractNotify($contract));
+                $admin->notify(new ContractAuthNotify($contract));
             }
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('success', 'تم مصادقة العقد.');
