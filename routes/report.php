@@ -16,4 +16,7 @@ Route::group(['prefix' => 'report'], function () {
 
     //first_installment
     Route::get('/first_installment', [ReportController::class, 'first_installment'])->middleware(['auth', 'verified', 'permission:report-first_installment'])->name('report.first_installment');
+
+    //general_report
+    Route::get('/general_report', [ReportController::class, 'general_report'])->middleware(['auth', 'verified', 'permission:report-general_report'])->name('report.general_report');
 });

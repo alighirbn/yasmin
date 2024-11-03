@@ -279,6 +279,7 @@ return [
     'report_category' => 'العقارات حسب الفئة',
     'report_due_installments' => 'الدفعات المستحقة',
     'report_unpaid_first_installment' => 'لم تدفع المقدمة',
+    'report_general_report' => 'التقرير العام',
 
     //nav
     'report_add' => 'اضافة عقار',

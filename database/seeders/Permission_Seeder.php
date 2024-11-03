@@ -113,6 +113,7 @@ class Permission_Seeder extends Seeder
             'report-category',
             'report-due_installments',
             'report-first_installment',
+            'report-general_report',
 
             //**************************user******************************* */
             // map

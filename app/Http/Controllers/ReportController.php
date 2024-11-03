@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building\Building_Category;
+use App\Models\Cash\Expense;
 use App\Models\Contract\Contract;
+use App\Models\Payment\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -117,5 +119,40 @@ class ReportController extends Controller
 
         // Return to a view with both tables
         return view('report.first_installment', compact('unpaidCashContracts', 'unpaidFirstInstallmentContracts'));
+    }
+    public function general_report(Request $request)
+    {
+        // Validate input dates if provided
+        $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Fetch contracts, payments, and expenses
+        $contracts = Contract::query();
+        $payments = Payment::query()->where('approved', true); // Only approved payments
+        $expenses = Expense::query()->where('approved', true); // Only approved expenses
+
+        // Apply date filters if dates are provided
+        if ($startDate && $endDate) {
+            $contracts->whereBetween('contract_date', [$startDate, $endDate]);
+            $payments->whereBetween('payment_date', [$startDate, $endDate]);
+            $expenses->whereBetween('expense_date', [$startDate, $endDate]);
+        }
+
+        // Get the data
+        $contracts = $contracts->get();
+        $payments = $payments->get();
+        $expenses = $expenses->get();
+
+        // Calculate totals
+        $totalContractAmount = $contracts->sum('contract_amount');
+        $totalPaymentAmount = $payments->sum('payment_amount');
+        $totalExpenseAmount = $expenses->sum('expense_amount');
+
+        return view('report.general_report', compact('contracts', 'payments', 'expenses', 'totalContractAmount', 'totalPaymentAmount', 'totalExpenseAmount'));
     }
 }
