@@ -99,7 +99,8 @@
                                             $contract_installment->installment_date .
                                             ' المبلغ قدره ' .
                                             number_format($contract_installment->installment_amount, 0) .
-                                            ' دينار عراقي فقط لا غير. ' }}
+                                            'المبلغ ' .
+                                            Numbers::TafqeetMoney($contract_installment->installment_amount, 'IQD') }}
                                         <br>
                                     @endforeach
                                     وفي حالة تم تسليم الدار قبل انهاء الدفعات يلتزم الطرف الثاني بدفع جميع الدفعات

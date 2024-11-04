@@ -4,8 +4,79 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70457a5730a5eb069ba1d7a67f635014",
+    "content-hash": "0c8f36f80a64f89e6f7b2e0aa091c14c",
     "packages": [
+        {
+            "name": "alkoumi/laravel-arabic-numbers",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alkoumi/laravel-arabic-numbers.git",
+                "reference": "3af0bf849742bb500fc363d8a347fd81c685ebac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alkoumi/laravel-arabic-numbers/zipball/3af0bf849742bb500fc363d8a347fd81c685ebac",
+                "reference": "3af0bf849742bb500fc363d8a347fd81c685ebac",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alkoumi\\LaravelArabicNumbers\\LaravelArabicNumbersServiceProvider"
+                    ],
+                    "aliases": {
+                        "Numbers": "Alkoumi\\LaravelArabicNumbers\\Numbers"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alkoumi\\LaravelArabicNumbers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Elkoumi",
+                    "email": "komy66@gmail.com"
+                }
+            ],
+            "description": "Laravel package to handel ANY thing 🥳 about our Amazing 💝 Arabic Numbers Functions { كل ما يهم محبي لارافيل واستخدام الأرقام العربية مثل تفقيط الأرقام والمبالغ المالية والعكس و عرض الأرقام بالعربية والعكس }",
+            "homepage": "https://be.net/komy",
+            "keywords": [
+                "Arabic Indic Digits تحويل الأرقام الهندية إلى الأرقام العربية الشرقية والعكس ليفهمها لارافيل",
+                "Middleware حل مشكلة استقبال المدخلات للأرقام العربية بإستخدام",
+                "Number From String إستخراج الأرقام من اللغة العربية",
+                "Show Arabic Numbers عرض الأرقام العربية بدل الإنجليزية",
+                "Tafqeet Money تفقيط المبالغ",
+                "Tafqeet Money تفقيط المبالغ المالية باللغة العربية الفصحى",
+                "Tafqeet Numbers تفقيط الأرقام",
+                "Tafqeet Numbers تفقيط الأرقام باللغة العربية الفصحى",
+                "laravel arabic indic digits",
+                "laravel arabic numbers",
+                "الأرقام العربية"
+            ],
+            "support": {
+                "issues": "https://github.com/alkoumi/laravel-arabic-numbers/issues",
+                "source": "https://github.com/alkoumi/laravel-arabic-numbers/tree/v1.1.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/mohammadelkoumi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2024-01-08T15:00:59+00:00"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "2.0.8",
