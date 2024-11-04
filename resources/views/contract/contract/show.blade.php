@@ -17,6 +17,9 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
+                        <a href="{{ route('contract.temp', $contract->url_address) }}" class="btn btn-custom-print">
+                            {{ __('word.print') }}
+                        </a>
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
                                 class="btn btn-custom-statement">
