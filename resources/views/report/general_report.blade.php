@@ -16,6 +16,17 @@
                             {{ __('word.print') }}
                         </button>
                     </div>
+                    <div class="a4-width mx-auto">
+                        <!-- Date Filter Form -->
+                        <form method="GET" action="{{ route('report.general_report') }}">
+                            <label for="start_date"> {{ __('word.date_from') }} :</label>
+                            <input type="date" name="start_date" required>
+                            <label for="end_date"> {{ __('word.date_to') }} :</label>
+                            <input type="date" name="end_date" required>
+                            <button type="submit"> {{ __('word.filter') }}</button>
+                        </form>
+                    </div>
+
                     <div class="print-container a4-width mx-auto bg-white">
                         <div class="flex">
                             <div class="mx-2 my-2 w-full">
@@ -26,29 +37,28 @@
                                     style="max-width: auto; height: 90px;">
                             </div>
                         </div>
-                        <h1>Contracts, Payments, and Expenses Report</h1>
 
-                        <!-- Date Filter Form -->
-                        <form method="GET" action="{{ route('report.general_report') }}">
-                            <label for="start_date">Start Date:</label>
-                            <input type="date" name="start_date" required>
-                            <label for="end_date">End Date:</label>
-                            <input type="date" name="end_date" required>
-                            <button type="submit">Generate Report</button>
-                        </form>
+                        @if (request('start_date') || request('end_date'))
+                            <p>
+                                الفترة من
+                                {{ request('start_date') ? request('start_date') : '---' }}
+                                إلى
+                                {{ request('end_date') ? request('end_date') : '---' }}
+                            </p>
+                        @endif
 
                         @if (isset($contracts) && isset($payments) && isset($expenses))
-                            <h2>Contracts</h2>
+                            <h2> {{ __('word.contract') }}</h2>
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Contract ID</th>
-                                        <th>Date</th>
-                                        <th>Building number</th>
-                                        <th>Building Area</th>
-                                        <th>Customer Name</th>
-                                        <th>Amount</th>
-                                        <th>Note</th>
+                                        <th> {{ __('word.contract_id') }}</th>
+                                        <th> {{ __('word.contract_date') }}</th>
+                                        <th> {{ __('word.building_number') }}</th>
+                                        <th> {{ __('word.building_area') }}</th>
+                                        <th> {{ __('word.customer_full_name') }}</th>
+                                        <th> {{ __('word.contract_amount') }}</th>
+                                        <th> {{ __('word.contract_note') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,24 +76,25 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                                        <td colspan="5" class="text-right"><strong> {{ __('word.total') }}
+                                                :</strong></td>
                                         <td>{{ number_format($totalContractAmount, 0) }}</td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
 
-                            <h2>Payments</h2>
+                            <h2> {{ __('word.payment') }}</h2>
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Payment ID</th>
-                                        <th>Date</th>
-                                        <th>Building number</th>
-                                        <th>Building Area</th>
-                                        <th>Customer Name</th>
-                                        <th>Amount</th>
-                                        <th>Note</th>
+                                        <th> {{ __('word.payment_id') }}</th>
+                                        <th> {{ __('word.payment_date') }}</th>
+                                        <th> {{ __('word.building_number') }} </th>
+                                        <th> {{ __('word.building_area') }}</th>
+                                        <th> {{ __('word.customer_full_name') }} </th>
+                                        <th> {{ __('word.payment_amount') }}</th>
+                                        <th> {{ __('word.payment_note') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -101,21 +112,23 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5" class="text-right"><strong>Total:</strong></td>
+                                        <td colspan="5" class="text-right"><strong> {{ __('word.total') }}
+                                                :</strong></td>
                                         <td>{{ number_format($totalPaymentAmount, 0) }}</td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
 
-                            <h2>Expenses</h2>
+                            <h2> {{ __('word.expense') }}</h2>
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Expense ID</th>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                        <th>Note</th>
+                                        <th> {{ __('word.expense_id') }}</th>
+                                        <th> {{ __('word.expense_date') }}</th>
+                                        <th> {{ __('word.expense_type_id') }}</th>
+                                        <th> {{ __('word.expense_amount') }}</th>
+                                        <th> {{ __('word.expense_note') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,6 +136,7 @@
                                         <tr>
                                             <td>{{ $expense->id }}</td>
                                             <td>{{ $expense->expense_date }}</td>
+                                            <td>{{ $expense->expense_type->expense_type }}</td>
                                             <td>{{ number_format($expense->expense_amount, 0) }}</td>
                                             <td>{{ $expense->expense_note }}</td>
                                         </tr>
@@ -130,7 +144,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                                        <td colspan="3" class="text-right"><strong> {{ __('word.total') }}
+                                                :</strong></td>
                                         <td>{{ number_format($totalExpenseAmount, 0) }}</td>
                                         <td></td>
                                     </tr>

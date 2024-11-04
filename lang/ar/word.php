@@ -28,6 +28,9 @@ return [
     'print' => 'طباعة',
     'all' => 'اظهار الكل',
     'filter' => 'تصفية',
+    'total' => 'المجموع',
+    'date_from' => 'للفترة من',
+    'date_to' => ' للفترة الى',
 
     // general values
     'year' => 'سنة',
