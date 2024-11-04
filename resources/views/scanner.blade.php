@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <div class="container mx-auto p-4">
                         <h1 class="text-2xl font-bold mb-4">WIA Scanner</h1>
+
                         <div class="mb-4">
                             <label for="device" class="block text-sm font-medium text-gray-700">
                                 Select Scanner
@@ -46,7 +47,7 @@
                             scanButton.addEventListener('click', function() {
                                 const deviceId = deviceSelect.value;
 
-                                fetch('/scan', {
+                                fetch('/scan/scan', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',

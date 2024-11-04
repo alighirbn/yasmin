@@ -16,8 +16,14 @@ class MapController extends Controller
     public function contract()
     {
         $contracts = Contract::with(['building'])->get();
-        return view('map.contract', compact(['contracts']));
+
+        $totalBuildings = Building::count();
+        $contractCount = $contracts->count();
+        $percentageContracts = $totalBuildings > 0 ? ($contractCount / $totalBuildings) * 100 : 0;
+
+        return view('map.contract', compact(['contracts', 'contractCount', 'totalBuildings', 'percentageContracts']));
     }
+
 
     public function map()
     {

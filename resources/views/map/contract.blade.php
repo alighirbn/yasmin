@@ -50,6 +50,26 @@
                 white-space: nowrap;
                 z-index: 10;
             }
+
+            .stat-container {
+                position: absolute;
+                top: 10px;
+                /* Adjust as needed */
+                left: 10px;
+                /* Adjust as needed */
+                background-color: rgba(255, 255, 255, 0.8);
+                /* Change to a bright color */
+                padding: 5px;
+                /* Reduced padding for a smaller size */
+                border-radius: 5px;
+                /* Rounded corners */
+                z-index: 10;
+                /* Ensure it appears above the image */
+                font-size: 0.9em;
+                /* Smaller font size */
+                color: rgb(0, 13, 126);
+                /* Text color for better contrast */
+            }
         </style>
         <div class="flex justify-start">
             @include('map.nav.navigation')
@@ -64,15 +84,23 @@
                     <div class="image-container">
                         <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image">
 
+                        <div class="stat-container">
+
+                            <p>إجمالي المباني: {{ $totalBuildings }}</p>
+                            <p>إجمالي العقود: {{ $contractCount }}</p>
+                            <p>نسبة المباني التي لديها عقود: {{ number_format($percentageContracts, 2) }}%</p>
+                        </div>
+
                         @foreach ($contracts as $contract)
                             <div class="overlay-div"
-                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%; "
+                                style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%;"
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
                                 <a href="{{ route('contract.show', $contract->url_address) }}"
                                     class="fill-div {{ $contract->stage === 'temporary' ? 'temporary' : '' }}"></a>
                             </div>
                         @endforeach
                     </div>
+
                 </div>
             </div>
         </div>

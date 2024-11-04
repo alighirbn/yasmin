@@ -58,7 +58,9 @@
                                         <th> {{ __('word.building_area') }}</th>
                                         <th> {{ __('word.customer_full_name') }}</th>
                                         <th> {{ __('word.contract_amount') }}</th>
+                                        <th> {{ __('word.stage') }}</th>
                                         <th> {{ __('word.contract_note') }}</th>
+                                        <th> {{ __('word.user_create') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +72,9 @@
                                             <td>{{ $contract->building->building_area }}</td>
                                             <td>{{ $contract->customer->customer_full_name }}</td>
                                             <td>{{ number_format($contract->contract_amount, 0) }}</td>
+                                            <td>{{ __('word.' . $contract->stage) }}</td>
                                             <td>{{ $contract->contract_note }}</td>
+                                            <td>{{ $contract->user_create->name }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
