@@ -85,10 +85,9 @@
                         <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image">
 
                         <div class="stat-container">
-
-                            <p>إجمالي المباني: {{ $totalBuildings }}</p>
-                            <p>إجمالي العقود: {{ $contractCount }}</p>
-                            <p>نسبة المباني التي لديها عقود: {{ number_format($percentageContracts, 2) }}%</p>
+                            <p>المباني الممتلئة : {{ $contractCount }} ({{ number_format($percentageContracts, 2) }}%)
+                            </p>
+                            <p>المباني الشاغرة: {{ $buildingsWithoutContracts }}</p>
                         </div>
 
                         @foreach ($contracts as $contract)
