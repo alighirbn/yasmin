@@ -89,15 +89,15 @@ class PaymentDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1, 'asc')
-            /*   ->parameters([
-            'dom' => 'B<"clear">lfrtip',
-            'scrollX' => false,
-            'buttons' => [
-                [
-                    'extend'  => 'print',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-               [
+            ->parameters([
+                'dom' => 'B<"clear">lfrtip',
+                'scrollX' => false,
+                'buttons' => [
+                    [
+                        'extend'  => 'print',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    /*[
                     'extend'  => 'reset',
                     'className'    => 'btn btn-outline-dark'
                ],
@@ -113,10 +113,10 @@ class PaymentDataTable extends DataTable
                                        'excel',
                                        'pdf',
                                   ],
-                ],
-                'colvis'
-            ]
-        ]) */
+                ], */
+                    'colvis'
+                ]
+            ])
             ->selectStyleSingle();
     }
 

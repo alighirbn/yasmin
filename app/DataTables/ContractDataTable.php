@@ -74,34 +74,34 @@ class ContractDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1, 'asc')
-            /*   ->parameters([
-            'dom' => 'B<"clear">lfrtip',
-            'scrollX' => false,
-            'buttons' => [
-                [
-                    'extend'  => 'print',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-               [
-                    'extend'  => 'reset',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-               [
-                    'extend'  => 'reload',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-                [
-                     'extend'  => 'export',
-                     'className'    => 'btn btn-outline-dark',
-                     'buttons' => [
-                                       'csv',
-                                       'excel',
-                                       'pdf',
-                                  ],
-                ],
-                'colvis'
-            ]
-        ]) */
+            ->parameters([
+                'dom' => 'B<"clear">lfrtip',
+                'scrollX' => false,
+                'buttons' => [
+                    [
+                        'extend'  => 'print',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    /* [
+                        'extend'  => 'reset',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    [
+                        'extend'  => 'reload',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    [
+                        'extend'  => 'export',
+                        'className'    => 'btn btn-outline-dark',
+                        'buttons' => [
+                            'csv',
+                            'excel',
+                            'pdf',
+                        ],
+                    ],*/
+                    'colvis'
+                ]
+            ])
             ->selectStyleSingle();
     }
 

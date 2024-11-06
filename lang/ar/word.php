@@ -29,8 +29,9 @@ return [
     'all' => 'اظهار الكل',
     'filter' => 'تصفية',
     'total' => 'المجموع',
-    'date_from' => 'للفترة من',
-    'date_to' => ' للفترة الى',
+    'date_from' => ' من',
+    'date_to' => '  الى',
+    'name' => 'الاسم',
 
     // general values
     'year' => 'سنة',

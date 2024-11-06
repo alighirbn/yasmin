@@ -16,14 +16,29 @@
                             {{ __('word.print') }}
                         </button>
                     </div>
-                    <div class="a4-width mx-auto">
-                        <!-- Date Filter Form -->
+                    <div class="a4-width mx-auto p-4">
+                        <!-- Filter Form -->
                         <form method="GET" action="{{ route('report.general_report') }}">
+                            <!-- Customer Filter -->
+                            <label for="contract_customer_id"> {{ __('word.name') }} :</label>
+                            <select name="contract_customer_id">
+                                <option value="">{{ __('word.show_all') }}</option>
+                                @foreach ($customers as $customer)
+                                    <option value="{{ $customer->id }}"
+                                        @if (request('contract_customer_id') == $customer->id) selected @endif>
+                                        {{ $customer->customer_full_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <!-- Date Filters -->
                             <label for="start_date"> {{ __('word.date_from') }} :</label>
-                            <input type="date" name="start_date" required>
+                            <input type="date" name="start_date" value="{{ request('start_date') }}">
+
                             <label for="end_date"> {{ __('word.date_to') }} :</label>
-                            <input type="date" name="end_date" required>
-                            <button type="submit"> {{ __('word.filter') }}</button>
+                            <input type="date" name="end_date" value="{{ request('end_date') }}">
+
+                            <button type="submit" class="btn btn-custom-show "> {{ __('word.filter') }}</button>
                         </form>
                     </div>
 
@@ -38,16 +53,13 @@
                             </div>
                         </div>
 
-                        @if (request('start_date') || request('end_date'))
+                        @if (request('contract_customer_id'))
                             <p>
-                                الفترة من
-                                {{ request('start_date') ? request('start_date') : '---' }}
-                                إلى
-                                {{ request('end_date') ? request('end_date') : '---' }}
+                                {{ $customers->find(request('contract_customer_id'))->customer_full_name }}
                             </p>
                         @endif
 
-                        @if (isset($contracts) && isset($payments) && isset($expenses))
+                        @if (isset($contracts) && isset($payments))
                             <h2> {{ __('word.contract') }}</h2>
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -123,7 +135,10 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                        @endif
 
+                        <!-- Only display expenses if contract_customer_id is not set -->
+                        @if (!request('contract_customer_id') && isset($expenses))
                             <h2> {{ __('word.expense') }}</h2>
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -156,7 +171,9 @@
                                 </tfoot>
                             </table>
                         @endif
+
                     </div>
+
                 </div>
             </div>
         </div>
