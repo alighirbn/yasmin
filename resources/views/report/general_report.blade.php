@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
+        <!-- select2 css and js-->
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
         @include('report.nav.navigation')
     </x-slot>
 
@@ -21,7 +23,7 @@
                         <form method="GET" action="{{ route('report.general_report') }}">
                             <!-- Customer Filter -->
                             <label for="contract_customer_id"> {{ __('word.name') }} :</label>
-                            <select name="contract_customer_id">
+                            <select name="contract_customer_id" class="js-example-basic-single">
                                 <option value="">{{ __('word.show_all') }}</option>
                                 @foreach ($customers as $customer)
                                     <option value="{{ $customer->id }}"
@@ -178,4 +180,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 </x-app-layout>

@@ -27,7 +27,7 @@
                         <div class="camera-container"
                             style="flex: 1; display: flex; flex-direction: column; align-items: center;">
                             <h1 class="mb-4 text-xl font-bold">التقاط الصور والاوليات</h1>
-                            <div id="my_camera" class="mx-auto mb-4" style="width:640px; height:480px;"></div>
+                            <div id="my_camera" class="mx-auto mb-4" style="width:1280px; height:960px;"></div>
                             <button id="capture" class="btn btn-primary mb-2">التقاط</button>
                             <button id="upload" class="btn btn-success" style="display:none;">حفظ</button>
                         </div>
@@ -116,8 +116,8 @@
                     <script>
                         // Configure WebcamJS
                         Webcam.set({
-                            width: 640,
-                            height: 480,
+                            width: 1280,
+                            height: 960,
                             image_format: 'jpeg',
                             jpeg_quality: 90
                         });
