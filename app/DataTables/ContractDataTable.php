@@ -47,16 +47,20 @@ class ContractDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Contract $model): QueryBuilder
-    {
-        $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
+{
+    $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
 
-        // Check if a contract ID filter is applied
-        if ($contractId = request('contract_id')) {
-            $query->where('id', $contractId);
-        }
-
-        return $query;
+    // Apply contract ID filter if present (exact match)
+    if ($contractId = request('contract_id')) {
+        $query->where('id', '=', $contractId);  // Use '=' for exact matching
     }
+
+    
+
+    return $query;
+}
+
+
 
 
     /**

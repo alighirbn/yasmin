@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         @include('contract.nav.navigation')
         @include('service.nav.navigation')
@@ -21,15 +20,15 @@
                         </div>
                     @endif
 
-                    <!-- Filter input -->
+                    <!-- Filter inputs -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <input type="text" id="contract-id-filter" class="form-control"
                                 placeholder="{{ __('word.contract_id') }}">
                         </div>
+                       
                     </div>
 
-                    <!-- DataTable -->
                     <!-- DataTable -->
                     {!! $dataTable->table(['class' => 'table table-bordered table-striped'], true) !!}
                 </div>
@@ -41,13 +40,18 @@
     <script>
         $(document).ready(function() {
             var table = $('#contract-table').DataTable();
-
+            // Apply filter on contract ID column (exact match)
             $('#contract-id-filter').on('keyup', function() {
-                table.column(1).search(this.value).draw(); // Assuming 'id' is in the first column
+                if (this.value === '') {
+                    // If the input is empty, reset the filter and show all rows
+                    table.column(1).search('').draw(); // Show all contract IDs
+                } else {
+                    // If there's a value, filter by exact match
+                    table.column(1).search('^' + this.value + '$', true, false).draw();
+                }
             });
         });
 
         $.fn.dataTable.ext.errMode = 'none';
     </script>
-
 </x-app-layout>
