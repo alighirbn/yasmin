@@ -38,8 +38,18 @@ class ContractTransferHistoryDataTable extends DataTable
      */
     public function query(Contract_Transfer_History $model): QueryBuilder
     {
-        return $model->newQuery()->with(['contract', 'contract.building', 'oldcustomer', 'newcustomer']);
+        // Start building the query with eager loading relationships
+        $query = $model->newQuery()->with(['contract', 'contract.building', 'oldcustomer', 'newcustomer']);
+        
+        // Apply contract ID filter if present (exact match)
+        if ($contractId = request('contract_id')) {
+            $query->where('id', '=', $contractId);  // Use '=' for exact matching
+        }
+    
+        // Return the query builder instance
+        return $query;
     }
+    
 
     /**
      * Optional method if you want to use html builder.
@@ -76,7 +86,7 @@ class ContractTransferHistoryDataTable extends DataTable
             Column::make('id')->title(__('word.transfer_id'))->class('text-center'),
             Column::make('transfer_date')->title(__('word.transfer_date'))->class('text-center'),
 
-            Column::make('contract_id')->title(__('word.contract_id'))->data('contract.id')->name('contract.id')->class('text-center'),
+            Column::make('contract_id')->title(__('word.contract_id'))->data('contract_id')->class('text-center'),
             Column::make('contract_date')->title(__('word.contract_date'))->data('contract.contract_date')->name('contract.contract_date')->class('text-center'),
             Column::make('building_number')->title(__('word.building_number'))->data('contract.building.building_number')->name('contract.building.building_number')->class('text-center'),
 

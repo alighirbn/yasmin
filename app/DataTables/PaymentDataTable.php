@@ -137,7 +137,7 @@ class PaymentDataTable extends DataTable
             Column::make('id')->title(__('word.payment_id'))->class('text-center'),
             Column::make('payment_date')->title(__('word.payment_date'))->class('text-center'),
 
-            Column::make('contract_id')->title(__('word.contract_id'))->data('contract.id')->name('contract.id')->class('text-center'),
+            Column::make('payment_contract_id')->title(__('word.contract_id'))->data('payment_contract_id')->class('text-center'),
             Column::make('contract_date')->title(__('word.contract_date'))->data('contract.contract_date')->name('contract.contract_date')->class('text-center'),
             Column::make('building_number')->title(__('word.building_number'))->data('contract.building.building_number')->name('contract.building.building_number')->class('text-center'),
 
