@@ -27,7 +27,7 @@
                         <div class="camera-container"
                             style="flex: 1; display: flex; flex-direction: column; align-items: center;">
                             <h1 class="mb-4 text-xl font-bold">التقاط الصور والاوليات</h1>
-                            <div id="my_camera" class="mx-auto mb-4" style="width:1280px; height:960px;"></div>
+                            <div id="my_camera" class="mx-auto mb-4" style="width:640px; height:480px;"></div>
                             <button id="capture" class="btn btn-primary mb-2">التقاط</button>
                             <button id="upload" class="btn btn-success" style="display:none;">حفظ</button>
                         </div>
@@ -59,7 +59,7 @@
                             margin: 10px;
                             display: inline-block;
                             position: relative;
-                            width: 320px;
+                            width: 500px;
                             height: 240px;
                             overflow: hidden;
                         }
@@ -116,8 +116,8 @@
                     <script>
                         // Configure WebcamJS
                         Webcam.set({
-                            width: 1280,
-                            height: 960,
+                            width: 960,
+                            height: 720,
                             image_format: 'jpeg',
                             jpeg_quality: 90
                         });
@@ -131,7 +131,7 @@
 
                                 const imgElement = document.createElement('img');
                                 imgElement.src = data_uri;
-                                imgElement.width = 320;
+                                imgElement.width = 500;
                                 imgElement.alt = 'Captured Image';
                                 imgElement.className = 'block';
                                 imgElement.onclick = function() {
@@ -159,11 +159,11 @@
                                     imgElement.style.transform = `translate(-50%, -50%) rotate(${rotationDegree}deg)`;
 
                                     if (rotationDegree % 180 === 0) {
-                                        imageWrapper.style.width = '320px';
+                                        imageWrapper.style.width = '500px';
                                         imageWrapper.style.height = '240px';
                                     } else {
                                         imageWrapper.style.width = '240px';
-                                        imageWrapper.style.height = '320px';
+                                        imageWrapper.style.height = '500px';
                                     }
                                 };
 

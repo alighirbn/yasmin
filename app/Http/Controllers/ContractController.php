@@ -10,17 +10,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Contract\Installment;
 use App\DataTables\ContractDataTable;
 use App\Http\Requests\ContractRequest;
-
+use App\Services\WiaScanner;
 use App\Http\Requests\CustomerRequest;
 use App\Jobs\AutoDeleteTemporaryContract;
 use App\Models\Payment\Payment_Method;
 use App\Models\Contract\Contract_Installment;
-
+use Illuminate\Http\JsonResponse;
 use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
 use App\Notifications\PaymentNotify;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,6 +47,96 @@ class ContractController extends Controller
             'message' => 'تمت إضافة الزبون بنجاح',
             'customer' => $customer // Return the created customer data
         ]);
+    }
+
+    private $scanner;
+
+    public function __construct(WiaScanner $scanner)
+    {
+        $this->scanner = $scanner;
+    }
+
+    /**
+     * Display the list of available scanner devices.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function scancreate(string $url_address)
+    {
+        try {
+            // Retrieve the contract with necessary relationships
+            $contract = Contract::where('url_address', '=', $url_address)->first();
+            // Attempt to get the list of devices
+            $devices = $this->scanner->listDevices();
+            return view('contract.contract.scanner', compact(['devices', 'contract']));
+        } catch (Exception $e) {
+            // Handle error if listing devices fails
+
+            return response()->json(['error' => 'Failed to list devices. Please try again later.'], 500);
+        }
+    }
+
+    /**
+     * Initiate the scan process for the selected scanner device.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function scanstore(Request $request): JsonResponse
+    {
+        try {
+            // Validate the provided device ID
+            $deviceId = $request->input('device_id');
+            if (empty($deviceId)) {
+                return response()->json(['error' => 'Device ID is required.'], 400);
+            }
+
+            // Connect to the selected scanner device
+            $this->scanner->connect($deviceId);
+
+            // Ensure that the directory for storing scanned images exists
+            $scansDirectory = storage_path('app/public/scans/');
+            if (!is_dir($scansDirectory)) {
+                mkdir($scansDirectory, 0755, true);
+            }
+
+            $filename = uniqid() . '.png';
+            // Generate a unique file path for saving the scanned image
+            $outputPath = $scansDirectory . $filename;
+
+            // Perform the scan and save the image
+            $scannedImagePath = $this->scanner->scan($outputPath);
+
+            // Retrieve the URL address from the request (assuming it's passed)
+            $url_address = $request->input('url_address');
+            if (empty($url_address)) {
+                return response()->json(['error' => 'URL address is required.'], 400);
+            }
+
+            // Retrieve the contract based on the provided URL address
+            $contract = Contract::where('url_address', '=', $url_address)->first();
+            if (!$contract) {
+                return response()->json(['error' => 'Contract not found for the given URL address.'], 404);
+            }
+
+
+            // Save the scanned image and associate it with the contract
+            $contract->images()->create([
+                'image_path' => 'storage/scans/' . $filename,
+                'customer_id' => $contract->contract_customer_id, // Add the customer ID
+                'user_id_create' => auth()->id(), // Assuming you're tracking the creator
+            ]);
+
+            // Return the URL to the scanned image
+            return response()->json([
+                'message' => 'Scan successful and image associated with contract.',
+                'image_path' => asset('storage/scans/' . basename($scannedImagePath))
+            ], 200);
+        } catch (Exception $e) {
+            // Log and return detailed error message on failure
+
+            return response()->json(['error' => 'Failed to scan the document. Please try again later.'], 500);
+        }
     }
 
     public function archivecreate(string $url_address)
@@ -112,15 +203,30 @@ class ContractController extends Controller
      */
     public function create(Request $request)
     {
+        // Get all customers and payment methods
         $customers = Customer::all();
         $payment_methods = Payment_Method::all();
-        $building_id = $request->input('building_id'); // Retrieve building_id from request
 
-        // Fetch all buildings
+        // Get the building_id from the request
+        $building_id = $request->input('building_id');
+
+        // If building_id is provided, check if it has an existing contract
+        if ($building_id) {
+            $building = Building::find($building_id);
+
+            // Check if the building exists and has a contract
+            if ($building && $building->contract()->exists()) {
+                // Return an error or a message if the building already has a contract
+                return redirect()->back()->with('error', 'تم حجز العقار مسبقا .');
+            }
+        }
+
+        // Fetch all buildings that are not hidden and do not have a contract
         $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
 
-        return view('contract.contract.create', compact(['customers', 'buildings', 'payment_methods', 'building_id']));
+        return view('contract.contract.create', compact('customers', 'buildings', 'payment_methods', 'building_id'));
     }
+
 
 
     /**

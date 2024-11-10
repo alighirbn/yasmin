@@ -54,7 +54,11 @@
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="image-container">
                         <!-- Map Image -->
                         <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image" id="mapImage">

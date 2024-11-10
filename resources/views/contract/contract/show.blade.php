@@ -63,6 +63,13 @@
                                     {{ __('word.contract_archive') }}
                                 </a>
                             @endif
+
+                            @if ($contract->stage != 'temporary' && $contract->payments->where('approved', true)->count() >= 1)
+                                <a href="{{ route('contract.scancreate', $contract->url_address) }}"
+                                    class="btn btn-custom-archive">
+                                    {{ __('word.contract_scan') }}
+                                </a>
+                            @endif
                         @endcan
                         @can('contract-archiveshow')
                             @if (
