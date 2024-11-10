@@ -75,7 +75,7 @@ class ContractTransferHistoryController extends Controller
             $accountant->notify(new TransferNotify($transfer));
         }
 
-        return redirect()->route('transfer.index')
+        return redirect()->route('transfer.show', $transfer->url_address)
             ->with('success', 'تم إرسال طلب التناقل للموافقة.');
     }
 

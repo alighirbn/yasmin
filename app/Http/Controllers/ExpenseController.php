@@ -39,7 +39,7 @@ class ExpenseController extends Controller
         $expense = Expense::create($request->validated());
 
         // Return a success message and redirect
-        return redirect()->route('expense.index')
+        return redirect()->route('expense.show', $expense->url_address)
             ->with('success', 'تمت إضافة المصروف بنجاح، في انتظار الموافقة.');
     }
 

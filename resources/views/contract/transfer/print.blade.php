@@ -110,15 +110,16 @@
                             </div>
                         </div>
                         <div class="flex">
+
                             <div class="flex justify-center my-8">
                                 <div class="border-4 border-gray-300 rounded-md shadow-lg p-2">
-                                    <img src="{{ asset($transfer->old_customer_picture) }}" alt="Webcam Image"
+                                    <img src="{{ asset($transfer->new_customer_picture) }}" alt="Webcam Image"
                                         class="rounded-md shadow-md">
                                 </div>
                             </div>
                             <div class="flex justify-center my-8">
                                 <div class="border-4 border-gray-300 rounded-md shadow-lg p-2">
-                                    <img src="{{ asset($transfer->new_customer_picture) }}" alt="Webcam Image"
+                                    <img src="{{ asset($transfer->old_customer_picture) }}" alt="Webcam Image"
                                         class="rounded-md shadow-md">
                                 </div>
                             </div>

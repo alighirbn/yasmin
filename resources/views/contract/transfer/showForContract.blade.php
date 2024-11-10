@@ -51,6 +51,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>{{ __('word.action') }}</th>
                                         <th>{{ __('word.transfer_id') }}</th>
                                         <th>{{ __('word.transfer_date') }}</th>
                                         <th>{{ __('word.oldcustomer') }}</th>
@@ -62,6 +63,13 @@
                                 <tbody>
                                     @foreach ($transfers as $transfer)
                                         <tr>
+                                            <td>
+                                                <a href="{{ route('transfer.show', $transfer->url_address) }}"
+                                                    class="my-1 mx-1 btn btn-custom-show">
+                                                    {{ __('word.view') }}
+                                                </a>
+
+                                            </td>
                                             <td>{{ $transfer->id }}</td>
                                             <td>{{ $transfer->transfer_date }}</td>
                                             <td>{{ $transfer->oldCustomer->customer_full_name }}</td>

@@ -47,7 +47,7 @@ class PaymentController extends Controller
     {
         $payment = Payment::create($request->validated());
 
-        return redirect()->route('payment.index')
+        return redirect()->route('payment.show', $payment->url_address)
             ->with('success', 'تمت أضافة الدفعة بنجاح في انتظار الموافقة عليها ');
     }
 
@@ -97,8 +97,10 @@ class PaymentController extends Controller
                 'transaction_type' => 'credit', // Since it's a payment
             ]);
 
+            // Safely check if contract installment and installment exist before accessing the id
+            $installmentId = optional(optional($payment->contract_installment)->installment)->id;
 
-            if (in_array($payment->contract_installment->installment->id, [1, 2])) {
+            if ($installmentId && in_array($installmentId, [1, 2])) {
                 // Notify all users with 'lawyer' role
                 $lawyers = User::role('lawyer')->get(); // Fetch lawyers
                 $admins = User::role('admin')->get(); // Fetch admins
@@ -113,6 +115,7 @@ class PaymentController extends Controller
                     $admin->notify(new PaymentNotify($payment));
                 }
             }
+
             return redirect()->route('contract.show', $payment->contract->url_address)
                 ->with('success', 'تم قبول الدفعة بنجاح وتم تسجيل المعاملة في الحساب النقدي.');
         } else {
