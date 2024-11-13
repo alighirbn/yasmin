@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('word.dashboard_title') }}
+        <h2 class="font-semibold text-xl  leading-tight">
+            {{ __('word.dashboard_title') . ' ' . auth()->user()->name }}
         </h2>
     </x-slot>
 

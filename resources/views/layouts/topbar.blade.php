@@ -1,4 +1,4 @@
-<div class="w-full p-2 flex justify-between" style="background-color: #2b6a9a;">
+<div class="w-full p-2 flex justify-between" style="background-color: #751743;">
     <button onclick="myFunction()" x-on:click.prevent="isOpen = !isOpen">
         <i class='bx bx-menu' style="color: #fff;"></i>
     </button>
@@ -160,7 +160,7 @@
             } else {
                 dropdown.append(
                     '<li><a class="block w-full px-4 py-2 text-center leading-5 text-gray-700">No new notifications</a></li>'
-                    );
+                );
             }
         }
 

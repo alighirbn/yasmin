@@ -1,16 +1,16 @@
 /* Custom CSS */
 .gradient-background {
-    background: linear-gradient(to bottom, #2b6a9a, #0c6e70);
+    background: linear-gradient(to bottom, #751743, #490117);
     /* Adjust colors as needed  #2b6a9a, #0c6e70 */
 }
 
 .gradient-background-nav {
-    background: linear-gradient(to bottom, #2b6a9a, #3dafd1);
+    background: linear-gradient(to bottom, #751743, #a91d53);
     /* Adjust colors as needed   #2b6a9a, #d0e3ff*/
 }
 
 .bg-custom {
-    background-color: #e8f8ff;
+    background-color: #ffe8f4;
     /* Replace with your desired color #e8f8ff */
     color: #e8f8ff;
     /* Text color */
@@ -84,20 +84,18 @@
 }
 
 .btn-custom-archive {
-    background-color: #d33bbc;
+    background-color: #a91d53;
     /* Replace with your desired color */
     color: #ffffff;
     /* Text color */
 }
 
 .btn-custom-archive:hover {
-    background-color: #af30b8;
+    background-color: #751743;
     /* Darker shade on hover */
     color: #ffffff;
     /* Text color */
 }
-
-
 
 .btn-custom-statement {
     background-color: #5f4de7;
@@ -173,7 +171,6 @@
     max-width: 100%;
 }
 
-
 @media print {
     /* page size and orientation and margin */
     @page {
@@ -192,19 +189,16 @@
         visibility: visible;
     }
 
-    
     /* Ensure the print-container takes up the full width */
     .print-container {
         position: absolute;
         right: 0;
         top: 0;
         width: 100%; /* Ensure full width */
-        padding: 0;  /* Remove any padding */
-        margin: 0;   /* Remove any margin */
+        padding: 0; /* Remove any padding */
+        margin: 0; /* Remove any margin */
     }
 }
-
-
 
 .header-buttons {
     display: flex;
@@ -212,7 +206,6 @@
     gap: 1rem;
     margin: 1rem;
 }
-
 
 .outlined-text {
     padding: 8px;
@@ -259,7 +252,7 @@
     top: 20px;
     right: 0; /* Start from the right for RTL */
     height: 4px;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     border-radius: 2px;
     z-index: 1;
     transition: width 0.3s ease;
@@ -284,7 +277,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4CAF50;
+    color: #4caf50;
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 8px;
@@ -292,9 +285,9 @@
 }
 
 .circle.completed {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
-    border-color: #4CAF50;
+    border-color: #4caf50;
 }
 
 .stage-label {
@@ -306,5 +299,5 @@
 }
 
 .stage-label.completed-text {
-    color: #4CAF50;
+    color: #4caf50;
 }
