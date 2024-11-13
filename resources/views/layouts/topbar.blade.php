@@ -86,7 +86,7 @@
                         @endforelse
                         <li class="border border-solid">
                             <a rel="alternate" href="{{ route('notification.index') }}"
-                                class="block w-full px-4 py-2 text-center leading-5 text-black-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                class="block w-full px-4 py-2 text-center leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
                                 {{ __('word.show_all') }}
                             </a>
                         </li>

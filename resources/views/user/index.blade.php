@@ -1,7 +1,8 @@
 <x-app-layout>
 
     <x-slot name="header">
-
+        <!-- app css-->
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         @include('user.nav.navigation')
 
     </x-slot>
@@ -34,24 +35,24 @@
                                         <div class="flex ">
                                             @can('user-show')
                                                 <a href="{{ route('user.show', $user->url_address) }}"
-                                                    class="my-2 mx-2 view btn btn-success edit">
+                                                    class="my-2 mx-2 view btn btn-custom-show">
                                                     {{ __('word.view') }}
                                                 </a>
                                             @endcan
                                             @can('user-update')
                                                 <a href="{{ route('user.edit', $user->url_address) }}"
-                                                    class="my-2 mx-2 view btn btn-warning">
+                                                    class="my-2 mx-2 view btn btn-custom-edit">
                                                     {{ __('word.edit') }}
                                                 </a>
                                             @endcan
                                             @can('user-delete')
                                                 <form action="{{ route('user.destroy', $user->url_address) }}"
-                                                    method="post" class="my-2 mx-2">
+                                                    method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <x-primary-button class="ml-4">
+                                                    <button type="submit" class="my-2 mx-2 btn btn-custom-delete">
                                                         {{ __('word.delete') }}
-                                                    </x-primary-button>
+                                                    </button>
                                                 </form>
                                             @endcan
                                         </div>

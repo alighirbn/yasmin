@@ -1,7 +1,8 @@
 <x-app-layout>
 
     <x-slot name="header">
-
+        <!-- app css-->
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         @include('role.nav.navigation')
 
     </x-slot>
@@ -30,24 +31,23 @@
                                             <div class="flex ">
                                                 @can('role-show')
                                                     <a href="{{ route('role.show', $role->id) }}"
-                                                        class="my-2 mx-2 view btn btn-success edit">
+                                                        class="my-2 mx-2 view btn btn-custom-show">
                                                         {{ __('word.view') }}
                                                     </a>
                                                 @endcan
                                                 @can('role-update')
                                                     <a href="{{ route('role.edit', $role->id) }}"
-                                                        class="my-2 mx-2 view btn btn-warning">
+                                                        class="my-2 mx-2 view btn btn-custom-edit">
                                                         {{ __('word.edit') }}
                                                     </a>
                                                 @endcan
                                                 @can('role-delete')
-                                                    <form action="{{ route('role.destroy', $role->id) }}" method="post"
-                                                        class="my-2 mx-2">
+                                                    <form action="{{ route('role.destroy', $role->id) }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <x-primary-button class="ml-4">
+                                                        <button type="submit" class="my-2 mx-2 btn btn-custom-delete">
                                                             {{ __('word.delete') }}
-                                                        </x-primary-button>
+                                                        </button>
                                                     </form>
                                                 @endcan
                                             </div>
