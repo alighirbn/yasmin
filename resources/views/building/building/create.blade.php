@@ -88,6 +88,13 @@
                                 </div>
 
                                 <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="building_real_area" class="w-full mb-1" :value="__('word.building_real_area')" />
+                                    <x-text-input id="building_real_area" class="w-full block mt-1" type="text"
+                                        name="building_real_area" value="{{ old('building_real_area') }}" />
+                                    <x-input-error :messages="$errors->get('building_real_area')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="building_map_x" class="w-full mb-1" :value="__('word.building_map_x')" />
                                     <x-text-input id="building_map_x" class="w-full block mt-1" type="text"
                                         name="building_map_x" value="{{ old('building_map_x') }}" />

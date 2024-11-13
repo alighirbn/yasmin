@@ -163,6 +163,7 @@ return [
     'block_number' => 'البلوك',
     'house_number' => 'الدار',
     'building_area' => 'المساحة',
+    'building_real_area' => 'مساحة البناء',
     'building_map_x' => 'احداثيات x',
     'building_map_y' => 'احداثيات y',
 

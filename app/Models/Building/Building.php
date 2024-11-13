@@ -55,6 +55,7 @@ class Building extends Model
         'block_number',
         'house_number',
         'building_area',
+        'building_real_area',
         'building_map_x',
         'building_map_y',
 

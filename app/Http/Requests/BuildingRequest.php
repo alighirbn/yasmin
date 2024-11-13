@@ -38,6 +38,7 @@ class BuildingRequest extends FormRequest
             'house_number' => ['required', 'max:10'],
             'block_number' => ['required', 'max:10'],
             'building_area' => ['required', 'max:10'],
+            'building_real_area' => ['required', 'max:10'],
             'building_map_x' => ['max:6'],
             'building_map_y' => ['max:6'],
 

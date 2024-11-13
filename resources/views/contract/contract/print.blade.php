@@ -78,7 +78,7 @@
                                     ({{ $contract->building->block_number }}) نوع الوحده السكنية
                                     ({{ $contract->building->building_type->type_name }})
                                     ٢- المساحة الكلية للوحده السكنية ({{ $contract->building->building_area }}) مساحة
-                                    البناء(-----)
+                                    البناء({{ $contract->building->building_real_area }})
                                     <br>
                                     ثانيا / بدل شراء الوحده السكنية:
                                     رقما ({{ number_format($contract->contract_amount, 0) }})
