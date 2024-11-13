@@ -42,11 +42,11 @@
                     <!-- Modal Structure -->
                     <div id="customerModal"
                         class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
-                        <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
-                            <button id="closeModal" class=" text-gray-800 hover:text-gray-900">
+                        <div class="bg-white rounded-lg shadow-lg max-w-7xl w-full p-10">
+                            <button id="closeModal" class="text-gray-800 hover:text-gray-900">
                                 &times;
                             </button>
-                            <form id="customerForm" method="post" action="{{ route('transfer.customerstore') }}">
+                            <form id="customerForm" method="post" action="{{ route('contract.customerstore') }}">
                                 @csrf
                                 <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
                                     {{ __('word.customer_info') }}
@@ -57,6 +57,12 @@
                                         <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
                                         <x-text-input id="customer_full_name" class="w-full block mt-1" type="text"
                                             name="customer_full_name" value="{{ old('customer_full_name') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="mother_full_name" class="w-full mb-1" :value="__('word.mother_full_name')" />
+                                        <x-text-input id="mother_full_name" class="w-full block mt-1" type="text"
+                                            name="mother_full_name" value="{{ old('mother_full_name') }}" />
                                         <div class="input-error w-full mt-2"></div>
                                     </div>
                                     <div class="mx-4 my-4 w-full">
@@ -101,6 +107,33 @@
                                         <x-text-input id="customer_card_issud_date" class="w-full block mt-1"
                                             type="text" name="customer_card_issud_date"
                                             value="{{ old('customer_card_issud_date') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
+                                <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_address') }}
+                                </h2>
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="full_address" class="w-full mb-1" :value="__('word.full_address')" />
+                                        <x-text-input id="full_address" class="w-full block mt-1" type="text"
+                                            name="full_address" value="{{ old('full_address') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="address_card_number" class="w-full mb-1"
+                                            :value="__('word.address_card_number')" />
+                                        <x-text-input id="address_card_number" class="w-full block mt-1"
+                                            type="text" name="address_card_number"
+                                            value="{{ old('address_card_number') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="saleman" class="w-full mb-1" :value="__('word.saleman')" />
+                                        <x-text-input id="saleman" class="w-full block mt-1" type="text"
+                                            name="saleman" value="{{ old('saleman') }}" />
                                         <div class="input-error w-full mt-2"></div>
                                     </div>
                                 </div>

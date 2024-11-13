@@ -30,6 +30,13 @@
                                     <x-input-error :messages="$errors->get('customer_full_name')" class="w-full mt-2" />
                                 </div>
                                 <div class=" mx-4 my-4 w-full ">
+                                    <x-input-label for="mother_full_name" class="w-full mb-1" :value="__('word.mother_full_name')" />
+                                    <x-text-input id="mother_full_name" class="w-full block mt-1" type="text"
+                                        name="mother_full_name"
+                                        value="{{ old('mother_full_name') ?? $customer->mother_full_name }}" />
+                                    <x-input-error :messages="$errors->get('mother_full_name')" class="w-full mt-2" />
+                                </div>
+                                <div class=" mx-4 my-4 w-full ">
                                     <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
                                     <x-text-input id="customer_phone" class="w-full block mt-1" type="text"
                                         name="customer_phone"
@@ -75,6 +82,36 @@
                                         name="customer_card_issud_date"
                                         value="{{ old('customer_card_issud_date') ?? $customer->customer_card_issud_date }}" />
                                     <x-input-error :messages="$errors->get('customer_card_issud_date')" class="w-full mt-2" />
+                                </div>
+
+                            </div>
+
+                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4  w-full">
+                                {{ __('word.customer_address') }}
+                            </h2>
+
+                            <div class="flex">
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="full_address" class="w-full mb-1" :value="__('word.full_address')" />
+                                    <x-text-input id="full_address" class="w-full block mt-1" type="text"
+                                        name="full_address"
+                                        value="{{ old('full_address') ?? $customer->full_address }}" />
+                                    <x-input-error :messages="$errors->get('full_address')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="address_card_number" class="w-full mb-1" :value="__('word.address_card_number')" />
+                                    <x-text-input id="address_card_number" class="w-full block mt-1" type="text"
+                                        name="address_card_number"
+                                        value="{{ old('address_card_number') ?? $customer->address_card_number }}" />
+                                    <x-input-error :messages="$errors->get('address_card_number')" class="w-full mt-2" />
+                                </div>
+
+                                <div class=" mx-4 my-4 w-full">
+                                    <x-input-label for="saleman" class="w-full mb-1" :value="__('word.saleman')" />
+                                    <x-text-input id="saleman" class="w-full block mt-1" type="text"
+                                        name="saleman" value="{{ old('saleman') ?? $customer->saleman }}" />
+                                    <x-input-error :messages="$errors->get('saleman')" class="w-full mt-2" />
                                 </div>
 
                             </div>

@@ -20,7 +20,12 @@
                                     name="customer_full_name">
                                     {{ $customer->customer_full_name }}
                             </div>
-
+                            <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="mother_full_name" class="w-full mb-1" :value="__('word.mother_full_name')" />
+                                <p id="mother_full_name" class="w-full h-9 block mt-1" type="text"
+                                    name="mother_full_name">
+                                    {{ $customer->mother_full_name }}
+                            </div>
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
                                 <p id="customer_phone" class="w-full h-9 block mt-1 " type="text"
@@ -56,6 +61,28 @@
                                 <p id="customer_card_issud_date" class="w-full h-9 block mt-1 " type="text"
                                     name="customer_card_issud_date">
                                     {{ $customer->customer_card_issud_date }}
+                            </div>
+
+                        </div>
+
+                        <div class="flex ">
+                            <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="full_address" class="w-full mb-1" :value="__('word.full_address')" />
+                                <p id="full_address" class="w-full h-9 block mt-1" type="text" name="full_address">
+                                    {{ $customer->full_address }}
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="address_card_number" class="w-full mb-1" :value="__('word.address_card_number')" />
+                                <p id="address_card_number" class="w-full h-9 block mt-1 " type="text"
+                                    name="address_card_number">
+                                    {{ $customer->address_card_number }}
+                            </div>
+
+                            <div class=" mx-4 my-4 w-full ">
+                                <x-input-label for="saleman" class="w-full mb-1" :value="__('word.saleman')" />
+                                <p id="saleman" class="w-full h-9 block mt-1 " type="text" name="saleman">
+                                    {{ $customer->saleman }}
                             </div>
 
                         </div>

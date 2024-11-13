@@ -35,6 +35,10 @@ class CustomerRequest extends FormRequest
             'customer_card_number' => ['max:11', 'required'],
             'customer_card_issud_auth' => ['max:60', 'required'],
             'customer_card_issud_date' => ['max:10', 'required'],
+            'mother_full_name' => ['max:100'],
+            'full_address' => ['max:100'],
+            'address_card_number' => ['max:30'],
+            'saleman' => ['max:100'],
 
         ];
     }

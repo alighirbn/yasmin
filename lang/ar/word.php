@@ -70,6 +70,14 @@ return [
     'map_edit' => 'تعديل موقع العقارات',
     'map_hidden' => 'قفل العقارات',
 
+    //************************************* reservation        *******************************************
+    'reservation_form' => 'ورقة حجز وحدة سكنية',
+    'reservation_date' => 'تاريخ الحجز',
+    'reservation_information' => 'التسلسل',
+    'reservation_notes' => 'شروط الحجز:',
+    'unit_information' => 'معلومات الوحدة السكنية',
+    'financial_information' => 'المعلومات المالية',
+    'reservation_project' => 'مجمع واحة الياسمين السكني',
 
     //************************************* contract        *******************************************
     'id' => 'عدد العقد',
@@ -302,7 +310,10 @@ return [
     'customer_card_number' => 'رقم البطاقة الوطنية',
     'customer_card_issud_auth' => 'جهة الاصدار',
     'customer_card_issud_date' => 'تاريخ الاصدار',
-
+    'mother_full_name' => 'اسم الام الكامل',
+    'full_address' => 'العنوان بالكامل',
+    'address_card_number' => 'رقم بطاقة السكن',
+    'saleman' => 'الوسيط',
 
     //nav
     'customer_add' => 'اضافة زبون',
@@ -311,6 +322,7 @@ return [
     //customer_info
     'customer_info' => 'بيانات الزبون',
     'customer_card' => 'بيانات البطاقة الوطنية',
+    'customer_address' => 'بيانات بطاقة السكن',
 
     //************************************* users        *******************************************
     'user_name' => 'اسم المستخدم',

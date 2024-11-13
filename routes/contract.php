@@ -26,6 +26,7 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/add/{url_address}', [ContractController::class, 'add_payment'])->middleware(['auth', 'verified', 'permission:contract-show'])->name('contract.add');
     Route::get('/print/{url_address}', [ContractController::class, 'print'])->middleware(['auth', 'verified', 'permission:contract-print'])->name('contract.print');
     Route::get('/temp/{url_address}', [ContractController::class, 'temp'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.temp');
+    Route::get('/reserve/{url_address}', [ContractController::class, 'reserve'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.reserve');
     //update
     Route::get('/edit/{url_address}', [ContractController::class, 'edit'])->middleware(['auth', 'verified', 'permission:contract-update'])->name('contract.edit');
     Route::patch('/update/{url_address}', [ContractController::class, 'update'])->middleware(['auth', 'verified', 'permission:contract-update'])->name('contract.update');

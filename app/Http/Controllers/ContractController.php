@@ -373,6 +373,23 @@ class ContractController extends Controller
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
     }
+
+    public function reserve(string $url_address)
+    {
+        // Retrieve the contract with necessary relationships
+        $contract = Contract::with(['customer', 'building', 'payment_method', 'images'])
+            ->where('url_address', '=', $url_address)
+            ->first();
+
+        if (isset($contract)) {
+
+            return view('contract.contract.reserve', compact(['contract']));
+        } else {
+            $ip = $this->getIPAddress();
+            return view('contract.contract.accessdenied', ['ip' => $ip]);
+        }
+    }
+
     public function print(string $url_address)
     {
         $contract = Contract::with(['customer', 'building', 'payment_method'])->where('url_address', '=', $url_address)->first();

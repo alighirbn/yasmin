@@ -36,6 +36,10 @@ class Customer extends Model
         'customer_card_number',
         'customer_card_issud_auth',
         'customer_card_issud_date',
+        'mother_full_name',
+        'full_address',
+        'address_card_number',
+        'saleman',
 
         'user_id_create',
         'user_id_update',
