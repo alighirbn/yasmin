@@ -71,14 +71,19 @@ return [
     'map_hidden' => 'قفل العقارات',
 
     //************************************* reservation        *******************************************
+    'print_reserve' => 'استمارة حجز',
     'reservation_form' => 'ورقة حجز وحدة سكنية',
     'reservation_date' => 'تاريخ الحجز',
     'reservation_information' => 'التسلسل',
     'reservation_notes' => 'شروط الحجز:',
+    'customer_information' => 'معلومات الزبون',
     'unit_information' => 'معلومات الوحدة السكنية',
     'financial_information' => 'المعلومات المالية',
     'reservation_project' => 'مجمع واحة الياسمين السكني',
-
+    'agent_signature' => 'ممثل قسم المبيعات',
+    'accountant_signature' => 'امين الصندوق',
+    'reserve_signature' => 'ممثل قسم الحجوزات',
+    'customer_signature' => 'اسم وتوقيع الزبون',
     //************************************* contract        *******************************************
     'id' => 'عدد العقد',
     'contract_id' =>  'عدد العقد',

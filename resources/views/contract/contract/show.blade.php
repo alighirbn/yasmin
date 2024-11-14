@@ -20,6 +20,9 @@
                         <a href="{{ route('contract.temp', $contract->url_address) }}" class="btn btn-custom-print">
                             {{ __('word.print') }}
                         </a>
+                        <a href="{{ route('contract.reserve', $contract->url_address) }}" class="btn btn-custom-print">
+                            {{ __('word.print_reserve') }}
+                        </a>
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
                                 class="btn btn-custom-statement">

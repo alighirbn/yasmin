@@ -44,6 +44,21 @@
                 white-space: nowrap;
                 z-index: 10;
             }
+
+            /* Print specific styles */
+            @media print {
+
+                /* Set landscape orientation */
+                @page {
+                    size: landscape;
+                    margin: 0;
+                }
+
+                /* Hide the print button on print */
+                .print-btn {
+                    display: none;
+                }
+            }
         </style>
         <div class="flex justify-start">
             @include('map.nav.navigation')
@@ -59,9 +74,18 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <div class="image-container">
+                    <!-- Print Button -->
+                    <div class="mb-4">
+                        <button onclick="window.print()"
+                            class="print-btn bg-blue-500 text-white py-2 px-4 rounded shadow">
+                            طباعة
+                        </button>
+                    </div>
+
+                    <div class="image-container print-container">
                         <!-- Map Image -->
-                        <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image" id="mapImage">
+                        <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image"
+                            id="mapImage">
 
                         <!-- Building Overlays -->
                         @foreach ($buildings as $building)

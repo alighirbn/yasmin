@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         <style>
             .image-container {
@@ -57,7 +56,6 @@
                 /* Adjust as needed */
                 left: 10px;
                 /* Adjust as needed */
-                background-color: rgba(255, 255, 255, 0.8);
                 /* Change to a bright color */
                 padding: 5px;
                 /* Reduced padding for a smaller size */
@@ -70,18 +68,41 @@
                 color: rgb(0, 13, 126);
                 /* Text color for better contrast */
             }
+
+            /* Print specific styles */
+            @media print {
+
+                /* Set landscape orientation */
+                @page {
+                    size: landscape;
+                    margin: 0;
+                }
+
+                /* Hide the print button on print */
+                .print-btn {
+                    display: none;
+                }
+            }
         </style>
+
         <div class="flex justify-start">
             @include('map.nav.navigation')
         </div>
-
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="image-container">
+                    <!-- Print Button -->
+                    <div class="mb-4">
+                        <button onclick="window.print()"
+                            class="print-btn bg-blue-500 text-white py-2 px-4 rounded shadow">
+                            طباعة
+                        </button>
+                    </div>
+
+                    <div class="image-container print-container">
                         <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image">
 
                         <div class="stat-container">
