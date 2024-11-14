@@ -1,25 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         <style>
             .short-rows td {
-                padding: 4px !important;
+                padding: 2px !important;
             }
 
             .short-rows td {
-                padding: 4px 8px !important;
+                padding: 2px 4px !important;
                 /* Adjust padding to control row height */
             }
 
             .short-rows tr {
-                height: 30px;
+                height: 25px;
                 /* Set a fixed height for rows, adjust as needed */
             }
 
             .table-striped>tbody>tr:nth-child(odd)>td,
             .table-striped>tbody>tr:nth-child(odd)>th {
-                background-color: #fae5eb;
+                background-color: #5c2738;
+                color: white;
                 /* Background color */
                 border: 1px solid #490117;
                 /* Border style, color, and width */
@@ -80,13 +83,12 @@
                                 </div>
 
                                 <div class=" mx-2 my-2 w-full ">
-                                    <div
-                                        style="text-align: center; margin: 1rem auto; font-size: 1.2rem; font-weight: bold; color: white;">
-                                        <p> {{ __('word.reservation_form') }}</p>
-                                    </div>
+                                <div style="text-align: center; margin: 1rem auto; font-size: 1.2rem; font-weight: bold; color: white; font-family: 'Cairo', sans-serif;">
+                                     <p> {{ __('word.reservation_form') }}</p>
+                                </div>
 
                                     <!-- Reservation Information -->
-                                    <h2 class="text-center font-bold" style="color: white;">
+                                    <h2 class="text-center font-bold" style="color: white;font-family: 'Cairo', sans-serif;">
                                         {{ __('word.reservation_project') }}</h2>
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
@@ -95,7 +97,7 @@
                             </div>
                             <div class="mx-2 my-2">
                                 <!-- Unit Information -->
-                                <h3 class="text-center font-semibold my-2">{{ __('word.customer_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.customer_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.reservation_date') }}</td>
@@ -106,7 +108,7 @@
                                         <td>{{ __('word.customer_full_name') }}</td>
                                         <td>{{ $contract->customer->customer_full_name ?? ' ' }}</td>
                                         <td>{{ __('word.mother_full_name') }}</td>
-                                        <td>{{ $contract->mother_full_name ?? ' ' }}</td>
+                                        <td>{{ $contract->customer->mother_full_name ?? ' ' }}</td>
 
                                     </tr>
                                     <tr>
@@ -137,7 +139,7 @@
                                 </table>
 
                                 <!-- Unit Information -->
-                                <h3 class="text-center font-semibold my-2">{{ __('word.unit_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.unit_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.contract_building_id') }}</td>
@@ -165,7 +167,7 @@
                                 </table>
 
                                 <!-- Financial Information -->
-                                <h3 class="text-center font-semibold my-2">{{ __('word.financial_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.financial_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.contract_payment_method_id') }}</td>
@@ -176,15 +178,15 @@
                                 </table>
 
                                 <!-- Additional Information and Notes -->
-                                <div class="my-2" style="background-color: #fae5eb; border-radius: 0.5rem;">
+                                <div class="my-1">
                                     <h4 class="font-semibold">{{ __('word.reservation_notes') }}</h4>
-                                    <p style=" font-size: 0.85rem; ">
+                                    <p style=" font-size: 0.85rem;">
                                         <br> 1- لا تعتبر هذه الاستمارة بمثابة عقد ولا جزء من عقد البيع ولا يترتب أي
                                         التزامات
                                         على الشركة.
-                                        <br> 2- الحجز ساري لحين وصول رسالة من الشركة للحضور لتسديد الدفعة الاولى و بعد
+                                        <br> 2- الحجز ساري لحين وصول رسالة من الشركة للحضور لتسديد الدفعة الاولى و من
                                         تاريخ
-                                        الحجز اعلاه وبعدها سيتم الغاء الحجز تلقائيا في حال لم يتم تسديد الدفعة الأولى
+                                        ارسال رسالة لمدة 24 ساعة وبعدها سيتم الغاء الحجز تلقائيا في حال لم يتم تسديد الدفعة الأولى
                                         لشراء
                                         الوحدة السكنية .
                                         <br> 3- يحضر على المشتري التنازل عن استمارة حجز الوحدة السكنية للغير ويعد
@@ -200,16 +202,11 @@
                                         بتقديم الضمانات المتفق عليها بالمبالغ المتبقية من خلال تقديم ( صكوك وكمبيالات
                                         مصدقة
                                         ).
-                                        <br> 6- يقر الزبون يعلمه ان عمولة الحجز البالغة (
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) هي
+                                        <br> 6- يقر الزبون بعلمه ان عمولة الحجز البالغة ( 25،000،000 دينار ) هي
                                         عمولة
                                         ادارية
                                         لتنظيم وتثبيت
-                                        الحجز وان المبلغ غير قابل للرد حتى وان لم يتم التعاقد وتم الغاء الحجز وهو مبلغ
-                                        مقطوع
-                                        لا يدخل ضمن سعر الوحدة السكنية.
+                                        الحجز وان المبلغ غير قابل للرد حتى وان لم يتم التعاقد وتم الغاء الحجز  من قبل الشركة او من قبل الزبون يتم استقطاع مبلغ ( 2،000،000 دينار) وارجاع المبلغ المتبقي للزبون.
                                         <br> 7- في حال تسديد الدفعة الأولى لشراء الوحدة السكنية في أحد المصارف المعتمدة
                                         من
                                         قبل الشركة يجب احضار وصل التسديد ضمن فترة سريان الحجز اعلاه وبخلافه يمكن للشركة
@@ -230,29 +227,29 @@
                                 <!-- Signature Section -->
                                 <div class=" flex ">
                                     <div class="text-center mx-2 my-2 w-full"
-                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;">
+                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;font-family: 'Cairo', sans-serif;">
                                         <p>{{ __('word.agent_signature') }}</p>
 
                                     </div>
                                     <div class="text-center mx-2 my-2 w-full"
-                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;">
+                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;font-family: 'Cairo', sans-serif;">
                                         <p>{{ __('word.accountant_signature') }}</p>
 
                                     </div>
                                     <div class="text-center mx-2 my-2 w-full"
-                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;">
+                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;font-family: 'Cairo', sans-serif;">
                                         <p>{{ __('word.reserve_signature') }}</p>
 
                                     </div>
                                     <div class="text-center mx-2 my-2 w-full"
-                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;">
+                                        style="background-color: #5c2738; color: white; border-radius: 0.5rem;font-family: 'Cairo', sans-serif;">
                                         <p>{{ __('word.customer_signature') }}</p>
 
                                     </div>
                                 </div>
                                 <br>
                                 <br>
-
+                                <br>
                                 <!-- Created and Updated By -->
                             </div>
                             <div class="flex" style="background-color: #490117; color: white; font-size: 0.75rem;">
