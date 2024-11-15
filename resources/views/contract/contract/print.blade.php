@@ -239,7 +239,7 @@
                             </div>
 
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
-                                <p> احد عشر/ تم انعقاد هذا العقد بأرادة الطرفين بتاريخ
+                                <p> احد عشر/ تم ابرام هذا العقد بأرادة الطرفين بتاريخ
                                     {{ \Carbon\Carbon::now()->format('Y/m/d') }}</p>
 
                             </div>
