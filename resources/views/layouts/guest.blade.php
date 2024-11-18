@@ -8,21 +8,20 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <style>
-            /* Custom CSS */
             .gradient-background {
-                background: linear-gradient(to bottom, #751743, #490117);
+                background: linear-gradient(to bottom, #5e4215, #5e4215);
                 /* Adjust colors as needed  #2b6a9a, #0c6e70 */
             }
 
             .gradient-background-nav {
-                background: linear-gradient(to bottom, #751743, #a91d53);
+                background: linear-gradient(to bottom, #9f7126, #a3762e);
                 /* Adjust colors as needed   #2b6a9a, #d0e3ff*/
             }
 
             .bg-custom {
-                background-color: #ffe8f8;
+                background-color: #fff6ef;
                 /* Replace with your desired color */
-                color: #292929;
+                color: #fff1f1;
                 /* Text color */
             }
         </style>

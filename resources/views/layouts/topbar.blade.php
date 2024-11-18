@@ -1,4 +1,4 @@
-<div class="w-full p-2 flex justify-between" style="background-color: #751743;">
+<div class="w-full p-2 flex justify-between" style="background-color: #5e4215;">
     <button onclick="myFunction()" x-on:click.prevent="isOpen = !isOpen">
         <i class='bx bx-menu' style="color: #fff;"></i>
     </button>
