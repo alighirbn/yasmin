@@ -234,6 +234,20 @@ class ContractController extends Controller
      */
     public function store(ContractRequest $request)
     {
+
+        // Get the building_id from the request
+        $building_id = $request->input('contract_building_id');
+
+        // If building_id is provided, check if it has an existing contract
+        if ($building_id) {
+            $building = Building::find($building_id);
+
+            // Check if the building exists and has a contract
+            if ($building && $building->contract()->exists()) {
+                // Return an error or a message if the building already has a contract
+                return redirect()->route('map.empty')->with('error', 'تم حجز العقار مسبقا .');
+            }
+        }
         $contract = Contract::create($request->validated());
 
         $payment_method = $request->input('contract_payment_method_id');
