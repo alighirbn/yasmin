@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('customer_full_name', '100')->unique();
             $table->string('customer_phone', '20');
             $table->string('customer_email', '30');
-            $table->string('customer_card_number', '11');
+            $table->string('customer_card_number', '12');
             $table->string('customer_card_issud_auth', '60');
             $table->string('customer_card_issud_date', '10');
             $table->timestamps();

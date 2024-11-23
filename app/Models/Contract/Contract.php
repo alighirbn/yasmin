@@ -46,6 +46,10 @@ class Contract extends Model
             });
     }
 
+    public function hasPayments()
+    {
+        return $this->payments()->exists();
+    }
 
     public function building()
     {

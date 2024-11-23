@@ -32,7 +32,7 @@ class CustomerRequest extends FormRequest
             'customer_full_name' => ['max:100', 'required', Rule::unique('customers')->ignore($this->id),],
             'customer_phone' => ['max:20', 'required'],
             'customer_email' => ['max:30', 'email'],
-            'customer_card_number' => ['max:11', 'required'],
+            'customer_card_number' => ['max:12', 'required'],
             'customer_card_issud_auth' => ['max:60', 'required'],
             'customer_card_issud_date' => ['max:10', 'required'],
             'mother_full_name' => ['max:100'],

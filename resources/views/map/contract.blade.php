@@ -30,6 +30,10 @@
                 mix-blend-mode: multiply;
             }
 
+            .fill-div.black {
+                background-color: black;
+            }
+
             .fill-div.temporary {
                 background-color: rgb(255, 125, 125);
             }
@@ -116,7 +120,11 @@
                                 style="top: {{ $contract->building->building_map_y }}%; left: {{ $contract->building->building_map_x }}%;"
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
                                 <a href="{{ route('contract.show', $contract->url_address) }}"
-                                    class="fill-div {{ $contract->stage === 'temporary' ? 'temporary' : '' }}"></a>
+                                    class="fill-div
+                                     @if ($contract->hasPayments()) black
+                                     @elseif ($contract->stage === 'temporary')
+                                      temporary @endif
+                                                  "></a>
                             </div>
                         @endforeach
                     </div>
