@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
@@ -83,12 +83,14 @@
                                 </div>
 
                                 <div class=" mx-2 my-2 w-full ">
-                                <div style="text-align: center; margin: 1rem auto; font-size: 1.2rem; font-weight: bold; color: white; font-family: 'Cairo', sans-serif;">
-                                     <p> {{ __('word.reservation_form') }}</p>
-                                </div>
+                                    <div
+                                        style="text-align: center; margin: 1rem auto; font-size: 1.2rem; font-weight: bold; color: white; font-family: 'Cairo', sans-serif;">
+                                        <p> {{ __('word.reservation_form') }}</p>
+                                    </div>
 
                                     <!-- Reservation Information -->
-                                    <h2 class="text-center font-bold" style="color: white;font-family: 'Cairo', sans-serif;">
+                                    <h2 class="text-center font-bold"
+                                        style="color: white;font-family: 'Cairo', sans-serif;">
                                         {{ __('word.reservation_project') }}</h2>
                                 </div>
                                 <div class=" mx-2 my-2 w-full ">
@@ -97,7 +99,8 @@
                             </div>
                             <div class="mx-2 my-2">
                                 <!-- Unit Information -->
-                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.customer_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">
+                                    {{ __('word.customer_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.reservation_date') }}</td>
@@ -139,7 +142,8 @@
                                 </table>
 
                                 <!-- Unit Information -->
-                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.unit_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">
+                                    {{ __('word.unit_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.contract_building_id') }}</td>
@@ -167,7 +171,8 @@
                                 </table>
 
                                 <!-- Financial Information -->
-                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">{{ __('word.financial_information') }}</h3>
+                                <h3 class="text-center font-semibold my-1" style="font-family: 'Cairo', sans-serif;">
+                                    {{ __('word.financial_information') }}</h3>
                                 <table class="table table-bordered table-striped short-rows custom-striped">
                                     <tr>
                                         <td>{{ __('word.contract_payment_method_id') }}</td>
@@ -186,7 +191,8 @@
                                         على الشركة.
                                         <br> 2- الحجز ساري لحين وصول رسالة من الشركة للحضور لتسديد الدفعة الاولى و من
                                         تاريخ
-                                        ارسال رسالة لمدة 24 ساعة وبعدها سيتم الغاء الحجز تلقائيا في حال لم يتم تسديد الدفعة الأولى
+                                        ارسال رسالة لمدة 24 ساعة وبعدها سيتم الغاء الحجز تلقائيا في حال لم يتم تسديد
+                                        الدفعة الأولى
                                         لشراء
                                         الوحدة السكنية .
                                         <br> 3- يحضر على المشتري التنازل عن استمارة حجز الوحدة السكنية للغير ويعد
@@ -202,11 +208,27 @@
                                         بتقديم الضمانات المتفق عليها بالمبالغ المتبقية من خلال تقديم ( صكوك وكمبيالات
                                         مصدقة
                                         ).
-                                        <br> 6- يقر الزبون بعلمه ان عمولة الحجز البالغة ( 25،000،000 دينار ) هي
+                                        <br> 6- يقر الزبون بعلمه ان عمولة الحجز البالغة (
+
+                                        @if ($contract->building->building_category_id == 1)
+                                            {{ number_format(35000000, 0) . ' دينار ' }}
+                                        @elseif ($contract->building->building_category_id == 2)
+                                            {{ number_format(50000000, 0) . ' دينار ' }}
+                                        @elseif ($contract->building->building_category_id == 3)
+                                            {{ number_format(25000000, 0) . ' دينار ' }}
+                                        @elseif ($contract->building->building_category_id == 4)
+                                            {{ number_format(40000000, 0) . ' دينار ' }}
+                                        @elseif ($contract->building->building_category_id == 5)
+                                            {{ number_format(25000000, 0) . ' دينار ' }}
+                                        @endif
+
+                                        ) هي
                                         عمولة
                                         ادارية
                                         لتنظيم وتثبيت
-                                        الحجز وان المبلغ غير قابل للرد حتى وان لم يتم التعاقد وتم الغاء الحجز  من قبل الشركة او من قبل الزبون يتم استقطاع مبلغ ( 2،000،000 دينار) وارجاع المبلغ المتبقي للزبون.
+                                        الحجز وان المبلغ غير قابل للرد حتى وان لم يتم التعاقد وتم الغاء الحجز من قبل
+                                        الشركة او من قبل الزبون يتم استقطاع مبلغ ( 2،000،000 دينار) وارجاع المبلغ
+                                        المتبقي للزبون.
                                         <br> 7- في حال تسديد الدفعة الأولى لشراء الوحدة السكنية في أحد المصارف المعتمدة
                                         من
                                         قبل الشركة يجب احضار وصل التسديد ضمن فترة سريان الحجز اعلاه وبخلافه يمكن للشركة
