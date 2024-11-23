@@ -12,6 +12,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "maatwebsite/excel": "^3.1",
         "mcamara/laravel-localization": "^1.8",
         "milon/barcode": "^11.0",
         "simplesoftwareio/simple-qrcode": "^4.2",

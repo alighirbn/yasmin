@@ -32,7 +32,7 @@ class ContractDataTable extends DataTable
                 $lastApprovedPayment = $row->payments->where('approved', true)->last();
                 return $lastApprovedPayment
                     ? number_format($lastApprovedPayment->payment_amount, 0) . ' في ' . $lastApprovedPayment->payment_date
-                    : __('لا توجد دفعة معتمدة');
+                    : __('لا توجد  ');
             })
             ->addColumn('action', 'contract.contract.action')
             ->rawColumns(['action'])
@@ -47,18 +47,18 @@ class ContractDataTable extends DataTable
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Contract $model): QueryBuilder
-{
-    $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
+    {
+        $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
 
-    // Apply contract ID filter if present (exact match)
-    if ($contractId = request('contract_id')) {
-        $query->where('id', '=', $contractId);  // Use '=' for exact matching
+        // Apply contract ID filter if present (exact match)
+        if ($contractId = request('contract_id')) {
+            $query->where('id', '=', $contractId);  // Use '=' for exact matching
+        }
+
+
+
+        return $query;
     }
-
-    
-
-    return $query;
-}
 
 
 
@@ -94,15 +94,16 @@ class ContractDataTable extends DataTable
                         'extend'  => 'reload',
                         'className'    => 'btn btn-outline-dark'
                     ],
+                    */
                     [
                         'extend'  => 'export',
                         'className'    => 'btn btn-outline-dark',
                         'buttons' => [
-                            'csv',
+                            //'csv',
                             'excel',
-                            'pdf',
+                            // 'pdf',
                         ],
-                    ],*/
+                    ],
                     'colvis'
                 ]
             ])
@@ -126,7 +127,10 @@ class ContractDataTable extends DataTable
             Column::make('id')->title(__('word.id'))->class('text-center'),
             Column::make('contract_date')->title(__('word.contract_date'))->class('text-center'),
             Column::make('building')->title(__('word.building_number'))->data('building.building_number')->name('building.building_number')->class('text-center'),
+            Column::make('building')->title(__('word.block_number'))->data('building.block_number')->name('building.block_number')->class('text-center'),
+            Column::make('building')->title(__('word.building_area'))->data('building.building_area')->name('building.building_area')->class('text-center'),
             Column::make('customer')->title(__('word.customer_full_name'))->data('customer.customer_full_name')->name('customer.customer_full_name')->class('text-center'),
+            Column::make('customer')->title(__('word.customer_phone'))->data('customer.customer_phone')->name('customer.customer_phone')->class('text-center'),
             Column::make('contract_amount')->title(__('word.contract_amount'))->class('text-center'),
             Column::make('payment_method')->title(__('word.method_name'))->data('payment_method.method_name')->name('payment_method.method_name')->class('text-center'),
             Column::make('last_payment')->title(__('word.last_payment'))->class('text-center'), // New Column
