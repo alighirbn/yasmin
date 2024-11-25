@@ -107,7 +107,7 @@ class ExpenseController extends Controller
         if (isset($expense)) {
             // Adjust cash account balance if necessary
             if ($expense->approved) {
-                $cashAccount = Cash_Account::find(1); // or find based on your logic
+                $cashAccount = Cash_Account::find($expense->cash_account_id); // or find based on your logic
                 $cashAccount->adjustBalance($expense->expense_amount, 'credit');
             }
 

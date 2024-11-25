@@ -176,7 +176,7 @@ return [
 
     'building_number' => 'رقم العقار',
     'block_number' => 'البلوك',
-    'house_number' => 'الدار',
+    'house_number' => 'الرقم',
     'building_area' => 'المساحة',
     'building_real_area' => 'مساحة البناء',
     'building_map_x' => 'احداثيات x',
