@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Map;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building\Building;
+use App\Models\Building\Classification;
 use App\Models\Building\DefaultValue;
 use App\Models\Contract\Contract;
 use Carbon\Carbon;
@@ -52,6 +53,25 @@ class MapController extends Controller
         $buildings = Building::all();
         return view('map.edit', compact('buildings'));
     }
+
+    public function classification()
+    {
+        $buildings = Building::all();
+        $classifications = Classification::all();
+
+        // Define colors for classifications
+        $classificationColors = [
+            1 => 'rgba(255, 0, 0, 0.7)',   // Red
+            2 => 'rgba(0, 255, 0, 0.7)',   // Green
+            3 => 'rgba(0, 0, 255, 0.7)',   // Blue
+            4 => 'rgba(255, 255, 0, 0.7)', // Yellow
+            5 => 'rgba(255, 0, 255, 0.7)'  // Purple
+        ];
+
+        return view('map.classification', compact('buildings', 'classifications', 'classificationColors'));
+    }
+
+
 
     public function hidden()
     {

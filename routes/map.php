@@ -20,6 +20,7 @@ Route::group(['prefix' => 'map'], function () {
 
     //edit
     Route::get('/edit', [MapController::class, 'edit'])->middleware(['auth', 'verified', 'permission:map-edit'])->name('map.edit');
+    Route::get('/classification', [MapController::class, 'classification'])->middleware(['auth', 'verified', 'permission:map-edit'])->name('map.classification');
 
     //edit
     Route::get('/hidden', [MapController::class, 'hidden'])->middleware(['auth', 'verified', 'permission:map-hidden'])->name('map.hidden');

@@ -54,7 +54,28 @@ class BuildingController extends Controller
         return response()->json(['success' => true, 'hidden' => $building->hidden]);
     }
 
+    public function ajaxUpdateClassification(Request $request)
+    {
+        $building = Building::find($request->building_id);
+        $building->classification_id = $request->classification_id;
+        $building->save();
 
+        // Define your classification colors
+        $classificationColors = [
+            1 => 'rgba(255, 0, 0, 0.7)',   // Red
+            2 => 'rgba(0, 255, 0, 0.7)',   // Green
+            3 => 'rgba(0, 0, 255, 0.7)',   // Blue
+            4 => 'rgba(255, 255, 0, 0.7)', // Yellow
+            5 => 'rgba(255, 0, 255, 0.7)'  // Purple
+        ];
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Classification updated successfully.',
+            'building_id' => $building->id,
+            'color' => $classificationColors[$request->classification_id] ?? 'rgba(0, 0, 0, 0.5)'
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -69,3 +69,9 @@
         {{ __('word.map_edit') }}
     </a>
 @endcan
+@can('map-edit')
+    <a href="{{ route('map.classification') }}"
+        class="me-3 {{ request()->routeIs('map.classification') ? 'underline-active' : '' }}">
+        {{ __('word.map_classification') }}
+    </a>
+@endcan

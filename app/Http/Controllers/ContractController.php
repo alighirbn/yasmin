@@ -21,6 +21,7 @@ use App\Models\User;
 use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
 use App\Notifications\PaymentNotify;
+use App\Services\ContractUpdateService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -598,7 +599,7 @@ class ContractController extends Controller
 
 
         // Update the contract installments based on the payment method
-        if ($payment_method_id == 2 && $contract->contract_installments->count() == 11) {
+        if ($payment_method_id == 2 && $contract->contract_installments->count() == 12) {
             // For payment method 2, update each installment
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
@@ -614,7 +615,7 @@ class ContractController extends Controller
                     'installment_date' => $request->contract_date,
                 ]);
             }
-        } elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 11) {
+        } elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 12) {
             $contract->contract_installments()->delete();
             $installments = Installment::where('payment_method_id', 2)->get();
             foreach ($installments as $installment) {
@@ -647,7 +648,18 @@ class ContractController extends Controller
             ->with('success', 'تمت تعديل بيانات العقد وأقساطه بنجاح');
     }
 
+    /**
+     * Update all contracts and installments.
+     *
+     * @param ContractUpdateService $contractUpdateService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateAllContracts(ContractUpdateService $contractUpdateService)
+    {
+        $contractUpdateService->updateAllContracts();
 
+        return redirect()->route('contract.index')->with('success', 'All contracts and installments updated successfully.');
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -23,6 +23,8 @@ Route::group(['prefix' => 'building'], function () {
     Route::post('/update-building-coordinates/{id}', [BuildingController::class, 'updateCoordinates'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.updateCoordinates');
     //toggleVisibility
     Route::post('/{id}/toggle', [BuildingController::class, 'toggleVisibility'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.toggleVisibility');
+    Route::post('/ajax-update-classification', [BuildingController::class, 'ajaxUpdateClassification'])->middleware(['auth', 'verified', 'permission:building-update'])->name('building.ajax-update-classification');
+
     //delete
 
     Route::delete('/delete/{url_address}', [BuildingController::class, 'destroy'])->middleware(['auth', 'verified', 'permission:building-delete'])->name('building.destroy');
