@@ -23,6 +23,12 @@
                         <a href="{{ route('contract.reserve', $contract->url_address) }}" class="btn btn-custom-print">
                             {{ __('word.print_reserve') }}
                         </a>
+                        @can('customer-update')
+                            <a href="{{ route('customer.edit', $contract->customer->url_address) }}"
+                                class="my-1 mx-1 btn btn-custom-edit">
+                                {{ __('word.customer_edit') }}
+                            </a>
+                        @endcan
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
                                 class="btn btn-custom-statement">

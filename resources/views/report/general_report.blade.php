@@ -89,7 +89,9 @@
                                             <td>{{ number_format($contract->contract_amount, 0) }}</td>
                                             <td>{{ __('word.' . $contract->stage) }}</td>
                                             <td>{{ $contract->contract_note }}</td>
-                                            <td>{{ $contract->user_create->name }}</td>
+                                            <td>{{ $contract->updated_at ? $contract->updated_at : $contract->created_at }}
+                                                {{ $contract->user_update ? $contract->user_update->name : $contract->user_create->name }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

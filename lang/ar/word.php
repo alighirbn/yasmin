@@ -328,6 +328,7 @@ return [
     'full_address' => 'العنوان بالكامل',
     'address_card_number' => 'رقم بطاقة السكن',
     'saleman' => 'الوسيط',
+    'customer_edit' => 'تعديل بيانات الزبون',
 
     //nav
     'customer_add' => 'اضافة زبون',

@@ -170,6 +170,9 @@ class ReportController extends Controller
             }
         }
 
+        // Sort contracts by updated_at or created_at in ascending order
+        $contracts->orderByRaw('COALESCE(updated_at, created_at) ASC');
+
         // Get the data
         $contracts = $contracts->get();
         $payments = $payments->get();
