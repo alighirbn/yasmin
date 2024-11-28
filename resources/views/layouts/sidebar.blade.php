@@ -116,7 +116,13 @@
             </div>
         </div>
     @endcan
-
+    @can('history-list')
+        <div class="item"><a class="sub-btn"> {{ __('word.historys') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
+            <div class="flex flex-col   sub-menu" style="display: none;">
+                @include('model_history.nav.navigation')
+            </div>
+        </div>
+    @endcan
     @can('user-list')
         <div class="item"><a class="sub-btn"> {{ __('word.users') }}<i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col   sub-menu" style="display: none;">

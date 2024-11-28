@@ -27,6 +27,10 @@ return new class extends Migration
             $table->string('customer_card_number', '12');
             $table->string('customer_card_issud_auth', '60');
             $table->string('customer_card_issud_date', '10');
+            $table->string('mother_full_name')->nullable(); // Mother's name
+            $table->text('full_address')->nullable(); // Full address
+            $table->string('address_card_number')->nullable(); // Address card number
+            $table->string('saleman')->nullable(); // Salesman field
             $table->timestamps();
         });
     }

@@ -132,8 +132,10 @@
                                                     @if ($transaction->transactionable->contract_installment)
                                                         الدفعة:
                                                         {{ $transaction->transactionable->contract_installment->installment->installment_name }}
+                                                        ,
                                                     @else
                                                     @endif
+                                                    {{ $transaction->transactionable->contract->building->building_number }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\Expense')
                                                     عدد الصرف: {{ $transaction->transactionable->id }}
                                                     ,
