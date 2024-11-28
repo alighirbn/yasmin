@@ -66,7 +66,8 @@ class BuildingController extends Controller
             2 => 'rgba(0, 255, 0, 0.7)',   // Green
             3 => 'rgba(0, 0, 255, 0.7)',   // Blue
             4 => 'rgba(255, 255, 0, 0.7)', // Yellow
-            5 => 'rgba(255, 0, 255, 0.7)'  // Purple
+            5 => 'rgba(255, 0, 255, 0.7)', // Purple
+            6 => 'rgba(0, 255, 255, 0.7)'  // Cyan (New)
         ];
 
         return response()->json([
