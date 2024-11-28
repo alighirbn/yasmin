@@ -24,11 +24,12 @@
                             </button>
                         @endcan
                     </div>
+
                     <!-- Modal Structure -->
                     <div id="customerModal"
                         class="fixed inset-0 z-50 hidden overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center p-10">
-                        <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-10">
-                            <button id="closeModal" class=" text-gray-800 hover:text-gray-900">
+                        <div class="bg-white rounded-lg shadow-lg max-w-7xl w-full p-10">
+                            <button id="closeModal" class="text-gray-800 hover:text-gray-900">
                                 &times;
                             </button>
                             <form id="customerForm" method="post" action="{{ route('contract.customerstore') }}">
@@ -42,6 +43,12 @@
                                         <x-input-label for="customer_full_name" class="w-full mb-1" :value="__('word.customer_full_name')" />
                                         <x-text-input id="customer_full_name" class="w-full block mt-1" type="text"
                                             name="customer_full_name" value="{{ old('customer_full_name') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="mother_full_name" class="w-full mb-1" :value="__('word.mother_full_name')" />
+                                        <x-text-input id="mother_full_name" class="w-full block mt-1" type="text"
+                                            name="mother_full_name" value="{{ old('mother_full_name') }}" />
                                         <div class="input-error w-full mt-2"></div>
                                     </div>
                                     <div class="mx-4 my-4 w-full">
@@ -89,6 +96,33 @@
                                         <div class="input-error w-full mt-2"></div>
                                     </div>
                                 </div>
+                                <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
+                                    {{ __('word.customer_address') }}
+                                </h2>
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="full_address" class="w-full mb-1" :value="__('word.full_address')" />
+                                        <x-text-input id="full_address" class="w-full block mt-1" type="text"
+                                            name="full_address" value="{{ old('full_address') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="address_card_number" class="w-full mb-1"
+                                            :value="__('word.address_card_number')" />
+                                        <x-text-input id="address_card_number" class="w-full block mt-1"
+                                            type="text" name="address_card_number"
+                                            value="{{ old('address_card_number') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="saleman" class="w-full mb-1" :value="__('word.saleman')" />
+                                        <x-text-input id="saleman" class="w-full block mt-1" type="text"
+                                            name="saleman" value="{{ old('saleman') }}" />
+                                        <div class="input-error w-full mt-2"></div>
+                                    </div>
+                                </div>
 
                                 <div class="mx-4 my-4 w-full">
                                     <x-primary-button id="submitButton" class="ml-4">
@@ -98,6 +132,7 @@
                             </form>
                         </div>
                     </div>
+
                     <div>
                         <form method="post" action="{{ route('contract.update', $contract->url_address) }}">
                             @csrf
@@ -112,7 +147,8 @@
 
                             <div class="flex ">
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="contract_customer_id" class="w-full mb-1" :value="__('word.contract_customer_id')" />
+                                    <x-input-label for="contract_customer_id" class="w-full mb-1"
+                                        :value="__('word.contract_customer_id')" />
                                     <select id="contract_customer_id"
                                         class="js-example-basic-single w-full block mt-1 "
                                         name="contract_customer_id">
@@ -127,12 +163,14 @@
                                 </div>
 
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="contract_building_id" class="w-full mb-1" :value="__('word.contract_building_id')" />
+                                    <x-input-label for="contract_building_id" class="w-full mb-1"
+                                        :value="__('word.contract_building_id')" />
                                     <select id="contract_building_id"
                                         class="js-example-basic-single w-full block mt-1 "
                                         name="contract_building_id">
                                         @foreach ($buildings as $building)
                                             <option value="{{ $building->id }}"
+                                                data-price="{{ $building->calculatePrice() }}"
                                                 {{ (old('contract_building_id') ?? $contract->contract_building_id) == $building->id ? 'selected' : '' }}>
                                                 {{ $building->building_number }}
                                             </option>
@@ -312,6 +350,28 @@
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
+            // Function to calculate contract amount
+            function calculateContractAmount() {
+                var selectedOption = $('#contract_building_id').find('option:selected');
+                var contractAmount = parseFloat(selectedOption.data('price')) || 0;
+
+                $('#contract_amount').val(contractAmount);
+                $('#contract_amount_display').val(numberWithCommas(contractAmount));
+            }
+
+            // Call the function on page load
+            calculateContractAmount();
+
+            // Event listener for change on building selection
+            $('#contract_building_id').change(function() {
+                calculateContractAmount();
+            });
+
+            // Function to format number with commas
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
         });
         // Prevent double submission
         $('form').on('submit', function() {
