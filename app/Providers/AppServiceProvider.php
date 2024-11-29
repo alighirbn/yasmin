@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Models\Contract\Contract;
 use App\Models\Customer\Customer;
-use App\Models\Payment\Payment;
-use App\Observers\ModelHistoryObserver;
+use App\Observers\ContractObserver;
+use App\Observers\CustomerObserver;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $directories = glob($mainPath . '/*', GLOB_ONLYDIR);
         $paths = array_merge([$mainPath], $directories);
         $this->loadMigrationsFrom($paths);
-        Contract::observe(ModelHistoryObserver::class);
+        Contract::observe(ContractObserver::class);
+        Customer::observe(CustomerObserver::class);
     }
 }

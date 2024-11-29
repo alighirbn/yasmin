@@ -32,6 +32,13 @@ return [
     'date_from' => ' من',
     'date_to' => '  الى',
     'name' => 'الاسم',
+    'created_at' => 'انشى في',
+    'updated_at' => 'تعدل في',
+    'url_address' => 'عنوان الرابط',
+    'user_id_create' => 'رمز المستخدم المنشى',
+    'user_id_update' => 'رمز المستخدم المعدل',
+    'contract_building_number' => 'رقم العقار',
+    'contract_customer_full_name' => 'اسم الزبون',
 
     // general values
     'year' => 'سنة',

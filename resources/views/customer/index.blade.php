@@ -40,10 +40,10 @@
 
             // Custom filters
             $('#filter-customer').on('keyup', function() {
-                table.column(1).search(this.value).draw(); // Adjust index if needed
+                table.column(2).search(this.value).draw(); // Adjust index if needed
             });
             $('#filter-phone').on('keyup', function() {
-                table.column(2).search(this.value).draw(); // Adjust index if needed
+                table.column(3).search(this.value).draw(); // Adjust index if needed
             });
         });
 

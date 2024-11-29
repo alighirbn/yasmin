@@ -171,24 +171,36 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(CustomerRequest $request, string $url_address)
     {
-        // insert the user input into model and lareval insert it into the database.
-        Customer::where('url_address', $url_address)->update($request->validated());
+        $customer = Customer::where('url_address', $url_address)->first();
 
-        //inform the user
-        return redirect()->route('customer.index')
-            ->with('success', 'تمت تعديل البيانات  بنجاح ');
+        if ($customer) {
+            $customer->update($request->validated());
+            return redirect()->route('customer.index')
+                ->with('success', 'تمت تعديل البيانات  بنجاح ');
+        } else {
+            // Handle not found customer
+            return redirect()->route('customer.index')
+                ->with('error', 'Customer not found');
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $url_address)
     {
-        $affected = Customer::where('url_address', $url_address)->delete();
-        return redirect()->route('customer.index')
-            ->with('success', 'تمت حذف البيانات بنجاح ');
+        $customer = Customer::where('url_address', $url_address)->first();
+
+        if ($customer) {
+            $customer->delete();
+            return redirect()->route('customer.index')
+                ->with('success', 'تمت حذف البيانات بنجاح ');
+        } else {
+            return redirect()->route('customer.index')
+                ->with('error', 'Customer not found');
+        }
     }
 
     public function getIPAddress()

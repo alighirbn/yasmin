@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         @include('model_history.nav.navigation')
     </x-slot>
@@ -13,15 +12,16 @@
                             <h2>All History Logs</h2>
 
                             <!-- Search Form -->
-                            <form method="GET" action="{{ route('history.all') }}">
-                                <div class="form-group">
+                            <form method="GET" action="{{ route('history.all') }}" class="mb-4">
+                                <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Search..."
                                         value="{{ $search ?? '' }}">
+                                    <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Search</button>
                             </form>
 
-                            <table class="table">
+                            <!-- History Logs Table -->
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Date</th>
@@ -35,29 +35,72 @@
                                 <tbody>
                                     @forelse ($history as $log)
                                         <tr>
-                                            <td>{{ $log->created_at }}</td>
+                                            <td>{{ $log->created_at->format('Y-m-d H:i:s') }}</td>
                                             <td>{{ class_basename($log->model_type) }}</td>
                                             <td>{{ $log->model_id }}</td>
-                                            <td>{{ $log->action }}</td>
+                                            <td>{{ ucfirst($log->action) }}</td>
                                             <td>{{ $log->user->name ?? 'System' }}</td>
                                             <td>
-                                                @if ($log->action == 'edit')
-                                                    <strong>Old Data:</strong>
-                                                    <pre>{!! nl2br(e($log->old_data)) !!}</pre>
-                                                    <strong>New Data:</strong>
-                                                    <pre>{!! nl2br(e($log->new_data)) !!}</pre>
-                                                @elseif($log->action == 'add')
-                                                    <strong>New Data:</strong>
-                                                    <pre>{!! nl2br(e($log->new_data)) !!}</pre>
-                                                @else
-                                                    <strong>Old Data (Deleted):</strong>
-                                                    <pre>{!! nl2br(e($log->old_data)) !!}</pre>
-                                                @endif
+                                                <div class="changes-container">
+                                                    @if ($log->action == 'edit')
+                                                        <div>
+                                                            <strong>البيانات القديمة:</strong>
+                                                            <table class="table table-sm">
+                                                                @foreach (json_decode($log->old_data, true) ?? [] as $key => $value)
+                                                                    <tr>
+                                                                        <td><strong>{{ __('word.' . $key) }}:</strong>
+                                                                        </td>
+                                                                        <td>{{ is_array($value) ? json_encode($value) : $value }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+                                                        <div>
+                                                            <strong>البيانات الجديدة:</strong>
+                                                            <table class="table table-sm">
+                                                                @foreach (json_decode($log->new_data, true) ?? [] as $key => $value)
+                                                                    <tr>
+                                                                        <td><strong>{{ __('word.' . $key) }}:</strong>
+                                                                        </td>
+                                                                        <td>{{ is_array($value) ? json_encode($value) : $value }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+                                                    @elseif ($log->action == 'add')
+                                                        <strong>البيانات الجديدة:</strong>
+                                                        <table class="table table-sm">
+                                                            @foreach (json_decode($log->new_data, true) ?? [] as $key => $value)
+                                                                <tr>
+                                                                    <td><strong>{{ __('word.' . $key) }}:</strong>
+                                                                    </td>
+                                                                    <td>{{ is_array($value) ? json_encode($value) : $value }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    @elseif ($log->action == 'delete')
+                                                        <strong>البيانات القديمة (حذفت):</strong>
+                                                        <table class="table table-sm">
+                                                            @foreach (json_decode($log->old_data, true) ?? [] as $key => $value)
+                                                                <tr>
+                                                                    <td><strong>{{ __('word.' . $key) }}:</strong>
+                                                                    </td>
+                                                                    <td>{{ is_array($value) ? json_encode($value) : $value }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </table>
+                                                    @endif
+                                                </div>
                                             </td>
+
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">No history logs found.</td>
+                                            <td colspan="6" class="text-center">No history logs found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -72,5 +115,5 @@
                 </div>
             </div>
         </div>
-
+    </div>
 </x-app-layout>

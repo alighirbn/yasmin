@@ -77,6 +77,7 @@ class CustomerDataTable extends DataTable
                 ->width(60)
                 ->title(__('word.action'))
                 ->addClass('text-center'),
+            Column::make('id')->title(__('word.customer_id'))->class('text-center'),
             Column::make('customer_full_name')->title(__('word.customer_full_name'))->class('text-center'),
             Column::make('customer_phone')->title(__('word.customer_phone'))->class('text-center'),
             Column::make('customer_email')->title(__('word.customer_email'))->class('text-center'),
