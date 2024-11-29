@@ -38,6 +38,7 @@ class ContractObserver
             'model_id' => $contract->id,
             'action' => 'add',
             'new_data' => $contract->getAttributes(),
+            'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
     }
@@ -86,6 +87,7 @@ class ContractObserver
             'action' => 'edit',
             'old_data' => json_encode($oldData, JSON_UNESCAPED_UNICODE), // Store old attributes
             'new_data' => json_encode($newData, JSON_UNESCAPED_UNICODE), // Store new attributes
+            'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
     }
@@ -124,6 +126,7 @@ class ContractObserver
             'model_id' => $contract->id,
             'action' => 'delete',
             'old_data' => $oldData, // Store full attributes with customer full name and building number
+            'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
     }

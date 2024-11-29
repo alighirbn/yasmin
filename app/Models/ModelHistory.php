@@ -15,6 +15,7 @@ class ModelHistory extends Model
         'action',
         'old_data',
         'new_data',
+        'note',
         'user_id',
     ];
 

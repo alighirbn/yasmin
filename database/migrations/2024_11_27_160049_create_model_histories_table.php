@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('old_data')->nullable(); // Data before update/delete
             $table->json('new_data')->nullable(); // Data after create/update
             $table->unsignedBigInteger('user_id')->nullable(); // User performing the action
+            $table->string('note', '255')->nullable();
             $table->timestamps();
         });
     }
