@@ -359,8 +359,7 @@
                 $('#contract_amount_display').val(numberWithCommas(contractAmount));
             }
 
-            // Call the function on page load
-            calculateContractAmount();
+
 
             // Event listener for change on building selection
             $('#contract_building_id').change(function() {
