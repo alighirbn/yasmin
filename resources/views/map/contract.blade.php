@@ -79,12 +79,24 @@
                 /* Set landscape orientation */
                 @page {
                     size: landscape;
-                    margin: 0;
+                    /* Set margins for the entire page */
                 }
 
                 /* Hide the print button on print */
                 .print-btn {
                     display: none;
+                }
+
+                /* Maintain consistent font size for stat-container */
+                .stat-container {
+                    font-size: 0.5em;
+                    /* Ensure it matches the on-screen size */
+                }
+
+                /* Optional: Adjust other elements for better print visibility */
+                .stat-container p {
+                    margin: 0;
+                    /* Remove extra margins for compact printing */
                 }
             }
         </style>
@@ -113,6 +125,7 @@
                             <p>المباني الممتلئة : {{ $contractCount }} ({{ number_format($percentageContracts, 2) }}%)
                             </p>
                             <p>المباني الشاغرة: {{ $buildingsWithoutContracts }}</p>
+                            <p>العقود مع المدفوعات: {{ $contractsWithPaymentsCount }}</p>
                         </div>
 
                         @foreach ($contracts as $contract)

@@ -8,15 +8,105 @@
             @include('cash_account.nav.navigation')
             @include('cash_transfer.nav.navigation')
         </div>
-
-        <!-- Add this inline CSS to handle hiding the "Actions" column during printing -->
         <style>
+            /* Table styling */
+            .statement-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: Arial, sans-serif;
+                color: black;
+            }
+
+            .statement-table th,
+            .statement-table td {
+                border: 2px solid #444;
+                /* Make border thicker */
+                padding: 5px;
+                /* Increase padding */
+                text-align: center;
+                font-size: 16px;
+                /* Increase font size */
+            }
+
+            .statement-table th {
+                background-color: #f4f4f4;
+                font-weight: bold;
+                font-size: 24px;
+                /* Larger font for headers */
+                border: 2px solid #444;
+                /* Extra thick border for header */
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .table-header {
+                text-align: center;
+                margin-bottom: 20px;
+                color: black;
+            }
+
+            .table-header h2 {
+                font-size: 22px;
+                /* Larger font for header title */
+                margin: 0;
+            }
+
+            .table-header p {
+                margin: 5px 0;
+                font-size: 20px;
+                /* Increase font size for subtitle */
+            }
+
+            .table-container {
+                margin: 0 auto;
+                width: 95%;
+                color: black;
+            }
+
+            /* Landscape orientation for printing */
+            @page {
+                size: A4 landscape;
+                margin: 5mm;
+            }
+
+            /* Hide buttons during printing */
             @media print {
                 .no-print {
                     display: none;
                 }
+
+                .statement-table th {
+                    font-size: 16px;
+                    /* Adjust font size for printing */
+                }
+
+                .statement-table td {
+                    font-size: 14px;
+                    /* Adjust font size for printing */
+                }
+            }
+
+            /* Print button styling */
+            .print-button {
+                display: block;
+                margin: 20px auto;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                text-align: center;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .print-button:hover {
+                background-color: #45a049;
             }
         </style>
+
+        <!-- Add this inline CSS to handle hiding the "Actions" column during printing -->
+
     </x-slot>
 
     <div class="bg-custom py-6">
@@ -38,7 +128,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <div class="a4-width mx-auto">
+                    <div class=" mx-auto">
                         <!-- Date Filter Form -->
                         <form method="GET" action="{{ route('cash_account.statement', $cashAccount->url_address) }}"
                             class="form-inline mb-4">
@@ -57,45 +147,35 @@
 
                         </form>
                     </div>
-                    <div class="print-container a4-width mx-auto bg-white">
-                        <div class="flex">
-                            <div class="mx-2 my-2 w-full">
-                                {!! QrCode::size(90)->generate($cashAccount->id) !!}
-                            </div>
-                            <div class="mx-2 my-2 w-full">
-                                <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
-                                    style="height: 90px; width: auto;">
-                            </div>
+                    <div class="print-container  mx-auto bg-white">
+
+                        <!-- Header -->
+                        <div class="table-header">
+
+                            <h2>كشف تفصيلي لحساب {{ $cashAccount->account_name }} </h2>
+                            <p>الرصيد: {{ number_format($cashAccount->balance, 0) }} دينار عراقي</p>
+                            <p> الفترة من :{{ request('start_date') ? request('start_date') : '---' }} إلى
+                                {{ request('end_date') ? request('end_date') : '---' }}</p>
                         </div>
-                        <h2 class="text-xl font-semibold mb-2">{{ __('كشف الحساب للصندوق ') }}
-                            {{ $cashAccount->account_name }}
-                        </h2>
 
-                        <p>الرصيد الحالي: {{ number_format($cashAccount->balance, 0) }} دينار </p>
-
-                        <!-- Add Period Display -->
-                        @if (request('start_date') || request('end_date'))
-                            <p>
-                                الفترة من
-                                {{ request('start_date') ? request('start_date') : '---' }}
-                                إلى
-                                {{ request('end_date') ? request('end_date') : '---' }}
-                            </p>
-                        @endif
-
-                        <table class="table table-bordered">
+                        <table class="table table-bordered statement-table">
                             <thead>
                                 <tr>
-                                    <th class="no-print">الإجراءات</th> <!-- Hide this during print -->
-                                    <th>التاريخ</th>
-                                    <th>التفاصيل</th>
-                                    <th>دائن</th>
-                                    <th>مدين</th>
-                                    <th>الرصيد </th>
-                                    <th>الملاحظات </th>
+                                    <th class="no-print" rowspan="2">الإجراءات</th> <!-- Stays single-row -->
+                                    <th rowspan="2">ت</th>
+                                    <th rowspan="2">التاريــخ</th>
+                                    <th colspan="2">الحركــات</th> <!-- Movement under this -->
+                                    <th rowspan="2">التفاصيــل</th>
+                                    <th rowspan="2">نوع النشــاط</th>
+                                    <th rowspan="2">الرصيــد</th>
+                                </tr>
+                                <tr>
+                                    <th>دائــن</th> <!-- Credit -->
+                                    <th>مديــن</th> <!-- Debit -->
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $serial = 1; @endphp
                                 @foreach ($transactions as $transaction)
                                     <!-- Filter transactions based on the selected period -->
                                     @if (
@@ -121,7 +201,22 @@
                                                     </a>
                                                 @endif
                                             </td>
+                                            <td>{{ $serial++ }}</td>
                                             <td>{{ $transaction->transaction_date }}</td>
+                                            <td>
+                                                @if ($transaction->transaction_type === 'credit')
+                                                    {{ number_format($transaction->transaction_amount, 0) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($transaction->transaction_type === 'debit')
+                                                    {{ number_format($transaction->transaction_amount, 0) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($transaction->transactionable_type === 'App\Models\Payment\Payment')
                                                     عدد الدفعة: {{ $transaction->transactionable->id }}
@@ -148,23 +243,7 @@
                                                     الى:
                                                     {{ $transaction->transactionable->toAccount->account_name }}
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if ($transaction->transaction_type === 'credit')
-                                                    {{ number_format($transaction->transaction_amount, 0) }}
-                                                @else
-                                                    0
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($transaction->transaction_type === 'debit')
-                                                    {{ number_format($transaction->transaction_amount, 0) }}
-                                                @else
-                                                    0
-                                                @endif
-                                            </td>
-                                            <td>{{ number_format($transaction->running_balance, 0) }}</td>
-                                            <td>
+                                                --
                                                 @if ($transaction->transactionable_type === 'App\Models\Payment\Payment')
                                                     {{ $transaction->transactionable->payment_note }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\Expense')
@@ -173,6 +252,10 @@
                                                     {{ $transaction->transactionable->transfer_note }}
                                                 @endif
                                             </td>
+                                            <td>{{ $transaction->transaction_type === 'credit' ? 'قبض نقدي' : 'صرف نقدي' }}
+                                            </td>
+
+                                            <td>{{ number_format($transaction->running_balance, 0) }}</td>
 
                                         </tr>
                                     @endif

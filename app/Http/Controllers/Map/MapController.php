@@ -17,7 +17,7 @@ class MapController extends Controller
     public function contract()
     {
         // Fetch all contracts with their building data
-        $contracts = Contract::with(['building'])->get();
+        $contracts = Contract::with(['building', 'payments'])->get();
 
         // Get the total number of buildings
         $totalBuildings = Building::count();
@@ -29,17 +29,23 @@ class MapController extends Controller
         $percentageContracts = $totalBuildings > 0 ? ($contractCount / $totalBuildings) * 100 : 0;
 
         // Calculate the number of buildings without contracts
-        $buildingsWithContracts = $contracts->pluck('building_id')->toArray();
         $buildingsWithoutContracts = Building::doesntHave('contract')->count();
+
+        // Count contracts with payments
+        $contractsWithPaymentsCount = $contracts->filter(function ($contract) {
+            return $contract->payments->isNotEmpty();
+        })->count();
 
         return view('map.contract', compact([
             'contracts',
             'contractCount',
             'totalBuildings',
             'percentageContracts',
-            'buildingsWithoutContracts'
+            'buildingsWithoutContracts',
+            'contractsWithPaymentsCount'
         ]));
     }
+
 
 
     public function map()
