@@ -4,19 +4,15 @@ namespace App\Observers;
 
 use App\Models\Customer\Customer;
 use App\Models\ModelHistory;
+use App\Mail\CustomerActionNotification;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\Mailer\Exception\TransportException;
 
 class CustomerObserver
 {
-    /**
-     * Handle the Customer "created" event.
-     *
-     * @param  \App\Models\Customer\Customer  $customer
-     * @return void
-     */
     public function created(Customer $customer)
     {
-
         ModelHistory::create([
             'model_type' => Customer::class,
             'model_id' => $customer->id,
@@ -25,63 +21,55 @@ class CustomerObserver
             'note' => $customer->customer_full_name,
             'user_id' => auth()->id(),
         ]);
+
+        /* 
+        try {
+            Mail::to('alighirbn@gmail.com')->send(new CustomerActionNotification($customer, 'created'));
+        } catch (TransportException $e) {
+            // Handle the transport exception when mail can't be sent due to connectivity issues
+            Log::error('Email could not be sent: ' . $e->getMessage());
+            // Optionally, notify the user or retry later
+        } */
     }
 
-    /**
-     * Handle the Customer "updated" event.
-     *
-     * @param  \App\Models\Customer\Customer  $customer
-     * @return void
-     */
     public function updated(Customer $customer)
     {
-        // Get the new data (only changed fields)
         $newData = $customer->getDirty();
-
-        // Get the old data (only for the changed fields)
         $oldData = [];
-        $note = null; // Initialize the note
+        $note = null;
 
         foreach ($newData as $key => $newValue) {
-            // Get the original value of the changed field
             $oldData[$key] = $customer->getOriginal($key);
 
-            // Check if 'customer_full_name' has changed
             if ($key === 'customer_full_name') {
-                // Set the note to include both old and new full names
                 $note = 'القديم: ' . $oldData[$key] . ' | الجديد: ' . $newValue;
             }
         }
 
-        // If 'customer_full_name' hasn't changed, fall back to just the current customer's name
         if (!$note && isset($newData['customer_full_name'])) {
             $note = $newData['customer_full_name'];
         }
 
-        // Store changes in the ModelHistory table
         ModelHistory::create([
             'model_type' => Customer::class,
             'model_id' => $customer->id,
             'action' => 'edit',
-            'old_data' => $oldData,  // Store only changed old data
-            'new_data' => $newData,  // Store only changed new data
-            'note' => $note,  // Store both old and new customer name if changed
+            'old_data' => $oldData,
+            'new_data' => $newData,
+            'note' => $note,
             'user_id' => auth()->id(),
         ]);
+        /*   try {
+            Mail::to('alighirbn@gmail.com')->send(new CustomerActionNotification($customer, 'updated', $note));
+        } catch (TransportException $e) {
+            // Handle the transport exception when mail can't be sent due to connectivity issues
+            Log::error('Email could not be sent: ' . $e->getMessage());
+            // Optionally, notify the user or retry later
+        } */
     }
 
-
-
-    /**
-     * Handle the Customer "deleted" event.
-     *
-     * @param  \App\Models\Customer\Customer  $customer
-     * @return void
-     */
     public function deleted(Customer $customer)
     {
-
-
         ModelHistory::create([
             'model_type' => Customer::class,
             'model_id' => $customer->id,
@@ -90,5 +78,13 @@ class CustomerObserver
             'note' => $customer->customer_full_name,
             'user_id' => auth()->id(),
         ]);
+
+        /*  try {
+            Mail::to('alighirbn@gmail.com')->send(new CustomerActionNotification($customer, 'deleted'));
+        } catch (TransportException $e) {
+            // Handle the transport exception when mail can't be sent due to connectivity issues
+            Log::error('Email could not be sent: ' . $e->getMessage());
+            // Optionally, notify the user or retry later
+        } */
     }
 }

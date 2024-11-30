@@ -2,10 +2,14 @@
 
 namespace App\Observers;
 
+use App\Mail\SendContractEmail;
 use App\Models\Contract\Contract;
 use App\Models\Customer\Customer;
 use App\Models\Building\Building;
 use App\Models\ModelHistory;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\Mailer\Exception\TransportException;
 
 class ContractObserver
 {
@@ -41,6 +45,16 @@ class ContractObserver
             'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
+        /*   $changeData = [
+            'type' => 'Created',
+            'contract_data' => $contract->getAttributes(),
+        ];
+
+        try {
+            Mail::to('alighirbn@gmail.com')->send(new SendContractEmail($contract, $changeData));
+        } catch (TransportException $e) {
+            Log::error('Email could not be sent: ' . $e->getMessage());
+        } */
     }
 
     public function updated(Contract $contract)
@@ -90,6 +104,18 @@ class ContractObserver
             'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
+        /*     // Prepare the change data
+        $changeData = [
+            'type' => 'Updated',
+            'old_data' => $oldData,
+            'new_data' => $newData,
+        ];
+
+        try {
+            Mail::to('alighirbn@gmail.com')->send(new SendContractEmail($contract, $changeData));
+        } catch (TransportException $e) {
+            Log::error('Email could not be sent: ' . $e->getMessage());
+        } */
     }
 
     public function deleted(Contract $contract)
@@ -129,5 +155,15 @@ class ContractObserver
             'note' => $contract->building->building_number,
             'user_id' => auth()->id(),
         ]);
+        /*  $changeData = [
+            'type' => 'Deleted',
+            'contract_data' => $oldData,
+        ];
+
+        try {
+            Mail::to('alighirbn@gmail.com')->send(new SendContractEmail($contract, $changeData));
+        } catch (TransportException $e) {
+            Log::error('Email could not be sent: ' . $e->getMessage());
+        } */
     }
 }
