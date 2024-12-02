@@ -16,7 +16,17 @@
         /* Color of the underline */
     }
 </style>
+@can('map-empty')
+    <a href="{{ route('map.empty') }}" class="me-3 {{ request()->routeIs('map.empty') ? 'underline-active' : '' }}">
+        {{ __('word.map_empty_buildings') }}
+    </a>
+@endcan
 
+@can('map-contract')
+    <a href="{{ route('map.contract') }}" class="me-3 {{ request()->routeIs('map.contract') ? 'underline-active' : '' }}">
+        {{ __('word.map_contracts') }}
+    </a>
+@endcan
 @can('contract-list')
     <a href="{{ route('contract.index') }}" class="me-3 {{ request()->routeIs('contract.index') ? 'underline-active' : '' }}">
         {{ __('word.contract_search') }}

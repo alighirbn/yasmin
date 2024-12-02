@@ -182,6 +182,8 @@
     /* Hide every other element */
     body * {
         visibility: hidden;
+        -webkit-print-color-adjust: exact; /* For WebKit browsers (e.g., Chrome, Safari) */
+        print-color-adjust: exact; /* Standard property */
     }
 
     /* Then displaying print-container elements only */
