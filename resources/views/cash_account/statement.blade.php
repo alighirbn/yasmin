@@ -4,6 +4,7 @@
 
         <div class="flex justify-start">
             @include('payment.nav.navigation')
+            @include('income.nav.navigation')
             @include('expense.nav.navigation')
             @include('cash_account.nav.navigation')
             @include('cash_transfer.nav.navigation')
@@ -194,6 +195,11 @@
                                                         class="btn btn-custom-show">
                                                         {{ __('عرض ') }}
                                                     </a>
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\Income')
+                                                    <a href="{{ route('income.show', $transaction->transactionable->url_address) }}"
+                                                        class="btn btn-custom-show">
+                                                        {{ __('عرض ') }}
+                                                    </a>
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
                                                     <a href="{{ route('cash_transfer.show', $transaction->transactionable->url_address) }}"
                                                         class="btn btn-custom-show">
@@ -236,6 +242,11 @@
                                                     ,
                                                     النوع:
                                                     {{ $transaction->transactionable->expense_type->expense_type }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\Income')
+                                                    عدد الايراد: {{ $transaction->transactionable->id }}
+                                                    ,
+                                                    النوع:
+                                                    {{ $transaction->transactionable->income_type->income_type }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
                                                     تحويل مبلغ من:
                                                     {{ $transaction->transactionable->fromAccount->account_name }}
@@ -248,6 +259,8 @@
                                                     {{ $transaction->transactionable->payment_note }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\Expense')
                                                     {{ $transaction->transactionable->expense_note }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\Income')
+                                                    {{ $transaction->transactionable->income_note }}
                                                 @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
                                                     {{ $transaction->transactionable->transfer_note }}
                                                 @endif

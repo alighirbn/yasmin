@@ -24,8 +24,8 @@
                         <button id="print" class="btn btn-custom-print" onclick="window.print();">
                             {{ __('word.print') }}
                         </button>
-                        @can('expense-delete')
-                            <form action="{{ route('expense.destroy', $expense->url_address) }}" method="post">
+                        @can('income-delete')
+                            <form action="{{ route('income.destroy', $income->url_address) }}" method="post">
                                 @csrf
                                 @method('DELETE')
 
@@ -37,8 +37,8 @@
                         @endcan
                     </div>
                     <div class="header-buttons">
-                        @if (!$expense->approved)
-                            <form action="{{ route('expense.approve', $expense->url_address) }}" method="POST">
+                        @if (!$income->approved)
+                            <form action="{{ route('income.approve', $income->url_address) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <label for="cash_account_id">الصندوق</label>
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                                 <button type="submit" class="btn btn-custom-edit">
-                                    {{ __('word.expense_approve') }}</button>
+                                    {{ __('word.income_approve') }}</button>
                             </form>
                         @endif
                     </div>
@@ -61,7 +61,7 @@
 
                         <div class="flex">
                             <div class=" mx-2 my-2 w-full ">
-                                {!! QrCode::size(90)->generate($expense->id) !!}
+                                {!! QrCode::size(90)->generate($income->id) !!}
                             </div>
                             <div class=" mx-2 my-2 w-full ">
                                 <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
@@ -69,10 +69,10 @@
                             </div>
                             <div class=" mx-2 my-2 w-full ">
 
-                                <p><strong>{{ __('عدد سند الصرف:') }}</strong>
-                                    {{ $expense->id }}
+                                <p><strong>{{ __('عدد سند الايراد:') }}</strong>
+                                    {{ $income->id }}
                                 </p>
-                                <p><strong>{{ __('تاريخ سند الصرف:') }}</strong> {{ $expense->expense_date }}</p>
+                                <p><strong>{{ __('تاريخ سند الايراد:') }}</strong> {{ $income->income_date }}</p>
 
                             </div>
                         </div>
@@ -81,32 +81,32 @@
                         </div>
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_id" class="w-full mb-1" :value="__('word.expense_id')" />
-                                <p id="expense_id" class="w-full h-9 block mt-1" type="text" name="expense_id">
-                                    {{ $expense->id }}
+                                <x-input-label for="income_id" class="w-full mb-1" :value="__('word.income_id')" />
+                                <p id="income_id" class="w-full h-9 block mt-1" type="text" name="income_id">
+                                    {{ $income->id }}
                                 </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_date" class="w-full mb-1" :value="__('word.expense_date')" />
-                                <p id="expense_date" class="w-full h-9 block mt-1 " type="text" name="expense_date">
-                                    {{ $expense->expense_date }}
+                                <x-input-label for="income_date" class="w-full mb-1" :value="__('word.income_date')" />
+                                <p id="income_date" class="w-full h-9 block mt-1 " type="text" name="income_date">
+                                    {{ $income->income_date }}
                                 </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_type_id" class="w-full mb-1" :value="__('word.expense_type_id')" />
-                                <p id="expense_type_id" class="w-full h-9 block mt-1" type="text"
-                                    name="expense_type_id">
-                                    {{ $expense->expense_type->expense_type }}
+                                <x-input-label for="income_type_id" class="w-full mb-1" :value="__('word.income_type_id')" />
+                                <p id="income_type_id" class="w-full h-9 block mt-1" type="text"
+                                    name="income_type_id">
+                                    {{ $income->income_type->income_type }}
                                 </p>
                             </div>
 
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_amount" class="w-full mb-1" :value="__('word.expense_amount')" />
-                                <p id="expense_amount" class="w-full h-9 block mt-1 " type="text"
-                                    name="expense_amount">
-                                    {{ number_format($expense->expense_amount, 0) }} دينار
+                                <x-input-label for="income_amount" class="w-full mb-1" :value="__('word.income_amount')" />
+                                <p id="income_amount" class="w-full h-9 block mt-1 " type="text"
+                                    name="income_amount">
+                                    {{ number_format($income->income_amount, 0) }} دينار
                                 </p>
                             </div>
 
@@ -114,9 +114,9 @@
 
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="expense_note" class="w-full mb-1" :value="__('word.expense_note')" />
-                                <p id="expense_note" class="w-full h-9 block mt-1" type="text" name="expense_note">
-                                    {{ $expense->expense_note }}
+                                <x-input-label for="income_note" class="w-full mb-1" :value="__('word.income_note')" />
+                                <p id="income_note" class="w-full h-9 block mt-1" type="text" name="income_note">
+                                    {{ $income->income_note }}
                                 </p>
                             </div>
 
@@ -124,17 +124,17 @@
 
                     </div>
                     <div class="flex">
-                        @if (isset($expense->user_id_create))
+                        @if (isset($income->user_id_create))
                             <div class="mx-4 my-4 ">
-                                {{ __('word.user_create') }} {{ $expense->user_create->name }}
-                                {{ $expense->created_at }}
+                                {{ __('word.user_create') }} {{ $income->user_create->name }}
+                                {{ $income->created_at }}
                             </div>
                         @endif
 
-                        @if (isset($expense->user_id_update))
+                        @if (isset($income->user_id_update))
                             <div class="mx-4 my-4 ">
-                                {{ __('word.user_update') }} {{ $expense->user_update->name }}
-                                {{ $expense->updated_at }}
+                                {{ __('word.user_update') }} {{ $income->user_update->name }}
+                                {{ $income->updated_at }}
                             </div>
                         @endif
                     </div>

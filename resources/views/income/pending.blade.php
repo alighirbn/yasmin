@@ -33,7 +33,7 @@
                     <div class="print-container a4-width mx-auto bg-white">
                         <div class="flex">
                             <div class="mx-2 my-2 w-full">
-                                {!! QrCode::size(90)->generate($expense->id) !!}
+                                {!! QrCode::size(90)->generate($income->id) !!}
                             </div>
                             <div class="mx-2 my-2 w-full">
                                 <img src="{{ asset('images/yasmine.png') }}" alt="Logo"
@@ -41,48 +41,47 @@
                             </div>
                             <div class="mx-2 my-2 w-full">
 
-                                <p><strong>{{ __('عدد الصرف:') }}</strong> {{ $expense->id }}</p>
-                                <p><strong>{{ __('تاريخ الصرف:') }}</strong> {{ $expense->expense_date }}</p>
+                                <p><strong>{{ __('عدد الايراد:') }}</strong> {{ $income->id }}</p>
+                                <p><strong>{{ __('تاريخ الايراد:') }}</strong> {{ $income->income_date }}</p>
                             </div>
                         </div>
                         <div style="text-align: center; margin: 1rem auto; font-size: 1rem;">
-                            سندات الصرف في طور استحصال الموافقة
+                            سندات الايراد في طور استحصال الموافقة
                         </div>
-                        @if ($pendingexpenses->isEmpty())
+                        @if ($pendingincomes->isEmpty())
                             <p>لا توجد سندات صرف لم يتم الموافقة عليها</p>
                         @else
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th> {{ __('word.action') }}</th>
-                                        <th> {{ __('word.expense_id') }}</th>
-                                        <th> {{ __('word.expense_date') }}</th>
-                                        <th> {{ __('word.expense_amount') }}</th>
+                                        <th> {{ __('word.income_id') }}</th>
+                                        <th> {{ __('word.income_date') }}</th>
+                                        <th> {{ __('word.income_amount') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pendingexpenses as $expense)
+                                    @foreach ($pendingincomes as $income)
                                         <tr>
                                             <td>
                                                 <div class="header-buttons">
-                                                    <a href="{{ route('expense.show', $expense->url_address) }}"
+                                                    <a href="{{ route('income.show', $income->url_address) }}"
                                                         class="btn btn-custom-show">
                                                         {{ __('word.view') }}
                                                     </a>
-                                                    <form
-                                                        action="{{ route('expense.approve', $expense->url_address) }}"
+                                                    <form action="{{ route('income.approve', $income->url_address) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PATCH')
                                                         <button type="submit" class="btn btn-custom-edit">
-                                                            {{ __('word.expense_approve') }}
+                                                            {{ __('word.income_approve') }}
                                                         </button>
                                                     </form>
                                                 </div>
                                             </td>
-                                            <td>{{ $expense->id }}</td>
-                                            <td>{{ $expense->expense_date }}</td>
-                                            <td>{{ number_format($expense->expense_amount, 0) }}</td>
+                                            <td>{{ $income->id }}</td>
+                                            <td>{{ $income->income_date }}</td>
+                                            <td>{{ number_format($income->income_amount, 0) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

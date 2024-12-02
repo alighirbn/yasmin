@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
       Building_Type_Seeder::class,
       Service_Type_Seeder::class,
       Expense_Type_Seeder::class,
+      Income_Type_Seeder::class,
       Cash_Account_Seeder::class,
       ClassificationSeeder::class,
       Building_Seeder::class,

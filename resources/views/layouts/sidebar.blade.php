@@ -87,6 +87,7 @@
             </a>
             <div class="flex flex-col   sub-menu" style="display: none;">
                 @include('payment.nav.navigation')
+                @include('income.nav.navigation')
                 @include('expense.nav.navigation')
                 @include('cash_account.nav.navigation')
                 @include('cash_transfer.nav.navigation')

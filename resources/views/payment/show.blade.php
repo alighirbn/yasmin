@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         <div class="flex justify-start">
             @include('payment.nav.navigation')
+            @include('income.nav.navigation')
             @include('expense.nav.navigation')
             @include('cash_account.nav.navigation')
             @include('cash_transfer.nav.navigation')

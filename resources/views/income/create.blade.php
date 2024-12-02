@@ -28,58 +28,58 @@
 
                     </div>
                     <div>
-                        <form method="post" action="{{ route('expense.store') }}">
+                        <form method="post" action="{{ route('income.store') }}">
                             @csrf
                             <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                                {{ __('word.expense_info') }}
+                                {{ __('word.income_info') }}
                             </h1>
 
                             <div class="flex ">
 
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="expense_type_id" class="w-full mb-1" :value="__('word.expense_type_id')" />
-                                    <select id="expense_type_id" class="js-example-basic-single w-full block mt-1 "
-                                        name="expense_type_id" data-placeholder="ادخل باب الصرف">
+                                    <x-input-label for="income_type_id" class="w-full mb-1" :value="__('word.income_type_id')" />
+                                    <select id="income_type_id" class="js-example-basic-single w-full block mt-1 "
+                                        name="income_type_id" data-placeholder="ادخل باب الايراد">
                                         <option value="">
 
                                         </option>
-                                        @foreach ($expense_types as $expense_type)
-                                            <option value="{{ $expense_type->id }}"
-                                                {{ old('expense_type_id') == $expense_type->id ? 'selected' : '' }}>
-                                                {{ $expense_type->expense_type }}
+                                        @foreach ($income_types as $income_type)
+                                            <option value="{{ $income_type->id }}"
+                                                {{ old('income_type_id') == $income_type->id ? 'selected' : '' }}>
+                                                {{ $income_type->income_type }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('expense_type_id')" class="w-full mt-2" />
+                                    <x-input-error :messages="$errors->get('income_type_id')" class="w-full mt-2" />
                                 </div>
 
                                 <div class="mx-4 my-4 w-full">
-                                    <x-input-label for="expense_amount_display" class="w-full mb-1" :value="__('word.expense_amount')" />
+                                    <x-input-label for="income_amount_display" class="w-full mb-1" :value="__('word.income_amount')" />
 
                                     <!-- Displayed input for formatted number -->
-                                    <x-text-input id="expense_amount_display" class="w-full block mt-1" type="text"
-                                        value="{{ number_format(old('expense_amount', 0), 0) }}" placeholder="0" />
+                                    <x-text-input id="income_amount_display" class="w-full block mt-1" type="text"
+                                        value="{{ number_format(old('income_amount', 0), 0) }}" placeholder="0" />
 
                                     <!-- Hidden input for the actual number -->
-                                    <input type="hidden" id="expense_amount" name="expense_amount"
-                                        value="{{ old('expense_amount') }}">
+                                    <input type="hidden" id="income_amount" name="income_amount"
+                                        value="{{ old('income_amount') }}">
 
-                                    <x-input-error :messages="$errors->get('expense_amount')" class="w-full mt-2" />
+                                    <x-input-error :messages="$errors->get('income_amount')" class="w-full mt-2" />
                                 </div>
 
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="expense_date" class="w-full mb-1" :value="__('word.expense_date')" />
-                                    <x-text-input id="expense_date" class="w-full block mt-1" type="text"
-                                        name="expense_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
-                                    <x-input-error :messages="$errors->get('expense_date')" class="w-full mt-2" />
+                                    <x-input-label for="income_date" class="w-full mb-1" :value="__('word.income_date')" />
+                                    <x-text-input id="income_date" class="w-full block mt-1" type="text"
+                                        name="income_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                                    <x-input-error :messages="$errors->get('income_date')" class="w-full mt-2" />
                                 </div>
                             </div>
                             <div class="flex ">
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="expense_note" class="w-full mb-1" :value="__('word.expense_note')" />
-                                    <x-text-input id="expense_note" class="w-full block mt-1" type="text"
-                                        name="expense_note" value="{{ old('expense_note') }}" />
-                                    <x-input-error :messages="$errors->get('expense_note')" class="w-full mt-2" />
+                                    <x-input-label for="income_note" class="w-full mb-1" :value="__('word.income_note')" />
+                                    <x-text-input id="income_note" class="w-full block mt-1" type="text"
+                                        name="income_note" value="{{ old('income_note') }}" />
+                                    <x-input-error :messages="$errors->get('income_note')" class="w-full mt-2" />
                                 </div>
 
                             </div>
@@ -97,8 +97,8 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var displayInput = document.getElementById('expense_amount_display');
-            var hiddenInput = document.getElementById('expense_amount');
+            var displayInput = document.getElementById('income_amount_display');
+            var hiddenInput = document.getElementById('income_amount');
 
             function formatNumber(value) {
                 return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');

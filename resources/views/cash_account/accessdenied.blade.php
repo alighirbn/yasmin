@@ -2,8 +2,7 @@
 
     <x-slot name="header">
 
-
-        @include('payment.nav.navigation')
+        @include('cash_account.nav.navigation')
 
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
@@ -25,12 +24,10 @@
 
                     your ip address {{ $ip }}
 
-
                 </div>
                 <div class="p-6 text-gray-900">
 
                     your mac address {{ exec('getmac') }}
-
 
                 </div>
 

@@ -82,6 +82,15 @@ class Permission_Seeder extends Seeder
             'expense-delete',
             'expense-approve',
 
+            //**************************income******************************* */
+            //income permissions
+            'income-list',
+            'income-show',
+            'income-create',
+            'income-update',
+            'income-delete',
+            'income-approve',
+
             //**************************cash_account******************************* */
             //cash_account permissions
             'cash_account-list',
