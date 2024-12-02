@@ -551,10 +551,11 @@ class ContractController extends Controller
         }
 
         // Check if the contract has any payments
-        if ($contract->payments->count() > 0) {
+        if ($contract->payments->count() > 0 && $contract->stage == 'accepted') {
             return redirect()->route('contract.index')
-                ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات.');
+                ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
+
 
         $customers = Customer::all();
 
@@ -586,9 +587,9 @@ class ContractController extends Controller
         }
 
         // Check if the contract has any payments
-        if ($contract->payments->count() > 0) {
+        if ($contract->payments->count() > 0 && $contract->stage == 'accepted') {
             return redirect()->route('contract.index')
-                ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات.');
+                ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
 
         // Update the contract

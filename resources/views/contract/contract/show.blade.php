@@ -23,12 +23,7 @@
                         <a href="{{ route('contract.reserve', $contract->url_address) }}" class="btn btn-custom-print">
                             {{ __('word.print_reserve') }}
                         </a>
-                        @can('customer-update')
-                            <a href="{{ route('customer.edit', $contract->customer->url_address) }}"
-                                class="my-1 mx-1 btn btn-custom-edit">
-                                {{ __('word.customer_edit') }}
-                            </a>
-                        @endcan
+
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
                                 class="btn btn-custom-statement">
@@ -37,12 +32,9 @@
                         @endcan
 
                         @can('contract-update')
-                            @if ($contract->payments()->count() == 0)
-                                <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
-                                    {{ __('word.contract_edit') }}
-                                </a>
-                            @endif
-
+                            <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
+                                {{ __('word.contract_edit') }}
+                            </a>
                         @endcan
                         @can('contract-accept')
                             @if ($contract->stage == 'temporary')
