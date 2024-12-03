@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div style="text-align: center; margin: 0.8rem auto; font-size: 1.2rem; font-weight: bold;">
-                            <p>سند صرف </p>
+                            <p>سند ايراد </p>
                         </div>
                         <div class="flex ">
                             <div class=" mx-4 my-4 w-full ">

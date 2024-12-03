@@ -175,6 +175,6 @@
         }
 
         // Fetch notifications every 30 seconds
-        setInterval(fetchNotifications, 30000);
+        setInterval(fetchNotifications, 120000);
     });
 </script>
