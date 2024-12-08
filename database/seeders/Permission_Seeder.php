@@ -134,6 +134,10 @@ class Permission_Seeder extends Seeder
             'map-edit',
             'map-hidden',
 
+            //**************************history******************************* */
+            // history
+            'history-list',
+            'history-all',
 
             //**************************user******************************* */
 

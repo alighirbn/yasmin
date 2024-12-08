@@ -208,7 +208,17 @@
                                                 @endif
                                             </td>
                                             <td>{{ $serial++ }}</td>
-                                            <td>{{ $transaction->transaction_date }}</td>
+                                            <td>
+                                                @if ($transaction->transactionable_type === 'App\Models\Payment\Payment')
+                                                    {{ $transaction->transactionable->payment_date }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\Expense')
+                                                    {{ $transaction->transactionable->expense_date }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\Income')
+                                                    {{ $transaction->transactionable->income_date }}
+                                                @elseif($transaction->transactionable_type === 'App\Models\Cash\CashTransfer')
+                                                    {{ $transaction->transactionable->transfer_date }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($transaction->transaction_type === 'credit')
                                                     {{ number_format($transaction->transaction_amount, 0) }}

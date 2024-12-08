@@ -58,14 +58,14 @@
 
                         @endcan
                         @can('contract-archive')
-                            @if ($contract->stage != 'temporary' && $contract->payments->where('approved', true)->count() >= 1)
+                            @if ($contract->payments->where('approved', true)->count() >= 1)
                                 <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
                                     class="btn btn-custom-archive">
                                     {{ __('word.contract_archive') }}
                                 </a>
                             @endif
 
-                            @if ($contract->stage != 'temporary' && $contract->payments->where('approved', true)->count() >= 1)
+                            @if ($contract->payments->where('approved', true)->count() >= 1)
                                 <a href="{{ route('contract.scancreate', $contract->url_address) }}"
                                     class="btn btn-custom-archive">
                                     {{ __('word.contract_scan') }}
@@ -73,10 +73,7 @@
                             @endif
                         @endcan
                         @can('contract-archiveshow')
-                            @if (
-                                $contract->stage != 'temporary' &&
-                                    $contract->payments->where('approved', true)->count() >= 1 &&
-                                    count($contract->images) >= 1)
+                            @if ($contract->payments->where('approved', true)->count() >= 1 && count($contract->images) >= 1)
                                 <a href="{{ route('contract.archiveshow', $contract->url_address) }}"
                                     class="btn btn-custom-archive">
                                     {{ __('word.archiveshow') }}

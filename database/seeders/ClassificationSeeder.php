@@ -17,11 +17,11 @@ class ClassificationSeeder extends Seeder
 
             [
                 'name' => 'مساحة اضافية',
-                'price_per_meter' => 1600000,
+                'price_per_meter' => 1500000,
             ],
             [
                 'name' => 'ركن',
-                'price_per_meter' => 1500000,
+                'price_per_meter' => 1600000,
             ],
             [
                 'name' => 'اعتيادي',
@@ -29,7 +29,15 @@ class ClassificationSeeder extends Seeder
             ],
             [
                 'name' => 'شقة',
-                'price_per_meter' => 1300000,
+                'price_per_meter' => 1400000,
+            ],
+            [
+                'name' => 'تجاري',
+                'price_per_meter' => 1600000,
+            ],
+            [
+                'name' => 'ركن تجاري',
+                'price_per_meter' => 1700000,
             ],
 
 
