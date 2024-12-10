@@ -12,11 +12,7 @@
             {{ __('word.statement') }}
         </a>
     @endcan
-    @can('contract-update')
-        <a href="{{ route('contract.edit', $url_address) }}" class="my-1 mx-1 btn btn-custom-edit">
-            {{ __('word.edit') }}
-        </a>
-    @endcan
+
     @can('contract-delete')
         <form action="{{ route('contract.destroy', $url_address) }}" method="post">
             @csrf

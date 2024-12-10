@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class Cash_Account extends Model
 {
@@ -31,6 +32,10 @@ class Cash_Account extends Model
     // Method to adjust balance
     public function adjustBalance($amount, $type)
     {
+
+        // Recalculate the balance first to ensure it is correct
+        $this->recalculateBalance();
+
         // Type can be 'credit' or 'debit'
         if ($type === 'credit') {
             $this->balance += $amount;

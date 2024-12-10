@@ -22,6 +22,7 @@ use App\Notifications\ContractNotify;
 use App\Services\ContractUpdateService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ContractController extends Controller
@@ -537,7 +538,7 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $url_address)
+    public function edit(Request $request, string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)
             ->with('payments', 'building') // Ensure 'building' is loaded
@@ -549,10 +550,27 @@ class ContractController extends Controller
         }
 
         // Check if the contract has any payments
-        if ($contract->payments->count() > 0 && $contract->stage == 'accepted') {
+        if ($contract->payments->count() > 0 && $contract->stage != 'temporary') {
             return redirect()->route('contract.index')
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
+        if ($contract->payments->count() > 0 && $contract->stage == 'temporary') {
+            // Check if the contract has any payments
+            if ($request->has('password')) {
+                // Verify the password
+                if (Hash::check($request->password, auth()->user()->password)) {
+                    // Password is correct, allow editing
+                    // Proceed with the edit logic
+                } else {
+                    return redirect()->route('contract.index')
+                        ->with('error', 'كلمة المرور غير صحيحة.');
+                }
+            } else {
+                return redirect()->route('contract.index')
+                    ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله. يرجى إدخال كلمة المرور لتأكيد التعديل.');
+            }
+        }
+
 
 
         $customers = Customer::all();
@@ -585,7 +603,7 @@ class ContractController extends Controller
         }
 
         // Check if the contract has any payments
-        if ($contract->payments->count() > 0 && $contract->stage == 'accepted') {
+        if ($contract->payments->count() > 0 && $contract->stage != 'temporary') {
             return redirect()->route('contract.index')
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }

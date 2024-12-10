@@ -71,8 +71,14 @@ class PaymentController extends Controller
         $payment = Payment::where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
+            // Ensure payment_amount is numeric before proceeding
+            if (!is_numeric($payment->payment_amount)) {
+                return redirect()->route('contract.show', $payment->contract->url_address)
+                    ->with('error', 'The payment amount is not valid.');
+            }
+
             // Approve the payment
-            $payment->approve();
+            $payment->approved = true;
 
             $cash_account_id = $request->cash_account_id;
 
@@ -123,6 +129,7 @@ class PaymentController extends Controller
             return view('payment.accessdenied', ['ip' => $ip]);
         }
     }
+
 
     public function pending($url_address)
     {

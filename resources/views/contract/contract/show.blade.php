@@ -32,10 +32,20 @@
                         @endcan
 
                         @can('contract-update')
-                            <a href="{{ route('contract.edit', $contract->url_address) }}" class="btn btn-custom-edit">
-                                {{ __('word.contract_edit') }}
-                            </a>
+                            @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
+                                <a href="#passwordModal" class="btn btn-custom-edit" data-bs-toggle="modal">
+                                    {{ __('word.contract_edit') }}
+                                </a>
+                            @else
+                                <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-custom-edit">
+                                        {{ __('word.contract_edit') }}
+                                    </button>
+                                </form>
+                            @endif
                         @endcan
+
                         @can('contract-accept')
                             @if ($contract->stage == 'temporary')
                                 <a href="{{ route('contract.accept', $contract->url_address) }}"
@@ -373,6 +383,33 @@
             </div>
         </div>
     </div>
+
+    <div id="passwordModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content  text-gray-900">
+                <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">تأكيد كلمة المرور</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>يرجى إدخال كلمة المرور الخاصة بك لتأكيد التعديل.</p>
+                        <div class="form-group">
+                            <label for="password">كلمة المرور</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-custom-statement">تأكيد</button>
+                        <button type="button" class="btn btn-custom-transfer" data-bs-dismiss="modal">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {
             $('.add_payment').on('click', function(event) {
