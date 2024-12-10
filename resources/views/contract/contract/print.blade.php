@@ -308,6 +308,7 @@
                                         <br>
                                         <br>
                                         <br>
+                                        <br>
 
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 7)</p>
@@ -392,6 +393,8 @@
                                     مانع من موانع الاهلية او عارض من عوارض الاهلية وذلك بموجب حكم بات صادر من محكمة
                                     مختصة .
                                     @if ($contract_installments->count() == 12)
+                                        <br>
+                                        <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 7)</p>
                                         </div>
@@ -477,10 +480,11 @@
 
                                 </p>
                                 @if ($contract_installments->count() == 12)
+                                    <br>
+                                    <br>
                                     <div style="display: flex; justify-content: center;">
                                         <p style="font-size: 14px; font-weight: bold;">صفحة ( 5 - 7)</p>
                                     </div>
-                                    <br>
                                     <br>
                                     <br>
                                     <br>
@@ -646,6 +650,7 @@
                                 </div>
                             </div>
                             @if ($contract_installments->count() == 12)
+                                <br>
                                 <br>
                                 <br>
                                 <br>
