@@ -620,7 +620,8 @@
                                     <p> الطرف الثاني
                                         <br> الاسم / {{ $contract->customer->customer_full_name }}
                                         <br> رقم الهوية / {{ $contract->customer->customer_card_number }}
-                                        <br> العنوان / النجف الاشرف
+                                        <br> تأريخ الاصدار / {{ $contract->customer->customer_card_issud_date }}
+                                        <br> العنوان / {{ $contract->customer->full_address }}
                                     </p>
                                 </div>
                                 <div
@@ -628,7 +629,7 @@
                                     <p> الطرف الاول
                                         <br> المدير المفوض لشركة بوابة العلم
                                         <br> للمقاولات العامة المحدودة/ اضافة
-                                        <br> وظيفته
+                                        <br> لوظيفته
                                     </p>
                                 </div>
                             </div>
