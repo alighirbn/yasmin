@@ -34,6 +34,10 @@
                 background-color: black;
             }
 
+            .fill-div.gold {
+                background-color: gold;
+            }
+
             .fill-div.temporary {
                 background-color: rgb(255, 125, 125);
             }
@@ -134,9 +138,9 @@
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
                                 <a href="{{ route('contract.show', $contract->url_address) }}"
                                     class="fill-div
-                                     @if ($contract->hasPayments()) black
-                                     @elseif ($contract->stage === 'temporary')
-                                      temporary @endif
+                                     @if ($contract->payments->contains('approved', true)) black
+                                     @elseif ($contract->payments->isNotEmpty()) gold
+                                     @elseif ($contract->stage === 'temporary') temporary @endif
                                                   "></a>
                             </div>
                         @endforeach
