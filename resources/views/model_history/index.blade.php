@@ -144,7 +144,7 @@
 
                             <!-- Pagination Links -->
                             <div class="d-flex justify-content-center">
-                                {{ $history->links() }}
+                                {{ $history->appends(request()->query())->links() }}
                             </div>
                         </div>
                     </div>

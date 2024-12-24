@@ -34,7 +34,7 @@
                                         name="payment_contract_id">
                                         @foreach ($contracts as $contract)
                                             <option value="{{ $contract->id }}"
-                                                {{ (old('payment_contract_id') ?? $contract->payment_contract_id) == $contract->id ? 'selected' : '' }}>
+                                                {{ (old('payment_contract_id') ?? $payment->payment_contract_id) == $contract->id ? 'selected' : '' }}>
                                                 {{ $contract->customer->customer_full_name . ' ** رقم العقار --   ' . $contract->building->building_number }}
                                             </option>
                                         @endforeach

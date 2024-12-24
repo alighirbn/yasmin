@@ -21,7 +21,7 @@ class ContractUpdateService
             $contract = $building->contract;
 
             // Skip if the contract has payments or no classification
-            if (!$contract || $contract->payments->isNotEmpty() || !$building->classification) {
+            if (!$contract || !$building->classification) {
                 continue;
             }
 
