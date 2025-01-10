@@ -1,25 +1,22 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ContractApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\GuestController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+Route::prefix('v1')->group(function () {
+    // Public routes
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    // Authenticated routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('/refresh-token', [AuthController::class, 'refreshToken'])->name('refreshToken');
+
+        // Contracts resource routes
+        Route::post('/contracts', [ContractApiController::class, 'store']);
+        Route::get('/contracts', [ContractApiController::class, 'index']);
+        Route::get('/contracts/{id}', [ContractApiController::class, 'show']);
+    });
 });
-
-Route::post('employeelogin',[GuestController::class,'employeelogin']);
-Route::post('employeepassword',[GuestController::class,'employeepassword']);
-Route::post('employeeupdate',[GuestController::class,'employeeupdate']);
-

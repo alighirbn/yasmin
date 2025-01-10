@@ -105,7 +105,11 @@ class PaymentController extends Controller
 
             // Safely check if contract installment and installment exist before accessing the id
             $installmentId = optional(optional($payment->contract_installment)->installment)->id;
-
+            // Update the contract_installment->paid field to true
+            if ($payment->contract_installment) {
+                $payment->contract_installment->paid = true;
+                $payment->contract_installment->save(); // Save the updated contract installment
+            }
             if ($installmentId && in_array($installmentId, [1, 2])) {
                 // Notify all users with 'lawyer' role
                 $lawyers = User::role('lawyer')->get(); // Fetch lawyers
@@ -202,6 +206,11 @@ class PaymentController extends Controller
 
                 // Delete related transactions
                 $payment->transactions()->delete();
+            }
+            // Update the contract_installment->paid field to false
+            if ($payment->contract_installment) {
+                $payment->contract_installment->paid = false;
+                $payment->contract_installment->save(); // Save the updated contract installment
             }
 
             // Delete the payment
