@@ -108,12 +108,12 @@ class CashTransferController extends Controller
         // Credit transaction for toAccount
         $this->createTransaction($toAccount, $amount, 'credit', $transfer);
 
-        $fromAccount->adjustBalance($amount, 'debit');
-        $toAccount->adjustBalance($amount, 'credit');
-
         $transfer->approved = true;
         $transfer->user_id_update = Auth::id();
         $transfer->save();
+
+        $fromAccount->recalculateBalance();
+        $toAccount->recalculateBalance();
 
         return Redirect::route('cash_transfer.index')->with('success', 'تمت الموافقة على التحويل بنجاح.');
     }
@@ -145,8 +145,8 @@ class CashTransferController extends Controller
         if ($transfer->approved) {
             // Delete related transactions
             $transfer->transactions()->delete();
-            $fromAccount->adjustBalance($amount, 'credit');
-            $toAccount->adjustBalance($amount, 'debit');
+            $fromAccount->recalculateBalance();
+            $toAccount->recalculateBalance();
         }
 
         $transfer->delete();
