@@ -223,6 +223,17 @@
                                     <x-input-error :messages="$errors->get('contract_amount')" class="w-full mt-2" />
                                 </div>
 
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="discount" class="w-full mb-1" :value="__('word.discount')" />
+                                    <x-text-input id="discount" class="w-full block mt-1" type="number"
+                                        name="discount" value="{{ old('discount') ?? $contract->discount }}"
+                                        step="0.5" min="0" max="100" placeholder="0.00" />
+
+                                    <x-input-error :messages="$errors->get('discount')" class="w-full mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex">
+
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="contract_note" class="w-full mb-1" :value="__('word.contract_note')" />
                                     <x-text-input id="contract_note" class="w-full block mt-1" type="text"
@@ -350,19 +361,28 @@
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
+            var discountInput = document.getElementById('discount');
             // Function to calculate contract amount
             function calculateContractAmount() {
                 var selectedOption = $('#contract_building_id').find('option:selected');
                 var contractAmount = parseFloat(selectedOption.data('price')) || 0;
 
-                $('#contract_amount').val(contractAmount);
-                $('#contract_amount_display').val(numberWithCommas(contractAmount));
+                var discount = parseFloat(discountInput.value) || 0;
+                var discountedAmount = contractAmount - (contractAmount * (discount / 100));
+
+                $('#contract_amount').val(discountedAmount);
+                $('#contract_amount_display').val(numberWithCommas(discountedAmount));
             }
 
 
 
             // Event listener for change on building selection
             $('#contract_building_id').change(function() {
+                calculateContractAmount();
+            });
+
+            // Event listener for input on discount field
+            discountInput.addEventListener('input', function() {
                 calculateContractAmount();
             });
 

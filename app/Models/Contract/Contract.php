@@ -86,6 +86,7 @@ class Contract extends Model
         'url_address',
         'contract_date',
         'contract_amount',
+        'discount',
         'contract_note',
         'stage',
         'temporary_at',

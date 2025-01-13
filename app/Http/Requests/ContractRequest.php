@@ -37,6 +37,7 @@ class ContractRequest extends FormRequest
             //normal fields
             'contract_date' => ['required', 'date_format:Y-m-d'],
             'contract_amount' => ['required'],
+            'discount' => ['required'],
             'contract_note' => ['max:200'],
         ];
     }

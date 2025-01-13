@@ -99,6 +99,7 @@ return [
     'contract_id' =>  'عدد العقد',
     'contract_date' => 'تأريخ العقد',
     'contract_amount' => 'المبلغ',
+    'discount' => '% الخصم',
     'contract_note' => 'الملاحظات',
 
     'contract_customer_id' => 'الاسم',
