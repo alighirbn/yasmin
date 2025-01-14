@@ -18,5 +18,6 @@ Route::prefix('v1')->group(function () {
         Route::post('/contracts', [ContractApiController::class, 'store']);
         Route::get('/contracts', [ContractApiController::class, 'index']);
         Route::get('/contracts/{id}', [ContractApiController::class, 'show']);
+        Route::get('/newsfeed', [ContractApiController::class, 'newsfeed']);
     });
 });

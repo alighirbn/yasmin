@@ -37,28 +37,31 @@ class ContractApiController extends Controller
         ], 200);
     }
 
-    // Create a new contract
-    public function store(Request $request)
+    public function newsfeed()
     {
-        $validated = $request->validate([
-            'building_number' => 'required|string',
-            'contract_amount' => 'required|numeric',
-            'contract_date' => 'required|date',
-            'customer_full_name' => 'required|string',
-        ]);
-
-        $contract = Contract::create([
-            'contract_amount' => $validated['contract_amount'],
-            'contract_date' => $validated['contract_date'],
-            'contract_customer_id' => 1, // Replace with appropriate customer ID
-            'contract_building_id' => 1, // Replace with appropriate building ID
-            'url_address' => $validated['building_number'],
-        ]);
+        // Sample news feed data with real test image URLs
+        $newsItems = [
+            [
+                'text' => 'خبر 1: تم إطلاق مشروع جديد في المنطقة الشمالية.',
+                'image' => 'https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80', // Real image URL
+            ],
+            [
+                'text' => 'خبر 2: خصم 10% على العقود الموقعة هذا الشهر.',
+                'image' => 'https://images.unsplash.com/photo-1695653422902-1bea566871c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80', // Real image URL
+            ],
+            [
+                'text' => 'خبر 3: ورشة عمل حول الاستثمار العقاري يوم الجمعة.',
+                'image' => 'https://images.unsplash.com/photo-1695653422542-7d0b5b3b9d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80', // Real image URL
+            ],
+            [
+                'text' => 'خبر 4: تم تسليم المبنى رقم 5 بالكامل.',
+                'image' => 'https://images.unsplash.com/photo-1695653422902-1bea566871c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80', // Real image URL
+            ],
+        ];
 
         return response()->json([
             'success' => true,
-            'message' => 'Contract created successfully',
-            'data' => $contract,
-        ], 201);
+            'data' => $newsItems,
+        ], 200);
     }
 }
