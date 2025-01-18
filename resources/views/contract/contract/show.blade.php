@@ -111,6 +111,10 @@
                                     class="btn btn-custom-print">
                                     {{ __('word.contract_print') }}
                                 </a>
+                                <a href="{{ route('contract.onmap', $contract->url_address) }}"
+                                    class="btn btn-custom-print">
+                                    {{ __('word.contract_onmap') }}
+                                </a>
                             @endif
                         @endcan
                         @can('transfer-create')

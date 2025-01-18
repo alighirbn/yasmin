@@ -25,6 +25,7 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/show/{url_address}', [ContractController::class, 'show'])->middleware(['auth', 'verified', 'permission:contract-show'])->name('contract.show');
     Route::get('/add/{url_address}', [ContractController::class, 'add_payment'])->middleware(['auth', 'verified', 'permission:contract-show'])->name('contract.add');
     Route::get('/print/{url_address}', [ContractController::class, 'print'])->middleware(['auth', 'verified', 'permission:contract-print'])->name('contract.print');
+    Route::get('/onmap/{url_address}', [ContractController::class, 'onmap'])->middleware(['auth', 'verified', 'permission:contract-print'])->name('contract.onmap');
     Route::get('/temp/{url_address}', [ContractController::class, 'temp'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.temp');
     Route::get('/reserve/{url_address}', [ContractController::class, 'reserve'])->middleware(['auth', 'verified', 'permission:contract-create'])->name('contract.reserve');
     //update
