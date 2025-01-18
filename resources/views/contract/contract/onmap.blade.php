@@ -1,6 +1,7 @@
 <x-app-layout>
 
     <x-slot name="header">
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
         <style>
             .image-container {
                 position: relative;
@@ -46,6 +47,8 @@
                 }
             }
         </style>
+        <!-- app css-->
+
         <div class="flex justify-start">
             @include('contract.nav.navigation')
         </div>
@@ -60,12 +63,15 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <!-- Print Button -->
-                    <div class="mb-4">
-                        <button onclick="window.print()"
-                            class="print-btn bg-blue-500 text-white py-2 px-4 rounded shadow">
+                    <!-- Header Buttons -->
+                    <div class="header-buttons">
+                        <a href="{{ url()->previous() }}" class="btn btn-custom-back">
+                            {{ __('word.back') }}
+                        </a>
+                        <button onclick="window.print()" class="btn btn-custom-print">
                             طباعة
                         </button>
+
                     </div>
 
                     <div class="flex flex-wrap print-container">

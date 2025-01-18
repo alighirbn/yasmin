@@ -113,6 +113,7 @@ return [
     'installment_amount' => 'مبلغ الدفعة',
     'installment_date' => 'تأريخ استحقاق الدفعة',
     'installment_payment' => 'حالة التسديد',
+    'contract_onmap' => 'طباعة الموقع',
 
 
     //nav
