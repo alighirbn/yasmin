@@ -7,12 +7,158 @@ use App\Http\Requests\CashTransferRequest;
 use App\Models\Cash\CashTransfer;
 use App\Models\Cash\Cash_Account;
 use App\Models\Cash\Transaction;
+use App\Services\WiaScanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Exception;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
 
 class CashTransferController extends Controller
 {
+    private $scanner;
+
+    public function __construct(WiaScanner $scanner)
+    {
+        $this->scanner = $scanner;
+    }
+
+    /**
+     * Display the list of available scanner devices.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function scancreate(string $url_address)
+    {
+        try {
+            // Retrieve the cash_transfer with necessary relationships
+            $cash_transfer = CashTransfer::where('url_address', '=', $url_address)->first();
+            // Attempt to get the list of devices
+            $devices = $this->scanner->listDevices();
+            return view('cash_transfer.scanner', compact(['devices', 'cash_transfer']));
+        } catch (Exception $e) {
+            // Handle error if listing devices fails
+
+            return response()->json(['error' => 'Failed to list devices. Please try again later.'], 500);
+        }
+    }
+
+    /**
+     * Initiate the scan process for the selected scanner device.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function scanstore(Request $request): JsonResponse
+    {
+        try {
+            // Validate the provided device ID
+            $deviceId = $request->input('device_id');
+            if (empty($deviceId)) {
+                return response()->json(['error' => 'Device ID is required.'], 400);
+            }
+
+            // Connect to the selected scanner device
+            $this->scanner->connect($deviceId);
+
+            // Ensure that the directory for storing scanned images exists
+            $scansDirectory = storage_path('app/public/scans/');
+            if (!is_dir($scansDirectory)) {
+                mkdir($scansDirectory, 0755, true);
+            }
+
+            $filename = uniqid() . '.png';
+            // Generate a unique file path for saving the scanned image
+            $outputPath = $scansDirectory . $filename;
+
+            // Perform the scan and save the image
+            $scannedImagePath = $this->scanner->scan($outputPath);
+
+            // Retrieve the URL address from the request (assuming it's passed)
+            $url_address = $request->input('url_address');
+            if (empty($url_address)) {
+                return response()->json(['error' => 'URL address is required.'], 400);
+            }
+
+            // Retrieve the cash_transfer based on the provided URL address
+            $cash_transfer = CashTransfer::where('url_address', '=', $url_address)->first();
+            if (!$cash_transfer) {
+                return response()->json(['error' => 'cash_transfer not found for the given URL address.'], 404);
+            }
+
+
+            // Save the scanned image and associate it with the contract
+            $cash_transfer->images()->create([
+                'image_path' => 'storage/scans/' . $filename,
+                'user_id_create' => auth()->id(), // Assuming you're tracking the creator
+            ]);
+
+            // Return the URL to the scanned image
+            return response()->json([
+                'message' => 'Scan successful and image associated with cash_transfer.',
+                'image_path' => asset('storage/scans/' . basename($scannedImagePath))
+            ], 200);
+        } catch (Exception $e) {
+            // Log and return detailed error message on failure
+
+            return response()->json(['error' => 'Failed to scan the document. Please try again later.'], 500);
+        }
+    }
+
+    public function archivecreate(string $url_address)
+    {
+        // Retrieve the cash_transfer with necessary relationships
+        $cash_transfer = CashTransfer::where('url_address', '=', $url_address)->first();
+
+        return view('cash_transfer.archivecreate', compact(['cash_transfer']));
+    }
+
+    public function archivestore(Request $request, string $url_address)
+    {
+        // Retrieve the cash_transfer
+        $cash_transfer = CashTransfer::where('url_address', '=', $url_address)->first();
+
+        $request->validate([
+            'images' => 'required|array',
+            'images.*' => 'string', // Expecting an array of base64 strings
+        ]);
+
+        foreach ($request->input('images') as $image) {
+            // Decode the base64 string
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = 'cash_transfer_image_' . time() . '_' . uniqid() . '.jpeg'; // Unique names for each image
+            $imagePath = 'public/cash_transfer_images/' . $imageName;
+            // Save the image to storage
+            Storage::put($imagePath, base64_decode($image));
+
+            // Store the image path in the database
+            $cash_transfer->images()->create([
+                'image_path' => str_replace('public/', 'storage/', $imagePath),
+                'user_id_create' => auth()->id(), // Assuming you're tracking the creator
+            ]);
+        }
+
+        return redirect()->route('cash_transfer.show', $cash_transfer->url_address)->with('success', 'تم ارشفة الصور بنجاح');
+    }
+
+
+    public function archiveshow(string $url_address)
+    {
+        // Retrieve the cash_transfer with necessary relationships
+        $cash_transfer = CashTransfer::with(['images'])->where('url_address', '=', $url_address)->first();
+
+        if (isset($cash_transfer)) {
+
+
+            return view('cash_transfer.archiveshow', compact(['cash_transfer']));
+        } else {
+            $ip = $this->getIPAddress();
+            return view('cash_transfer.accessdenied', ['ip' => $ip]);
+        }
+    }
+
     public function index(CashTransferDataTable $dataTable, Request $request)
     {
         $onlyPending = $request->input('onlyPending');

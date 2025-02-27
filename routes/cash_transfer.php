@@ -22,6 +22,16 @@ Route::group(['prefix' => 'cash_transfer'], function () {
     Route::patch('/update/{url_address}', [CashTransferController::class, 'update'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.update');
     Route::patch('/approve/{url_address}', [CashTransferController::class, 'approve'])->middleware(['auth', 'verified', 'permission:cash_transfer-approve'])->name('cash_transfer.approve');
 
+    //archive
+    Route::get('/archiveshow/{url_address}', [CashTransferController::class, 'archiveshow'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.archiveshow');
+    Route::get('/archive/{url_address}', [CashTransferController::class, 'archivecreate'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.archivecreate');
+    Route::post('/archive/{url_address}', [CashTransferController::class, 'archivestore'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.archivestore');
+
+    //scan
+    Route::get('/scan/{url_address}', [CashTransferController::class, 'scancreate'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.scancreate');
+    Route::post('/scan', [CashTransferController::class, 'scanstore'])->middleware(['auth', 'verified', 'permission:cash_transfer-update'])->name('cash_transfer.scanstore');
+
+
     //delete
 
     Route::delete('/delete/{url_address}', [CashTransferController::class, 'destroy'])->middleware(['auth', 'verified', 'permission:cash_transfer-delete'])->name('cash_transfer.destroy');

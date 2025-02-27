@@ -45,6 +45,22 @@
                                 </button>
                             </form>
                         @endcan
+                        @can('cash_transfer-update')
+                            <a href="{{ route('cash_transfer.archivecreate', $cashTransfer->url_address) }}"
+                                class="btn btn-custom-archive">
+                                {{ __('word.cash_transfer_archive') }}
+                            </a>
+
+                            <a href="{{ route('cash_transfer.scancreate', $cashTransfer->url_address) }}"
+                                class="btn btn-custom-archive">
+                                {{ __('word.cash_transfer_scan') }}
+                            </a>
+
+                            <a href="{{ route('cash_transfer.archiveshow', $cashTransfer->url_address) }}"
+                                class="btn btn-custom-archive">
+                                {{ __('word.archiveshow') }}
+                            </a>
+                        @endcan
                     </div>
 
                     @if (session('error'))

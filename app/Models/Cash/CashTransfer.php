@@ -24,6 +24,11 @@ class CashTransfer extends Model
         'user_id_update',
     ];
 
+    public function images()
+    {
+        return $this->hasMany(CashTransferArchive::class, 'cash_transfer_id', 'id');
+    }
+
     public function transactions()
     {
         return $this->morphMany(Transaction::class, 'transactionable');

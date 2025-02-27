@@ -166,6 +166,8 @@ return [
     'newcustomer' => 'الزبون الجديد',
     'new_customer_id' => 'اسم الزبون الجديد',
 
+    'cash_transfer_scan' => 'اضافة مستند',
+    'cash_transfer_archive' => 'اضافة صورة',
     //nav
     'transfer_add' => 'اضافة تناقل',
     'transfer_search' => 'بحث عن تناقل',
