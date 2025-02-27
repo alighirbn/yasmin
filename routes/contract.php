@@ -54,9 +54,9 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/due/{contract_id?}', [ContractController::class, 'dueInstallments'])->middleware(['auth', 'verified', 'permission:contract-due'])->name('contract.due');
 
     // update all contracts and installments
-    Route::get('/update-all', [ContractController::class, 'updateAllContracts'])
-        ->middleware(['auth', 'verified', 'permission:contract-update'])
-        ->name('contract.updateAll');
+    //Route::get('/update-all', [ContractController::class, 'updateAllContracts'])
+    //  ->middleware(['auth', 'verified', 'permission:contract-update'])
+    //->name('contract.updateAll');
 
 
     //delete
