@@ -97,23 +97,24 @@ class PaymentDataTable extends DataTable
                         'extend'  => 'print',
                         'className'    => 'btn btn-outline-dark'
                     ],
-                    /*[
-                    'extend'  => 'reset',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-               [
-                    'extend'  => 'reload',
-                    'className'    => 'btn btn-outline-dark'
-               ],
-                [
-                     'extend'  => 'export',
-                     'className'    => 'btn btn-outline-dark',
-                     'buttons' => [
-                                       'csv',
-                                       'excel',
-                                       'pdf',
-                                  ],
-                ], */
+                    /* [
+                        'extend'  => 'reset',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    [
+                        'extend'  => 'reload',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    */
+                    [
+                        'extend'  => 'export',
+                        'className'    => 'btn btn-outline-dark',
+                        'buttons' => [
+                            //'csv',
+                            'excel',
+                            // 'pdf',
+                        ],
+                    ],
                     'colvis'
                 ]
             ])
