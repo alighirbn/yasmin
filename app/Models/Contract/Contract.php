@@ -129,4 +129,10 @@ class Contract extends Model
         $this->authenticated_at = now();
         $this->save();
     }
+    public function temporary()
+    {
+        $this->stage = 'temporary';
+        $this->accepted_at = now();
+        $this->save();
+    }
 }

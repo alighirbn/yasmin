@@ -19,6 +19,7 @@ use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
+use App\Notifications\PaymentNotify;
 use App\Services\ContractUpdateService;
 use Exception;
 use Illuminate\Http\Request;
@@ -281,13 +282,10 @@ class ContractController extends Controller
         // Optionally, set up a job to auto-delete if not approved
         // AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
-        $accountants = User::role('accountant')->get(); // Fetch accountants
+      
         $admins = User::role('admin')->get(); // Fetch admins
 
-        // Notify accountants
-        foreach ($accountants as $accountant) {
-            $accountant->notify(new ContractNotify($contract));
-        }
+       
 
         // Notify admins
         foreach ($admins as $admin) {
@@ -326,6 +324,26 @@ class ContractController extends Controller
             }
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('success', 'تم مصادقة العقد.');
+        }
+
+        $ip = $this->getIPAddress();
+        return view('contract.contract.accessdenied', ['ip' => $ip]);
+    }
+
+    public function temporary(string $url_address)
+    {
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+        if ($contract->stage !== 'temporary') {
+            $contract->temporary();
+
+            $admins = User::role('admin')->get(); // Fetch admins
+
+            // Notify admins
+            foreach ($admins as $admin) {
+                $admin->notify(new ContractAuthNotify($contract));
+            }
+            return redirect()->route('contract.show', $contract->url_address)
+                ->with('success', ' تم ارجاع العقد لمرحلة الحجز الاولي .');
         }
 
         $ip = $this->getIPAddress();
@@ -443,7 +461,13 @@ class ContractController extends Controller
                 'user_id_create' => auth()->user()->id,
             ]);
 
-
+            $accountants = User::role('accountant')->get(); // Fetch accountants
+            
+    
+            // Notify accountants
+            foreach ($accountants as $accountant) {
+                $accountant->notify(new PaymentNotify($payment));
+            }
 
             // Redirect to the payment details page
             return redirect()->route('payment.show', $payment->url_address);

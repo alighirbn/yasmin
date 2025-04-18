@@ -78,7 +78,8 @@
                         <!-- Contract Information -->
                         <div class="w-full">
                             <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                                <h2 class="text-2xl font-bold mb-4">خارطة مجمع واحة الياسمين السكني - موقع العقار</h2>
+                            <h2 class="text-lg font-semibold mb-2">خارطة مجمع واحة الياسمين السكني - موقع العقار</h2>
+
                                 <div class="flex">
                                     <div class=" w-full">
                                         <label
@@ -117,7 +118,7 @@
                         <!-- Map Image -->
                         <div class="w-full">
                             <div class="image-container ">
-                                <img src="{{ asset('images/background.jpg') }}" alt="Image" class="main-image"
+                                <img src="{{ asset('images/backgroundbg.jpg') }}" alt="Image" class="main-image"
                                     id="mapImage">
 
                                 <div class="overlay-div"

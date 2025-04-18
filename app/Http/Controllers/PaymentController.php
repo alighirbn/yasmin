@@ -113,11 +113,17 @@ class PaymentController extends Controller
             if ($installmentId && in_array($installmentId, [1, 2])) {
                 // Notify all users with 'lawyer' role
                 $lawyers = User::role('lawyer')->get(); // Fetch lawyers
+                $subaccounts = User::role('sub.accaunt')->get(); // Fetch lawyers
                 $admins = User::role('admin')->get(); // Fetch admins
 
                 // Notify lawyers
                 foreach ($lawyers as $lawyer) {
                     $lawyer->notify(new PaymentNotify($payment));
+                }
+
+                 // Notify subaccounts
+                 foreach ($subaccounts as $subaccount) {
+                    $subaccount->notify(new PaymentNotify($payment));
                 }
 
                 // Notify admins

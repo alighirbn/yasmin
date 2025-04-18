@@ -129,6 +129,17 @@
                             </a>
                         @endcan
 
+                        @can('contract-temporary')
+                            @if (
+                                $contract->stage == 'authenticated' )
+                                <a href="{{ route('contract.temporary', $contract->url_address) }}"
+                                    class="btn btn-custom-approve">
+                                    {{ __('word.contract_temporary') }}
+                                </a>
+                            @endif
+
+                        @endcan
+
                     </div>
                     <div>
                         @if ($message = Session::get('success'))

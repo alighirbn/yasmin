@@ -41,6 +41,9 @@
             .fill-div.temporary {
                 background-color: rgb(255, 125, 125);
             }
+            .fill-div.done {
+                background-color: rgb(8, 163, 8);
+            }
 
             /* Optional: Custom tooltip styling */
             .overlay-div:hover::after {
@@ -130,6 +133,7 @@
                             </p>
                             <p>المباني الشاغرة: {{ $buildingsWithoutContracts }}</p>
                             <p>العقود مع المدفوعات: {{ $contractsWithPaymentsCount }}</p>
+                            <p> العقود المكتملة: {{ $contractsWithInstallmentsCount }}</p>
                         </div>
 
                         @foreach ($contracts as $contract)
@@ -138,7 +142,8 @@
                                 data-tooltip="الاسم: {{ $contract->customer->customer_full_name }} | رقم العقار: {{ $contract->building->building_number }}">
                                 <a href="{{ route('contract.show', $contract->url_address) }}"
                                     class="fill-div
-                                     @if ($contract->payments->contains('approved', true)) black
+                                     @if ($contract->stage === 'authenticated' && $contract->payments->contains(fn($payment) => $payment->contract_installment_id !== null)) done
+                                      @elseif ($contract->payments->contains('approved', true)) black
                                      @elseif ($contract->payments->isNotEmpty()) gold
                                      @elseif ($contract->stage === 'temporary') temporary @endif
                                                   "></a>

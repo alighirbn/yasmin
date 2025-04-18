@@ -36,13 +36,21 @@ class MapController extends Controller
             return $contract->payments->isNotEmpty();
         })->count();
 
+        // Count contracts that have at least one payment with installments
+        $contractsWithInstallmentsCount = $contracts->filter(function ($contract) {
+        return $contract->payments->contains(function ($payment) {
+            return $payment->contract_installment_id !== null;
+        });
+        })->count();
+
         return view('map.contract', compact([
             'contracts',
             'contractCount',
             'totalBuildings',
             'percentageContracts',
             'buildingsWithoutContracts',
-            'contractsWithPaymentsCount'
+            'contractsWithPaymentsCount',
+            'contractsWithInstallmentsCount' // <- new variable
         ]));
     }
 
