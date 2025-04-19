@@ -316,12 +316,7 @@ class ContractController extends Controller
         if ($contract->stage === 'accepted') {
             $contract->authenticat();
 
-            $admins = User::role('admin')->get(); // Fetch admins
-
-            // Notify admins
-            foreach ($admins as $admin) {
-                $admin->notify(new ContractAuthNotify($contract));
-            }
+            
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('success', 'تم مصادقة العقد.');
         }

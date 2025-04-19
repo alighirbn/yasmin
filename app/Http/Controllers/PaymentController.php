@@ -10,6 +10,7 @@ use App\Models\Cash\Transaction;
 use App\Models\Contract\Contract;
 use App\Models\Payment\Payment;
 use App\Models\User;
+
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,11 @@ class PaymentController extends Controller
         $payment = Payment::with(['contract.customer', 'contract.building.building_category', 'contract_installment.installment'])->where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
-            $cash_accounts = Cash_Account::all();
+            if (auth()->user()->hasRole('admin')) {
+                $cash_accounts = Cash_Account::all();
+            } else {
+                $cash_accounts = Cash_Account::where('id', 5)->get(); 
+            }
             return view('payment.show', compact(['payment', 'cash_accounts']));
         } else {
             $ip = $this->getIPAddress();
@@ -71,6 +76,10 @@ class PaymentController extends Controller
         $payment = Payment::where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
+            if ($payment->approved) {
+                return redirect()->route('contract.show', $payment->contract->url_address)
+                    ->with('error', 'تمت الموافقة على الدفعة مسبقًا.');
+            }
             // Ensure payment_amount is numeric before proceeding
             if (!is_numeric($payment->payment_amount)) {
                 return redirect()->route('contract.show', $payment->contract->url_address)

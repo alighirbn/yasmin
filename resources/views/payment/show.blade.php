@@ -210,6 +210,16 @@
                             </div>
 
                         </div>
+                        @if ($payment->contract_installment->installment->installment_name == 'الاولى')
+                       <div class="flex">
+                             <div class="mx-4 my-4 w-full">
+                             <p>
+                                       * اذا رغب صاحب الوصل بأسترداد مبلغ الدفعة الاولى يدفع غرامة وقدرها ثلاثة مليون دينار واذا تم توقيع العقد تسري عليه بنود العقد.
+                             </p>
+                             </div>
+                       </div>
+                         @endif
+
 
                     </div>
                     <div class="flex">
