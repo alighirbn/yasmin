@@ -213,13 +213,21 @@
                         @if ($payment->contract_installment->installment->installment_name == 'الاولى')
                        <div class="flex">
                              <div class="mx-4 my-4 w-full">
-                             <p>
-                                       * اذا رغب صاحب الوصل بأسترداد مبلغ الدفعة الاولى يدفع غرامة وقدرها ثلاثة مليون دينار واذا تم توقيع العقد تسري عليه بنود العقد.
-                             </p>
+                             <p> في حال رغب صاحب الوصل باسترداد مبلغ الدفعة الأولى، يُلزم بدفع غرامة قدرها خمسة ملايين دينار، وذلك خلال مدة لا تتجاوز خمسة عشر يوماً من تاريخ إصدار الوصل. وبعد الفترة المحددة تسري عليه فقرات العقد، فتُطبق عليه كافة بنود العقد دون استثناء . </p>
                              </div>
                        </div>
                          @endif
+                         <br>
+                         <br>
 
+                         <div class="flex justify-center">
+                            <div class="mx-4 my-4 w-full text-center">
+                                 <p>المشتري</p>
+                            </div>
+                            <div class="mx-4 my-4 w-full text-center">
+                                 <p>امين الصندوق</p>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="flex">
