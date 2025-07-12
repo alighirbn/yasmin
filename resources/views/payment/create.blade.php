@@ -31,17 +31,13 @@
                                         @foreach ($contracts as $contract)
                                             <option value="{{ $contract->id }}"
                                                 {{ old('payment_contract_id') == $contract->id ? 'selected' : '' }}>
-                                                {{ $contract->customer->customer_full_name . ' ** رقم العقار --   ' . $contract->building->building_number }}
+                                                {{ $contract->id . ' الاسم : ' . $contract->customer->customer_full_name . ' ** رقم العقار --   ' . $contract->building->building_number }}
                                             </option>
                                         @endforeach
                                     </select>
                                     <x-input-error :messages="$errors->get('payment_contract_id')" class="w-full mt-2" />
                                 </div>
                             </div>
-
-                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4  w-full">
-                                {{ __('word.payment_card') }}
-                            </h2>
 
                             <div class="flex">
                                 <div class="mx-4 my-4 w-full">

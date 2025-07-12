@@ -36,8 +36,9 @@ class PaymentController extends Controller
      */
     public function create()
     {
-
-        $contracts = Contract::with(['building.building_category', 'customer'])->get();
+        $contracts = Contract::with(['building.building_category', 'customer'])
+            ->whereNotIn('stage', ['terminated'])
+            ->get();
         return view('payment.create', compact(['contracts']));
     }
 
@@ -63,7 +64,7 @@ class PaymentController extends Controller
             if (auth()->user()->hasRole('admin')) {
                 $cash_accounts = Cash_Account::all();
             } else {
-                $cash_accounts = Cash_Account::where('id', 5)->get(); 
+                $cash_accounts = Cash_Account::where('id', 5)->get();
             }
             return view('payment.show', compact(['payment', 'cash_accounts']));
         } else {
@@ -130,8 +131,8 @@ class PaymentController extends Controller
                     $lawyer->notify(new PaymentNotify($payment));
                 }
 
-                 // Notify subaccounts
-                 foreach ($subaccounts as $subaccount) {
+                // Notify subaccounts
+                foreach ($subaccounts as $subaccount) {
                     $subaccount->notify(new PaymentNotify($payment));
                 }
 
@@ -175,7 +176,10 @@ class PaymentController extends Controller
      */
     public function edit(string $url_address)
     {
-        $contracts = Contract::with(['building.building_category', 'customer'])->get();
+
+        $contracts = Contract::with(['building.building_category', 'customer'])
+            ->whereNotIn('stage', ['terminated'])
+            ->get();
         $payment = Payment::where('url_address', '=', $url_address)->first();
 
         if (isset($payment)) {
