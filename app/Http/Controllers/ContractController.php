@@ -21,9 +21,11 @@ use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
 use App\Notifications\PaymentNotify;
 use App\Services\ContractUpdateService;
+use App\Services\ZainSmsService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class ContractController extends Controller
@@ -51,10 +53,12 @@ class ContractController extends Controller
     }
 
     private $scanner;
+    protected $smsService;
 
-    public function __construct(WiaScanner $scanner)
+    public function __construct(WiaScanner $scanner, ZainSmsService $smsService)
     {
         $this->scanner = $scanner;
+        $this->smsService = $smsService;
     }
 
     /**
@@ -198,6 +202,36 @@ class ContractController extends Controller
     }
 
 
+    public function sendSms(Request $request)
+    {
+        $request->validate([
+            'phone_number' => 'required',
+            'name' => 'required',
+            'amount' => 'required',
+            'due_date' => 'required',
+            'contract_url' => 'required'
+        ]);
+
+        // Send SMS
+        $response = $this->smsService->send(
+            $request->phone_number,
+            $request->name,
+            $request->amount,
+            $request->due_date
+        );
+
+        if ($response['status']) {
+            return Redirect::route('contract.show', $request->contract_url)
+                ->with('success', 'تم ارسال الرسالة بنجاح');
+        } else {
+            return Redirect::route('contract.show', $request->contract_url)
+                ->with('error', __('word.sms_sent_failed') . ': ' . ($response['error'] ?? ''));
+        }
+    }
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -282,10 +316,10 @@ class ContractController extends Controller
         // Optionally, set up a job to auto-delete if not approved
         // AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
-      
+
         $admins = User::role('admin')->get(); // Fetch admins
 
-       
+
 
         // Notify admins
         foreach ($admins as $admin) {
@@ -316,7 +350,7 @@ class ContractController extends Controller
         if ($contract->stage === 'accepted') {
             $contract->authenticat();
 
-            
+
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('success', 'تم مصادقة العقد.');
         }
@@ -457,8 +491,8 @@ class ContractController extends Controller
             ]);
 
             $accountants = User::role('accountant')->get(); // Fetch accountants
-            
-    
+
+
             // Notify accountants
             foreach ($accountants as $accountant) {
                 $accountant->notify(new PaymentNotify($payment));

@@ -56,10 +56,7 @@
 
                         @endcan
                         @can('contract-authenticat')
-                            @if (
-                                $contract->stage == 'accepted' &&
-                                    count($contract->images) >= 1 &&
-                                    $contract->payments->count() >= 1)
+                            @if ($contract->stage == 'accepted' && count($contract->images) >= 1 && $contract->payments->count() >= 1)
                                 <a href="{{ route('contract.authenticat', $contract->url_address) }}"
                                     class="btn btn-custom-approve">
                                     {{ __('word.contract_authenticat') }}
@@ -130,8 +127,7 @@
                         @endcan
 
                         @can('contract-temporary')
-                            @if (
-                                $contract->stage == 'authenticated' )
+                            @if ($contract->stage == 'authenticated')
                                 <a href="{{ route('contract.temporary', $contract->url_address) }}"
                                     class="btn btn-custom-approve">
                                     {{ __('word.contract_temporary') }}
@@ -356,11 +352,39 @@
                                                 @else
                                                     @if ($hide == 0)
                                                         @can('payment-create')
-                                                            <a href="{{ route('contract.add', $installment->url_address) }}"
-                                                                class="add_payment btn btn-custom-edit">
-                                                                {{ __('word.add_payment') }}
-                                                            </a>
+                                                            <div class="flex">
 
+                                                                <div class=" mx-2 my-2 w-full ">
+                                                                    <a href="{{ route('contract.add', $installment->url_address) }}"
+                                                                        class="add_payment btn btn-custom-edit">
+                                                                        {{ __('word.add_payment') }}
+                                                                    </a>
+
+                                                                </div>
+                                                                @can('contract-sms')
+                                                                    <div class=" mx-2 my-2 w-full ">
+                                                                        <form action="{{ route('contract.sendSms') }}"
+                                                                            method="POST" class="d-inline">
+                                                                            @csrf
+                                                                            <input type="hidden" name="phone_number"
+                                                                                value="{{ $contract->customer->customer_phone }}">
+                                                                            <input type="hidden" name="name"
+                                                                                value="{{ $contract->customer->customer_full_name }}">
+                                                                            <input type="hidden" name="amount"
+                                                                                value="{{ number_format($installment->installment_amount, 0) }} دينار">
+                                                                            <input type="hidden" name="due_date"
+                                                                                value="{{ $installment->installment_date }} الدفعة {{ $installment->installment->installment_name }} عن العقار المرقم {{ $contract->building->building_number }}">
+                                                                            <input type="hidden" name="contract_url"
+                                                                                value="{{ $contract->url_address }}">
+
+                                                                            <button type="submit"
+                                                                                class="btn btn-custom-print">
+                                                                                sms
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                @endcan
+                                                            </div>
                                                             @php
                                                                 $hide = 1;
                                                             @endphp

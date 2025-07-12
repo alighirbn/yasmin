@@ -52,6 +52,7 @@ class Permission_Seeder extends Seeder
             'contract-authenticat',
             'contract-archive',
             'contract-archiveshow',
+            'contract-sms',
 
 
             //**************************transfer******************************* */

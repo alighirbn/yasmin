@@ -64,4 +64,8 @@ Route::group(['prefix' => 'contract'], function () {
 
     //delete
     Route::delete('/delete/{url_address}', [ContractController::class, 'destroy'])->middleware(['auth', 'verified', 'permission:contract-delete'])->name('contract.destroy');
+
+
+    //sms
+    Route::post('/sms', [ContractController::class, 'sendSms'])->middleware(['auth', 'verified', 'permission:contract-sms'])->name('contract.sendSms');
 });
