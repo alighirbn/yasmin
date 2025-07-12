@@ -196,18 +196,24 @@
                                     <x-input-error :messages="$errors->get('transfer_date')" class="w-full mt-2" />
                                 </div>
 
+
+                                @php
+                                    $transferAmount = old('transfer_amount', 0);
+                                @endphp
+
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="transfer_amount_display" class="w-full mb-1"
                                         :value="__('word.transfer_amount')" />
 
                                     <!-- Displayed input for formatted number -->
                                     <x-text-input id="transfer_amount_display" class="w-full block mt-1"
-                                        type="text" value="{{ number_format(old('transfer_amount', 0), 0) }}"
+                                        type="text"
+                                        value="{{ is_numeric($transferAmount) ? number_format($transferAmount, 0) : '0' }}"
                                         placeholder="0" />
 
                                     <!-- Hidden input for the actual number -->
                                     <input type="hidden" id="transfer_amount" name="transfer_amount"
-                                        value="{{ old('transfer_amount') }}">
+                                        value="{{ $transferAmount }}">
 
                                     <x-input-error :messages="$errors->get('transfer_amount')" class="w-full mt-2" />
                                 </div>
