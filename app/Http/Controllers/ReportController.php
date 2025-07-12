@@ -16,16 +16,22 @@ class ReportController extends Controller
 {
     public function category()
     {
-        // Fetch data
+        // Fetch data, excluding terminated contracts
         $contractCountsByCategory = Building_Category::select('building_category.category_name', DB::raw('COUNT(contracts.id) as contract_count'))
             ->leftJoin('buildings', 'building_category.id', '=', 'buildings.building_category_id')
-            ->leftJoin('contracts', 'buildings.id', '=', 'contracts.contract_building_id')
+            ->leftJoin('contracts', function ($join) {
+                $join->on('buildings.id', '=', 'contracts.contract_building_id')
+                    ->whereNotIn('contracts.stage', ['terminated']);
+            })
             ->groupBy('building_category.id', 'building_category.category_name')
             ->get();
 
         $remainingBuildingsByCategory = Building_Category::select('building_category.category_name', DB::raw('COUNT(buildings.id) as building_count'))
             ->leftJoin('buildings', 'building_category.id', '=', 'buildings.building_category_id')
-            ->leftJoin('contracts', 'buildings.id', '=', 'contracts.contract_building_id')
+            ->leftJoin('contracts', function ($join) {
+                $join->on('buildings.id', '=', 'contracts.contract_building_id')
+                    ->whereNotIn('contracts.stage', ['terminated']);
+            })
             ->whereNull('contracts.id')
             ->groupBy('building_category.id', 'building_category.category_name')
             ->get();
@@ -54,9 +60,12 @@ class ReportController extends Controller
         // Get the building_block filter value from the request
         $buildingBlock = $request->input('block_number');
 
-        // Fetch due installments with an optional building_block filter
+        // Fetch due installments with an optional building_block filter, excluding terminated contracts
         $dueInstallments = DB::table('contract_installments')
-            ->join('contracts', 'contract_installments.contract_id', '=', 'contracts.id')
+            ->join('contracts', function ($join) {
+                $join->on('contract_installments.contract_id', '=', 'contracts.id')
+                    ->whereNotIn('contracts.stage', ['terminated']);
+            })
             ->join('customers', 'contracts.contract_customer_id', '=', 'customers.id')
             ->join('buildings', 'contracts.contract_building_id', '=', 'buildings.id')
             ->leftJoin('payments', 'contract_installments.id', '=', 'payments.contract_installment_id')
@@ -66,7 +75,7 @@ class ReportController extends Controller
                 'contracts.url_address',
                 'customers.customer_phone',
                 'buildings.building_number',
-                'buildings.block_number', // Add this field if needed in the select
+                'buildings.block_number',
                 DB::raw('COUNT(contract_installments.id) as due_installments_count'),
                 DB::raw('SUM(contract_installments.installment_amount) as total_due_amount')
             )
@@ -82,7 +91,7 @@ class ReportController extends Controller
         }
 
         $dueInstallments = $dueInstallments
-            ->groupBy('contracts.id', 'customers.customer_full_name', 'customers.customer_phone', 'buildings.block_number', 'buildings.block_number')
+            ->groupBy('contracts.id', 'customers.customer_full_name', 'contracts.url_address', 'customers.customer_phone', 'buildings.building_number', 'buildings.block_number')
             ->orderBy('due_installments_count', 'desc')
             ->orderBy('total_due_amount', 'desc')
             ->get();
@@ -97,17 +106,18 @@ class ReportController extends Controller
         return view('report.due_installments', compact('report', 'block_numbers'));
     }
 
-
-
     public function first_installment()
     {
-        // Query for unpaid cash contracts (payment method 1: cash)
+        // Query for unpaid cash contracts (payment method 1: cash), excluding terminated contracts
         $unpaidCashContracts = Contract::where('contract_payment_method_id', 1) // Cash payment method
+            ->whereNotIn('stage', ['terminated'])
             ->whereDoesntHave('payments', function ($query) {
                 $query->where('approved', true);
             })->get();
 
+        // Query for unpaid first installment contracts (payment method 2: installment), excluding terminated contracts
         $unpaidFirstInstallmentContracts = Contract::where('contract_payment_method_id', 2) // Installment payment method
+            ->whereNotIn('stage', ['terminated'])
             ->whereHas('contract_installments', function ($query) {
                 $query->whereHas('installment', function ($query) {
                     $query->where('installment_number', 1); // First installment
@@ -116,11 +126,10 @@ class ReportController extends Controller
                 });
             })->get();
 
-
-
         // Return to a view with both tables
         return view('report.first_installment', compact('unpaidCashContracts', 'unpaidFirstInstallmentContracts'));
     }
+
     public function general_report(Request $request)
     {
         // Fetch all customers to populate the filter dropdown
@@ -138,14 +147,16 @@ class ReportController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        // Fetch contracts and payments, but only fetch expenses if no customer filter is applied
-        $contracts = Contract::query();
-        $payments = Payment::query()->where('approved', true); // Only approved payments
+        // Fetch contracts and payments, excluding terminated contracts
+        $contracts = Contract::whereNotIn('stage', ['terminated']);
+        $payments = Payment::where('approved', true) // Only approved payments
+            ->whereHas('contract', function ($query) {
+                $query->whereNotIn('stage', ['terminated']);
+            });
         $expenses = null; // Start with no expenses
 
         // Apply date filters if dates are provided
         if ($startDate && $endDate) {
-            // Apply date filters to contracts and payments
             $contracts->whereBetween('contract_date', [$startDate, $endDate]);
             $payments->whereBetween('payment_date', [$startDate, $endDate]);
 
@@ -155,11 +166,12 @@ class ReportController extends Controller
             }
         }
 
-        // Apply customer ID filter if provided (use the correct column name)
+        // Apply customer ID filter if provided
         if ($contractCustomerId) {
-            $contracts->where('contract_customer_id', $contractCustomerId); // Correct column name
+            $contracts->where('contract_customer_id', $contractCustomerId);
             $payments->whereHas('contract', function ($query) use ($contractCustomerId) {
-                $query->where('contract_customer_id', $contractCustomerId); // Correct column name
+                $query->where('contract_customer_id', $contractCustomerId)
+                    ->whereNotIn('stage', ['terminated']);
             });
             // Do not include expenses if customer filter is applied
             $expenses = null;

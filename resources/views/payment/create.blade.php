@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
         <script src="{{ asset('js/select2.min.js') }}"></script>
@@ -10,7 +9,6 @@
             @include('cash_account.nav.navigation')
             @include('cash_transfer.nav.navigation')
         </div>
-
     </x-slot>
 
     <div class="bg-custom py-6">
@@ -25,14 +23,11 @@
                             </h1>
 
                             <div class="flex ">
-
                                 <div class=" mx-4 my-4 w-full">
                                     <x-input-label for="payment_contract_id" class="w-full mb-1" :value="__('word.building_number')" />
                                     <select id="payment_contract_id" class="js-example-basic-single w-full block mt-1 "
                                         name="payment_contract_id" data-placeholder="ادخل الاسم او رقم العقار">
-                                        <option value="">
-
-                                        </option>
+                                        <option value=""></option>
                                         @foreach ($contracts as $contract)
                                             <option value="{{ $contract->id }}"
                                                 {{ old('payment_contract_id') == $contract->id ? 'selected' : '' }}>
@@ -42,7 +37,6 @@
                                     </select>
                                     <x-input-error :messages="$errors->get('payment_contract_id')" class="w-full mt-2" />
                                 </div>
-
                             </div>
 
                             <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4  w-full">
@@ -52,15 +46,10 @@
                             <div class="flex">
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="payment_amount_display" class="w-full mb-1" :value="__('word.payment_amount')" />
-
-                                    <!-- Displayed input for formatted number -->
                                     <x-text-input id="payment_amount_display" class="w-full block mt-1" type="text"
                                         value="{{ number_format(old('payment_amount', 0), 0) }}" placeholder="0" />
-
-                                    <!-- Hidden input for the actual number -->
                                     <input type="hidden" id="payment_amount" name="payment_amount"
                                         value="{{ old('payment_amount') }}">
-
                                     <x-input-error :messages="$errors->get('payment_amount')" class="w-full mt-2" />
                                 </div>
 
@@ -77,7 +66,6 @@
                                         name="payment_note" value="{{ old('payment_note') }}" />
                                     <x-input-error :messages="$errors->get('payment_note')" class="w-full mt-2" />
                                 </div>
-
                             </div>
 
                             <div class=" mx-4 my-4 w-full">
@@ -97,11 +85,23 @@
             var hiddenInput = document.getElementById('payment_amount');
 
             function formatNumber(value) {
-                return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                // Preserve negative sign and remove non-numeric characters except the negative sign
+                let isNegative = value.startsWith('-');
+                let cleanValue = value.replace(/[^\d-]/g, '');
+                // Ensure only one negative sign at the start
+                cleanValue = cleanValue.replace(/-+/g, (match, offset) => offset === 0 ? '-' : '');
+                // Format with commas
+                let formatted = cleanValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return (isNegative && !formatted.startsWith('-') ? '-' : '') + formatted;
             }
 
             function unformatNumber(value) {
-                return value.replace(/,/g, '');
+                // Preserve negative sign and remove commas
+                let isNegative = value.startsWith('-');
+                let cleanValue = value.replace(/,/g, '');
+                // Ensure only one negative sign at the start
+                cleanValue = cleanValue.replace(/-+/g, (match, offset) => offset === 0 ? '-' : '');
+                return cleanValue;
             }
 
             displayInput.addEventListener('input', function() {
@@ -119,13 +119,8 @@
             $('.js-example-basic-single').select2();
         });
         $('form').on('submit', function() {
-            // Find the submit button
             var $submitButton = $(this).find('button[type="submit"]');
-
-            // Change the button text to 'Submitting...'
             $submitButton.text('جاري الحفظ');
-
-            // Disable the submit button
             $submitButton.prop('disabled', true);
         });
     </script>

@@ -41,6 +41,9 @@ Route::group(['prefix' => 'contract'], function () {
     //temporary 
     Route::get('/temporary/{url_address}', [ContractController::class, 'temporary'])->middleware(['auth', 'verified', 'permission:contract-temporary'])->name('contract.temporary');
 
+    // Terminate
+    Route::get('/terminate/{url_address}', [ContractController::class, 'terminate'])->middleware(['auth', 'verified', 'permission:contract-terminate'])->name('contract.terminate');
+
     //archive
     Route::get('/archiveshow/{url_address}', [ContractController::class, 'archiveshow'])->middleware(['auth', 'verified', 'permission:contract-archiveshow'])->name('contract.archiveshow');
     Route::get('/archive/{url_address}', [ContractController::class, 'archivecreate'])->middleware(['auth', 'verified', 'permission:contract-archive'])->name('contract.archivecreate');

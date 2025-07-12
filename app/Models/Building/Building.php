@@ -14,7 +14,7 @@ class Building extends Model
 
     public function contract()
     {
-        return $this->hasOne(Contract::class, 'contract_building_id', 'id');
+        return $this->hasMany(Contract::class, 'contract_building_id', 'id');
     }
 
     public function building_type()

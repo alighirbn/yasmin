@@ -17,68 +17,71 @@
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
                             {{ __('word.back') }}
                         </a>
-                        <a href="{{ route('contract.temp', $contract->url_address) }}" class="btn btn-custom-print">
-                            {{ __('word.print') }}
-                        </a>
-                        <a href="{{ route('contract.reserve', $contract->url_address) }}" class="btn btn-custom-print">
-                            {{ __('word.print_reserve') }}
-                        </a>
-
+                        @if ($contract->stage !== 'terminated')
+                            <a href="{{ route('contract.temp', $contract->url_address) }}" class="btn btn-custom-print">
+                                {{ __('word.print') }}
+                            </a>
+                            <a href="{{ route('contract.reserve', $contract->url_address) }}"
+                                class="btn btn-custom-print">
+                                {{ __('word.print_reserve') }}
+                            </a>
+                        @endif
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
                                 class="btn btn-custom-statement">
                                 {{ __('word.statement') }}
                             </a>
                         @endcan
-
-                        @can('contract-update')
-                            @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
-                                <a href="#passwordModal" class="btn btn-custom-edit" data-bs-toggle="modal">
-                                    {{ __('word.contract_edit') }}
-                                </a>
-                            @else
-                                <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-custom-edit">
+                        @if ($contract->stage !== 'terminated')
+                            @can('contract-update')
+                                @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
+                                    <a href="#passwordModal" class="btn btn-custom-edit" data-bs-toggle="modal">
                                         {{ __('word.contract_edit') }}
-                                    </button>
-                                </form>
-                            @endif
-                        @endcan
+                                    </a>
+                                @else
+                                    <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-custom-edit">
+                                            {{ __('word.contract_edit') }}
+                                        </button>
+                                    </form>
+                                @endif
+                            @endcan
 
-                        @can('contract-accept')
-                            @if ($contract->stage == 'temporary')
-                                <a href="{{ route('contract.accept', $contract->url_address) }}"
-                                    class="btn btn-custom-approve">
-                                    {{ __('word.contract_accept') }}
-                                </a>
-                            @endif
+                            @can('contract-accept')
+                                @if ($contract->stage == 'temporary')
+                                    <a href="{{ route('contract.accept', $contract->url_address) }}"
+                                        class="btn btn-custom-approve">
+                                        {{ __('word.contract_accept') }}
+                                    </a>
+                                @endif
+                            @endcan
+                            @can('contract-authenticat')
+                                @if ($contract->stage == 'accepted' && count($contract->images) >= 1 && $contract->payments->count() >= 1)
+                                    <a href="{{ route('contract.authenticat', $contract->url_address) }}"
+                                        class="btn btn-custom-approve">
+                                        {{ __('word.contract_authenticat') }}
+                                    </a>
+                                @endif
+                            @endcan
 
-                        @endcan
-                        @can('contract-authenticat')
-                            @if ($contract->stage == 'accepted' && count($contract->images) >= 1 && $contract->payments->count() >= 1)
-                                <a href="{{ route('contract.authenticat', $contract->url_address) }}"
-                                    class="btn btn-custom-approve">
-                                    {{ __('word.contract_authenticat') }}
-                                </a>
-                            @endif
+                            @can('contract-archive')
+                                @if ($contract->payments->count() >= 1)
+                                    <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
+                                        class="btn btn-custom-archive">
+                                        {{ __('word.contract_archive') }}
+                                    </a>
+                                @endif
 
-                        @endcan
-                        @can('contract-archive')
-                            @if ($contract->payments->count() >= 1)
-                                <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
-                                    class="btn btn-custom-archive">
-                                    {{ __('word.contract_archive') }}
-                                </a>
-                            @endif
+                                @if ($contract->payments->count() >= 1)
+                                    <a href="{{ route('contract.scancreate', $contract->url_address) }}"
+                                        class="btn btn-custom-archive">
+                                        {{ __('word.contract_scan') }}
+                                    </a>
+                                @endif
+                            @endcan
 
-                            @if ($contract->payments->count() >= 1)
-                                <a href="{{ route('contract.scancreate', $contract->url_address) }}"
-                                    class="btn btn-custom-archive">
-                                    {{ __('word.contract_scan') }}
-                                </a>
-                            @endif
-                        @endcan
+                        @endif
                         @can('contract-archiveshow')
                             @if ($contract->payments->count() >= 1 && count($contract->images) >= 1)
                                 <a href="{{ route('contract.archiveshow', $contract->url_address) }}"
@@ -87,55 +90,65 @@
                                 </a>
                             @endif
                         @endcan
-                        @can('contract-due')
-                            <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
-                                class="btn btn-custom-due">
-                                {{ __('word.contract_due') . ' (' . $due_installments_count . ')' }}
-                            </a>
-                        @endcan
-                        @can('payment-show')
-                            <a href="{{ route('payment.index', ['contract_id' => $contract->id]) }}"
-                                class="btn btn-custom-show">
-                                {{ __('word.payment') }}
-                            </a>
-                            <a href="{{ route('payment.pending', $contract->url_address) }}" class="btn btn-custom-due">
-                                {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
-                            </a>
-                        @endcan
-                        @can('contract-print')
-                            @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
-                                <a href="{{ route('contract.print', $contract->url_address) }}"
-                                    class="btn btn-custom-print">
-                                    {{ __('word.contract_print') }}
+                        @if ($contract->stage !== 'terminated')
+                            @can('contract-due')
+                                <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
+                                    class="btn btn-custom-due">
+                                    {{ __('word.contract_due') . ' (' . $due_installments_count . ')' }}
                                 </a>
-                                <a href="{{ route('contract.onmap', $contract->url_address) }}"
-                                    class="btn btn-custom-print">
-                                    {{ __('word.contract_onmap') }}
+                            @endcan
+                            @can('payment-show')
+                                <a href="{{ route('payment.index', ['contract_id' => $contract->id]) }}"
+                                    class="btn btn-custom-show">
+                                    {{ __('word.payment') }}
                                 </a>
+                                <a href="{{ route('payment.pending', $contract->url_address) }}"
+                                    class="btn btn-custom-due">
+                                    {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
+                                </a>
+                            @endcan
+                            @can('contract-print')
+                                @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
+                                    <a href="{{ route('contract.print', $contract->url_address) }}"
+                                        class="btn btn-custom-print">
+                                        {{ __('word.contract_print') }}
+                                    </a>
+                                    <a href="{{ route('contract.onmap', $contract->url_address) }}"
+                                        class="btn btn-custom-print">
+                                        {{ __('word.contract_onmap') }}
+                                    </a>
+                                @endif
+                            @endcan
+                            @can('transfer-create')
+                                <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
+                                    class="btn btn-custom-transfer">
+                                    {{ __('word.contract_transfer') }}
+                                </a>
+                            @endcan
+                            @can('transfer-show')
+                                <a href="{{ route('transfer.contract', $contract->url_address) }}"
+                                    class="btn btn-custom-show">
+                                    {{ __('word.transfer_contract') }}
+                                </a>
+                            @endcan
+
+                            @can('contract-temporary')
+                                @if ($contract->stage == 'authenticated')
+                                    <a href="{{ route('contract.temporary', $contract->url_address) }}"
+                                        class="btn btn-custom-approve">
+                                        {{ __('word.contract_temporary') }}
+                                    </a>
+                                @endif
+                            @endcan
+
+                        @endif
+
+                        @can('contract-terminate')
+                            @if ($contract->stage !== 'terminated')
+                                <a href="{{ route('contract.terminate', $contract->url_address) }}" class="btn btn-danger"
+                                    onclick="return confirm('هل أنت متأكد من فسخ العقد؟')">فسخ العقد</a>
                             @endif
                         @endcan
-                        @can('transfer-create')
-                            <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
-                                class="btn btn-custom-transfer">
-                                {{ __('word.contract_transfer') }}
-                            </a>
-                        @endcan
-                        @can('transfer-show')
-                            <a href="{{ route('transfer.contract', $contract->url_address) }}" class="btn btn-custom-show">
-                                {{ __('word.transfer_contract') }}
-                            </a>
-                        @endcan
-
-                        @can('contract-temporary')
-                            @if ($contract->stage == 'authenticated')
-                                <a href="{{ route('contract.temporary', $contract->url_address) }}"
-                                    class="btn btn-custom-approve">
-                                    {{ __('word.contract_temporary') }}
-                                </a>
-                            @endif
-
-                        @endcan
-
                     </div>
                     <div>
                         @if ($message = Session::get('success'))
@@ -300,106 +313,106 @@
                                     {{ $contract->contract_note }}
                             </div>
                         </div>
+                        @if ($contract->stage !== 'terminated')
+                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
+                                {{ __('word.installment_info') }}
+                            </h1>
+                            <div class="container mt-4">
 
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.installment_info') }}
-                        </h1>
-                        <div class="container mt-4">
-
-                            <table class="table table-striped">
-                                <thead>
-                                    <th scope="col" width="14%">{{ __('word.installment_number') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.installment_name') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.installment_percent') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.installment_amount') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.installment_date') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.installment_payment') }}</th>
-                                    <th scope="col" width="14%">{{ __('word.action') }}</th>
-                                </thead>
-                                @php
-                                    $hide = 0;
-                                @endphp
-                                @foreach ($contract_installments as $installment)
-                                    <tr>
-                                        <td>{{ $installment->installment->installment_number }}</td>
-                                        <td>{{ $installment->installment->installment_name }}</td>
-                                        <td>{{ $installment->installment->installment_percent * 100 }} %</td>
-                                        <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
-                                        <td>{{ $installment->installment_date }}</td>
-                                        <td>
-                                            @if ($installment->payment == null)
-                                                @if ($installment->isDue($installment->installment_date))
-                                                    <span style="color: red;">لم تسدد - مستحقة</span>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th scope="col" width="14%">{{ __('word.installment_number') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.installment_name') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.installment_percent') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.installment_amount') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.installment_date') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.installment_payment') }}</th>
+                                        <th scope="col" width="14%">{{ __('word.action') }}</th>
+                                    </thead>
+                                    @php
+                                        $hide = 0;
+                                    @endphp
+                                    @foreach ($contract_installments as $installment)
+                                        <tr>
+                                            <td>{{ $installment->installment->installment_number }}</td>
+                                            <td>{{ $installment->installment->installment_name }}</td>
+                                            <td>{{ $installment->installment->installment_percent * 100 }} %</td>
+                                            <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
+                                            <td>{{ $installment->installment_date }}</td>
+                                            <td>
+                                                @if ($installment->payment == null)
+                                                    @if ($installment->isDue($installment->installment_date))
+                                                        <span style="color: red;">لم تسدد - مستحقة</span>
+                                                    @else
+                                                        <span>لم تسدد - غير مستحقة</span>
+                                                    @endif
+                                                @elseif ($installment->payment->approved)
+                                                    مسددة في {{ $installment->payment->payment_date }}
                                                 @else
-                                                    <span>لم تسدد - غير مستحقة</span>
+                                                    لم تتم الموافقة على الدفع
                                                 @endif
-                                            @elseif ($installment->payment->approved)
-                                                مسددة في {{ $installment->payment->payment_date }}
-                                            @else
-                                                لم تتم الموافقة على الدفع
-                                            @endif
 
-                                        </td>
-                                        <td>
-                                            @if ($contract->stage != 'temporary')
-                                                @if ($installment->payment != null)
-                                                    @can('payment-show')
-                                                        <a href="{{ route('payment.show', $installment->payment->url_address) }}"
-                                                            class="btn btn-custom-show">
-                                                            {{ __('word.view') }}
-                                                        </a>
-                                                    @endcan
-                                                @else
-                                                    @if ($hide == 0)
-                                                        @can('payment-create')
-                                                            <div class="flex">
-
-                                                                <div class=" mx-2 my-2 w-full ">
-                                                                    <a href="{{ route('contract.add', $installment->url_address) }}"
-                                                                        class="add_payment btn btn-custom-edit">
-                                                                        {{ __('word.add_payment') }}
-                                                                    </a>
-
-                                                                </div>
-                                                                @can('contract-sms')
-                                                                    <div class=" mx-2 my-2 w-full ">
-                                                                        <form action="{{ route('contract.sendSms') }}"
-                                                                            method="POST" class="d-inline">
-                                                                            @csrf
-                                                                            <input type="hidden" name="phone_number"
-                                                                                value="{{ $contract->customer->customer_phone }}">
-                                                                            <input type="hidden" name="name"
-                                                                                value="{{ $contract->customer->customer_full_name }}">
-                                                                            <input type="hidden" name="amount"
-                                                                                value="{{ number_format($installment->installment_amount, 0) }} دينار">
-                                                                            <input type="hidden" name="due_date"
-                                                                                value="{{ $installment->installment_date }} الدفعة {{ $installment->installment->installment_name }} عن العقار المرقم {{ $contract->building->building_number }}">
-                                                                            <input type="hidden" name="contract_url"
-                                                                                value="{{ $contract->url_address }}">
-
-                                                                            <button type="submit"
-                                                                                class="btn btn-custom-print">
-                                                                                sms
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
-                                                                @endcan
-                                                            </div>
-                                                            @php
-                                                                $hide = 1;
-                                                            @endphp
+                                            </td>
+                                            <td>
+                                                @if ($contract->stage != 'temporary')
+                                                    @if ($installment->payment != null)
+                                                        @can('payment-show')
+                                                            <a href="{{ route('payment.show', $installment->payment->url_address) }}"
+                                                                class="btn btn-custom-show">
+                                                                {{ __('word.view') }}
+                                                            </a>
                                                         @endcan
                                                     @else
+                                                        @if ($hide == 0)
+                                                            @can('payment-create')
+                                                                <div class="flex">
+
+                                                                    <div class=" mx-2 my-2 w-full ">
+                                                                        <a href="{{ route('contract.add', $installment->url_address) }}"
+                                                                            class="add_payment btn btn-custom-edit">
+                                                                            {{ __('word.add_payment') }}
+                                                                        </a>
+
+                                                                    </div>
+                                                                    @can('contract-sms')
+                                                                        <div class=" mx-2 my-2 w-full ">
+                                                                            <form action="{{ route('contract.sendSms') }}"
+                                                                                method="POST" class="d-inline">
+                                                                                @csrf
+                                                                                <input type="hidden" name="phone_number"
+                                                                                    value="{{ $contract->customer->customer_phone }}">
+                                                                                <input type="hidden" name="name"
+                                                                                    value="{{ $contract->customer->customer_full_name }}">
+                                                                                <input type="hidden" name="amount"
+                                                                                    value="{{ number_format($installment->installment_amount, 0) }} دينار">
+                                                                                <input type="hidden" name="due_date"
+                                                                                    value="{{ $installment->installment_date }} الدفعة {{ $installment->installment->installment_name }} عن العقار المرقم {{ $contract->building->building_number }}">
+                                                                                <input type="hidden" name="contract_url"
+                                                                                    value="{{ $contract->url_address }}">
+
+                                                                                <button type="submit"
+                                                                                    class="btn btn-custom-print">
+                                                                                    sms
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    @endcan
+                                                                </div>
+                                                                @php
+                                                                    $hide = 1;
+                                                                @endphp
+                                                            @endcan
+                                                        @else
+                                                        @endif
                                                     @endif
                                                 @endif
-                                            @endif
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        @endif
                         <div class="flex">
                             @if (isset($contract->user_id_create))
                                 <div class="mx-4 my-4 ">

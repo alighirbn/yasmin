@@ -69,6 +69,7 @@ return [
 
     //************************************* map        *******************************************
     'map_contracts' => 'خارطة العقود',
+    'map_due_installments_-30' => 'مستحق قبل شهر',
     'map_due_installments_0' => 'مستحق الان ',
     'map_due_installments_30' => 'مستحق بعد شهر',
     'map_due_installments_60' => 'مستحق بعد شهرين',
@@ -151,6 +152,7 @@ return [
     'authenticated_at' => 'مصادق عليه في',
     'contract_accept' => 'قبول العقد',
     'contract_authenticat' => 'مصادقة العقد',
+    'terminated' => ' فسخ العقد',
     'contract_archive' => 'اضافة صورة',
     'contract_scan' => 'اضافة مستند',
     'archiveshow' => 'المرفقات',

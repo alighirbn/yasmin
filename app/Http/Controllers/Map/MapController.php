@@ -16,8 +16,11 @@ class MapController extends Controller
 
     public function contract()
     {
-        // Fetch all contracts with their building data
-        $contracts = Contract::with(['building', 'payments'])->get();
+
+        // Fetch all non-terminated contracts with their building and payment data
+        $contracts = Contract::with(['building', 'payments'])
+            ->whereNotIn('stage', ['terminated'])
+            ->get();
 
         // Get the total number of buildings
         $totalBuildings = Building::count();
@@ -28,8 +31,14 @@ class MapController extends Controller
         // Calculate the percentage of buildings with contracts
         $percentageContracts = $totalBuildings > 0 ? ($contractCount / $totalBuildings) * 100 : 0;
 
-        // Calculate the number of buildings without contracts
-        $buildingsWithoutContracts = Building::doesntHave('contract')->count();
+        // Calculate the number of buildings without active contracts
+        // Include buildings with no contracts or only terminated contracts
+        $buildingsWithoutContracts = Building::where(function ($query) {
+            $query->doesntHave('contract') // Buildings with no contracts
+                ->orWhereDoesntHave('contract', function ($subQuery) {
+                    $subQuery->whereNotIn('stage', ['terminated']); // Exclude buildings with non-terminated contracts
+                });
+        })->count();
 
         // Count contracts with payments
         $contractsWithPaymentsCount = $contracts->filter(function ($contract) {
@@ -38,9 +47,9 @@ class MapController extends Controller
 
         // Count contracts that have at least one payment with installments
         $contractsWithInstallmentsCount = $contracts->filter(function ($contract) {
-        return $contract->payments->contains(function ($payment) {
-            return $payment->contract_installment_id !== null;
-        });
+            return $contract->payments->contains(function ($payment) {
+                return $payment->contract_installment_id !== null;
+            });
         })->count();
 
         return view('map.contract', compact([
@@ -102,20 +111,31 @@ class MapController extends Controller
 
     public function empty()
     {
-        // Exclude buildings that are marked as hidden
-        $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
-        // Pass the buildings and price per meter to the view
+        // Exclude buildings that are marked as hidden and have either no contracts or only terminated contracts
+        $buildings = Building::where('hidden', false)
+            ->where(function ($query) {
+                $query->doesntHave('contract') // Buildings with no contracts
+                    ->orWhereDoesntHave('contract', function ($subQuery) {
+                        $subQuery->whereNotIn('stage', ['terminated']); // Exclude buildings with non-terminated contracts
+                    });
+            })->get();
+
+        // Pass the buildings to the view
         return view('map.empty', compact(['buildings']));
     }
+
 
     public function due(Request $request)
     {
         $daysBeforeDue = $request->input('days_before_due', 0); // Default to 0 days if not provided
         $dueDate = Carbon::today()->subDays($daysBeforeDue); // Calculate the due date
 
-        $contracts = Contract::with(['building'])->whereHas('unpaidInstallments', function ($query) use ($dueDate) {
-            $query->where('installment_date', '<=', $dueDate);
-        })->get();
+        $contracts = Contract::with(['building'])
+            ->whereHas('unpaidInstallments', function ($query) use ($dueDate) {
+                $query->where('installment_date', '<=', $dueDate);
+            })
+            ->whereNotIn('stage', ['terminated'])
+            ->get();
 
         return view('map.due', compact(['contracts']));
     }

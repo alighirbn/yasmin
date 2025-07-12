@@ -40,6 +40,13 @@
 @endcan
 
 @can('map-due')
+    <a href="{{ route('map.due', ['days_before_due' => -31]) }}"
+        class="me-3 {{ request()->fullUrlIs(route('map.due', ['days_before_due' => -31])) ? 'underline-active' : '' }}">
+        {{ __('word.map_due_installments_-30') }}
+    </a>
+@endcan
+
+@can('map-due')
     <a href="{{ route('map.due', ['days_before_due' => 0]) }}"
         class="me-3 {{ request()->fullUrlIs(route('map.due', ['days_before_due' => 0])) ? 'underline-active' : '' }}">
         {{ __('word.map_due_installments_0') }}

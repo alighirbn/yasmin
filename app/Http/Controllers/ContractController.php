@@ -19,6 +19,7 @@ use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Notifications\ContractAuthNotify;
 use App\Notifications\ContractNotify;
+use App\Notifications\ContractTerminateNotify;
 use App\Notifications\PaymentNotify;
 use App\Services\ContractUpdateService;
 use App\Services\ZainSmsService;
@@ -245,19 +246,25 @@ class ContractController extends Controller
         // Get the building_id from the request
         $building_id = $request->input('building_id');
 
-        // If building_id is provided, check if it has an existing contract
+        // If building_id is provided, check if it has an existing non-terminated contract
         if ($building_id) {
             $building = Building::find($building_id);
 
-            // Check if the building exists and has a contract
-            if ($building && $building->contract()->exists()) {
-                // Return an error or a message if the building already has a contract
-                return redirect()->back()->with('error', 'تم حجز العقار مسبقا .');
+            // Check if the building exists and has a non-terminated contract
+            if ($building && $building->contract()->whereNotIn('stage', ['terminated'])->exists()) {
+                // Return an error if the building has a non-terminated contract
+                return redirect()->back()->with('error', 'تم حجز العقار مسبقا بواسطة عقد فعال.');
             }
         }
 
-        // Fetch all buildings that are not hidden and do not have a contract
-        $buildings = Building::where('hidden', false)->doesntHave('contract')->get();
+        // Fetch all buildings that are not hidden and have either no contracts or only terminated contracts
+        $buildings = Building::where('hidden', false)
+            ->where(function ($query) {
+                $query->doesntHave('contract')
+                    ->orWhereDoesntHave('contract', function ($subQuery) {
+                        $subQuery->whereNotIn('stage', ['terminated']);
+                    });
+            })->get();
 
         return view('contract.contract.create', compact('customers', 'buildings', 'payment_methods', 'building_id'));
     }
@@ -269,24 +276,16 @@ class ContractController extends Controller
      */
     public function store(ContractRequest $request)
     {
-
-        // Get the building_id from the request
         $building_id = $request->input('contract_building_id');
-
-        // If building_id is provided, check if it has an existing contract
         if ($building_id) {
             $building = Building::find($building_id);
-
-            // Check if the building exists and has a contract
-            if ($building && $building->contract()->exists()) {
-                // Return an error or a message if the building already has a contract
-                return redirect()->route('map.empty')->with('error', 'تم حجز العقار مسبقا .');
+            if ($building && $building->contract()->whereNotIn('stage', ['terminated'])->exists()) {
+                return redirect()->route('map.empty')->with('error', 'تم حجز العقار مسبقا بواسطة عقد فعال.');
             }
         }
+
         $contract = Contract::create($request->validated());
-
         $payment_method = $request->input('contract_payment_method_id');
-
 
         if ($payment_method == 2) {
             $installments = Installment::where('payment_method_id', 2)->get();
@@ -313,20 +312,12 @@ class ContractController extends Controller
                 ]);
             }
         }
-        // Optionally, set up a job to auto-delete if not approved
-        // AutoDeleteTemporaryContract::dispatch($contract)->delay(now()->addWeek());
 
-
-        $admins = User::role('admin')->get(); // Fetch admins
-
-
-
-        // Notify admins
+        $admins = User::role('admin')->get();
         foreach ($admins as $admin) {
             $admin->notify(new ContractNotify($contract));
         }
 
-        //inform the user
         return redirect()->route('contract.temp', $contract->url_address)
             ->with('success', 'تمت أضافة العقد بنجاح ');
     }
@@ -379,6 +370,34 @@ class ContractController extends Controller
         return view('contract.contract.accessdenied', ['ip' => $ip]);
     }
 
+
+    /**
+     * Terminate the specified contract while preserving associated payments.
+     */
+    public function terminate(string $url_address)
+    {
+        $contract = Contract::where('url_address', '=', $url_address)->first();
+
+        if (!$contract) {
+            $ip = $this->getIPAddress();
+            return view('contract.contract.accessdenied', ['ip' => $ip]);
+        }
+
+        if ($contract->stage === 'terminated') {
+            return redirect()->route('contract.show', $contract->url_address)
+                ->with('error', 'العقد مفسوخ مسبقاً.');
+        }
+
+        $contract->terminate();
+
+        $admins = User::role('admin')->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new ContractTerminateNotify($contract));
+        }
+
+        return redirect()->route('contract.show', $contract->url_address)
+            ->with('success', 'تم فسخ العقد بنجاح مع الاحتفاظ بالدفعات السابقة.');
+    }
     /**
      * Display the specified resource.
      */
@@ -511,15 +530,18 @@ class ContractController extends Controller
     {
         $currentDate = Carbon::now()->format('Y-m-d');
 
-        // Initialize the query for due installments
+        // Initialize the query for due installments, excluding terminated contracts
         $query = Contract_Installment::with(['contract.customer', 'contract.building', 'payment'])
             ->leftJoin('payments', 'contract_installments.id', '=', 'payments.contract_installment_id')
             ->where('contract_installments.installment_date', '<=', $currentDate)
+            ->whereHas('contract', function ($contractQuery) {
+                $contractQuery->whereNotIn('stage', ['terminated']);
+            })
             ->where(function ($query) {
                 $query->whereNull('payments.id')
                     ->orWhere('payments.approved', false);
             })
-            ->select('contract_installments.*'); // Select all columns from contract_installments
+            ->select('contract_installments.*');
 
         // If a contract_id is provided, filter by that contract
         if ($contract_id) {
@@ -529,11 +551,11 @@ class ContractController extends Controller
         // Execute the query and group by customer and contract
         $dueInstallments = $query->get()
             ->groupBy(function ($installment) {
-                return $installment->contract->customer->id; // Group by customer ID
+                return $installment->contract->customer->id;
             })
             ->map(function ($installments) {
                 return $installments->groupBy(function ($installment) {
-                    return $installment->contract->id; // Group by contract ID
+                    return $installment->contract->id;
                 });
             });
 
@@ -594,7 +616,7 @@ class ContractController extends Controller
     public function edit(Request $request, string $url_address)
     {
         $contract = Contract::where('url_address', '=', $url_address)
-            ->with('payments', 'building') // Ensure 'building' is loaded
+            ->with('payments', 'building')
             ->first();
 
         if (!$contract) {
@@ -624,16 +646,19 @@ class ContractController extends Controller
             }
         }
 
-
-
         $customers = Customer::all();
 
         // Get buildings that either:
         // 1. Don't have any contracts, OR
-        // 2. Are associated with the current contract
-        $buildings = Building::whereDoesntHave('contract')
-            ->orWhere('id', $contract->contract_building_id)
-            ->get();
+        // 2. Only have terminated contracts, OR
+        // 3. Are associated with the current contract
+        $buildings = Building::where(function ($query) use ($contract) {
+            $query->doesntHave('contract')
+                ->orWhereDoesntHave('contract', function ($subQuery) {
+                    $subQuery->whereNotIn('stage', ['terminated']);
+                })
+                ->orWhere('id', $contract->contract_building_id);
+        })->get();
 
         $payment_methods = Payment_Method::all();
 

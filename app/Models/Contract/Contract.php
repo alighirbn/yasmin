@@ -4,7 +4,6 @@ namespace App\Models\Contract;
 
 use App\Models\Building\Building;
 use App\Models\Customer\Customer;
-
 use App\Models\Payment\Payment;
 use App\Models\Payment\Payment_Method;
 use App\Models\Payment\Service;
@@ -31,7 +30,6 @@ class Contract extends Model
     {
         return $this->hasMany(Contract_Transfer_History::class, 'contract_id', 'id');
     }
-
 
     public function Services()
     {
@@ -81,7 +79,6 @@ class Contract extends Model
         return $this->belongsTo(User::class, 'user_id_update', 'id');
     }
 
-
     protected $fillable = [
         'url_address',
         'contract_date',
@@ -92,21 +89,19 @@ class Contract extends Model
         'temporary_at',
         'accepted_at',
         'authenticated_at',
-
+        'terminated_at', // Added for termination timestamp
         'contract_customer_id',
         'contract_building_id',
         'contract_payment_method_id',
-
         'user_id_create',
         'user_id_update',
     ];
 
     const STAGES = [
-
         'temporary',
         'accepted',
         'authenticated',
-
+        'terminated', // Added terminated stage
     ];
 
     public function getCurrentStageIndex()
@@ -129,10 +124,20 @@ class Contract extends Model
         $this->authenticated_at = now();
         $this->save();
     }
+
+    // Transition to temporary stage
     public function temporary()
     {
         $this->stage = 'temporary';
         $this->accepted_at = now();
+        $this->save();
+    }
+
+    // Transition to terminated stage
+    public function terminate()
+    {
+        $this->stage = 'terminated';
+        $this->terminated_at = now();
         $this->save();
     }
 }
