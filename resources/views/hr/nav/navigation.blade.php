@@ -17,29 +17,26 @@
     }
 </style>
 
-<nav class="flex">
-    <a href="{{ route('hr.employees.index') }}"
-        class="px-3 {{ request()->routeIs('hr.employees.index') ? 'underline-active' : '' }}">
-        🧑‍💼 الموظفين
-    </a>
-    <a href="{{ route('hr.payrolls.index') }}"
-        class="px-3 {{ request()->routeIs('hr.payrolls.index') ? 'underline-active' : '' }}">
-        💰 الرواتب
-    </a>
-    <a href="{{ route('hr.incentives.index') }}"
-        class="px-3 {{ request()->routeIs('hr.incentives.index') ? 'underline-active' : '' }}">
-        🎁 الحوافز والاستقطاعات
-    </a>
-    <a href="{{ route('hr.advances.index') }}"
-        class="px-3 {{ request()->routeIs('hr.advances.index') ? 'underline-active' : '' }}">
-        💳 السلف
-    </a>
-    <a href="{{ route('hr.soa.index') }}"
-        class="px-3 {{ request()->routeIs('hr.soa.index') ? 'underline-active' : '' }}">
-        📑 كشف الحساب
-    </a>
-    <a href="{{ route('hr.terminations.index') }}"
-        class="px-3 {{ request()->routeIs('hr.terminations.index') ? 'underline-active' : '' }}">
-        🛑 إنهاء الخدمة
-    </a>
-</nav>
+<a href="{{ route('hr.employees.index') }}"
+    class="px-3 {{ request()->routeIs('hr.employees.index') ? 'underline-active' : '' }}">
+    🧑‍💼 الموظفين
+</a>
+<a href="{{ route('hr.payrolls.index') }}"
+    class="px-3 {{ request()->routeIs('hr.payrolls.index') ? 'underline-active' : '' }}">
+    💰 الرواتب
+</a>
+<a href="{{ route('hr.incentives.index') }}"
+    class="px-3 {{ request()->routeIs('hr.incentives.index') ? 'underline-active' : '' }}">
+    🎁 الحوافز والاستقطاعات
+</a>
+<a href="{{ route('hr.advances.index') }}"
+    class="px-3 {{ request()->routeIs('hr.advances.index') ? 'underline-active' : '' }}">
+    💳 السلف
+</a>
+<a href="{{ route('hr.soa.index') }}" class="px-3 {{ request()->routeIs('hr.soa.index') ? 'underline-active' : '' }}">
+    📑 كشف الحساب
+</a>
+<a href="{{ route('hr.terminations.index') }}"
+    class="px-3 {{ request()->routeIs('hr.terminations.index') ? 'underline-active' : '' }}">
+    🛑 إنهاء الخدمة
+</a>
