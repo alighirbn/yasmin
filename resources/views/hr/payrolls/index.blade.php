@@ -9,15 +9,24 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h2 class="text-xl font-bold mb-4">قائمة الرواتب</h2>
+                    <nav class="flex gap-4 mb-4">
+                        <a href="{{ route('hr.payrolls.generateAll') }}"
+                            class="bg-blue-500 text-white px-6 py-3 rounded inline-block"
+                            onclick="return confirm('هل أنت متأكد من إنشاء الرواتب لجميع الموظفين لهذا الشهر؟');">
+                            🧾 إنشاء رواتب جميع الموظفين للشهر الحالي
+                        </a>
 
-                    <a href="{{ route('hr.payrolls.create') }}"
-                        class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
-                        ➕ إضافة راتب
-                    </a>
-                    <a href="{{ route('hr.payrolls.currentMonth') }}"
-                        class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
-                        📊 رواتب الشهر الحالي حسب القسم
-                    </a>
+                        <a href="{{ route('hr.payrolls.create') }}"
+                            class="bg-blue-500 text-white px-6 py-3 rounded inline-block">
+                            ➕ إضافة راتب
+                        </a>
+
+                        <a href="{{ route('hr.payrolls.currentMonth') }}"
+                            class="bg-blue-500 text-white px-6 py-3 rounded inline-block">
+                            📊 رواتب الشهر الحالي حسب القسم
+                        </a>
+                    </nav>
+
                     <table class="w-full mt-4 border-collapse border">
                         <thead class="bg-gray-100">
                             <tr>
