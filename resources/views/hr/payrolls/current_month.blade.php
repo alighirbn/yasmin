@@ -20,26 +20,26 @@
                 </div>
                 <div class="print-container a4-width mx-auto bg-white">
 
-                    <div class="flex items-center">
-                        <div class="mx-2 my-2 w-full">
-                            {!! QrCode::size(90)->generate($payrolls->count()) !!}
-                        </div>
-                        <div class="mx-2 my-2 w-full">
-                            <img src="{{ asset('images/ba.png') }}" alt="Logo" class="h-6 max-w-full"
-                                style="height: auto;">
-                        </div>
-                        <div class="mx-2 my-2 w-full text-center">
-                            <h2 class="text-xl font-bold">
-                                ادارة العمليات والموارد البشرية
-                            </h2>
-                        </div>
-                    </div>
-
-                    <h2 class="text-xl font-bold mb-4">
-                        رواتب الشهر الحالي ({{ $currentMonth }}/{{ $currentYear }})
-                    </h2>
-
                     @foreach ($payrolls as $department => $deptPayrolls)
+                        <div class="flex items-center">
+                            <div class="mx-2 my-2 w-full">
+                                {!! QrCode::size(90)->generate($payrolls->count()) !!}
+                            </div>
+                            <div class="mx-2 my-2 w-full">
+                                <img src="{{ asset('images/ba.png') }}" alt="Logo" class="h-6 max-w-full"
+                                    style="height: auto;">
+                            </div>
+                            <div class="mx-2 my-2 w-full text-center">
+                                <h2 class="text-xl font-bold">
+                                    ادارة العمليات والموارد البشرية
+                                </h2>
+                            </div>
+                        </div>
+
+                        <h2 class="text-xl font-bold mb-4">
+                            رواتب الشهر الحالي ({{ $currentMonth }}/{{ $currentYear }})
+                        </h2>
+
                         <div class="mb-6">
                             <h3 class="font-semibold text-lg mb-2">القسم: {{ $department }}</h3>
                             <table class="w-full border-collapse border mb-4">
