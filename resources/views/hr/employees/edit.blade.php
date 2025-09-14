@@ -79,7 +79,7 @@
                     <div class="mb-4">
                         <label class="block mb-1">الراتب الأساسي</label>
                         <input type="number" name="basic_salary"
-                            value="{{ old('basic_salary', $employee->basic_salary) }}" step="0.01"
+                            value="{{ old('basic_salary', $employee->basic_salary) }}" step="1000"
                             class="border rounded w-full px-3 py-2 text-black">
                         @error('basic_salary')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

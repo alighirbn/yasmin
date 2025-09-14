@@ -62,10 +62,10 @@
                                     <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
                                         <td class="border px-2 py-1">{{ $p->month }}</td>
                                         <td class="border px-2 py-1">{{ $p->year }}</td>
-                                        <td class="border px-2 py-1">{{ number_format($p->basic_salary, 2) }}</td>
-                                        <td class="border px-2 py-1">{{ number_format($p->total_incentives, 2) }}</td>
-                                        <td class="border px-2 py-1">{{ number_format($p->total_deductions, 2) }}</td>
-                                        <td class="border px-2 py-1 font-bold">{{ number_format($p->net_salary, 2) }}
+                                        <td class="border px-2 py-1">{{ number_format($p->basic_salary, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($p->total_incentives, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($p->total_deductions, 0) }}</td>
+                                        <td class="border px-2 py-1 font-bold">{{ number_format($p->net_salary, 0) }}
                                         </td>
                                     </tr>
                                 @empty
@@ -93,7 +93,7 @@
                                     <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
                                         <td class="border px-2 py-1">{{ $i->type == 'incentive' ? 'حافز' : 'استقطاع' }}
                                         </td>
-                                        <td class="border px-2 py-1">{{ number_format($i->amount, 2) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($i->amount, 0) }}</td>
                                         <td class="border px-2 py-1">{{ $i->reason }}</td>
                                         <td class="border px-2 py-1">
                                             {{ \Carbon\Carbon::parse($i->date)->format('Y-m-d') }}</td>
@@ -119,7 +119,7 @@
                             <tbody>
                                 @forelse($advances as $a)
                                     <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
-                                        <td class="border px-2 py-1">{{ number_format($a->amount, 2) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($a->amount, 0) }}</td>
                                         <td class="border px-2 py-1">
                                             {{ \Carbon\Carbon::parse($a->date)->format('Y-m-d') }}</td>
                                     </tr>

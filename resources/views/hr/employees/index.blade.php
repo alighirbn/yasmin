@@ -27,7 +27,7 @@
                                     <td class='border px-2 py-1'>{{ $item->first_name }}</td>
                                     <td class='border px-2 py-1'>{{ $item->last_name }}</td>
                                     <td class='border px-2 py-1'>{{ $item->department }}</td>
-                                    <td class='border px-2 py-1'>{{ $item->basic_salary }}</td>
+                                    <td class='border px-2 py-1'>{{ number_format($item->basic_salary, 0) }}</td>
                                     <td class='border px-2 py-1'>
                                         <a href="{{ route('hr.employees.edit', $item) }}"
                                             class="text-green-600">تعديل</a> |
@@ -39,6 +39,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-4">
+                        {{ $employees->links() }}
+                    </div>
                 </div>
             </div>
         </div>

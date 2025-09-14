@@ -12,15 +12,36 @@ use Carbon\Carbon;
 
 class PayrollController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $payrolls = Payroll::with('employee')
+        $query = Payroll::with('employee');
+
+        // Filter by employee name
+        if ($request->filled('name')) {
+            $query->whereHas('employee', function ($q) use ($request) {
+                $q->where(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', '%' . $request->name . '%');
+            });
+        }
+
+        // Filter by month
+        if ($request->filled('month')) {
+            $query->where('month', $request->month);
+        }
+
+        // Filter by year
+        if ($request->filled('year')) {
+            $query->where('year', $request->year);
+        }
+
+        $payrolls = $query
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
-            ->paginate(25);
+            ->paginate(25)
+            ->appends($request->all()); // keep filters in pagination links
 
         return view('hr.payrolls.index', compact('payrolls'));
     }
+
 
     public function create()
     {
