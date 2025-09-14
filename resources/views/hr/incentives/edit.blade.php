@@ -48,7 +48,7 @@
 
                         <div class="mb-2">
                             <label>المبلغ</label>
-                            <input type="number" step="0.01" name="amount" class="border rounded w-full"
+                            <input type="number" step="1000" name="amount" class="border rounded w-full"
                                 value="{{ old('amount', $incentive->amount) }}">
                         </div>
 

@@ -31,7 +31,7 @@
                                 <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
                                     <td class="border px-2 py-1">{{ $item->employee->first_name }}
                                         {{ $item->employee->last_name }}</td>
-                                    <td class="border px-2 py-1">{{ number_format($item->amount, 2) }}</td>
+                                    <td class="border px-2 py-1">{{ number_format($item->amount, 0) }}</td>
                                     <td class="border px-2 py-1">
                                         {{ \Carbon\Carbon::parse($item->date)->format('Y-m-d') }}</td>
                                     <td class="border px-2 py-1">{{ $item->settled ? 'نعم' : 'لا' }}</td>

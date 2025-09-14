@@ -25,7 +25,7 @@
                             {!! QrCode::size(90)->generate($payrolls->count()) !!}
                         </div>
                         <div class="mx-2 my-2 w-full">
-                            <img src="{{ asset('images/yasmine.png') }}" alt="Logo" class="h-6 max-w-full"
+                            <img src="{{ asset('images/ba.png') }}" alt="Logo" class="h-6 max-w-full"
                                 style="height: auto;">
                         </div>
                         <div class="mx-2 my-2 w-full text-center">
@@ -84,7 +84,7 @@
                                                 {{ number_format($payroll->total_deductions - $advancesTotal, 0) }}
                                             </td>
                                             <td class="border px-2 py-1">{{ number_format($advancesTotal, 0) }}</td>
-                                            <td class="border px-2 py-1 font-bold">
+                                            <td class="border px-2 py-1 ">
                                                 {{ number_format($payroll->net_salary, 0) }}</td>
                                         </tr>
 
@@ -97,7 +97,7 @@
                                         @endphp
                                     @endforeach
 
-                                    <tr class="bg-gray-200 font-semibold">
+                                    <tr class="bg-gray-500 font-semibold font-bold text-white">
                                         <td class="border px-2 py-1 text-center">#</td>
                                         <td class="border px-2 py-1 text-center">المجموع</td>
                                         <td class="border px-2 py-1">-</td>
@@ -105,8 +105,9 @@
                                         <td class="border px-2 py-1">{{ number_format($totalIncentives, 0) }}</td>
                                         <td class="border px-2 py-1">{{ number_format($totalDeductions, 0) }}</td>
                                         <td class="border px-2 py-1">{{ number_format($totalAdvances, 0) }}</td>
-                                        <td class="border px-2 py-1">{{ number_format($totalNet, 0) }}</td>
+                                        <td class="border px-2 py-1 font-bold">{{ number_format($totalNet, 0) }}</td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>

@@ -33,7 +33,7 @@
                                         {{ $item->employee->last_name }}</td>
                                     <td class="border px-2 py-1">{{ $item->type == 'incentive' ? 'حافز' : 'استقطاع' }}
                                     </td>
-                                    <td class="border px-2 py-1">{{ number_format($item->amount, 2) }}</td>
+                                    <td class="border px-2 py-1">{{ number_format($item->amount, 0) }}</td>
                                     <td class="border px-2 py-1">{{ $item->reason }}</td>
                                     <td class="border px-2 py-1">
                                         {{ \Carbon\Carbon::parse($item->date)->format('Y-m-d') }}</td>
