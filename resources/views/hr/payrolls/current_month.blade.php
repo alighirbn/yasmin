@@ -17,9 +17,24 @@
                     <button id="print" class="btn btn-custom-print" onclick="window.print();">
                         {{ __('word.print') }}
                     </button>
-
                 </div>
-                <div class="print-container a4-width mx-auto  bg-white">
+                <div class="print-container a4-width mx-auto bg-white">
+
+                    <div class="flex items-center">
+                        <div class="mx-2 my-2 w-full">
+                            {!! QrCode::size(90)->generate($payrolls->count()) !!}
+                        </div>
+                        <div class="mx-2 my-2 w-full">
+                            <img src="{{ asset('images/yasmine.png') }}" alt="Logo" class="h-6 max-w-full"
+                                style="height: auto;">
+                        </div>
+                        <div class="mx-2 my-2 w-full text-center">
+                            <h2 class="text-xl font-bold">
+                                ادارة العمليات والموارد البشرية
+                            </h2>
+                        </div>
+                    </div>
+
                     <h2 class="text-xl font-bold mb-4">
                         رواتب الشهر الحالي ({{ $currentMonth }}/{{ $currentYear }})
                     </h2>
@@ -30,7 +45,9 @@
                             <table class="w-full border-collapse border mb-4">
                                 <thead class="bg-gray-100">
                                     <tr>
+                                        <th class="border px-2 py-1">التسلسل</th>
                                         <th class="border px-2 py-1">الموظف</th>
+                                        <th class="border px-2 py-1">الوظيفة</th>
                                         <th class="border px-2 py-1">الراتب الأساسي</th>
                                         <th class="border px-2 py-1">الحوافز</th>
                                         <th class="border px-2 py-1">الخصومات</th>
@@ -47,7 +64,7 @@
                                         $totalNet = 0;
                                     @endphp
 
-                                    @foreach ($deptPayrolls as $payroll)
+                                    @foreach ($deptPayrolls as $index => $payroll)
                                         @php
                                             $advancesTotal = $payroll->employee
                                                 ->advances()
@@ -56,12 +73,13 @@
                                                 ->sum('amount');
                                         @endphp
                                         <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
+                                            <td class="border px-2 py-1 text-center">{{ $index + 1 }}</td>
                                             <td class="border px-2 py-1">{{ $payroll->employee->full_name }}</td>
+                                            <td class="border px-2 py-1">{{ $payroll->employee->position }}</td>
                                             <td class="border px-2 py-1">{{ number_format($payroll->basic_salary, 0) }}
                                             </td>
                                             <td class="border px-2 py-1">
-                                                {{ number_format($payroll->total_incentives, 0) }}
-                                            </td>
+                                                {{ number_format($payroll->total_incentives, 0) }}</td>
                                             <td class="border px-2 py-1">
                                                 {{ number_format($payroll->total_deductions - $advancesTotal, 0) }}
                                             </td>
@@ -80,7 +98,9 @@
                                     @endforeach
 
                                     <tr class="bg-gray-200 font-semibold">
+                                        <td class="border px-2 py-1 text-center">#</td>
                                         <td class="border px-2 py-1 text-center">المجموع</td>
+                                        <td class="border px-2 py-1">-</td>
                                         <td class="border px-2 py-1">{{ number_format($totalBasic, 0) }}</td>
                                         <td class="border px-2 py-1">{{ number_format($totalIncentives, 0) }}</td>
                                         <td class="border px-2 py-1">{{ number_format($totalDeductions, 0) }}</td>
@@ -90,6 +110,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <br>
                     @endforeach
                 </div>
             </div>
