@@ -97,7 +97,7 @@
                                         @endphp
                                     @endforeach
 
-                                    <tr class="bg-gray-500 font-semibold font-bold text-white">
+                                    <tr class="bg-gray-500 font-semibold  text-white">
                                         <td class="border px-2 py-1 text-center">#</td>
                                         <td class="border px-2 py-1 text-center">المجموع</td>
                                         <td class="border px-2 py-1">-</td>

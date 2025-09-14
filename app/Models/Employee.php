@@ -41,6 +41,10 @@ class Employee extends Model
         return $this->hasMany(Termination::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(\App\Models\EmployeeImage::class);
+    }
     public function getFullNameAttribute()
     {
         return trim($this->first_name . ' ' . $this->last_name);
