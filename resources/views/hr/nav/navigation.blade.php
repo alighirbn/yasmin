@@ -17,9 +17,9 @@
     }
 </style>
 
-<a href="{{ route('hr.employees.index') }}"
-    class="px-3 {{ request()->routeIs('hr.employees.index') ? 'underline-active' : '' }}">
-    🧑‍💼 الموظفين
+<a href="{{ route('hr.employees.active') }}"
+    class="px-3 {{ request()->routeIs('hr.employees.active') ? 'underline-active' : '' }}">
+    🧑‍💼 الموظفين بالخدمة
 </a>
 <a href="{{ route('hr.payrolls.index') }}"
     class="px-3 {{ request()->routeIs('hr.payrolls.index') ? 'underline-active' : '' }}">

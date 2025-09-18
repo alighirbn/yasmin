@@ -9,6 +9,8 @@
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h2 class="text-xl font-bold mb-4">قائمة الموظفين بالخدمة</h2>
+                    <a href="{{ route('hr.employees.index') }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block ml-2">👥 جميع الموظفين </a>
                     <table class="w-full mt-4 border">
                         <thead class="bg-gray-100">
                             <tr>
