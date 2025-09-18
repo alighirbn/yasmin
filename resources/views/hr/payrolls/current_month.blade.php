@@ -2,7 +2,6 @@
     <x-slot name="header">
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
-
         @include('hr.nav.navigation')
     </x-slot>
 
@@ -18,6 +17,7 @@
                         {{ __('word.print') }}
                     </button>
                 </div>
+
                 <div class="print-container a4-width mx-auto bg-white">
 
                     @foreach ($payrolls as $department => $deptPayrolls)
@@ -71,6 +71,11 @@
                                                 ->whereYear('date', $currentYear)
                                                 ->whereMonth('date', $currentMonth)
                                                 ->sum('amount');
+                                            $netSalary =
+                                                $payroll->basic_salary +
+                                                $payroll->total_incentives -
+                                                $payroll->total_deductions -
+                                                $advancesTotal;
                                         @endphp
                                         <tr class="{{ $loop->even ? 'bg-gray-50' : '' }}">
                                             <td class="border px-2 py-1 text-center">{{ $index + 1 }}</td>
@@ -81,23 +86,22 @@
                                             <td class="border px-2 py-1">
                                                 {{ number_format($payroll->total_incentives, 0) }}</td>
                                             <td class="border px-2 py-1">
-                                                {{ number_format($payroll->total_deductions - $advancesTotal, 0) }}
-                                            </td>
+                                                {{ number_format($payroll->total_deductions, 0) }}</td>
                                             <td class="border px-2 py-1">{{ number_format($advancesTotal, 0) }}</td>
-                                            <td class="border px-2 py-1 ">
-                                                {{ number_format($payroll->net_salary, 0) }}</td>
+                                            <td class="border px-2 py-1 font-bold">{{ number_format($netSalary, 0) }}
+                                            </td>
                                         </tr>
 
                                         @php
                                             $totalBasic += $payroll->basic_salary;
                                             $totalIncentives += $payroll->total_incentives;
-                                            $totalDeductions += $payroll->total_deductions - $advancesTotal;
+                                            $totalDeductions += $payroll->total_deductions;
                                             $totalAdvances += $advancesTotal;
-                                            $totalNet += $payroll->net_salary;
+                                            $totalNet += $netSalary;
                                         @endphp
                                     @endforeach
 
-                                    <tr class="bg-gray-500 font-semibold  text-white">
+                                    <tr class="bg-gray-500 font-semibold text-white">
                                         <td class="border px-2 py-1 text-center">#</td>
                                         <td class="border px-2 py-1 text-center">المجموع</td>
                                         <td class="border px-2 py-1">-</td>
@@ -107,7 +111,6 @@
                                         <td class="border px-2 py-1">{{ number_format($totalAdvances, 0) }}</td>
                                         <td class="border px-2 py-1 font-bold">{{ number_format($totalNet, 0) }}</td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
