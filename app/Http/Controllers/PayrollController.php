@@ -245,14 +245,18 @@ class PayrollController extends Controller
         $currentMonth = now()->month;
         $currentYear  = now()->year;
 
-        $payrolls = Payroll::with('employee')
+        $payrolls = Payroll::with(['employee' => function ($q) {
+            $q->orderBy('employee_code', 'asc');
+        }])
             ->where('month', $currentMonth)
             ->where('year', $currentYear)
             ->get()
+            ->sortBy(fn($p) => $p->employee->employee_code) // ترتيب بعد الجلب
             ->groupBy(fn($p) => $p->employee->department ?? 'غير محدد');
 
         return view('hr.payrolls.current_month', compact('payrolls', 'currentMonth', 'currentYear'));
     }
+
 
     public function generateAll()
     {

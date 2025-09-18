@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeImage;
 use App\Services\WiaScanner;
 use Illuminate\Http\Request;
 use Exception;
@@ -112,7 +113,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employees = Employee::orderBy('id', 'desc')->paginate(15);
+        $employees = Employee::orderBy('employee_code', 'asc')->paginate(15);
         return view('hr.employees.index', compact('employees'));
     }
 
@@ -148,7 +149,14 @@ class EmployeeController extends Controller
     {
         return view('hr.employees.show', compact('employee'));
     }
+    public function active()
+    {
+        $employees = Employee::where('status', 'active')
+            ->orderBy('employee_code', 'asc')
+            ->paginate(15);
 
+        return view('hr.employees.active', compact('employees'));
+    }
     public function edit(Employee $employee)
     {
         return view('hr.employees.edit', compact('employee'));
@@ -175,5 +183,19 @@ class EmployeeController extends Controller
     {
         $employee->delete();
         return redirect()->route('hr.employees.index')->with('success', 'تم حذف الموظف بنجاح.');
+    }
+
+
+    public function deleteImage(EmployeeImage $image)
+    {
+        // حذف الملف من التخزين إذا موجود
+        if ($image->image_path && Storage::exists(str_replace('storage/', 'public/', $image->image_path))) {
+            Storage::delete(str_replace('storage/', 'public/', $image->image_path));
+        }
+
+        // حذف السجل من قاعدة البيانات
+        $image->delete();
+
+        return back()->with('success', 'تم حذف الصورة بنجاح.');
     }
 }

@@ -11,6 +11,8 @@
                     <h2 class='text-xl font-bold mb-4'>قائمة الموظفين</h2>
                     <a href="{{ route('hr.employees.create') }}"
                         class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">➕ إضافة موظف</a>
+                    <a href="{{ route('hr.employees.active') }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block ml-2">👥 الموظفين بالخدمة</a>
                     <table class='w-full mt-4 border'>
                         <thead>
                             <tr>

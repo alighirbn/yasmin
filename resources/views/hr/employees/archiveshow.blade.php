@@ -26,8 +26,20 @@
                                     <div class="card">
                                         <img src="{{ asset($image->image_path) }}" class="card-img-top"
                                             alt="Employee Image">
-                                        <div class="card-body">
-                                            <p class="card-text">تمت الإضافة في: {{ $image->created_at }}</p>
+                                        <div class="card-body text-center">
+                                            <p class="card-text mb-2">
+                                                تمت الإضافة في: {{ $image->created_at }}
+                                            </p>
+
+                                            <form action="{{ route('hr.employees.images.destroy', $image) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('هل أنت متأكد من حذف هذه الصورة؟');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger w-100">
+                                                    🗑 حذف
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

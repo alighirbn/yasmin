@@ -11,7 +11,10 @@ use App\Http\Controllers\SOAController;
 Route::get('/payrolls/generate-all', [PayrollController::class, 'generateAll'])->name('hr.payrolls.generateAll');
 
 Route::get('hr/payrolls/current-month', [PayrollController::class, 'currentMonth'])->name('hr.payrolls.currentMonth');
-
+Route::get('hr/employees/active', [App\Http\Controllers\EmployeeController::class, 'active'])
+    ->name('hr.employees.active');
+Route::delete('hr/employees/images/{image}', [App\Http\Controllers\EmployeeController::class, 'deleteImage'])
+    ->name('hr.employees.images.destroy');
 Route::middleware(['auth'])->prefix('hr')->name('hr.')->group(function () {
 
     // Employee Resource
