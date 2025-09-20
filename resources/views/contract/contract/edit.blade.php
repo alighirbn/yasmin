@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         <!-- app css-->
         <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}" />
@@ -12,7 +11,7 @@
 
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="header-buttons">
                         <a href="{{ url()->previous() }}" class="btn btn-custom-back">
@@ -24,6 +23,12 @@
                             </button>
                         @endcan
                     </div>
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
 
                     <!-- Modal Structure -->
                     <div id="customerModal"
@@ -140,18 +145,19 @@
                             <input type="hidden" id="id" name="id" value="{{ $contract->id }}">
                             <input type="hidden" id="url_address" name="url_address"
                                 value="{{ $contract->url_address }}">
+                            <input type="hidden" id="user_id_update" name="user_id_update"
+                                value="{{ auth()->user()->id }}">
 
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
+                            <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
                                 {{ __('word.contract_info') }}
                             </h1>
 
-                            <div class="flex ">
-                                <div class=" mx-4 my-4 w-full">
+                            <div class="flex">
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_customer_id" class="w-full mb-1"
                                         :value="__('word.contract_customer_id')" />
                                     <select id="contract_customer_id"
-                                        class="js-example-basic-single w-full block mt-1 "
-                                        name="contract_customer_id">
+                                        class="js-example-basic-single w-full block mt-1" name="contract_customer_id">
                                         @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}"
                                                 {{ (old('contract_customer_id') ?? $contract->contract_customer_id) == $customer->id ? 'selected' : '' }}>
@@ -162,12 +168,11 @@
                                     <x-input-error :messages="$errors->get('contract_customer_id')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_building_id" class="w-full mb-1"
                                         :value="__('word.contract_building_id')" />
                                     <select id="contract_building_id"
-                                        class="js-example-basic-single w-full block mt-1 "
-                                        name="contract_building_id">
+                                        class="js-example-basic-single w-full block mt-1" name="contract_building_id">
                                         @foreach ($buildings as $building)
                                             <option value="{{ $building->id }}"
                                                 data-price="{{ $building->calculatePrice() }}"
@@ -179,14 +184,15 @@
                                     <x-input-error :messages="$errors->get('contract_building_id')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_payment_method_id" class="w-full mb-1"
                                         :value="__('word.contract_payment_method_id')" />
                                     <select id="contract_payment_method_id"
-                                        class="js-example-basic-single w-full block mt-1 "
+                                        class="js-example-basic-single w-full block mt-1"
                                         name="contract_payment_method_id">
                                         @foreach ($payment_methods as $payment_method)
                                             <option value="{{ $payment_method->id }}"
+                                                data-is-variable="{{ $payment_method->method_name === 'دفعات متغيرة' ? 'true' : 'false' }}"
                                                 {{ (old('contract_payment_method_id') ?? $contract->contract_payment_method_id) == $payment_method->id ? 'selected' : '' }}>
                                                 {{ $payment_method->method_name }}
                                             </option>
@@ -197,55 +203,116 @@
                             </div>
 
                             <div class="flex">
-
-                                <div class=" mx-4 my-4 w-full">
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_date" class="w-full mb-1" :value="__('word.contract_date')" />
                                     <x-text-input id="contract_date" class="w-full block mt-1" type="text"
                                         name="contract_date"
-                                        value="{{ old('contract_date') ?? $contract->contract_date }}" />
+                                        value="{{ old('contract_date', $contract->contract_date) }}" />
                                     <x-input-error :messages="$errors->get('contract_date')" class="w-full mt-2" />
                                 </div>
 
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_amount_display" class="w-full mb-1"
                                         :value="__('word.contract_amount')" />
-
-                                    <!-- Displayed input for formatted number -->
                                     <x-text-input id="contract_amount_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format(old('contract_amount') ?? $contract->contract_amount, 0) }}"
+                                        value="{{ number_format((float) old('contract_amount', $contract->contract_amount), 0) }}"
                                         placeholder="0" />
-
-                                    <!-- Hidden input for the actual number -->
                                     <input type="hidden" id="contract_amount" name="contract_amount"
-                                        value="{{ old('contract_amount') ?? $contract->contract_amount }}">
-
+                                        value="{{ old('contract_amount', $contract->contract_amount) }}">
                                     <x-input-error :messages="$errors->get('contract_amount')" class="w-full mt-2" />
                                 </div>
 
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="discount" class="w-full mb-1" :value="__('word.discount')" />
                                     <x-text-input id="discount" class="w-full block mt-1" type="number"
-                                        name="discount" value="{{ old('discount') ?? $contract->discount }}"
+                                        name="discount" value="{{ old('discount', $contract->discount) }}"
                                         step="0.5" min="0" max="100" placeholder="0.00" />
-
                                     <x-input-error :messages="$errors->get('discount')" class="w-full mt-2" />
                                 </div>
                             </div>
-                            <div class="flex">
 
-                                <div class=" mx-4 my-4 w-full">
+                            <!-- Variable Payment Plan Fields -->
+                            <div id="variable-payment-fields"
+                                class="{{ old('contract_payment_method_id', $contract->contract_payment_method_id) && $payment_methods->firstWhere('method_name', 'دفعات متغيرة') && old('contract_payment_method_id', $contract->contract_payment_method_id) == $payment_methods->firstWhere('method_name', 'دفعات متغيرة')->id ? '' : 'hidden' }}">
+                                <h2
+                                    class="font-semibold underline text-l text-gray-900 leading-tight mx-4 my-4 w-full">
+                                    {{ __('word.variable_payment_plan') }}
+                                </h2>
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="down_payment_amount_display" class="w-full mb-1"
+                                            :value="__('word.down_payment_amount')" />
+                                        <x-text-input id="down_payment_amount_display" class="w-full block mt-1"
+                                            type="text"
+                                            value="{{ number_format((float) old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? 0), 0) }}"
+                                            placeholder="0" />
+                                        <input type="hidden" id="down_payment_amount" name="down_payment_amount"
+                                            value="{{ old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? 0) }}">
+                                        <x-input-error :messages="$errors->get('down_payment_amount')" class="w-full mt-2" />
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="monthly_installment_amount_display" class="w-full mb-1"
+                                            :value="__('word.monthly_installment_amount')" />
+                                        <x-text-input id="monthly_installment_amount_display"
+                                            class="w-full block mt-1" type="text"
+                                            value="{{ number_format((float) old('monthly_installment_amount', $variable_payment_details['monthly_installment_amount'] ?? 0), 0) }}"
+                                            placeholder="0" />
+                                        <input type="hidden" id="monthly_installment_amount"
+                                            name="monthly_installment_amount"
+                                            value="{{ old('monthly_installment_amount', $variable_payment_details['monthly_installment_amount'] ?? 0) }}">
+                                        <x-input-error :messages="$errors->get('monthly_installment_amount')" class="w-full mt-2" />
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="number_of_months" class="w-full mb-1"
+                                            :value="__('word.number_of_months')" />
+                                        <x-text-input id="number_of_months" class="w-full block mt-1" type="number"
+                                            name="number_of_months"
+                                            value="{{ old('number_of_months', $variable_payment_details['number_of_months'] ?? 1) }}"
+                                            min="1" placeholder="1" />
+                                        <x-input-error :messages="$errors->get('number_of_months')" class="w-full mt-2" />
+                                    </div>
+                                </div>
+
+                                <div class="flex">
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="key_payment_amount_display" class="w-full mb-1"
+                                            :value="__('word.key_payment_amount')" />
+                                        <x-text-input id="key_payment_amount_display" class="w-full block mt-1"
+                                            type="text"
+                                            value="{{ number_format((float) old('key_payment_amount', $variable_payment_details['key_payment_amount'] ?? 0), 0) }}"
+                                            placeholder="0" />
+                                        <input type="hidden" id="key_payment_amount" name="key_payment_amount"
+                                            value="{{ old('key_payment_amount', $variable_payment_details['key_payment_amount'] ?? 0) }}">
+                                        <x-input-error :messages="$errors->get('key_payment_amount')" class="w-full mt-2" />
+                                    </div>
+
+                                    <div class="mx-4 my-4 w-full">
+                                        <x-input-label for="remaining_amount" class="w-full mb-1"
+                                            :value="__('word.remaining_amount')" />
+                                        <x-text-input id="remaining_amount" class="w-full block mt-1 bg-gray-100"
+                                            type="text" readonly value="0" />
+                                        <div id="remaining-amount-error" class="text-red-600 text-sm mt-2 hidden">
+                                            {{ __('word.remaining_amount_error') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="contract_note" class="w-full mb-1" :value="__('word.contract_note')" />
                                     <x-text-input id="contract_note" class="w-full block mt-1" type="text"
                                         name="contract_note"
-                                        value="{{ old('contract_note') ?? $contract->contract_note }}" />
+                                        value="{{ old('contract_note', $contract->contract_note) }}" />
                                     <x-input-error :messages="$errors->get('contract_note')" class="w-full mt-2" />
                                 </div>
-
                             </div>
 
-                            <div class=" mx-4 my-4 w-full">
-                                <x-primary-button x-primary-button class="ml-4">
+                            <div class="mx-4 my-4 w-full">
+                                <x-primary-button class="ml-4">
                                     {{ __('word.save') }}
                                 </x-primary-button>
                             </div>
@@ -255,6 +322,7 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var modal = document.getElementById('customerModal');
@@ -275,8 +343,7 @@
 
             // Handle form submission
             form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
+                event.preventDefault();
                 var formData = new FormData(form);
 
                 fetch(form.action, {
@@ -291,33 +358,22 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // alert(data.message); // Inform the user
-
-                            // Add the new customer to the select dropdown
                             var newOption = document.createElement('option');
                             newOption.value = data.customer.id;
                             newOption.text = data.customer.customer_full_name;
                             customerSelect.add(newOption);
-
-                            // Optionally set the new customer as selected
                             customerSelect.value = data.customer.id;
-
-                            modal.classList.add('hidden'); // Close the modal
+                            modal.classList.add('hidden');
                         } else {
-                            // Clear previous errors
                             document.querySelectorAll('.input-error').forEach(element => {
                                 element.innerHTML = '';
                             });
-
-                            // Display validation errors
                             for (const [field, errors] of Object.entries(data.errors)) {
                                 const errorElement = document.querySelector(`#${field} ~ .input-error`);
                                 if (errorElement) {
                                     errorElement.innerHTML = errors.join('<br>');
                                 }
                             }
-
-                            // Re-enable the submit button and reset its text
                             submitButton.textContent = '{{ __('word.save') }}';
                             submitButton.disabled = false;
                         }
@@ -333,75 +389,132 @@
                 submitButton.disabled = true;
             });
         });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var displayInput = document.getElementById('contract_amount_display');
-            var hiddenInput = document.getElementById('contract_amount');
-
-            function formatNumber(value) {
-                return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            }
-
-            function unformatNumber(value) {
-                return value.replace(/,/g, '');
-            }
-
-            displayInput.addEventListener('input', function() {
-                var formattedValue = formatNumber(displayInput.value);
-                displayInput.value = formattedValue;
-                hiddenInput.value = unformatNumber(formattedValue);
-            });
-
-            // On form submission, make sure the hidden input is set correctly
-            document.querySelector('form').addEventListener('submit', function() {
-                hiddenInput.value = unformatNumber(displayInput.value);
-            });
-        });
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
             var discountInput = document.getElementById('discount');
-            // Function to calculate contract amount
-            function calculateContractAmount() {
-                var selectedOption = $('#contract_building_id').find('option:selected');
-                var contractAmount = parseFloat(selectedOption.data('price')) || 0;
+            var contractAmountDisplay = document.getElementById('contract_amount_display');
+            var contractAmount = document.getElementById('contract_amount');
+            var paymentMethodSelect = document.getElementById('contract_payment_method_id');
+            var variablePaymentFields = document.getElementById('variable-payment-fields');
+            var downPaymentDisplay = document.getElementById('down_payment_amount_display');
+            var downPayment = document.getElementById('down_payment_amount');
+            var monthlyInstallmentDisplay = document.getElementById('monthly_installment_amount_display');
+            var monthlyInstallment = document.getElementById('monthly_installment_amount');
+            var numberOfMonths = document.getElementById('number_of_months');
+            var keyPaymentDisplay = document.getElementById('key_payment_amount_display');
+            var keyPayment = document.getElementById('key_payment_amount');
+            var remainingAmount = document.getElementById('remaining_amount');
+            var remainingAmountError = document.getElementById('remaining-amount-error');
+            var submitButton = document.querySelector('button[type="submit"]');
 
-                var discount = parseFloat(discountInput.value) || 0;
-                var discountedAmount = contractAmount - (contractAmount * (discount / 100));
-
-                $('#contract_amount').val(discountedAmount);
-                $('#contract_amount_display').val(numberWithCommas(discountedAmount));
+            // Function to format number with commas
+            function formatNumber(value) {
+                return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
 
+            // Function to unformat number (remove commas)
+            function unformatNumber(value) {
+                return value.replace(/,/g, '');
+            }
 
+            // Format input fields
+            function formatInput(displayInput, hiddenInput) {
+                displayInput.addEventListener('input', function() {
+                    var formattedValue = formatNumber(displayInput.value);
+                    displayInput.value = formattedValue;
+                    hiddenInput.value = unformatNumber(formattedValue);
+                    calculateRemainingAmount();
+                });
+            }
 
-            // Event listener for change on building selection
-            $('#contract_building_id').change(function() {
-                calculateContractAmount();
-            });
+            // Initialize formatting for contract amount and variable payment fields
+            formatInput(contractAmountDisplay, contractAmount);
+            formatInput(downPaymentDisplay, downPayment);
+            formatInput(monthlyInstallmentDisplay, monthlyInstallment);
+            formatInput(keyPaymentDisplay, keyPayment);
 
-            // Event listener for input on discount field
-            discountInput.addEventListener('input', function() {
-                calculateContractAmount();
+            // Calculate contract amount after discount
+            function calculateContractAmount() {
+                var selectedOption = $('#contract_building_id').find('option:selected');
+                var contractAmountValue = parseFloat(selectedOption.data('price')) || 0;
+                var discount = parseFloat(discountInput.value) || 0;
+                var discountedAmount = contractAmountValue - (contractAmountValue * (discount / 100));
+                contractAmount.value = discountedAmount;
+                contractAmountDisplay.value = formatNumber(discountedAmount.toString());
+                calculateRemainingAmount();
+            }
+
+            // Calculate remaining amount for variable payment plan
+            function calculateRemainingAmount() {
+                var selectedOption = $('#contract_payment_method_id').find('option:selected');
+                var isVariable = selectedOption.data('is-variable') === true;
+                console.log('Is Variable Payment:', isVariable, 'Selected Value:', paymentMethodSelect
+                .value); // Debug
+                if (isVariable) {
+                    var contractAmountValue = parseFloat(unformatNumber(contractAmountDisplay.value)) || 0;
+                    var discount = parseFloat(discountInput.value) || 0;
+                    var discountedAmount = contractAmountValue - (contractAmountValue * (discount / 100));
+                    var downPaymentValue = parseFloat(unformatNumber(downPaymentDisplay.value)) || 0;
+                    var monthlyInstallmentValue = parseFloat(unformatNumber(monthlyInstallmentDisplay.value)) || 0;
+                    var months = parseInt(numberOfMonths.value) || 0;
+                    var keyPaymentValue = parseFloat(unformatNumber(keyPaymentDisplay.value)) || 0;
+                    var total = downPaymentValue + (monthlyInstallmentValue * months) + keyPaymentValue;
+                    var remaining = discountedAmount - total;
+                    remainingAmount.value = formatNumber(remaining.toFixed(0));
+                    console.log('Remaining Amount:', remaining); // Debug
+                    if (Math.abs(remaining) > 0.01) {
+                        remainingAmount.classList.add('border-red-500');
+                        remainingAmountError.classList.remove('hidden');
+                        submitButton.disabled = true;
+                    } else {
+                        remainingAmount.classList.remove('border-red-500');
+                        remainingAmountError.classList.add('hidden');
+                        submitButton.disabled = false;
+                    }
+                }
+            }
+
+            // Show/hide variable payment fields
+            function toggleVariableFields() {
+                var selectedOption = $('#contract_payment_method_id').find('option:selected');
+                var isVariable = selectedOption.data('is-variable') === true;
+                console.log('Toggling Fields - Is Variable:', isVariable, 'Selected Value:', paymentMethodSelect
+                    .value); // Debug
+                if (isVariable) {
+                    variablePaymentFields.classList.remove('hidden');
+                    calculateRemainingAmount();
+                } else {
+                    variablePaymentFields.classList.add('hidden');
+                    submitButton.disabled = false;
+                }
+            }
+
+            // Initialize Select2 and bind events
+            $('#contract_payment_method_id').on('select2:select', toggleVariableFields);
+            $('#contract_building_id').on('select2:select', calculateContractAmount);
+
+            // Trigger calculations on input changes
+            discountInput.addEventListener('input', calculateContractAmount);
+            downPaymentDisplay.addEventListener('input', calculateRemainingAmount);
+            monthlyInstallmentDisplay.addEventListener('input', calculateRemainingAmount);
+            numberOfMonths.addEventListener('input', calculateRemainingAmount);
+            keyPaymentDisplay.addEventListener('input', calculateRemainingAmount);
+
+            // Initialize on page load
+            toggleVariableFields();
+            calculateContractAmount();
+
+            // Prevent double submission
+            $('form').on('submit', function() {
+                submitButton.textContent = 'جاري الحفظ';
+                submitButton.disabled = true;
             });
 
             // Function to format number with commas
             function numberWithCommas(x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
-
-        });
-        // Prevent double submission
-        $('form').on('submit', function() {
-            // Find the submit button
-            var $submitButton = $(this).find('button[type="submit"]');
-
-            // Change the button text to 'Submitting...'
-            $submitButton.text('جاري الحفظ');
-
-            // Disable the submit button
-            $submitButton.prop('disabled', true);
         });
     </script>
 </x-app-layout>

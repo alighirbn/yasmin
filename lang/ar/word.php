@@ -158,6 +158,13 @@ return [
     'contract_scan' => 'اضافة مستند',
     'archiveshow' => 'المرفقات',
     'contract_temporary' => 'ارجاع حالة العقد',
+    'variable_payment_plan' => 'خطة الدفع المتغيرة',
+    'down_payment_amount' => 'مبلغ الدفعة المقدمة',
+    'monthly_installment_amount' => 'مبلغ القسط الشهري',
+    'number_of_months' => 'عدد الأشهر',
+    'key_payment_amount' => 'مبلغ دفعة المفتاح',
+    'remaining_amount' => 'المبلغ المتبقي',
+    'remaining_amount_error' => 'مجموع الدفعة المقدمة، الأقساط الشهرية، ودفعة المفتاح يجب أن يساوي مبلغ العقد بعد الخصم.',
 
     //************************************* transfer        *******************************************
 

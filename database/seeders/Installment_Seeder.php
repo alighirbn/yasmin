@@ -97,7 +97,7 @@ class Installment_Seeder extends Seeder
       [
         'url_address' => $this->get_random_string(60),
         'installment_number' => '10',
-        'installment_name' => 'العاشرة ',
+        'installment_name' => 'العاشرة',
         'installment_percent' => 0.1,
         'installment_period' => '27',
         'payment_method_id' => 2,
@@ -105,7 +105,7 @@ class Installment_Seeder extends Seeder
       [
         'url_address' => $this->get_random_string(60),
         'installment_number' => '11',
-        'installment_name' => 'الحادي عشر ',
+        'installment_name' => 'الحادي عشر',
         'installment_percent' => 0.05,
         'installment_period' => '30',
         'payment_method_id' => 2,
@@ -113,19 +113,42 @@ class Installment_Seeder extends Seeder
       [
         'url_address' => $this->get_random_string(60),
         'installment_number' => '12',
-        'installment_name' => 'الثاني عشر والاخيرة ',
+        'installment_name' => 'الثاني عشر والاخيرة',
         'installment_percent' => 0.05,
         'installment_period' => '33',
         'payment_method_id' => 2,
       ],
-
-
-
+      // NEW: Template for Variable Payment Plan
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة مقدمة',
+        'installment_percent' => 0, // Dynamic amount set in contract_installments
+        'installment_period' => '0',
+        'payment_method_id' => 3,
+      ],
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة شهرية',
+        'installment_percent' => 0, // Dynamic amount set in contract_installments
+        'installment_period' => '0',
+        'payment_method_id' => 3,
+      ],
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة المفتاح',
+        'installment_percent' => 0, // Dynamic amount set in contract_installments
+        'installment_period' => '0',
+        'payment_method_id' => 3,
+      ],
     ];
     foreach ($installments as $installment) {
       Installment::create($installment);
     }
   }
+
   public function get_random_string($length)
   {
     $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
