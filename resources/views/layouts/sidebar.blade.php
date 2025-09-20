@@ -110,14 +110,14 @@
         </div>
     @endcan
 
-    @role('admin')
+    @hasallroles('admin|ahmed')
         <div class="item">
             <a class="sub-btn"> {{ __('word.hr') }} <i class="bx bx-chevrons-down dropdown"></i> </a>
             <div class="flex flex-col sub-menu" style="display: none;">
                 @include('hr.nav.navigation')
             </div>
         </div>
-    @endrole
+    @endhasallroles
 
     @can('report-list')
         <div class="item"><a class="sub-btn"> {{ __('word.report') }} <i class="bx bx-chevrons-down dropdown"></i> </a>

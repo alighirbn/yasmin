@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('url_address', '60')->unique();
 
             $table->decimal('contract_amount', 15, 0);
-            $table->decimal('discount', 3, 2)->nullable();
+            $table->decimal('discount', 4, 2)->nullable();
             $table->date('contract_date');
             $table->string('contract_note', '200')->nullable();
             $table->enum('stage', ['temporary', 'accepted', 'authenticated', 'terminated'])->default('temporary');

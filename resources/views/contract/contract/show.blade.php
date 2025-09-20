@@ -334,9 +334,11 @@
                                     @endphp
                                     @foreach ($contract_installments as $installment)
                                         <tr>
-                                            <td>{{ $installment->installment->installment_number }}</td>
+                                            <td>{{ $installment->sequence_number ?? $installment->installment->installment_number }}
+                                            </td>
                                             <td>{{ $installment->installment->installment_name }}</td>
-                                            <td>{{ $installment->installment->installment_percent * 100 }} %</td>
+                                            <td>{{ number_format(($installment->installment_amount / $contract->contract_amount) * 100, 2) }}
+                                                %</td>
                                             <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
                                             <td>{{ $installment->installment_date }}</td>
                                             <td>

@@ -171,7 +171,7 @@
                                     @foreach ($buildings as $building)
                                         <option value="{{ $building->id }}"
                                             data-price="{{ $building->calculatePrice() }}"
-                                            {{ old('contract_building_id') == $building->id ? 'selected' : '' }}>
+                                            {{ $building->id == $building_id ? 'selected' : '' }}>
                                             {{ $building->building_number }}
                                         </option>
                                     @endforeach
@@ -439,7 +439,7 @@
                 var selectedOption = $('#contract_payment_method_id').find('option:selected');
                 var isVariable = selectedOption.data('is-variable') === true;
                 console.log('Is Variable Payment:', isVariable, 'Selected Value:', paymentMethodSelect
-                .value); // Debug
+                    .value); // Debug
                 if (isVariable) {
                     var contractAmountValue = parseFloat(unformatNumber(contractAmountDisplay.value)) || 0;
                     var discount = parseFloat(discountInput.value) || 0;

@@ -32,18 +32,14 @@ class Contract_Installment extends Model
         return $this->belongsTo(Installment::class, 'installment_id', 'id');
     }
 
-
-
     protected $fillable = [
         'url_address',
         'installment_amount',
         'installment_date',
-
         'contract_id',
         'installment_id',
-
-
         'user_id_create',
         'user_id_update',
+        'sequence_number', // 🔹 Added here
     ];
 }

@@ -48,14 +48,23 @@ class ContractDataTable extends DataTable
      */
     public function query(Contract $model): QueryBuilder
     {
-        $query = $model->newQuery()->with(['building', 'customer', 'payment_method', 'payments.contract_installment.installment']);
+        $query = $model->newQuery()
+            ->with([
+                'building',
+                'customer',
+                'payment_method',
+                'payments.contract_installment.installment'
+            ]);
 
-        // Apply contract ID filter if present (exact match)
+        // Filter by contract ID (exact match)
         if ($contractId = request('contract_id')) {
-            $query->where('id', '=', $contractId);  // Use '=' for exact matching
+            $query->where('id', $contractId);
         }
 
-
+        // ✅ Filter by stage if provided
+        if ($stage = request('stage')) {
+            $query->where('stage', $stage);
+        }
 
         return $query;
     }

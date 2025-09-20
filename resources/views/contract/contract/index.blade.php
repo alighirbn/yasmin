@@ -9,46 +9,76 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
+                    {{-- Success & Error Messages --}}
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
+                        <div class="alert alert-success">{{ $message }}</div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
+                        <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    <!-- Filter inputs -->
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <input type="text" id="contract-id-filter" class="form-control"
-                                placeholder="{{ __('word.contract_id') }}">
+                    <!-- Filter Section -->
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center">
+                                <!-- Contract ID Filter -->
+                                <div class="col-md-4">
+                                    <label for="contract-id-filter" class="form-label fw-bold">
+                                        {{ __('word.contract_id') }}
+                                    </label>
+                                    <input type="text" id="contract-id-filter" class="form-control"
+                                        placeholder="{{ __('word.contract_id') }}">
+                                </div>
+
+                                <!-- Stage Filter -->
+                                <div class="col-md-4">
+                                    <label for="stage-filter" class="form-label fw-bold">
+                                        {{ __('word.stage') }}
+                                    </label>
+                                    <select id="stage-filter" class="form-control">
+                                        <option value="">{{ __('word.all_stages') }}</option>
+                                        <option value="temporary">{{ __('word.temporary') }}</option>
+                                        <option value="accepted">{{ __('word.accepted') }}</option>
+                                        <option value="authenticated">{{ __('word.authenticated') }}</option>
+                                        <option value="terminated">{{ __('word.terminated') }}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                       
                     </div>
 
                     <!-- DataTable -->
-                    {!! $dataTable->table(['class' => 'table table-bordered table-striped'], true) !!}
+                    <div class="table-responsive">
+                        {!! $dataTable->table(['class' => 'table table-bordered table-hover align-middle w-100'], true) !!}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     {!! $dataTable->scripts() !!}
 
     <script>
         $(document).ready(function() {
             var table = $('#contract-table').DataTable();
-            // Apply filter on contract ID column (exact match)
+
+            // Contract ID filter (exact match)
             $('#contract-id-filter').on('keyup', function() {
                 if (this.value === '') {
-                    // If the input is empty, reset the filter and show all rows
-                    table.column(1).search('').draw(); // Show all contract IDs
+                    table.column(1).search('').draw();
                 } else {
-                    // If there's a value, filter by exact match
                     table.column(1).search('^' + this.value + '$', true, false).draw();
                 }
+            });
+
+            // Stage filter (reloads with stage parameter)
+            $('#stage-filter').on('change', function() {
+                var stage = this.value;
+                var url = "{{ route('contract.index') }}";
+                if (stage) {
+                    url += "?stage=" + stage;
+                }
+                table.ajax.url(url).load();
             });
         });
 

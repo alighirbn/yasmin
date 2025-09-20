@@ -302,59 +302,67 @@ class ContractController extends Controller
             $key_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
+            // 🔹 Sequence counter
+            $sequence = 1;
+
             // Create down payment installment
             Contract_Installment::create([
-                'url_address' => $this->random_string(60),
+                'url_address'        => $this->random_string(60),
                 'installment_amount' => $down_payment_amount,
-                'installment_date' => $contract_date,
-                'contract_id' => $contract->id,
-                'installment_id' => $down_payment_installment->id,
-                'user_id_create' => $request->user_id_create,
+                'installment_date'   => $contract_date,
+                'contract_id'        => $contract->id,
+                'installment_id'     => $down_payment_installment->id,
+                'user_id_create'     => $request->user_id_create,
+                'sequence_number'    => $sequence++, // 1
             ]);
 
             // Create monthly installments
             for ($i = 1; $i <= $number_of_months; $i++) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $monthly_installment_amount,
-                    'installment_date' => $contract_date->copy()->addMonths($i),
-                    'contract_id' => $contract->id,
-                    'installment_id' => $monthly_installment->id,
-                    'user_id_create' => $request->user_id_create,
+                    'installment_date'   => $contract_date->copy()->addMonths($i),
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $monthly_installment->id,
+                    'user_id_create'     => $request->user_id_create,
+                    'sequence_number'    => $sequence++, // 2,3,4...
                 ]);
             }
 
             // Create key payment installment
             Contract_Installment::create([
-                'url_address' => $this->random_string(60),
+                'url_address'        => $this->random_string(60),
                 'installment_amount' => $key_payment_amount,
-                'installment_date' => $contract_date->copy()->addMonths($number_of_months),
-                'contract_id' => $contract->id,
-                'installment_id' => $key_payment_installment->id,
-                'user_id_create' => $request->user_id_create,
+                'installment_date'   => $contract_date->copy()->addMonths($number_of_months),
+                'contract_id'        => $contract->id,
+                'installment_id'     => $key_payment_installment->id,
+                'user_id_create'     => $request->user_id_create,
+                'sequence_number'    => $sequence++, // last number
             ]);
         } elseif ($payment_method_id == 2) {
             $installments = Installment::where('payment_method_id', 2)->get();
             foreach ($installments as $installment) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $installment->installment_percent * $request->contract_amount,
-                    'installment_date' => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
-                    'contract_id' => $contract->id,
-                    'installment_id' => $installment->id,
-                    'user_id_create' => $request->user_id_create,
+                    'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $installment->id,
+                    'user_id_create'     => $request->user_id_create,
+                    'sequence_number'    => $installment->installment_number, // use template number
                 ]);
             }
         } else {
             $installments = Installment::where('payment_method_id', 1)->get();
             foreach ($installments as $installment) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $request->contract_amount,
-                    'installment_date' => $request->contract_date,
-                    'contract_id' => $contract->id,
-                    'installment_id' => $installment->id,
-                    'user_id_create' => $request->user_id_create,
+                    'installment_date'   => $request->contract_date,
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $installment->id,
+                    'user_id_create'     => $request->user_id_create,
+                    'sequence_number'    => $installment->installment_number, // نقدي = 1
                 ]);
             }
         }
@@ -790,59 +798,72 @@ class ContractController extends Controller
             $key_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
+            $sequence = 1;
             Contract_Installment::create([
-                'url_address' => $this->random_string(60),
+                'url_address'        => $this->random_string(60),
                 'installment_amount' => $down_payment_amount,
-                'installment_date' => $contract_date,
-                'contract_id' => $contract->id,
-                'installment_id' => $down_payment_installment->id,
-                'user_id_create' => $request->user_id_update,
+                'installment_date'   => $contract_date,
+                'contract_id'        => $contract->id,
+                'installment_id'     => $down_payment_installment->id,
+                'user_id_create'     => $request->user_id_update,
+                'sequence_number'    => $sequence++, // 1
             ]);
 
             for ($i = 1; $i <= $number_of_months; $i++) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $monthly_installment_amount,
-                    'installment_date' => $contract_date->copy()->addMonths($i),
-                    'contract_id' => $contract->id,
-                    'installment_id' => $monthly_installment->id,
-                    'user_id_create' => $request->user_id_update,
+                    'installment_date'   => $contract_date->copy()->addMonths($i),
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $monthly_installment->id,
+                    'user_id_create'     => $request->user_id_update,
+                    'sequence_number'    => $sequence++, // 2..N
                 ]);
             }
 
             Contract_Installment::create([
-                'url_address' => $this->random_string(60),
+                'url_address'        => $this->random_string(60),
                 'installment_amount' => $key_payment_amount,
-                'installment_date' => $contract_date->copy()->addMonths($number_of_months),
-                'contract_id' => $contract->id,
-                'installment_id' => $key_payment_installment->id,
-                'user_id_create' => $request->user_id_update,
+                'installment_date'   => $contract_date->copy()->addMonths($number_of_months),
+                'contract_id'        => $contract->id,
+                'installment_id'     => $key_payment_installment->id,
+                'user_id_create'     => $request->user_id_update,
+                'sequence_number'    => $sequence++, // last number
             ]);
         } elseif ($payment_method_id == 2 && $contract->contract_installments->count() == 12) {
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
                     'installment_amount' => $contract_installment->installment->installment_percent * $request->contract_amount,
-                    'installment_date' => Carbon::parse($contract->contract_date)->addMonth($contract_installment->installment->installment_period),
+                    'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($contract_installment->installment->installment_period),
+                    'sequence_number'    => $contract_installment->installment->installment_number,
                 ]);
             }
-        } elseif ($payment_method_id == 1 && $contract->contract_installments->count() == 1) {
+        }
+
+        // ✅ Handle one-time payment (method 1)
+        elseif ($payment_method_id == 1 && $contract->contract_installments->count() == 1) {
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
                     'installment_amount' => $request->contract_amount,
-                    'installment_date' => $request->contract_date,
+                    'installment_date'   => $request->contract_date,
+                    'sequence_number'    => $contract_installment->installment->installment_number,
                 ]);
             }
-        } elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 12) {
+        }
+
+        // ✅ Reset & re-generate installments if counts don’t match
+        elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 12) {
             $contract->contract_installments()->delete();
             $installments = Installment::where('payment_method_id', 2)->get();
             foreach ($installments as $installment) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $installment->installment_percent * $request->contract_amount,
-                    'installment_date' => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
-                    'contract_id' => $contract->id,
-                    'installment_id' => $installment->id,
-                    'user_id_create' => $request->user_id_update,
+                    'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $installment->id,
+                    'user_id_create'     => $request->user_id_update,
+                    'sequence_number'    => $installment->installment_number,
                 ]);
             }
         } elseif ($payment_method_id == 1 && $contract->contract_installments->count() != 1) {
@@ -850,12 +871,13 @@ class ContractController extends Controller
             $installments = Installment::where('payment_method_id', 1)->get();
             foreach ($installments as $installment) {
                 Contract_Installment::create([
-                    'url_address' => $this->random_string(60),
+                    'url_address'        => $this->random_string(60),
                     'installment_amount' => $request->contract_amount,
-                    'installment_date' => $request->contract_date,
-                    'contract_id' => $contract->id,
-                    'installment_id' => $installment->id,
-                    'user_id_create' => $request->user_id_create,
+                    'installment_date'   => $request->contract_date,
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $installment->id,
+                    'user_id_create'     => $request->user_id_create,
+                    'sequence_number'    => $installment->installment_number,
                 ]);
             }
         }
