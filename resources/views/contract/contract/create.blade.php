@@ -317,7 +317,7 @@
             var modal = document.getElementById('customerModal');
             var closeModal = document.getElementById('closeModal');
             var form = document.getElementById('customerForm');
-            var submitButton = document.getElementById('submitButton');
+            var submitButtonModal = document.getElementById('submitButton'); // modal's submit
             var customerSelect = document.getElementById('contract_customer_id');
 
             // Open the modal
@@ -330,7 +330,7 @@
                 modal.classList.add('hidden');
             });
 
-            // Handle form submission
+            // Handle form submission (AJAX create customer)
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 var formData = new FormData(form);
@@ -352,6 +352,7 @@
                             newOption.text = data.customer.customer_full_name;
                             customerSelect.add(newOption);
                             customerSelect.value = data.customer.id;
+                            $('#contract_customer_id').trigger('change'); // keep select2 in sync
                             modal.classList.add('hidden');
                         } else {
                             document.querySelectorAll('.input-error').forEach(element => {
@@ -363,8 +364,8 @@
                                     errorElement.innerHTML = errors.join('<br>');
                                 }
                             }
-                            submitButton.textContent = '{{ __('word.save') }}';
-                            submitButton.disabled = false;
+                            submitButtonModal.textContent = '{{ __('word.save') }}';
+                            submitButtonModal.disabled = false;
                         }
                     })
                     .catch(error => {
@@ -372,138 +373,157 @@
                     });
             });
 
-            // Prevent double submission
+            // Prevent double submission (modal)
             form.addEventListener('submit', function() {
-                submitButton.textContent = 'جاري الحفظ';
-                submitButton.disabled = true;
+                submitButtonModal.textContent = 'جاري الحفظ';
+                submitButtonModal.disabled = true;
             });
         });
 
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
+
+            // Grab elements
             var discountInput = document.getElementById('discount');
             var contractAmountDisplay = document.getElementById('contract_amount_display');
-            var contractAmount = document.getElementById('contract_amount');
+            var contractAmount = document.getElementById(
+            'contract_amount'); // HIDDEN (authoritative discounted total)
             var paymentMethodSelect = document.getElementById('contract_payment_method_id');
             var variablePaymentFields = document.getElementById('variable-payment-fields');
+
             var downPaymentDisplay = document.getElementById('down_payment_amount_display');
             var downPayment = document.getElementById('down_payment_amount');
+
             var monthlyInstallmentDisplay = document.getElementById('monthly_installment_amount_display');
             var monthlyInstallment = document.getElementById('monthly_installment_amount');
+
             var numberOfMonths = document.getElementById('number_of_months');
+
             var keyPaymentDisplay = document.getElementById('key_payment_amount_display');
             var keyPayment = document.getElementById('key_payment_amount');
+
             var remainingAmount = document.getElementById('remaining_amount');
             var remainingAmountError = document.getElementById('remaining-amount-error');
-            var submitButton = document.querySelector('button[type="submit"]');
 
-            // Function to format number with commas
+            // The main form submit button (not the modal one)
+            var submitButton = document.querySelector(
+                    'form[action="{{ route('contract.store') }}"] button[type="submit"]') ||
+                document.querySelector('button[type="submit"]');
+
+            // Helpers
             function formatNumber(value) {
                 return value.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
             }
 
-            // Function to unformat number (remove commas)
             function unformatNumber(value) {
-                return value.replace(/,/g, '');
+                return (value || '').toString().replace(/,/g, '');
             }
 
-            // Format input fields
             function formatInput(displayInput, hiddenInput) {
                 displayInput.addEventListener('input', function() {
                     var formattedValue = formatNumber(displayInput.value);
                     displayInput.value = formattedValue;
                     hiddenInput.value = unformatNumber(formattedValue);
-                    calculateRemainingAmount();
+                    calculateRemainingAmount(); // recalc if variable
                 });
             }
 
-            // Initialize formatting for contract amount and variable payment fields
+            // Initialize formatting for price inputs
             formatInput(contractAmountDisplay, contractAmount);
             formatInput(downPaymentDisplay, downPayment);
             formatInput(monthlyInstallmentDisplay, monthlyInstallment);
             formatInput(keyPaymentDisplay, keyPayment);
 
-            // Calculate contract amount after discount
+            // Is the variable plan selected? (robust with Select2)
+            function isVariableSelected() {
+                var selectedOption = $('#contract_payment_method_id').find('option:selected');
+                var fromAttr = selectedOption.attr('data-is-variable');
+                var fromData = selectedOption.data('is-variable');
+                return (fromAttr === 'true') || (fromData === true) || (fromData === 'true') || (fromAttr ===
+                    '1') || (fromData === 1);
+            }
+
+            // Calculate discounted contract amount based on selected building + discount
             function calculateContractAmount() {
                 var selectedOption = $('#contract_building_id').find('option:selected');
-                var contractAmountValue = parseFloat(selectedOption.data('price')) || 0;
+                var basePrice = parseFloat(selectedOption.data('price')) || 0;
                 var discount = parseFloat(discountInput.value) || 0;
-                var discountedAmount = contractAmountValue - (contractAmountValue * (discount / 100));
+
+                var discountedAmount = basePrice - (basePrice * (discount / 100));
+
+                // Write authoritative (already discounted) value to hidden field!
                 contractAmount.value = discountedAmount;
+
+                // Show formatted in the display textbox
                 contractAmountDisplay.value = formatNumber(discountedAmount.toString());
+
+                // If variable plan is selected, update remaining
                 calculateRemainingAmount();
             }
 
-            // Calculate remaining amount for variable payment plan
+            // Calculate remaining amount for variable payment plan (NO DOUBLE DISCOUNT)
             function calculateRemainingAmount() {
-                var selectedOption = $('#contract_payment_method_id').find('option:selected');
-                var isVariable = selectedOption.data('is-variable') === true;
-                console.log('Is Variable Payment:', isVariable, 'Selected Value:', paymentMethodSelect
-                    .value); // Debug
-                if (isVariable) {
-                    var contractAmountValue = parseFloat(unformatNumber(contractAmountDisplay.value)) || 0;
-                    var discount = parseFloat(discountInput.value) || 0;
-                    var discountedAmount = contractAmountValue - (contractAmountValue * (discount / 100));
-                    var downPaymentValue = parseFloat(unformatNumber(downPaymentDisplay.value)) || 0;
-                    var monthlyInstallmentValue = parseFloat(unformatNumber(monthlyInstallmentDisplay.value)) || 0;
-                    var months = parseInt(numberOfMonths.value) || 0;
-                    var keyPaymentValue = parseFloat(unformatNumber(keyPaymentDisplay.value)) || 0;
-                    var total = downPaymentValue + (monthlyInstallmentValue * months) + keyPaymentValue;
-                    var remaining = discountedAmount - total;
-                    remainingAmount.value = formatNumber(remaining.toFixed(0));
-                    console.log('Remaining Amount:', remaining); // Debug
-                    if (Math.abs(remaining) > 0.01) {
-                        remainingAmount.classList.add('border-red-500');
-                        remainingAmountError.classList.remove('hidden');
-                        submitButton.disabled = true;
-                    } else {
-                        remainingAmount.classList.remove('border-red-500');
-                        remainingAmountError.classList.add('hidden');
-                        submitButton.disabled = false;
-                    }
-                }
-            }
+                if (!isVariableSelected()) return;
 
-            // Show/hide variable payment fields
-            function toggleVariableFields() {
-                var selectedOption = $('#contract_payment_method_id').find('option:selected');
-                var isVariable = selectedOption.data('is-variable') === true;
-                console.log('Toggling Fields - Is Variable:', isVariable, 'Selected Value:', paymentMethodSelect
-                    .value); // Debug
-                if (isVariable) {
-                    variablePaymentFields.classList.remove('hidden');
-                    calculateRemainingAmount();
+                // IMPORTANT: Use the already-discounted hidden amount
+                var discountedAmount = parseFloat(contractAmount.value) || 0;
+
+                var downPaymentValue = parseFloat(unformatNumber(downPaymentDisplay.value)) || 0;
+                var monthlyInstallmentValue = parseFloat(unformatNumber(monthlyInstallmentDisplay.value)) || 0;
+                var months = parseInt(numberOfMonths.value) || 0;
+                var keyPaymentValue = parseFloat(unformatNumber(keyPaymentDisplay.value)) || 0;
+
+                var total = downPaymentValue + (monthlyInstallmentValue * months) + keyPaymentValue;
+                var remaining = discountedAmount - total;
+
+                remainingAmount.value = formatNumber(remaining.toFixed(0));
+
+                if (Math.abs(remaining) > 0.01) {
+                    remainingAmount.classList.add('border-red-500');
+                    remainingAmountError.classList.remove('hidden');
+                    submitButton.disabled = true;
                 } else {
-                    variablePaymentFields.classList.add('hidden');
+                    remainingAmount.classList.remove('border-red-500');
+                    remainingAmountError.classList.add('hidden');
                     submitButton.disabled = false;
                 }
             }
 
-            // Initialize Select2 and bind events
-            $('#contract_payment_method_id').on('select2:select', toggleVariableFields);
-            $('#contract_building_id').on('select2:select', calculateContractAmount);
+            function toggleVariableFields() {
+                if (isVariableSelected()) {
+                    variablePaymentFields.classList.remove('hidden');
+                    calculateRemainingAmount();
+                } else {
+                    variablePaymentFields.classList.add('hidden');
+                    remainingAmount.classList.remove('border-red-500');
+                    remainingAmountError.classList.add('hidden');
+                    submitButton.disabled = false;
+                }
+            }
 
-            // Trigger calculations on input changes
+            // Bind events (support both native change and select2)
+            $('#contract_payment_method_id').on('change select2:select', toggleVariableFields);
+            $('#contract_building_id').on('change select2:select', calculateContractAmount);
+
+            // Recalculate when inputs change
             discountInput.addEventListener('input', calculateContractAmount);
             downPaymentDisplay.addEventListener('input', calculateRemainingAmount);
             monthlyInstallmentDisplay.addEventListener('input', calculateRemainingAmount);
             numberOfMonths.addEventListener('input', calculateRemainingAmount);
             keyPaymentDisplay.addEventListener('input', calculateRemainingAmount);
 
-            // Initialize on page load
+            // Initial
             toggleVariableFields();
             calculateContractAmount();
 
-            // Prevent double submission
-            $('form').on('submit', function() {
-                submitButton.textContent = 'جاري الحفظ';
-                submitButton.disabled = true;
+            // Prevent double submission (main form)
+            $('form[action="{{ route('contract.store') }}"]').on('submit', function() {
+                if (submitButton) {
+                    submitButton.textContent = 'جاري الحفظ';
+                    submitButton.disabled = true;
+                }
             });
-
-            // Function to format number with commas
-            function numberWithCommas(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
         });
     </script>
+
 </x-app-layout>

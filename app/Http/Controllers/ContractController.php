@@ -277,16 +277,21 @@ class ContractController extends Controller
     public function store(ContractRequest $request)
     {
         $building_id = $request->input('contract_building_id');
+
+        // Business rule: Check if the building already has a non-terminated contract
         if ($building_id) {
             $building = Building::find($building_id);
             if ($building && $building->contract()->whereNotIn('stage', ['terminated'])->exists()) {
-                return redirect()->route('map.empty')->with('error', 'تم حجز العقار مسبقا بواسطة عقد فعال.');
+                return redirect()->route('map.empty')
+                    ->with('error', 'تم حجز العقار مسبقا بواسطة عقد فعال.');
             }
         }
 
+        // Create contract with validated data
         $contract = Contract::create($request->validated());
         $payment_method_id = $request->input('contract_payment_method_id');
 
+        // Handle variable payment plan (payment method 3)
         if ($payment_method_id == 3) {
             $down_payment_amount = $request->input('down_payment_amount');
             $monthly_installment_amount = $request->input('monthly_installment_amount');
@@ -294,7 +299,6 @@ class ContractController extends Controller
             $key_payment_amount = $request->input('key_payment_amount');
             $contract_date = Carbon::parse($request->contract_date);
 
-            // Find installment templates for variable payment plan
             $down_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة مقدمة')->first();
             $monthly_installment = Installment::where('payment_method_id', 3)
@@ -302,10 +306,9 @@ class ContractController extends Controller
             $key_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
-            // 🔹 Sequence counter
             $sequence = 1;
 
-            // Create down payment installment
+            // Down payment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
                 'installment_amount' => $down_payment_amount,
@@ -313,10 +316,10 @@ class ContractController extends Controller
                 'contract_id'        => $contract->id,
                 'installment_id'     => $down_payment_installment->id,
                 'user_id_create'     => $request->user_id_create,
-                'sequence_number'    => $sequence++, // 1
+                'sequence_number'    => $sequence++,
             ]);
 
-            // Create monthly installments
+            // Monthly installments
             for ($i = 1; $i <= $number_of_months; $i++) {
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
@@ -325,19 +328,19 @@ class ContractController extends Controller
                     'contract_id'        => $contract->id,
                     'installment_id'     => $monthly_installment->id,
                     'user_id_create'     => $request->user_id_create,
-                    'sequence_number'    => $sequence++, // 2,3,4...
+                    'sequence_number'    => $sequence++,
                 ]);
             }
 
-            // Create key payment installment
+            // Key payment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
                 'installment_amount' => $key_payment_amount,
-                'installment_date'   => $contract_date->copy()->addMonths($number_of_months),
+                'installment_date'   => $contract_date->copy()->addMonths($number_of_months + 1),
                 'contract_id'        => $contract->id,
                 'installment_id'     => $key_payment_installment->id,
                 'user_id_create'     => $request->user_id_create,
-                'sequence_number'    => $sequence++, // last number
+                'sequence_number'    => $sequence++,
             ]);
         } elseif ($payment_method_id == 2) {
             $installments = Installment::where('payment_method_id', 2)->get();
@@ -349,7 +352,7 @@ class ContractController extends Controller
                     'contract_id'        => $contract->id,
                     'installment_id'     => $installment->id,
                     'user_id_create'     => $request->user_id_create,
-                    'sequence_number'    => $installment->installment_number, // use template number
+                    'sequence_number'    => $installment->installment_number,
                 ]);
             }
         } else {
@@ -362,18 +365,13 @@ class ContractController extends Controller
                     'contract_id'        => $contract->id,
                     'installment_id'     => $installment->id,
                     'user_id_create'     => $request->user_id_create,
-                    'sequence_number'    => $installment->installment_number, // نقدي = 1
+                    'sequence_number'    => $installment->installment_number,
                 ]);
             }
         }
 
-        $admins = User::role('admin')->get();
-        foreach ($admins as $admin) {
-            $admin->notify(new ContractNotify($contract));
-        }
-
         return redirect()->route('contract.temp', $contract->url_address)
-            ->with('success', 'تمت أضافة العقد بنجاح ');
+            ->with('success', 'تم إنشاء العقد بنجاح.');
     }
 
     public function accept(string $url_address)
@@ -774,6 +772,7 @@ class ContractController extends Controller
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
 
+        // Business rule: cannot update if contract has payments and is not temporary
         if ($contract->payments->count() > 0 && $contract->stage != 'temporary') {
             return redirect()->route('contract.index')
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
@@ -782,9 +781,10 @@ class ContractController extends Controller
         $contract->update($request->validated());
         $payment_method_id = $request->input('contract_payment_method_id');
 
-        // NEW: Handle updates for variable payment plan
+        // Handle variable payment plan (payment method 3)
         if ($payment_method_id == 3) {
             $contract->contract_installments()->delete();
+
             $down_payment_amount = $request->input('down_payment_amount');
             $monthly_installment_amount = $request->input('monthly_installment_amount');
             $number_of_months = $request->input('number_of_months');
@@ -799,16 +799,19 @@ class ContractController extends Controller
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
             $sequence = 1;
+
+            // Down payment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
                 'installment_amount' => $down_payment_amount,
                 'installment_date'   => $contract_date,
                 'contract_id'        => $contract->id,
                 'installment_id'     => $down_payment_installment->id,
-                'user_id_create'     => $request->user_id_update,
-                'sequence_number'    => $sequence++, // 1
+                'user_id_update'     => $request->user_id_update,
+                'sequence_number'    => $sequence++,
             ]);
 
+            // Monthly installments
             for ($i = 1; $i <= $number_of_months; $i++) {
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
@@ -816,19 +819,20 @@ class ContractController extends Controller
                     'installment_date'   => $contract_date->copy()->addMonths($i),
                     'contract_id'        => $contract->id,
                     'installment_id'     => $monthly_installment->id,
-                    'user_id_create'     => $request->user_id_update,
-                    'sequence_number'    => $sequence++, // 2..N
+                    'user_id_update'     => $request->user_id_update,
+                    'sequence_number'    => $sequence++,
                 ]);
             }
 
+            // Key payment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
                 'installment_amount' => $key_payment_amount,
-                'installment_date'   => $contract_date->copy()->addMonths($number_of_months),
+                'installment_date'   => $contract_date->copy()->addMonths($number_of_months + 1),
                 'contract_id'        => $contract->id,
                 'installment_id'     => $key_payment_installment->id,
-                'user_id_create'     => $request->user_id_update,
-                'sequence_number'    => $sequence++, // last number
+                'user_id_update'     => $request->user_id_update,
+                'sequence_number'    => $sequence++,
             ]);
         } elseif ($payment_method_id == 2 && $contract->contract_installments->count() == 12) {
             foreach ($contract->contract_installments as $contract_installment) {
@@ -838,10 +842,7 @@ class ContractController extends Controller
                     'sequence_number'    => $contract_installment->installment->installment_number,
                 ]);
             }
-        }
-
-        // ✅ Handle one-time payment (method 1)
-        elseif ($payment_method_id == 1 && $contract->contract_installments->count() == 1) {
+        } elseif ($payment_method_id == 1 && $contract->contract_installments->count() == 1) {
             foreach ($contract->contract_installments as $contract_installment) {
                 $contract_installment->update([
                     'installment_amount' => $request->contract_amount,
@@ -849,10 +850,7 @@ class ContractController extends Controller
                     'sequence_number'    => $contract_installment->installment->installment_number,
                 ]);
             }
-        }
-
-        // ✅ Reset & re-generate installments if counts don’t match
-        elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 12) {
+        } elseif ($payment_method_id == 2 && $contract->contract_installments->count() != 12) {
             $contract->contract_installments()->delete();
             $installments = Installment::where('payment_method_id', 2)->get();
             foreach ($installments as $installment) {
@@ -882,10 +880,9 @@ class ContractController extends Controller
             }
         }
 
-        return redirect()->route('contract.show', $contract->url_address)
-            ->with('success', 'تمت تعديل بيانات العقد وأقساطه بنجاح');
+        return redirect()->route('contract.show', ['url_address' => $contract->url_address])
+            ->with('success', 'تم تعديل العقد بنجاح.');
     }
-
     /**
      * Update all contracts and installments.
      *

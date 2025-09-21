@@ -32,36 +32,46 @@ class ContractRequest extends FormRequest
             'contract_payment_method_id' => ['required'],
             'contract_date' => ['required', 'date_format:Y-m-d'],
             'contract_amount' => ['required', 'numeric', 'min:0'],
-            'discount' => ['required', 'numeric', 'min:0', 'max:100'],
             'contract_note' => ['max:200', 'nullable'],
         ];
 
-        // NEW: Validation for variable payment plan
         if ($this->input('contract_payment_method_id') == 3) {
+            // دفعات متغيرة → الخصم اختياري
+            $rules['discount'] = ['nullable', 'numeric', 'min:0', 'max:100'];
+
             $rules = array_merge($rules, [
                 'down_payment_amount' => ['required', 'numeric', 'min:0'],
                 'monthly_installment_amount' => ['required', 'numeric', 'min:0'],
                 'number_of_months' => ['required', 'integer', 'min:1'],
                 'key_payment_amount' => ['required', 'numeric', 'min:0'],
-                // Ensure total matches contract amount after discount
+
+                // تحقق من توازن الدفعات مع العقد (بعد الخصم إن وجد)
                 'down_payment_amount' => ['required', 'numeric', function ($attribute, $value, $fail) {
                     $contract_amount = $this->input('contract_amount');
-                    $discount = $this->input('discount') ?? 0;
-                    $discounted_amount = $contract_amount - ($contract_amount * ($discount / 100));
+
+
+
                     $down_payment = $value;
                     $monthly_amount = $this->input('monthly_installment_amount') ?? 0;
                     $months = $this->input('number_of_months') ?? 0;
                     $key_payment = $this->input('key_payment_amount') ?? 0;
+
                     $total = $down_payment + ($monthly_amount * $months) + $key_payment;
-                    if (abs($total - $discounted_amount) > 0.01) {
-                        $fail('مجموع الدفعة المقدمة، الأقساط الشهرية، ودفعة المفتاح يجب أن يساوي مبلغ العقد بعد الخصم.');
+
+                    if (abs($total - $contract_amount) > 0.01) {
+                        $fail('مجموع الدفعة المقدمة، الأقساط الشهرية، ودفعة المفتاح يجب أن يساوي مبلغ العقد بعد الخصم (إن وُجد).');
                     }
                 }],
             ]);
+        } else {
+            // طرق الدفع الأخرى → الخصم إلزامي
+            $rules['discount'] = ['required', 'numeric', 'min:0', 'max:100'];
         }
 
         return $rules;
     }
+
+
 
     protected function prepareForValidation()
     {
