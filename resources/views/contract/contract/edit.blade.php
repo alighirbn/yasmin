@@ -240,15 +240,24 @@
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="down_payment_amount_display" class="w-full mb-1"
                                         :value="__('word.down_payment_amount')" />
+
+                                    <!-- Displayed input -->
                                     <x-text-input id="down_payment_amount_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? 0), 0) }}"
+                                        value="{{ number_format(
+                                            (float) old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? ($paidAmount ?? 0)),
+                                            0,
+                                        ) }}"
                                         placeholder="0" />
+
+                                    <!-- Hidden input (real numeric value) -->
                                     <input type="hidden" id="down_payment_amount" name="down_payment_amount"
-                                        value="{{ old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? 0) }}">
+                                        value="{{ old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? ($paidAmount ?? 0)) }}">
+
                                     <x-input-error :messages="$errors->get('down_payment_amount')" class="w-full mt-2" />
                                     <div id="down_payment_error" class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
+
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="monthly_installment_amount_display" class="w-full mb-1"
                                         :value="__('word.monthly_installment_amount')" />
