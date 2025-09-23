@@ -555,15 +555,63 @@ class ContractController extends Controller
 
     public function print(string $url_address)
     {
-        $contract = Contract::with(['customer', 'building', 'payment_method'])->where('url_address', '=', $url_address)->first();
-        $contract_installments = Contract_Installment::with(['installment', 'payment'])->where('contract_id', $contract->id)->get();
-        if (isset($contract)) {
-            return view('contract.contract.print', compact(['contract', 'contract_installments']));
-        } else {
+        $contract = Contract::with(['customer', 'building', 'payment_method'])
+            ->where('url_address', '=', $url_address)
+            ->first();
+
+        if (!$contract) {
             $ip = $this->getIPAddress();
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
+
+        $contract_installments = Contract_Installment::with(['installment', 'payment'])
+            ->where('contract_id', $contract->id)
+            ->get();
+
+        // ✅ Add this block
+        $variable_payment_details = [
+            'down_payment_amount' => 0,
+            'monthly_installment_amount' => 0,
+            'number_of_months' => 1,
+            'key_payment_amount' => 0,
+        ];
+
+        if ($contract->payment_method->method_name === 'دفعات متغيرة') {
+            // احسب المبالغ المدفوعة فعلياً
+            $paidAmount = $contract->payments()
+                ->where('approved', true)
+                ->sum('payment_amount');
+
+            foreach ($contract_installments as $installment) {
+                $installment_name = $installment->installment->installment_name;
+
+                if ($installment_name === 'دفعة مقدمة') {
+                    // ✅ إذا عندي دفعة مقدمة + أقساط مدفوعة → اعتبر المجموع دفعة مقدمة
+                    $variable_payment_details['down_payment_amount'] = $installment->installment_amount + $paidAmount;
+                } elseif ($installment_name === 'دفعة شهرية') {
+                    $variable_payment_details['monthly_installment_amount'] = $installment->installment_amount;
+                    $variable_payment_details['number_of_months'] = $contract_installments
+                        ->where('installment.installment_name', 'دفعة شهرية')
+                        ->count();
+                } elseif ($installment_name === 'دفعة المفتاح') {
+                    $variable_payment_details['key_payment_amount'] = $installment->installment_amount;
+                }
+            }
+
+            // ✅ إذا ما عندي "دفعة مقدمة" لكن عندي مبالغ مسددة → اعتبرها دفعة مقدمة
+            if ($variable_payment_details['down_payment_amount'] == 0 && $paidAmount > 0) {
+                $variable_payment_details['down_payment_amount'] = $paidAmount;
+            }
+        }
+
+        return view('contract.contract.print', compact(
+            'contract',
+            'contract_installments',
+            'variable_payment_details'
+        ));
     }
+
+
 
     public function add_payment(string $url_address)
     {

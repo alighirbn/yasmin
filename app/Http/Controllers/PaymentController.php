@@ -58,20 +58,26 @@ class PaymentController extends Controller
      */
     public function show(string $url_address)
     {
-        $payment = Payment::with(['contract.customer', 'contract.building.building_category', 'contract_installment.installment'])->where('url_address', '=', $url_address)->first();
+        try {
+            $payment = Payment::with([
+                'contract.customer',
+                'contract.building.building_category',
+                'contract_installment.installment'
+            ])->where('url_address', $url_address)->firstOrFail();
 
-        if (isset($payment)) {
-            if (auth()->user()->hasRole('admin')) {
-                $cash_accounts = Cash_Account::all();
-            } else {
-                $cash_accounts = Cash_Account::where('id', 5)->get();
-            }
-            return view('payment.show', compact(['payment', 'cash_accounts']));
-        } else {
+            $user = auth()->user();
+
+            $cash_accounts = $user->hasRole('admin|ahmed|all access')
+                ? Cash_Account::all()
+                : Cash_Account::where('id', 5)->get();
+
+            return view('payment.show', compact('payment', 'cash_accounts'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             $ip = $this->getIPAddress();
             return view('payment.accessdenied', ['ip' => $ip]);
         }
     }
+
     public function approve(Request $request, string $url_address)
     {
         $payment = Payment::where('url_address', '=', $url_address)->first();

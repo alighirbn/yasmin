@@ -47,7 +47,8 @@
                                     <p><strong>{{ __('العدد :') }}</strong>
                                         {{ $contract->id }}
                                     </p>
-                                    <p><strong>{{ __('التاريخ :') }}</strong> {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}</p>
+                                    <p><strong>{{ __('التاريخ :') }}</strong>
+                                        {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}</p>
 
                                 </div>
                             </div>
@@ -87,9 +88,10 @@
                                     الياسمين
                                     , وبعد اقرار الطرفان بأهليتهما القانونية وخلو ارادتهما من اي عيب فقد اتفق الطرفان
                                     على بنود هذا العقد .
-
                                 </p>
-                                <p>ثانياً: اوصاف الوحده السكنية: <br>
+
+                                <p>
+                                    ثانياً: اوصاف الوحده السكنية: <br>
                                     ١-رقم الوحده السكنية ({{ $contract->building->house_number }}) رقم البلوك
                                     ({{ $contract->building->block_number }}) نوع الوحده السكنية
                                     ({{ $contract->building->building_type->type_name }})
@@ -100,58 +102,75 @@
                                     رقما ({{ number_format($contract->contract_amount, 0) }})
                                     كتابتا({{ Numbers::TafqeetMoney($contract->contract_amount, 'IQD') }})
                                     <br>
-                                    رابعاً: آلية تسديد بدل الوحده السكنية تكون على شكل
-                                    {{ $contract_installments->count() == 1 ? 'دفعة واحدة' : 'اثنى عشر دفعة' }}
-                                    وكالاتي:
+                                    رابعاً: آلية تسديد بدل الوحده السكنية تكون على شكل:
                                 </p>
                             </div>
+
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>
-                                    @foreach ($contract_installments as $contract_installment)
-                                        @php
-
-                                            $installment = $contract_installment->installment;
-                                            $installmentNumber = $installment->installment_number;
-                                            $installmentName = $installment->installment_name;
-                                            $installmentPercent = $installment->installment_percent * 100;
-                                            $installmentAmount = number_format(
-                                                $contract_installment->installment_amount,
-                                                0,
-                                            );
-                                            $installmentAmountText = Numbers::TafqeetMoney(
-                                                $contract_installment->installment_amount,
-                                                'IQD',
-                                            );
-
-                                            // Determine the payment timing with dynamic installment number conversion
-                                            $paymentTiming =
-                                                $installmentNumber == 1
-                                                    ? 'عند ابرام العقد'
-                                                    : 'بعد ثلاثة اشهر من الدفعه ' .
-                                                        App\Helpers\Number::convert($installmentNumber - 1); // Dynamically change the installment number to its corresponding word
-                                        @endphp
-                                        @if ($installmentNumber == 10)
-                                            <div style="display: flex; justify-content: center;">
-                                                <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 7)</p>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            <br>
-                                            {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
-                                        @else
-                                            {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
-                                        @endif
-
+                                    @if ($contract->contract_payment_method_id == 3)
+                                        {{-- ✅ طريقة الدفع 3: عرض ملخص --}}
+                                        1- الدفعة المقدمة:
+                                        {{ number_format($variable_payment_details['down_payment_amount'], 0) }}
+                                        ({{ Numbers::TafqeetMoney($variable_payment_details['down_payment_amount'], 'IQD') }})
                                         <br>
-                                    @endforeach
+                                        2- الدفعة الشهرية:
+                                        {{ number_format($variable_payment_details['monthly_installment_amount'], 0) }}
+                                        ({{ Numbers::TafqeetMoney($variable_payment_details['monthly_installment_amount'], 'IQD') }})
+                                        × {{ $variable_payment_details['number_of_months'] }} شهر
+                                        <br>
+                                        3- دفعة المفتاح:
+                                        {{ number_format($variable_payment_details['key_payment_amount'], 0) }}
+                                        ({{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }})
+                                    @else
+                                        {{-- ✅ باقي طرق الدفع: عرض كل قسط --}}
+                                        @foreach ($contract_installments as $contract_installment)
+                                            @php
+                                                $installment = $contract_installment->installment;
+                                                $installmentNumber = $installment->installment_number;
+                                                $installmentName = $installment->installment_name;
+                                                $installmentPercent = $installment->installment_percent * 100;
+                                                $installmentAmount = number_format(
+                                                    $contract_installment->installment_amount,
+                                                    0,
+                                                );
+                                                $installmentAmountText = Numbers::TafqeetMoney(
+                                                    $contract_installment->installment_amount,
+                                                    'IQD',
+                                                );
+
+                                                // تحديد وقت الدفع
+                                                $paymentTiming =
+                                                    $installmentNumber == 1
+                                                        ? 'عند ابرام العقد'
+                                                        : 'بعد ثلاثة اشهر من الدفعه ' .
+                                                            App\Helpers\Number::convert($installmentNumber - 1);
+                                            @endphp
+
+                                            @if ($installmentNumber == 10)
+                                                <br>
+                                                <div style="display: flex; justify-content: center;">
+                                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 7)</p>
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
+                                            @else
+                                                {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
+                                            @endif
+                                            <br>
+                                        @endforeach
+                                    @endif
                                 </p>
                             </div>
+
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>في حالة رغبة الطرف الثاني الاستفاده من قرض مصرفي على الوحده السكنية وتسديدها الى
                                     الطرف الاول وحسب المبلغ الذي يحدد من قبل المصرف على ان يتحمل الطرف الثاني تسديد مبلغ
@@ -179,12 +198,28 @@
                                     ملحقاته.
                                     الحساب المصرفي : هو الحساب المصرفي التابع للطرف الأول والواجب استخدامه من قبل
                                     المشتري لسداد ثمن الوحدة السكنية.
+
+                                    @if ($contract->contract_payment_method_id == 3)
+                                        <br>
+                                        <br>
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 6)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif
                                     <br> 6-الفوائد القانونية : هي الفوائد المبينة نسبها في العقد نتيجة التخلف او التأخير
                                     عن تسديد الدفعات المستحقة في مواعيد استحقاقها او اية فوائد قانونية ورد النص عليها في
                                     العقد أو في القانون المدني العراقي.
                                     @if ($contract_installments->count() == 1)
                                         <br>
-                                       
+
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 6)</p>
                                         </div>
@@ -231,7 +266,6 @@
                                     التواريخ المثبتة ولدى البنك المحدد من قبل الطرف الأول مع تزويد الطرف الأول بوصل
                                     الايداع لأثبات ذلك .
                                     @if ($contract_installments->count() == 12)
-                                        
                                         <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 7)</p>
@@ -276,7 +310,7 @@
                                     ادارية أو قوة قاهرة او اسباب هندسية التي تحول دون تسليم او اكمال ما تبقى من اعمال
                                     بناء للوحدة السكنية، على ان لا تتجاوز مدة التمديد سنة ميلادية واحدة من تاريخ التسليم
                                     المحددة
-                                   <br>3- يلتزم الطرف الأول بتسليم الطرف الثاني صورة
+                                    <br>3- يلتزم الطرف الأول بتسليم الطرف الثاني صورة
                                     المستندات اللازمة لإتمام تسجيل
                                     عملية نقل ملكية الوحدة السكنية متى طلب الطرف الثاني ذلك رسمياً بموجب طلب تحريري موقع
                                     منه او من يخوله قانوناً بشرط تسديده كافة الالتزامات المالية المترتبة بذمته ، ولا يحق
@@ -289,7 +323,7 @@
                                     @if ($contract_installments->count() == 1)
                                         <br>
                                         <br>
-                                        
+
                                         <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 6)</p>
@@ -305,9 +339,27 @@
                                         <br>
                                         <br>
                                         <br>
-                                    @endif <br>4- يلتزم الطرف الأول بكافة مصاريف إيصال الخدمات المتعلقة بالوحدة السكنية من حدود
+                                    @endif
+                                    @if ($contract->contract_payment_method_id == 3)
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 6)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif <br>4- يلتزم الطرف الأول بكافة مصاريف إيصال الخدمات
+                                    المتعلقة بالوحدة السكنية من حدود
                                     المشروع لغاية الوحدة السكنية وهي على سبيل الحصر( الماء , الكهرباء , المجاري ) ويتحمل
                                     الطرف الثاني دفع اجور استخدام هذه الخدمات الى الجهات ذات العلاقة.
+
                                     <br> 5- يلتزم الطرف الأول بالجدول الزمني للمشروع والبناء وفق التصاميم الهندسية
                                     التفصيلية
                                     المصادق عليها من قبل هيئة استثمار النجف التي بموجبها تم منح الاجازه الاستثمارية.
@@ -348,7 +400,7 @@
                                 <p>
                                     <br>تاسعاً: التزامات وحقوق الطرف الثاني:
 
-                                    <br>1- يلتزم الطرف الثاني على انتفاعه . بالوحدة السكنية  وملحقاتها على الغرض التي
+                                    <br>1- يلتزم الطرف الثاني على انتفاعه . بالوحدة السكنية وملحقاتها على الغرض التي
                                     انشأت من اجله وهو السكن حصراً لكون ان ( مشروع واحة الياسمين ) هو مشروع سكني متكامل
                                     يشتمل على كافة الخدمات، ولا يجوز استخدام الوحدة السكنية موضوع هذا العقد لغير اغراض
                                     السكن مطلقاً، بحيث لا يجوز له او لخلفه الخاص او العام استعمال الوحدة السكنية موضوع
@@ -372,9 +424,11 @@
                                     الطرف الأول او الوحدة السكنية وحسب الآلية التي تحددها الدولة.
 
                                     <br>6- يقر الطرف الثاني أنه اطلع على مواصفات الوحدة
-                                    السكنية ويقر الطرف الثاني بعلمه ان النموذج الذي يتم تقديمه للتوضيح فقط ولا يلزم الطرف الاول بالالتزام بتنفيذه بشكل دقيق .
-                                    
-                                    هذا يعني ان الطرف الثاني يعترف بأن التفاصيل الدقيقة للتنفيذ قد تختلف قليلا عن النموذج وان الطرف الاول ليس ملزماً بتنفيذ كل التفاصيل بشكل مطابق للنموذج.
+                                    السكنية ويقر الطرف الثاني بعلمه ان النموذج الذي يتم تقديمه للتوضيح فقط ولا يلزم
+                                    الطرف الاول بالالتزام بتنفيذه بشكل دقيق .
+
+                                    هذا يعني ان الطرف الثاني يعترف بأن التفاصيل الدقيقة للتنفيذ قد تختلف قليلا عن
+                                    النموذج وان الطرف الاول ليس ملزماً بتنفيذ كل التفاصيل بشكل مطابق للنموذج.
 
                                     <br>7- يلتزم الطرف الثاني بالحضور شخصياً أو بحضور من يمثله قانوناً لغرض استلام
                                     الوحدة السكنية موضوع العقد حال إنجازها ذلك بعد تبليغه من قبل الطرف الأول بواسطة
@@ -391,7 +445,21 @@
                                     الاستلام من قبل الطرف الثاني او من يخوله قانوناً أو عند التسليم الحكمي ، وعندها يعد
                                     الطرف الثاني مسؤولاً مسؤولية كاملة عن الوحدة السكنية ، ويلتزم الطرف الثاني بتوقيع
                                     عقد الخدمات عند توقيع عقد الوحدة السكنية.
-
+                                    @if ($contract->contract_payment_method_id == 3)
+                                        <br>
+                                        <br>
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 6)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif
                                     @if ($contract_installments->count() == 1)
                                         <br>
                                         <br>
@@ -408,7 +476,8 @@
                                         <br>
                                         <br>
                                         <br>
-                                    @endif<br>9- في حال وفاة الطرف الثاني اثناء سريان هذا العقد أو عند استلام الوحدة السكنية
+                                    @endif
+                                    <br>9- في حال وفاة الطرف الثاني اثناء سريان هذا العقد أو عند استلام الوحدة السكنية
                                     أو بعد استلامها، عندها يحل محل الطرف الثاني في كافة حقوقه والتزاماته وكل ما ورد في
                                     هذا العقد ورثته فقط وبموجب قسام شرعي صادر من قبل المحكمة المختصة، وتسري هذه الفقرة
                                     ايضا في حال فقدان الطرف الثاني للأهلية أو في حال حجره او إفلاسه او اعساره او وجود
@@ -470,7 +539,7 @@
                                     الأول ايداع المبلغ لدى الدوائر المختصه.
 
                                 </p>
-                               
+
                                 <p>
                                     <br> عاشراً: الفسخ
 
@@ -532,6 +601,21 @@
                                     <br>
                                     <br>
                                 @endif
+                                @if ($contract->contract_payment_method_id == 3)
+                                    <br>
+                                    <br>
+                                    <div style="display: flex; justify-content: center;">
+                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 6)</p>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                @endif
                                 <p>
                                     <br> ثاني عشر: الاختصاص القضائي
 
@@ -569,7 +653,7 @@
                                     بعملية انتقال ملكية الوحدة السكنية باسمه فانه يتحمل الأجور المالية المترتبة عن ذلك
                                     لإنجاز معاملات انتقال الملكية وذلك بموجب عقد خدمات قانونية يبرم بين المجموعة
                                     القانونية التابعة للطرف الأول والطرف الثاني وبموجب وكالة رسمية.
-                                   <br> 7- ان الشوارع والحدائق والمساحات العامة داخل
+                                    <br> 7- ان الشوارع والحدائق والمساحات العامة داخل
                                     المشروع هي ملك عام ولا يحق للطرف
                                     الثاني
                                     استغلالها لأغراض شخصية او عرض دعايات او منشورات خاصة به، وبخلافه يحق للطرف الأول
@@ -604,24 +688,24 @@
                                     وانظمته وتعليماته.
                                 </p>
                                 @if ($contract_installments->count() == 1)
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <div style="display: flex; justify-content: center;">
-                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 5 - 6)</p>
-                                        </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div style="display: flex; justify-content: center;">
+                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 5 - 6)</p>
+                                    </div>
 
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                    @endif 
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                @endif
                                 @if ($contract_installments->count() == 12)
                                     <br>
                                     <br>
@@ -632,6 +716,22 @@
                                     <br>
                                     <br>
 
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                @endif
+                                @if ($contract->contract_payment_method_id == 3)
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div style="display: flex; justify-content: center;">
+                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 5 - 6)</p>
+                                    </div>
+                                    <br>
                                     <br>
                                     <br>
                                     <br>
@@ -655,7 +755,7 @@
                                     طرف للعمل بموجبه ومرافق هذا العقد الملاحق المذكورة ادناه والتي تعد جزء لا يتجزء منه
 
                                     <br>ملحق رقم ( 1 ) : عقد الخدمات
-                                   
+
                                     <br>لقد قرأ الموقعون ادناه عقد بيع الوحدة السكنية وتم فهم شروطه المنصوص عليها في
                                     البنود الاحدى عشر أعلاه ويوافق الطرفان على أن يكونان مسؤولان عن جميع الالتزامات
                                     بموجب هذا العقد واذا كان الطرف الثاني شخصان او ثلاث اشخاص فيكونون متضامنين
@@ -666,7 +766,7 @@
 
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p> خامس عشر: تم ابرام هذا العقد بأرادة الطرفين بتاريخ
-                                {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}</p>
+                                    {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}</p>
 
                             </div>
 
@@ -731,21 +831,42 @@
                                 <br>
                                 <br>
                                 <br>
-                                <br>
-
-                                <br>
 
                                 <div style="display: flex; justify-content: center;">
                                     <p style="font-size: 14px; font-weight: bold;">صفحة ( 7 - 7)</p>
                                 </div>
                             @endif
                             @if ($contract_installments->count() == 1)
-                            <br>
+                                <br>
                                 <br>
                                 <br>
                                 <br>
                                 <br>
 
+                                <br>
+                                <div style="display: flex; justify-content: center;">
+                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
+                                </div>
+                            @endif
+                            @if ($contract->contract_payment_method_id == 3)
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
                                 <br>
                                 <div style="display: flex; justify-content: center;">
                                     <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
