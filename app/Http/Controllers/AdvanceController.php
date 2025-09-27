@@ -10,7 +10,7 @@ class AdvanceController extends Controller
 {
     public function index()
     {
-        $items = Advance::with('employee')->orderBy('date','desc')->paginate(25);
+        $items = Advance::with('employee')->orderBy('date', 'desc')->paginate(25);
         return view('hr.advances.index', compact('items'));
     }
 
@@ -29,13 +29,18 @@ class AdvanceController extends Controller
         ]);
 
         Advance::create($data + ['settled' => false]);
-        return redirect()->route('hr.advances.index')->with('success','Advance created.');
+        return redirect()->route('hr.advances.index')->with('success', 'Advance created.');
+    }
+
+    public function show(Advance $advance)
+    {
+        return view('hr.advances.show', ['item' => $advance]);
     }
 
     public function edit(Advance $advance)
     {
         $employees = Employee::orderBy('first_name')->get();
-        return view('hr.advances.edit', compact('advance','employees'));
+        return view('hr.advances.edit', compact('advance', 'employees'));
     }
 
     public function update(Request $request, Advance $advance)
@@ -48,12 +53,12 @@ class AdvanceController extends Controller
         ]);
 
         $advance->update($data);
-        return redirect()->route('hr.advances.index')->with('success','Updated.');
+        return redirect()->route('hr.advances.index')->with('success', 'Updated.');
     }
 
     public function destroy(Advance $advance)
     {
         $advance->delete();
-        return redirect()->route('hr.advances.index')->with('success','Deleted.');
+        return redirect()->route('hr.advances.index')->with('success', 'Deleted.');
     }
 }

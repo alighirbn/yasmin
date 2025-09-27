@@ -38,6 +38,9 @@
                                     <td class="border px-2 py-1">
                                         {{ \Carbon\Carbon::parse($item->date)->format('Y-m-d') }}</td>
                                     <td class="border px-2 py-1">
+                                        <a href="{{ route('hr.incentives.show', $item) }}"
+                                            class="text-blue-600 hover:underline">عرض</a>
+                                        |
                                         <a href="{{ route('hr.incentives.edit', $item) }}"
                                             class="text-green-600 hover:underline">تعديل</a>
                                         |

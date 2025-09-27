@@ -35,7 +35,10 @@
                                     <td class="border px-2 py-1">
                                         {{ \Carbon\Carbon::parse($item->date)->format('Y-m-d') }}</td>
                                     <td class="border px-2 py-1">{{ $item->settled ? 'نعم' : 'لا' }}</td>
-                                    <td class="border px-2 py-1">
+                                    <td class="border px-2 py-1 flex space-x-2">
+                                        <a href="{{ route('hr.advances.show', $item) }}"
+                                            class="text-blue-600 hover:underline">عرض</a>
+                                        |
                                         <a href="{{ route('hr.advances.edit', $item) }}"
                                             class="text-green-600 hover:underline">تعديل</a>
                                         |

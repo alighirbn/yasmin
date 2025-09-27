@@ -586,8 +586,7 @@ class ContractController extends Controller
                 $installment_name = $installment->installment->installment_name;
 
                 if ($installment_name === 'دفعة مقدمة') {
-                    // ✅ إذا عندي دفعة مقدمة + أقساط مدفوعة → اعتبر المجموع دفعة مقدمة
-                    $variable_payment_details['down_payment_amount'] = $installment->installment_amount + $paidAmount;
+                    $variable_payment_details['down_payment_amount'] = $installment->installment_amount;
                 } elseif ($installment_name === 'دفعة شهرية') {
                     $variable_payment_details['monthly_installment_amount'] = $installment->installment_amount;
                     $variable_payment_details['number_of_months'] = $contract_installments
@@ -604,6 +603,28 @@ class ContractController extends Controller
             }
         }
 
+        $calculatedTotal =
+            $variable_payment_details['down_payment_amount'] +
+            ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+            $variable_payment_details['key_payment_amount'];
+
+        if ($calculatedTotal != $contract->contract_amount) {
+            // اجعل الدفعة المقدمة = المبلغ الكلي - (الأقساط + دفعة المفتاح)
+            $variable_payment_details['down_payment_amount'] =
+                $contract->contract_amount -
+                (
+                    ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+                    $variable_payment_details['key_payment_amount']
+                );
+
+            // أعِد حساب المجموع بعد التعديل
+            $calculatedTotal =
+                $variable_payment_details['down_payment_amount'] +
+                ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+                $variable_payment_details['key_payment_amount'];
+
+            $variable_payment_details['calculated_total'] = $calculatedTotal;
+        }
         return view('contract.contract.print', compact(
             'contract',
             'contract_installments',

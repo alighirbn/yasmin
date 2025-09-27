@@ -14,6 +14,12 @@ class IncentiveController extends Controller
         return view('hr.incentives.index', compact('items'));
     }
 
+    public function show(Incentive $incentive)
+    {
+        return view('hr.incentives.show', ['item' => $incentive]);
+    }
+
+
     public function create()
     {
         $employees = Employee::orderBy('first_name')->get();
