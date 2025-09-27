@@ -28,7 +28,9 @@
                                 <td class="border px-2 py-1">{{ $item->employee->full_name ?? 'غير محدد' }}</td>
                                 <td class="border px-2 py-1">{{ $item->termination_date }}</td>
                                 <td class="border px-2 py-1">{{ $item->reason ?? '-' }}</td>
-                                <td class="border px-2 py-1">
+                                <td class="border px-2 py-1 flex gap-2">
+                                    <a href="{{ route('hr.terminations.show', $item) }}"
+                                        class="text-blue-600 hover:underline">عرض</a> |
                                     <a href="{{ route('hr.terminations.edit', $item) }}"
                                         class="text-green-600 hover:underline">تعديل</a> |
                                     <form action="{{ route('hr.terminations.destroy', $item) }}" method="POST"
