@@ -1,14 +1,15 @@
 <x-app-layout>
 
     <x-slot name="header">
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
+        <script src="{{ asset('js/select2.min.js') }}"></script>
         @include('contract.nav.navigation')
         @include('service.nav.navigation')
-
     </x-slot>
 
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-            <div class=" overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
                         <form method="post" action="{{ route('service.update', $service->url_address) }}">
@@ -18,31 +19,36 @@
                             <input type="hidden" id="url_address" name="url_address"
                                 value="{{ $service->url_address }}">
 
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
+                            <h1 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 w-full">
                                 {{ __('word.service_info') }}
                             </h1>
 
-                            <div class="flex ">
-                                <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="service_contract_id" class="w-full mb-1" :value="__('word.service_contract_id')" />
-                                    <select id="service_contract_id" class="w-full block mt-1 "
-                                        name="service_contract_id">
+                            <div class="flex">
+                                <!-- العقار -->
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="service_contract_id" class="w-full mb-1" :value="__('word.building_number')" />
+                                    <select id="service_contract_id" class="js-example-basic-single w-full block mt-1"
+                                        name="service_contract_id" data-placeholder="ادخل الاسم او رقم العقار">
+                                        <option value=""></option>
                                         @foreach ($contracts as $contract)
                                             <option value="{{ $contract->id }}"
-                                                {{ (old('service_contract_id') ?? $contract->service_contract_id) == $contract->id ? 'selected' : '' }}>
-                                                {{ $contract->customer->customer_full_name . ' ** رقم العقار --   ' . $contract->building->building_number }}
+                                                {{ (old('service_contract_id') ?? $service->service_contract_id) == $contract->id ? 'selected' : '' }}>
+                                                {{ $contract->customer->customer_full_name . ' ** رقم العقار -- ' . $contract->building->building_number }}
                                             </option>
                                         @endforeach
                                     </select>
                                     <x-input-error :messages="$errors->get('service_contract_id')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
+                                <!-- نوع الخدمة -->
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="service_type_id" class="w-full mb-1" :value="__('word.service_type_id')" />
-                                    <select id="service_type_id" class="w-full block mt-1 " name="service_type_id">
+                                    <select id="service_type_id" class="js-example-basic-single w-full block mt-1"
+                                        name="service_type_id" data-placeholder="ادخل نوع الخدمة">
+                                        <option value=""></option>
                                         @foreach ($service_types as $service_type)
                                             <option value="{{ $service_type->id }}"
-                                                {{ (old('service_type_id') ?? $contract->service_type_id) == $service_type->id ? 'selected' : '' }}>
+                                                {{ (old('service_type_id') ?? $service->service_type_id) == $service_type->id ? 'selected' : '' }}>
                                                 {{ $service_type->type_name }}
                                             </option>
                                         @endforeach
@@ -51,38 +57,47 @@
                                 </div>
                             </div>
 
-                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4  w-full">
+                            <h2 class="font-semibold underline text-l text-gray-800 leading-tight mx-4 w-full">
                                 {{ __('word.service_card') }}
                             </h2>
 
                             <div class="flex">
-                                <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="service_amount" class="w-full mb-1" :value="__('word.service_amount')" />
-                                    <x-text-input id="service_amount" class="w-full block mt-1" type="text"
-                                        name="service_amount"
-                                        value="{{ old('service_amount') ?? $service->service_amount }}" />
+                                <!-- المبلغ -->
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="service_amount_display" class="w-full mb-1" :value="__('word.service_amount')" />
+
+                                    <!-- عرض الرقم بفواصل -->
+                                    <x-text-input id="service_amount_display" class="w-full block mt-1" type="text"
+                                        value="{{ number_format(old('service_amount', $service->service_amount), 0) }}"
+                                        placeholder="0" />
+
+                                    <!-- الحقل المخفي للقيمة الحقيقية -->
+                                    <input type="hidden" id="service_amount" name="service_amount"
+                                        value="{{ old('service_amount', $service->service_amount) }}">
+
                                     <x-input-error :messages="$errors->get('service_amount')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
+                                <!-- التاريخ -->
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="service_date" class="w-full mb-1" :value="__('word.service_date')" />
                                     <x-text-input id="service_date" class="w-full block mt-1" type="text"
                                         name="service_date"
-                                        value="{{ old('service_date') ?? $service->service_date }}" />
+                                        value="{{ old('service_date', $service->service_date) }}" />
                                     <x-input-error :messages="$errors->get('service_date')" class="w-full mt-2" />
                                 </div>
 
-                                <div class=" mx-4 my-4 w-full">
+                                <!-- الملاحظات -->
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="service_note" class="w-full mb-1" :value="__('word.service_note')" />
                                     <x-text-input id="service_note" class="w-full block mt-1" type="text"
                                         name="service_note"
-                                        value="{{ old('service_note') ?? $service->service_note }}" />
+                                        value="{{ old('service_note', $service->service_note) }}" />
                                     <x-input-error :messages="$errors->get('service_note')" class="w-full mt-2" />
                                 </div>
-
                             </div>
 
-                            <div class=" mx-4 my-4 w-full">
+                            <div class="mx-4 my-4 w-full">
                                 <x-primary-button x-primary-button class="ml-4">
                                     {{ __('word.save') }}
                                 </x-primary-button>
@@ -94,4 +109,38 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var displayInput = document.getElementById('service_amount_display');
+            var hiddenInput = document.getElementById('service_amount');
+
+            function formatNumber(value) {
+                return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            function unformatNumber(value) {
+                return value.replace(/,/g, '');
+            }
+
+            displayInput.addEventListener('input', function() {
+                var formattedValue = formatNumber(displayInput.value);
+                displayInput.value = formattedValue;
+                hiddenInput.value = unformatNumber(formattedValue);
+            });
+
+            // عند الإرسال تأكد أن القيمة مخزونة بدون فواصل
+            document.querySelector('form').addEventListener('submit', function() {
+                hiddenInput.value = unformatNumber(displayInput.value);
+
+                // تغيير نص الزر وتعطيله
+                var $submitButton = $(this).find('button[type="submit"]');
+                $submitButton.text('جاري الحفظ');
+                $submitButton.prop('disabled', true);
+            });
+        });
+
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 </x-app-layout>
