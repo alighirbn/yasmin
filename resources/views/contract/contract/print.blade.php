@@ -347,6 +347,7 @@
                                     @endif
                                     @if ($contract->contract_payment_method_id == 3)
                                         <br>
+                                        <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 6)</p>
                                         </div>
@@ -606,10 +607,12 @@
                                 @endif
                                 @if ($contract->contract_payment_method_id == 3)
                                     <br>
-                                    <br>
+
                                     <div style="display: flex; justify-content: center;">
                                         <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 6)</p>
+
                                     </div>
+                                    <br>
                                     <br>
                                     <br>
                                     <br>
