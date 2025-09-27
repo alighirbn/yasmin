@@ -16,7 +16,8 @@ class ServiceController extends Controller
      */
     public function index(ServiceDataTable $dataTable)
     {
-        return $dataTable->render('service.index');
+        $serviceTypes = Service_Type::all();
+        return $dataTable->render('service.index', compact('serviceTypes'));
     }
 
 

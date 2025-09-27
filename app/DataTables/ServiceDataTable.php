@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\DataTables;
 
 use App\Models\Payment\Service;
@@ -39,6 +38,11 @@ class ServiceDataTable extends DataTable
             ->filterColumn('service_date', function ($query, $keyword) {
                 $query->where('service_date', 'like', "%{$keyword}%");
             })
+            ->filterColumn('service_type.type_name', function ($query, $keyword) {
+                $query->whereHas('service_type', function ($q) use ($keyword) {
+                    $q->where('type_name', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->setRowId('id');
     }
@@ -46,12 +50,16 @@ class ServiceDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Payment $model
+     * @param \App\Models\Payment\Service $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Service $model): QueryBuilder
     {
-        return $model->newQuery()->with(['contract.customer', 'contract.building']);
+        return $model->newQuery()->with([
+            'contract.customer',
+            'contract.building',
+            'service_type'
+        ]);
     }
 
     /**
@@ -64,11 +72,29 @@ class ServiceDataTable extends DataTable
         return $this->builder()
             ->setTableId('service-table')
             ->language([
-                'sUrl' =>  url('/') . '/../lang/' . __(LaravelLocalization::getCurrentLocale()) . '/datatable.json'
+                'sUrl' => url('/') . '/../lang/' . __(LaravelLocalization::getCurrentLocale()) . '/datatable.json'
             ])
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1, 'asc')
+            ->parameters([
+                'dom' => 'B<"clear">lfrtip',
+                'scrollX' => false,
+                'buttons' => [
+                    [
+                        'extend'  => 'print',
+                        'className'    => 'btn btn-outline-dark'
+                    ],
+                    [
+                        'extend'  => 'export',
+                        'className'    => 'btn btn-outline-dark',
+                        'buttons' => [
+                            'excel',
+                        ],
+                    ],
+                    'colvis'
+                ]
+            ])
             ->selectStyleSingle();
     }
 
@@ -86,14 +112,40 @@ class ServiceDataTable extends DataTable
                 ->width(60)
                 ->title(__('word.action'))
                 ->addClass('text-center'),
+
             Column::make('id')->title(__('word.service_id'))->class('text-center'),
             Column::make('service_date')->title(__('word.service_date'))->class('text-center'),
 
-            Column::make('contract_id')->title(__('word.contract_id'))->data('contract.id')->name('contract.id')->class('text-center'),
-            Column::make('contract_date')->title(__('word.contract_date'))->data('contract.contract_date')->name('contract.contract_date')->class('text-center'),
-            Column::make('building_number')->title(__('word.building_number'))->data('contract.building.building_number')->name('contract.building.building_number')->class('text-center'),
+            Column::make('contract_id')
+                ->title(__('word.contract_id'))
+                ->data('contract.id')
+                ->name('contract.id')
+                ->class('text-center'),
 
-            Column::make('customer_full_name')->title(__('word.customer_full_name'))->data('contract.customer.customer_full_name')->name('contract.customer.customer_full_name')->class('text-center'),
+            Column::make('contract_date')
+                ->title(__('word.contract_date'))
+                ->data('contract.contract_date')
+                ->name('contract.contract_date')
+                ->class('text-center'),
+
+            Column::make('building_number')
+                ->title(__('word.building_number'))
+                ->data('contract.building.building_number')
+                ->name('contract.building.building_number')
+                ->class('text-center'),
+
+            Column::make('customer_full_name')
+                ->title(__('word.customer_full_name'))
+                ->data('contract.customer.customer_full_name')
+                ->name('contract.customer.customer_full_name')
+                ->class('text-center'),
+
+            Column::make('service_type')
+                ->title(__('word.service_type'))
+                ->data('service_type.type_name')
+                ->name('service_type.type_name')
+                ->class('text-center'),
+
             Column::make('service_amount')->title(__('word.service_amount'))->class('text-center'),
             Column::make('service_note')->title(__('word.service_note'))->class('text-center'),
         ];
