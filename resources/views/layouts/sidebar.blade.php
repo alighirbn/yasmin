@@ -82,7 +82,7 @@
         </div>
     @endcan
 
-    @can('expense-list')
+    @can('payment-list')
         <div class="item"><a class="sub-btn"> {{ __('word.accountant') }} <i class="bx bx-chevrons-down dropdown"></i>
             </a>
             <div class="flex flex-col   sub-menu" style="display: none;">

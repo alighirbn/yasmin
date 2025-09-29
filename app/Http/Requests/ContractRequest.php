@@ -41,27 +41,73 @@ class ContractRequest extends FormRequest
 
             $rules = array_merge($rules, [
                 'down_payment_amount' => ['required', 'numeric', 'min:0'],
+                'down_payment_installment' => ['required', 'numeric', 'min:0'],
                 'monthly_installment_amount' => ['required', 'numeric', 'min:0'],
                 'number_of_months' => ['required', 'integer', 'min:1'],
+                'deferred_type' => ['required', 'in:none,spread,lump-6,lump-7'],
+                'deferred_months' => ['required', 'integer', 'min:0'],
                 'key_payment_amount' => ['required', 'numeric', 'min:0'],
+                'down_payment_amount' => [
+                    'required',
+                    'numeric',
+                    function ($attribute, $value, $fail) {
+                        $contract_amount = (float) $this->input('contract_amount');
+                        $down_payment = (float) $value;
+                        $down_installment = (float) $this->input('down_payment_installment') ?? 0;
+                        $monthly = (float) $this->input('monthly_installment_amount') ?? 0;
+                        $months = (int) $this->input('number_of_months') ?? 0;
+                        $deferred_type = $this->input('deferred_type');
+                        $deferred_months = (int) $this->input('deferred_months') ?? 0;
+                        $key_payment = (float) $this->input('key_payment_amount') ?? 0;
+                        $deferred = $down_payment - $down_installment;
 
-                // تحقق من توازن الدفعات مع العقد (بعد الخصم إن وجد)
-                'down_payment_amount' => ['required', 'numeric', function ($attribute, $value, $fail) {
-                    $contract_amount = $this->input('contract_amount');
+                        // Check if down payment installment exceeds down payment
+                        if ($down_installment > $down_payment) {
+                            $fail('قسط الدفعة المقدمة يتجاوز الدفعة المقدمة.');
+                        }
 
+                        // Check if deferred type is provided when there is a deferred amount
+                        if ($deferred > 0 && $deferred_type === 'none') {
+                            $fail('نوع التأجيل مطلوب إذا كان هناك مبلغ مؤجل.');
+                        }
 
+                        // Check if deferred months are provided for spread type
+                        if ($deferred_type === 'spread' && $deferred_months <= 0 && $deferred > 0) {
+                            $fail('عدد أشهر التأجيل مطلوب إذا كان نوع التأجيل توزيع.');
+                        }
 
-                    $down_payment = $value;
-                    $monthly_amount = $this->input('monthly_installment_amount') ?? 0;
-                    $months = $this->input('number_of_months') ?? 0;
-                    $key_payment = $this->input('key_payment_amount') ?? 0;
+                        // Check if deferred months exceed total months for spread type
+                        if ($deferred_type === 'spread' && $deferred_months > $months) {
+                            $fail('عدد أشهر التأجيل يتجاوز عدد الأشهر الكلي.');
+                        }
 
-                    $total = $down_payment + ($monthly_amount * $months) + $key_payment;
+                        // Check if lump sum month exceeds total months
+                        if (str_starts_with($deferred_type, 'lump-')) {
+                            $lump_month = (int) explode('-', $deferred_type)[1];
+                            if ($lump_month > $months) {
+                                $fail('شهر الدفعة الواحدة يتجاوز عدد الأشهر الكلي.');
+                            }
+                        }
 
-                    if (abs($total - $contract_amount) > 0.01) {
-                        $fail('مجموع الدفعة المقدمة، الأقساط الشهرية، ودفعة المفتاح يجب أن يساوي مبلغ العقد بعد الخصم (إن وُجد).');
-                    }
-                }],
+                        // Validate total payment
+                        $monthly_total = 0;
+                        if ($deferred_type === 'spread' && $deferred_months > 0) {
+                            $monthly_total = ($monthly + floor($deferred / $deferred_months)) * $deferred_months + $monthly * ($months - $deferred_months);
+                            if ($deferred % $deferred_months > 0) {
+                                $monthly_total += $deferred % $deferred_months;
+                            }
+                        } elseif (str_starts_with($deferred_type, 'lump-') && $deferred > 0) {
+                            $monthly_total = $monthly * $months + $deferred; // Ensure deferred is included
+                        } else {
+                            $monthly_total = $monthly * $months;
+                        }
+
+                        $total = $down_installment + $monthly_total + $key_payment;
+                        if (abs($total - $contract_amount) > 0.01) {
+                            $fail('مجموع الدفعة المقدمة، الأقساط الشهرية، ودفعة المفتاح يجب أن يساوي مبلغ العقد بعد الخصم (إن وُجد). الإجمالي: ' . number_format($total, 2) . ', العقد: ' . number_format($contract_amount, 2));
+                        }
+                    },
+                ],
             ]);
         } else {
             // طرق الدفع الأخرى → الخصم إلزامي
@@ -70,8 +116,6 @@ class ContractRequest extends FormRequest
 
         return $rules;
     }
-
-
 
     protected function prepareForValidation()
     {

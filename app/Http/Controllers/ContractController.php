@@ -293,37 +293,66 @@ class ContractController extends Controller
 
         // Handle variable payment plan (payment method 3)
         if ($payment_method_id == 3) {
-            $down_payment_amount = $request->input('down_payment_amount');
-            $monthly_installment_amount = $request->input('monthly_installment_amount');
-            $number_of_months = $request->input('number_of_months');
-            $key_payment_amount = $request->input('key_payment_amount');
+            $contract_amount = (float) $request->input('contract_amount');
+            $down_payment_amount = (float) $request->input('down_payment_amount');
+            $down_payment_installment = (float) $request->input('down_payment_installment');
+            $monthly_installment_amount = (float) $request->input('monthly_installment_amount');
+            $number_of_months = (int) $request->input('number_of_months');
+            $deferred_type = $request->input('deferred_type');
+            $deferred_months = (int) $request->input('deferred_months');
+            $key_payment_amount = (float) $request->input('key_payment_amount');
             $contract_date = Carbon::parse($request->contract_date);
+            $deferred = $down_payment_amount - $down_payment_installment;
+            $deferred_per_month = $deferred_type === 'spread' && $deferred_months > 0 ? floor($deferred / $deferred_months) : 0;
+            $remainder = $deferred_type === 'spread' && $deferred_months > 0 ? $deferred % $deferred_months : 0;
+            $lump_month = str_starts_with($deferred_type, 'lump-') ? (int) explode('-', $deferred_type)[1] : 0;
 
-            $down_payment_installment = Installment::where('payment_method_id', 3)
+            // Fetch installment records
+            $down_payment_installment_record = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة مقدمة')->first();
             $monthly_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة شهرية')->first();
             $key_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
+            // Ensure installment records exist
+            if (!$down_payment_installment_record || !$monthly_installment || !$key_payment_installment) {
+                return redirect()->back()->with('error', 'سجلات الأقساط غير متوفرة لهذا النوع من الدفع.');
+            }
+
             $sequence = 1;
 
-            // Down payment
+            // Down payment installment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
-                'installment_amount' => $down_payment_amount,
+                'installment_amount' => $down_payment_installment,
                 'installment_date'   => $contract_date,
                 'contract_id'        => $contract->id,
-                'installment_id'     => $down_payment_installment->id,
+                'installment_id'     => $down_payment_installment_record->id,
                 'user_id_create'     => $request->user_id_create,
                 'sequence_number'    => $sequence++,
             ]);
 
             // Monthly installments
+            $monthly_total = 0;
             for ($i = 1; $i <= $number_of_months; $i++) {
+                $extra = 0;
+                if ($deferred_type === 'spread' && $deferred > 0 && $i <= $deferred_months) {
+                    $extra = $deferred_per_month;
+                    if ($i === $deferred_months && $remainder > 0) {
+                        $extra += $remainder;
+                    }
+                } elseif ($deferred_type === 'lump-6' && $i === 6 && $deferred > 0) {
+                    $extra = $deferred;
+                } elseif ($deferred_type === 'lump-7' && $i === 7 && $deferred > 0) {
+                    $extra = $deferred;
+                }
+                $monthly_amount = $monthly_installment_amount + $extra;
+                $monthly_total += $monthly_amount;
+
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
-                    'installment_amount' => $monthly_installment_amount,
+                    'installment_amount' => $monthly_amount,
                     'installment_date'   => $contract_date->copy()->addMonths($i),
                     'contract_id'        => $contract->id,
                     'installment_id'     => $monthly_installment->id,
@@ -333,15 +362,24 @@ class ContractController extends Controller
             }
 
             // Key payment
-            Contract_Installment::create([
-                'url_address'        => $this->random_string(60),
-                'installment_amount' => $key_payment_amount,
-                'installment_date'   => $contract_date->copy()->addMonths($number_of_months + 1),
-                'contract_id'        => $contract->id,
-                'installment_id'     => $key_payment_installment->id,
-                'user_id_create'     => $request->user_id_create,
-                'sequence_number'    => $sequence++,
-            ]);
+            if ($key_payment_amount > 0) {
+                Contract_Installment::create([
+                    'url_address'        => $this->random_string(60),
+                    'installment_amount' => $key_payment_amount,
+                    'installment_date'   => $contract_date->copy()->addMonths($number_of_months + 1),
+                    'contract_id'        => $contract->id,
+                    'installment_id'     => $key_payment_installment->id,
+                    'user_id_create'     => $request->user_id_create,
+                    'sequence_number'    => $sequence++,
+                ]);
+            }
+
+            // Verify total matches contract amount
+            $total = $down_payment_installment + $monthly_total + ($key_payment_amount > 0 ? $key_payment_amount : 0);
+            if (abs($total - $contract_amount) > 0.01) {
+                $contract->delete(); // Rollback contract creation
+                return redirect()->back()->with('error', 'مجموع الدفعات لا يساوي مبلغ العقد. الإجمالي: ' . number_format($total, 2) . ', العقد: ' . number_format($contract_amount, 2));
+            }
         } elseif ($payment_method_id == 2) {
             $installments = Installment::where('payment_method_id', 2)->get();
             foreach ($installments as $installment) {
@@ -893,28 +931,31 @@ class ContractController extends Controller
                 ->delete();
 
             $down_payment_amount = $request->input('down_payment_amount', 0);
+            $down_payment_installment = $request->input('down_payment_installment', 0);
             $monthly_installment_amount = $request->input('monthly_installment_amount', 0);
             $number_of_months = $request->input('number_of_months', 36);
+            $deferred_type = $request->input('deferred_type', 'none');
+            $deferred_months = (int) $request->input('deferred_months', 0);
             $key_payment_amount = $request->input('key_payment_amount', 0);
+            $deferred = $down_payment_amount - $down_payment_installment;
 
-            $down_payment_installment = Installment::where('payment_method_id', 3)
+            $down_payment_installment_record = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة مقدمة')->first();
             $monthly_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة شهرية')->first();
             $key_payment_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة المفتاح')->first();
 
-            // Sequence starts after the last paid installment
             $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
             // If nothing is paid yet → create down payment at contract_date
-            if ($paidAmount == 0 && $down_payment_amount > 0) {
+            if ($paidAmount == 0 && $down_payment_installment > 0) {
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
-                    'installment_amount' => $down_payment_amount,
+                    'installment_amount' => $down_payment_installment,
                     'installment_date'   => Carbon::parse($request->contract_date),
                     'contract_id'        => $contract->id,
-                    'installment_id'     => $down_payment_installment->id,
+                    'installment_id'     => $down_payment_installment_record->id,
                     'user_id_update'     => $request->user_id_update,
                     'sequence_number'    => ++$sequence,
                 ]);
@@ -924,11 +965,27 @@ class ContractController extends Controller
             $startDate = $paidInstallments->count() > 0
                 ? Carbon::parse($paidInstallments->last()->installment_date)
                 : Carbon::parse($request->contract_date);
+            $deferred_per_month = $deferred_type === 'spread' && $deferred_months > 0 ? floor($deferred / $deferred_months) : 0;
+            $remainder = $deferred_type === 'spread' && $deferred_months > 0 ? $deferred % $deferred_months : 0;
+            $lump_month = str_starts_with($deferred_type, 'lump-') ? (int) explode('-', $deferred_type)[1] : 0;
 
             for ($i = 1; $i <= $number_of_months; $i++) {
+                $extra = 0;
+                if ($deferred_type === 'spread' && $deferred > 0 && $i <= $deferred_months) {
+                    $extra = $deferred_per_month;
+                    if ($i === $deferred_months && $remainder > 0) {
+                        $extra += $remainder;
+                    }
+                } elseif ($deferred_type === 'lump-6' && $i === 6 && $deferred > 0) {
+                    $extra = $deferred;
+                } elseif ($deferred_type === 'lump-7' && $i === 7 && $deferred > 0) {
+                    $extra = $deferred;
+                }
+                $monthly_amount = $monthly_installment_amount + $extra;
+
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
-                    'installment_amount' => $monthly_installment_amount,
+                    'installment_amount' => $monthly_amount,
                     'installment_date'   => $startDate->copy()->addMonths($i),
                     'contract_id'        => $contract->id,
                     'installment_id'     => $monthly_installment->id,
@@ -958,11 +1015,15 @@ class ContractController extends Controller
             $contract->contract_installments()->delete();
 
             $down_payment_amount = $request->input('down_payment_amount');
+            $down_payment_installment = $request->input('down_payment_installment');
             $monthly_installment_amount = $request->input('monthly_installment_amount');
             $number_of_months = $request->input('number_of_months');
+            $deferred_type = $request->input('deferred_type');
+            $deferred_months = (int) $request->input('deferred_months');
             $key_payment_amount = $request->input('key_payment_amount');
+            $deferred = $down_payment_amount - $down_payment_installment;
 
-            $down_payment_installment = Installment::where('payment_method_id', 3)
+            $down_payment_installment_record = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة مقدمة')->first();
             $monthly_installment = Installment::where('payment_method_id', 3)
                 ->where('installment_name', 'دفعة شهرية')->first();
@@ -974,19 +1035,36 @@ class ContractController extends Controller
             // Down payment
             Contract_Installment::create([
                 'url_address'        => $this->random_string(60),
-                'installment_amount' => $down_payment_amount,
+                'installment_amount' => $down_payment_installment,
                 'installment_date'   => $contract_date,
                 'contract_id'        => $contract->id,
-                'installment_id'     => $down_payment_installment->id,
+                'installment_id'     => $down_payment_installment_record->id,
                 'user_id_update'     => $request->user_id_update,
                 'sequence_number'    => $sequence++,
             ]);
 
             // Monthly installments
+            $deferred_per_month = $deferred_type === 'spread' && $deferred_months > 0 ? floor($deferred / $deferred_months) : 0;
+            $remainder = $deferred_type === 'spread' && $deferred_months > 0 ? $deferred % $deferred_months : 0;
+            $lump_month = str_starts_with($deferred_type, 'lump-') ? (int) explode('-', $deferred_type)[1] : 0;
+
             for ($i = 1; $i <= $number_of_months; $i++) {
+                $extra = 0;
+                if ($deferred_type === 'spread' && $deferred > 0 && $i <= $deferred_months) {
+                    $extra = $deferred_per_month;
+                    if ($i === $deferred_months && $remainder > 0) {
+                        $extra += $remainder;
+                    }
+                } elseif ($deferred_type === 'lump-6' && $i === 6 && $deferred > 0) {
+                    $extra = $deferred;
+                } elseif ($deferred_type === 'lump-7' && $i === 7 && $deferred > 0) {
+                    $extra = $deferred;
+                }
+                $monthly_amount = $monthly_installment_amount + $extra;
+
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
-                    'installment_amount' => $monthly_installment_amount,
+                    'installment_amount' => $monthly_amount,
                     'installment_date'   => $contract_date->copy()->addMonths($i),
                     'contract_id'        => $contract->id,
                     'installment_id'     => $monthly_installment->id,

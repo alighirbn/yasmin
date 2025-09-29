@@ -247,6 +247,20 @@
                                     <div id="down_payment_error" class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
                                 <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="down_payment_installment_display" class="w-full mb-1"
+                                        :value="__('word.down_payment_installment')" />
+                                    <x-text-input id="down_payment_installment_display" class="w-full block mt-1"
+                                        type="text"
+                                        value="{{ number_format((float) old('down_payment_installment', 0), 0) }}"
+                                        placeholder="0" />
+                                    <input type="hidden" id="down_payment_installment"
+                                        name="down_payment_installment"
+                                        value="{{ old('down_payment_installment', 0) }}">
+                                    <x-input-error :messages="$errors->get('down_payment_installment')" class="w-full mt-2" />
+                                    <div id="down_payment_installment_error" class="text-red-600 text-sm mt-2 hidden">
+                                    </div>
+                                </div>
+                                <div class="mx-4 my-4 w-full">
                                     <x-input-label for="monthly_installment_amount_display" class="w-full mb-1"
                                         :value="__('word.monthly_installment_amount')" />
                                     <x-text-input id="monthly_installment_amount_display" class="w-full block mt-1"
@@ -260,6 +274,8 @@
                                     <div id="monthly_installment_error" class="text-red-600 text-sm mt-2 hidden">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="flex">
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="number_of_months" class="w-full mb-1" :value="__('word.number_of_months')" />
                                     <input id="number_of_months" name="number_of_months" type="range"
@@ -270,8 +286,37 @@
                                     <span id="months-label" class="text-gray-700">36</span>
                                     <x-input-error :messages="$errors->get('number_of_months')" class="w-full mt-2" />
                                 </div>
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="deferred_type" class="w-full mb-1" :value="__('word.deferred_type')" />
+                                    <select id="deferred_type" class="w-full block mt-1" name="deferred_type">
+                                        <option value="none" {{ old('deferred_type') == 'none' ? 'selected' : '' }}>
+                                            {{ __('word.none') }}
+                                        </option>
+                                        <option value="spread"
+                                            {{ old('deferred_type') == 'spread' ? 'selected' : '' }}>
+                                            {{ __('word.spread') }}
+                                        </option>
+                                        <option value="lump-6"
+                                            {{ old('deferred_type') == 'lump-6' ? 'selected' : '' }}>
+                                            {{ __('word.lump_with_6th') }}
+                                        </option>
+                                        <option value="lump-7"
+                                            {{ old('deferred_type') == 'lump-7' ? 'selected' : '' }}>
+                                            {{ __('word.lump_with_7th') }}
+                                        </option>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('deferred_type')" class="w-full mt-2" />
+                                    <div id="deferred_type_error" class="text-red-600 text-sm mt-2 hidden"></div>
+                                </div>
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="deferred_months" class="w-full mb-1" :value="__('word.deferred_months')" />
+                                    <x-text-input id="deferred_months" class="w-full block mt-1" type="number"
+                                        name="deferred_months" value="{{ old('deferred_months', 0) }}"
+                                        min="0" placeholder="0" />
+                                    <x-input-error :messages="$errors->get('deferred_months')" class="w-full mt-2" />
+                                    <div id="deferred_months_error" class="text-red-600 text-sm mt-2 hidden"></div>
+                                </div>
                             </div>
-
                             <div class="flex">
                                 <div class="mx-4 my-4 w-full">
                                     <x-input-label for="key_payment_amount_display" class="w-full mb-1"
@@ -328,89 +373,86 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
             // Initialize Select2 for all select fields
             $('.js-example-basic-single').select2();
 
             // Modal handling
-            var modal = document.getElementById('customerModal');
-            var closeModal = document.getElementById('closeModal');
-            var customerForm = document.getElementById('customerForm');
-            var submitButtonModal = document.getElementById('submitButton');
-            var customerSelect = document.getElementById('contract_customer_id');
+            var $modal = $('#customerModal');
+            var $closeModal = $('#closeModal');
+            var $customerForm = $('#customerForm');
+            var $submitButtonModal = $('#submitButton');
+            var $customerSelect = $('#contract_customer_id');
 
             // Open modal
-            document.getElementById('openModal').addEventListener('click', function() {
-                modal.classList.remove('hidden');
+            $('#openModal').on('click', function() {
+                $modal.removeClass('hidden');
             });
 
             // Close modal
-            closeModal.addEventListener('click', function() {
-                modal.classList.add('hidden');
+            $closeModal.on('click', function() {
+                $modal.addClass('hidden');
             });
 
             // Handle customer form submission (AJAX)
-            customerForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                var formData = new FormData(customerForm);
-                submitButtonModal.textContent = '{{ __('word.saving') }}';
-                submitButtonModal.disabled = true;
+            $customerForm.on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $submitButtonModal.text('{{ __('word.saving') }}').prop('disabled', true);
 
-                fetch(customerForm.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content')
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            var newOption = document.createElement('option');
-                            newOption.value = data.customer.id;
-                            newOption.text = data.customer.customer_full_name;
-                            customerSelect.add(newOption);
-                            customerSelect.value = data.customer.id;
-                            $(customerSelect).trigger('change'); // Sync with Select2
-                            modal.classList.add('hidden');
-                        } else {
-                            document.querySelectorAll('.input-error').forEach(element => {
-                                element.innerHTML = '';
-                            });
-                            for (const [field, errors] of Object.entries(data.errors)) {
-                                const errorElement = document.querySelector(`#${field} ~ .input-error`);
-                                if (errorElement) {
-                                    errorElement.innerHTML = errors.join('<br>');
-                                }
+                $.ajax({
+                    url: $customerForm.attr('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                }).done(function(data) {
+                    if (data.success) {
+                        var newOption = $('<option>', {
+                            value: data.customer.id,
+                            text: data.customer.customer_full_name
+                        });
+                        $customerSelect.append(newOption).val(data.customer.id).trigger('change');
+                        $modal.addClass('hidden');
+                    } else {
+                        $('.input-error').html('');
+                        $.each(data.errors, function(field, errors) {
+                            var $errorElement = $(`#${field} ~ .input-error`);
+                            if ($errorElement.length) {
+                                $errorElement.html(errors.join('<br>'));
                             }
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    })
-                    .finally(() => {
-                        submitButtonModal.textContent = '{{ __('word.save') }}';
-                        submitButtonModal.disabled = false;
-                    });
+                        });
+                    }
+                }).fail(function(error) {
+                    console.error('Error:', error);
+                }).always(function() {
+                    $submitButtonModal.text('{{ __('word.save') }}').prop('disabled', false);
+                });
             });
 
             // Contract form elements
-            var discountInput = document.getElementById('discount');
-            var contractAmountDisplay = document.getElementById('contract_amount_display');
-            var contractAmount = document.getElementById('contract_amount');
-            var paymentMethodSelect = document.getElementById('contract_payment_method_id');
-            var variablePaymentFields = document.getElementById('variable-payment-fields');
-            var downPaymentDisplay = document.getElementById('down_payment_amount_display');
-            var downPayment = document.getElementById('down_payment_amount');
-            var monthlyInstallmentDisplay = document.getElementById('monthly_installment_amount_display');
-            var monthlyInstallment = document.getElementById('monthly_installment_amount');
-            var numberOfMonths = document.getElementById('number_of_months');
-            var monthsLabel = document.getElementById('months-label');
-            var keyPaymentDisplay = document.getElementById('key_payment_amount_display');
-            var keyPayment = document.getElementById('key_payment_amount');
-            var contractSubmitButton = document.getElementById('contract-submit');
+            var $discountInput = $('#discount');
+            var $contractAmountDisplay = $('#contract_amount_display');
+            var $contractAmount = $('#contract_amount');
+            var $paymentMethodSelect = $('#contract_payment_method_id');
+            var $variablePaymentFields = $('#variable-payment-fields');
+            var $downPaymentDisplay = $('#down_payment_amount_display');
+            var $downPayment = $('#down_payment_amount');
+            var $downPaymentInstallmentDisplay = $('#down_payment_installment_display');
+            var $downPaymentInstallment = $('#down_payment_installment');
+            var $monthlyInstallmentDisplay = $('#monthly_installment_amount_display');
+            var $monthlyInstallment = $('#monthly_installment_amount');
+            var $numberOfMonths = $('#number_of_months');
+            var $monthsLabel = $('#months-label');
+            var $deferredType = $('#deferred_type');
+            var $deferredMonths = $('#deferred_months');
+            var $keyPaymentDisplay = $('#key_payment_amount_display');
+            var $keyPayment = $('#key_payment_amount');
+            var $contractSubmitButton = $('#contract-submit');
 
             // Helpers
             function formatNumber(value) {
@@ -421,19 +463,17 @@
                 return (value || '').toString().replace(/,/g, '');
             }
 
-            function formatInput(displayInput, hiddenInput, errorElement) {
-                displayInput.addEventListener('input', function() {
-                    var numericValue = unformatNumber(displayInput.value);
+            function formatInput($displayInput, $hiddenInput, $errorElement) {
+                $displayInput.on('input', function() {
+                    var numericValue = unformatNumber($displayInput.val());
                     if (isNaN(numericValue) || numericValue < 0) {
-                        errorElement.textContent = '{{ __('word.invalid_amount') }}';
-                        errorElement.classList.remove('hidden');
-                        contractSubmitButton.disabled = true;
+                        $errorElement.text('{{ __('word.invalid_amount') }}').removeClass('hidden');
+                        $contractSubmitButton.prop('disabled', true);
                     } else {
-                        errorElement.textContent = '';
-                        errorElement.classList.add('hidden');
+                        $errorElement.text('').addClass('hidden');
                         var formattedValue = formatNumber(numericValue);
-                        displayInput.value = formattedValue;
-                        hiddenInput.value = numericValue;
+                        $displayInput.val(formattedValue);
+                        $hiddenInput.val(numericValue);
                         validatePaymentPlan();
                         autoCalculateKeyPayment();
                     }
@@ -441,28 +481,43 @@
             }
 
             // Initialize formatting for payment inputs
-            formatInput(downPaymentDisplay, downPayment, document.getElementById('down_payment_error'));
-            formatInput(monthlyInstallmentDisplay, monthlyInstallment, document.getElementById(
-                'monthly_installment_error'));
-            formatInput(contractAmountDisplay, contractAmount, document.getElementById('payment-plan-error'));
+            formatInput($downPaymentDisplay, $downPayment, $('#down_payment_error'));
+            formatInput($downPaymentInstallmentDisplay, $downPaymentInstallment, $(
+                '#down_payment_installment_error'));
+            formatInput($monthlyInstallmentDisplay, $monthlyInstallment, $('#monthly_installment_error'));
+            formatInput($contractAmountDisplay, $contractAmount, $('#payment-plan-error'));
+
+            // Format deferred months input
+            $deferredMonths.on('input', function() {
+                var value = parseInt($(this).val()) || 0;
+                if (value < 0) {
+                    $('#deferred_months_error').text('{{ __('word.invalid_deferred_months') }}')
+                        .removeClass('hidden');
+                    $contractSubmitButton.prop('disabled', true);
+                } else {
+                    $('#deferred_months_error').text('').addClass('hidden');
+                    $(this).val(value);
+                    validatePaymentPlan();
+                    autoCalculateKeyPayment();
+                }
+            });
 
             // Check if variable payment plan is selected
             function isVariableSelected() {
-                var selectedOption = $('#contract_payment_method_id').find('option:selected');
-                var fromAttr = selectedOption.attr('data-is-variable');
-                var fromData = selectedOption.data('is-variable');
-                return (fromAttr === 'true') || (fromData === true) || (fromData === 'true');
+                var $selectedOption = $paymentMethodSelect.find('option:selected');
+                return $selectedOption.data('is-variable') === true || $selectedOption.attr('data-is-variable') ===
+                    'true';
             }
 
             // Calculate contract amount with discount
             function calculateContractAmount() {
-                var selectedOption = $('#contract_building_id').find('option:selected');
-                var basePrice = parseFloat(selectedOption.data('price')) || 0;
-                var discount = parseFloat(discountInput.value) || 0;
+                var $selectedOption = $('#contract_building_id').find('option:selected');
+                var basePrice = parseFloat($selectedOption.data('price')) || 0;
+                var discount = parseFloat($discountInput.val()) || 0;
                 var discountedAmount = basePrice - (basePrice * (discount / 100));
 
-                contractAmount.value = discountedAmount;
-                contractAmountDisplay.value = formatNumber(discountedAmount.toString());
+                $contractAmount.val(discountedAmount);
+                $contractAmountDisplay.val(formatNumber(discountedAmount.toString()));
 
                 if (isVariableSelected()) {
                     validatePaymentPlan();
@@ -473,65 +528,181 @@
             // Validate payment plan
             function validatePaymentPlan() {
                 if (!isVariableSelected()) {
-                    contractSubmitButton.disabled = false;
-                    document.getElementById('payment-plan-error').classList.add('hidden');
+                    $contractSubmitButton.prop('disabled', false);
+                    $('#payment-plan-error, #down_payment_installment_error, #deferred_type_error, #deferred_months_error')
+                        .addClass('hidden');
                     return;
                 }
 
-                let discountedAmount = parseFloat(contractAmount.value) || 0;
-                let down = parseFloat(unformatNumber(downPaymentDisplay.value)) || 0;
-                let monthly = parseFloat(unformatNumber(monthlyInstallmentDisplay.value)) || 0;
-                let months = parseInt(numberOfMonths.value) || 0;
-                let key = parseFloat(unformatNumber(keyPaymentDisplay.value)) || 0;
-                let total = down + (monthly * months) + key;
-                let errorElement = document.getElementById('payment-plan-error');
+                let discountedAmount = parseFloat($contractAmount.val()) || 0;
+                let down = parseFloat(unformatNumber($downPaymentDisplay.val())) || 0;
+                let downInstallment = parseFloat(unformatNumber($downPaymentInstallmentDisplay.val())) || 0;
+                let monthly = parseFloat(unformatNumber($monthlyInstallmentDisplay.val())) || 0;
+                let months = parseInt($numberOfMonths.val()) || 0;
+                let deferredTypeValue = $deferredType.val();
+                let deferredMonthsCount = parseInt($deferredMonths.val()) || 0;
+                let deferred = down - downInstallment;
+                let $errorElement = $('#payment-plan-error');
+                let $downInstallmentError = $('#down_payment_installment_error');
+                let $deferredTypeError = $('#deferred_type_error');
+                let $deferredMonthsError = $('#deferred_months_error');
+                let hasError = false;
 
-                if (Math.abs(total - discountedAmount) > 0.01) {
-                    errorElement.textContent = '{{ __('word.payment_plan_mismatch') }}';
-                    errorElement.classList.remove('hidden');
-                    contractSubmitButton.disabled = true;
-                } else if (down > discountedAmount) {
-                    errorElement.textContent = '{{ __('word.down_payment_exceeds_contract') }}';
-                    errorElement.classList.remove('hidden');
-                    contractSubmitButton.disabled = true;
-                } else if (monthly * months > discountedAmount) {
-                    errorElement.textContent = '{{ __('word.monthly_installments_exceed_contract') }}';
-                    errorElement.classList.remove('hidden');
-                    contractSubmitButton.disabled = true;
+                // Reset errors
+                $errorElement.text('');
+                $downInstallmentError.text('');
+                $deferredTypeError.text('');
+                $deferredMonthsError.text('');
+
+                // Total payment validation
+                let monthlyTotal = 0;
+                if (deferredTypeValue === 'spread' && deferredMonthsCount > 0) {
+                    monthlyTotal = (monthly + Math.floor(deferred / deferredMonthsCount)) * deferredMonthsCount +
+                        monthly * (months - deferredMonthsCount);
+                    if (deferred % deferredMonthsCount > 0) {
+                        monthlyTotal += deferred % deferredMonthsCount;
+                    }
+                } else if (deferredTypeValue.startsWith('lump-') && deferred > 0) {
+                    monthlyTotal = monthly * months + deferred;
                 } else {
-                    errorElement.textContent = '';
-                    errorElement.classList.add('hidden');
-                    contractSubmitButton.disabled = false;
+                    monthlyTotal = monthly * months;
                 }
+                let total = downInstallment + monthlyTotal + parseFloat(unformatNumber($keyPaymentDisplay.val()) ||
+                    0);
+                if (Math.abs(total - discountedAmount) > 0.01) {
+                    $errorElement.text('{{ __('word.payment_plan_mismatch') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (down > discountedAmount) {
+                    $errorElement.text('{{ __('word.down_payment_exceeds_contract') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (monthlyTotal > discountedAmount) {
+                    $errorElement.text('{{ __('word.monthly_installments_exceed_contract') }}').removeClass(
+                        'hidden');
+                    hasError = true;
+                } else {
+                    $errorElement.addClass('hidden');
+                }
+
+                // Down payment installment validation
+                if (downInstallment < 0) {
+                    $downInstallmentError.text('{{ __('word.invalid_amount') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (downInstallment > down) {
+                    $downInstallmentError.text('{{ __('word.down_installment_exceeds_down') }}').removeClass(
+                        'hidden');
+                    hasError = true;
+                } else {
+                    $downInstallmentError.addClass('hidden');
+                }
+
+                // Deferred type and months validation
+                if (deferred > 0 && deferredTypeValue === 'none') {
+                    $deferredTypeError.text('{{ __('word.deferred_type_required') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (deferredTypeValue === 'spread' && deferredMonthsCount <= 0) {
+                    $deferredMonthsError.text('{{ __('word.deferred_months_required') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (deferredTypeValue === 'spread' && deferredMonthsCount > months) {
+                    $deferredMonthsError.text('{{ __('word.deferred_months_exceed_total') }}').removeClass(
+                        'hidden');
+                    hasError = true;
+                } else if (deferredTypeValue.startsWith('lump-') && !['lump-6', 'lump-7'].includes(
+                        deferredTypeValue)) {
+                    $deferredTypeError.text('{{ __('word.invalid_deferred_type') }}').removeClass('hidden');
+                    hasError = true;
+                } else if (deferredTypeValue.startsWith('lump-')) {
+                    let lumpMonth = parseInt(deferredTypeValue.split('-')[1]);
+                    if (lumpMonth > months) {
+                        $deferredTypeError.text('{{ __('word.lump_month_exceeds_total') }}').removeClass('hidden');
+                        hasError = true;
+                    } else {
+                        $deferredTypeError.addClass('hidden');
+                    }
+                } else {
+                    $deferredTypeError.addClass('hidden');
+                    $deferredMonthsError.addClass('hidden');
+                }
+
+                $contractSubmitButton.prop('disabled', hasError);
             }
 
             // Auto-calculate key payment and update breakdown
             function autoCalculateKeyPayment() {
                 if (!isVariableSelected()) return;
 
-                let discountedAmount = parseFloat(contractAmount.value) || 0;
-                let down = parseFloat(unformatNumber(downPaymentDisplay.value)) || 0;
-                let monthly = parseFloat(unformatNumber(monthlyInstallmentDisplay.value)) || 0;
-                let months = parseInt(numberOfMonths.value) || 0;
+                let discountedAmount = parseFloat($contractAmount.val()) || 0;
+                let down = parseFloat(unformatNumber($downPaymentDisplay.val())) || 0;
+                let downInstallment = parseFloat(unformatNumber($downPaymentInstallmentDisplay.val())) || 0;
+                let monthly = parseFloat(unformatNumber($monthlyInstallmentDisplay.val())) || 0;
+                let months = parseInt($numberOfMonths.val()) || 0;
+                let deferredTypeValue = $deferredType.val();
+                let deferredMonthsCount = parseInt($deferredMonths.val()) || 0;
+                let deferred = down - downInstallment;
 
-                monthsLabel.textContent = months;
-                numberOfMonths.setAttribute('aria-valuenow', months);
+                $monthsLabel.text(months);
+                $numberOfMonths.attr('aria-valuenow', months);
 
-                let subtotal = down + (monthly * months);
-                let key = discountedAmount - subtotal;
+                let deferredPerMonth = deferredTypeValue === 'spread' && deferredMonthsCount > 0 ? Math.floor(
+                    deferred / deferredMonthsCount) : 0;
+                let remainder = deferredTypeValue === 'spread' && deferredMonthsCount > 0 ? deferred %
+                    deferredMonthsCount : 0;
+                let firstMonthlyAmount = deferredTypeValue === 'spread' && deferredMonthsCount > 0 ? monthly +
+                    deferredPerMonth : monthly;
+                let monthlyTotal = 0;
+                let lumpMonth = deferredTypeValue.startsWith('lump-') ? parseInt(deferredTypeValue.split('-')[1]) :
+                    0;
+
+                if (deferredTypeValue === 'spread' && deferredMonthsCount > 0) {
+                    monthlyTotal = (firstMonthlyAmount * deferredMonthsCount) + (monthly * (months -
+                        deferredMonthsCount));
+                    if (remainder > 0) {
+                        monthlyTotal += remainder;
+                    }
+                } else if (deferredTypeValue.startsWith('lump-') && deferred > 0) {
+                    monthlyTotal = monthly * months + deferred;
+                } else {
+                    monthlyTotal = monthly * months;
+                }
+
+                let key = discountedAmount - (downInstallment + monthlyTotal);
                 if (key < 0) key = 0;
 
-                keyPaymentDisplay.value = formatNumber(key.toFixed(0));
-                keyPayment.value = key;
+                $keyPaymentDisplay.val(formatNumber(key.toFixed(0)));
+                $keyPayment.val(key);
 
-                let tbody = document.getElementById('payment-breakdown');
-                tbody.innerHTML = `
+                let $tbody = $('#payment-breakdown');
+                $tbody.html(`
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.down_payment_installment') }}</td>
+                    <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
+                    <td class="px-2 py-1">1</td>
+                    <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
+                </tr>
+            `);
+
+                if (deferredTypeValue === 'spread' && deferredMonthsCount > 0 && deferred > 0) {
+                    let firstMonthsTotal = (firstMonthlyAmount * deferredMonthsCount) + (remainder > 0 ? remainder :
+                        0);
+                    $tbody.append(`
                     <tr>
-                        <td class="px-2 py-1">{{ __('word.down_payment') }}</td>
-                        <td class="px-2 py-1">${formatNumber(down)}</td>
-                        <td class="px-2 py-1">1</td>
-                        <td class="px-2 py-1">${formatNumber(down)}</td>
+                        <td class="px-2 py-1">{{ __('word.first_monthly_installments') }}</td>
+                        <td class="px-2 py-1">${formatNumber(firstMonthlyAmount + (remainder > 0 ? remainder / deferredMonthsCount : 0))}</td>
+                        <td class="px-2 py-1">${deferredMonthsCount}</td>
+                        <td class="px-2 py-1">${formatNumber(firstMonthsTotal)}</td>
                     </tr>
+                `);
+                    if (months > deferredMonthsCount) {
+                        $tbody.append(`
+                        <tr>
+                            <td class="px-2 py-1">{{ __('word.remaining_monthly_installments') }}</td>
+                            <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                            <td class="px-2 py-1">${months - deferredMonthsCount}</td>
+                            <td class="px-2 py-1">${formatNumber(monthly * (months - deferredMonthsCount))}</td>
+                        </tr>
+                    `);
+                    }
+                } else if (deferredTypeValue.startsWith('lump-') && deferred > 0) {
+                    $tbody.append(`
                     <tr>
                         <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
                         <td class="px-2 py-1">${formatNumber(monthly)}</td>
@@ -539,48 +710,69 @@
                         <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
                     </tr>
                     <tr>
-                        <td class="px-2 py-1">{{ __('word.key_payment') }}</td>
-                        <td class="px-2 py-1">${formatNumber(key)}</td>
-                        <td class="px-2 py-1">1</td>
-                        <td class="px-2 py-1">${formatNumber(key)}</td>
+                        <td class="px-2 py-1">{{ __('word.deferred_lump_sum') }}</td>
+                        <td class="px-2 py-1">${formatNumber(deferred)}</td>
+                        <td class="px-2 py-1">{{ __('word.with_installment') }} ${lumpMonth}</td>
+                        <td class="px-2 py-1">${formatNumber(deferred)}</td>
                     </tr>
-                `;
-                document.getElementById('breakdown-total').textContent = formatNumber(discountedAmount);
+                `);
+                } else {
+                    $tbody.append(`
+                    <tr>
+                        <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
+                        <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                        <td class="px-2 py-1">${months}</td>
+                        <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
+                    </tr>
+                `);
+                }
+
+                $tbody.append(`
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.key_payment') }}</td>
+                    <td class="px-2 py-1">${formatNumber(key)}</td>
+                    <td class="px-2 py-1">1</td>
+                    <td class="px-2 py-1">${formatNumber(key)}</td>
+                </tr>
+            `);
+
+                $('#breakdown-total').text(formatNumber(discountedAmount));
                 validatePaymentPlan();
             }
 
             // Toggle variable payment fields
             function toggleVariableFields() {
                 if (isVariableSelected()) {
-                    variablePaymentFields.classList.remove('hidden');
+                    $variablePaymentFields.removeClass('hidden');
                     autoCalculateKeyPayment();
                 } else {
-                    variablePaymentFields.classList.add('hidden');
-                    document.getElementById('payment-plan-error').classList.add('hidden');
-                    contractSubmitButton.disabled = false;
+                    $variablePaymentFields.addClass('hidden');
+                    $('#payment-plan-error, #down_payment_installment_error, #deferred_type_error, #deferred_months_error')
+                        .addClass('hidden');
+                    $contractSubmitButton.prop('disabled', false);
                 }
             }
 
             // Event listeners
-            $('#contract_payment_method_id').on('change select2:select', toggleVariableFields);
+            $paymentMethodSelect.on('change select2:select', toggleVariableFields);
             $('#contract_building_id').on('change select2:select', calculateContractAmount);
-            discountInput.addEventListener('input', calculateContractAmount);
-            numberOfMonths.addEventListener('input', autoCalculateKeyPayment);
+            $discountInput.on('input', calculateContractAmount);
+            $numberOfMonths.on('input', autoCalculateKeyPayment);
+            $downPaymentDisplay.on('input', autoCalculateKeyPayment);
+            $downPaymentInstallmentDisplay.on('input', autoCalculateKeyPayment);
+            $monthlyInstallmentDisplay.on('input', autoCalculateKeyPayment);
+            $deferredType.on('change', autoCalculateKeyPayment);
+            $deferredMonths.on('input', autoCalculateKeyPayment);
 
             // Prevent double submission for contract form
-            document.querySelector('form[action="{{ route('contract.store') }}"]').addEventListener('submit',
-                function() {
-                    contractSubmitButton.textContent = '{{ __('word.saving') }}';
-                    contractSubmitButton.disabled = true;
-                });
+            $('form[action="{{ route('contract.store') }}"]').on('submit', function() {
+                $contractSubmitButton.text('{{ __('word.saving') }}').prop('disabled', true);
+            });
 
             // Initial setup
             toggleVariableFields();
             calculateContractAmount();
-
-            // Note: Server-side validation should be implemented in the contract.store route to:
-            // 1. Verify contract_amount matches building price after discount.
-            // 2. Ensure sum of payments (down_payment + monthly_installments * months + key_payment) equals contract_amount for variable plans.
         });
     </script>
+
 </x-app-layout>
