@@ -151,30 +151,32 @@
                         <br>
                     @endforeach
 
-                    <!-- جدول المجموع العام -->
-                    <div class="mt-8">
-                        <h3 class="font-bold text-lg mb-2">المجموع الكلي (جميع الأقسام)</h3>
-                        <table class="w-full border-collapse border">
-                            <thead class="bg-gray-100">
-                                <tr>
-                                    <th class="border px-2 py-1">الراتب الأساسي</th>
-                                    <th class="border px-2 py-1">الحوافز</th>
-                                    <th class="border px-2 py-1">الخصومات</th>
-                                    <th class="border px-2 py-1">السلف</th>
-                                    <th class="border px-2 py-1">الصافي</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="bg-gray-500 font-semibold text-white">
-                                    <td class="border px-2 py-1">{{ number_format($grandBasic, 0) }}</td>
-                                    <td class="border px-2 py-1">{{ number_format($grandIncentives, 0) }}</td>
-                                    <td class="border px-2 py-1">{{ number_format($grandDeductions, 0) }}</td>
-                                    <td class="border px-2 py-1">{{ number_format($grandAdvances, 0) }}</td>
-                                    <td class="border px-2 py-1">{{ number_format($grandNet, 0) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    {{-- جدول المجموع العام --}}
+                    @if (!$selectedDepartment)
+                        <div class="mt-8">
+                            <h3 class="font-bold text-lg mb-2">المجموع الكلي (جميع الأقسام)</h3>
+                            <table class="w-full border-collapse border">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="border px-2 py-1">الراتب الأساسي</th>
+                                        <th class="border px-2 py-1">الحوافز</th>
+                                        <th class="border px-2 py-1">الخصومات</th>
+                                        <th class="border px-2 py-1">السلف</th>
+                                        <th class="border px-2 py-1">الصافي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-gray-500 font-semibold text-white">
+                                        <td class="border px-2 py-1">{{ number_format($grandBasic, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($grandIncentives, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($grandDeductions, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($grandAdvances, 0) }}</td>
+                                        <td class="border px-2 py-1">{{ number_format($grandNet, 0) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
 
                 </div>
             </div>
