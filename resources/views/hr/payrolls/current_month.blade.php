@@ -18,6 +18,23 @@
                     </button>
                 </div>
 
+                <div class="mb-4">
+                    <form method="GET" action="{{ route('hr.payrolls.currentMonth') }}"
+                        class="flex items-center space-x-2">
+                        <label for="department" class="font-semibold">اختر القسم:</label>
+                        <select id="department" name="department" class="border rounded px-2 py-1">
+                            <option value="">جميع الأقسام</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department }}"
+                                    {{ $selectedDepartment == $department ? 'selected' : '' }}>
+                                    {{ $department }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <button type="submit">تصفية</button>
+                    </form>
+                </div>
+
                 <div class="print-container a4-width mx-auto bg-white">
 
                     @php

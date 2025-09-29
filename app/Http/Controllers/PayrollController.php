@@ -240,22 +240,45 @@ class PayrollController extends Controller
         return view('hr.payrolls.show', compact('payroll'));
     }
 
-    public function currentMonth()
+    public function currentMonth(Request $request)
     {
         $currentMonth = now()->month;
         $currentYear  = now()->year;
 
-        $payrolls = Payroll::with(['employee' => function ($q) {
+        // Get selected department from request (if any)
+        $selectedDepartment = $request->input('department');
+
+        $query = Payroll::with(['employee' => function ($q) {
             $q->orderBy('employee_code', 'asc');
         }])
             ->where('month', $currentMonth)
-            ->where('year', $currentYear)
-            ->get()
-            ->sortBy(fn($p) => $p->employee->employee_code) // ترتيب بعد الجلب
+            ->where('year', $currentYear);
+
+        // Apply department filter if selected
+        if ($selectedDepartment) {
+            $query->whereHas('employee', function ($q) use ($selectedDepartment) {
+                $q->where('department', $selectedDepartment);
+            });
+        }
+
+        $payrolls = $query->get()
+            ->sortBy(fn($p) => $p->employee->employee_code)
             ->groupBy(fn($p) => $p->employee->department ?? 'غير محدد');
 
-        return view('hr.payrolls.current_month', compact('payrolls', 'currentMonth', 'currentYear'));
+        // Get distinct department list for dropdown
+        $departments = \App\Models\Employee::select('department')
+            ->distinct()
+            ->pluck('department');
+
+        return view('hr.payrolls.current_month', compact(
+            'payrolls',
+            'currentMonth',
+            'currentYear',
+            'departments',
+            'selectedDepartment'
+        ));
     }
+
 
 
     public function generateAll()
