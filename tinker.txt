@@ -1,0 +1,27 @@
+php artisan tinker
+
+use App\Models\Payment\Payment;
+use App\Models\Cash\Cash_Account;
+use App\Models\Cash\Transaction;
+
+$paymentId = 650;      // Missing payment
+$cashAccountId = 5;    // Confirm from your data
+
+$payment = Payment::find($paymentId);
+$cashAccount = Cash_Account::find($cashAccountId);
+
+if ($payment && $cashAccount) {
+    $transaction = Transaction::create([
+        'url_address' => bin2hex(random_bytes(30)),
+        'cash_account_id' => $cashAccount->id,
+        'transactionable_id' => $payment->id,
+        'transactionable_type' => App\Models\Payment\Payment::class,
+        'transaction_amount' => $payment->payment_amount,
+        'transaction_date' => $payment->payment_date, // ✅ accurate
+        'transaction_type' => 'credit',
+    ]);
+
+    echo "✅ Transaction created for payment #{$payment->id}";
+} else {
+    echo "❌ Payment or cash account not found.";
+}

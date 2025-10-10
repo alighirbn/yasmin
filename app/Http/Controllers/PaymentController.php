@@ -13,6 +13,8 @@ use App\Models\User;
 
 use App\Notifications\PaymentNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -80,81 +82,111 @@ class PaymentController extends Controller
 
     public function approve(Request $request, string $url_address)
     {
-        $payment = Payment::where('url_address', '=', $url_address)->first();
+        try {
+            // Fetch payment with relationships for notifications and validation
+            $payment = Payment::with(['contract', 'contract_installment.installment'])
+                ->where('url_address', $url_address)
+                ->first();
 
-        if (isset($payment)) {
+            if (!$payment) {
+                $ip = $this->getIPAddress();
+                return view('payment.accessdenied', ['ip' => $ip]);
+            }
+
+            // Prevent duplicate approval
             if ($payment->approved) {
                 return redirect()->route('contract.show', $payment->contract->url_address)
                     ->with('error', 'تمت الموافقة على الدفعة مسبقًا.');
             }
-            // Ensure payment_amount is numeric before proceeding
-            if (!is_numeric($payment->payment_amount)) {
+
+            // Validate amount
+            if (!is_numeric($payment->payment_amount) || $payment->payment_amount <= 0) {
                 return redirect()->route('contract.show', $payment->contract->url_address)
-                    ->with('error', 'The payment amount is not valid.');
+                    ->with('error', 'قيمة الدفعة غير صالحة.');
             }
 
-            // Approve the payment
-            $payment->approved = true;
-
+            // Validate selected account
             $cash_account_id = $request->cash_account_id;
+            $cashAccount = Cash_Account::find($cash_account_id);
+            if (!$cashAccount) {
+                return redirect()->route('contract.show', $payment->contract->url_address)
+                    ->with('error', 'الحساب النقدي المحدد غير موجود.');
+            }
 
-            // Update the cash_account_id in the Payment model
+            // Wrap everything in DB transaction for atomicity
+            DB::beginTransaction();
+
+            // ✅ Approve the payment
+            $payment->approved = true;
             $payment->cash_account_id = $cash_account_id;
-            $payment->save(); // Save the updated payment model
+            $payment->save();
 
-            // Get the cash account (assuming main account with ID 1)
-            $cashAccount = Cash_Account::find($cash_account_id); // or find based on your logic
+            // ✅ Adjust the cash account balance (safe fallback if method missing)
+            if (method_exists($cashAccount, 'adjustBalance')) {
+                $cashAccount->adjustBalance($payment->payment_amount, 'credit');
+            } else {
+                $cashAccount->balance = ($cashAccount->balance ?? 0) + $payment->payment_amount;
+                $cashAccount->save();
+            }
 
-            // Adjust the cash account balance by crediting the payment amount
-            $cashAccount->adjustBalance($payment->payment_amount, 'credit');
-
-            // Create a transaction for the approved payment
-            Transaction::create([
+            // ✅ Create a corresponding transaction record
+            $transaction = Transaction::create([
                 'url_address' => $this->get_random_string(60),
                 'cash_account_id' => $cashAccount->id,
                 'transactionable_id' => $payment->id,
                 'transactionable_type' => Payment::class,
                 'transaction_amount' => $payment->payment_amount,
                 'transaction_date' => now(),
-                'transaction_type' => 'credit', // Since it's a payment
+                'transaction_type' => 'credit',
             ]);
 
-            // Safely check if contract installment and installment exist before accessing the id
-            $installmentId = optional(optional($payment->contract_installment)->installment)->id;
-            // Update the contract_installment->paid field to true
+            if (!$transaction) {
+                throw new \Exception('فشل إنشاء سجل المعاملة المالية.');
+            }
+
+            // ✅ Mark the related installment as paid if it exists
             if ($payment->contract_installment) {
                 $payment->contract_installment->paid = true;
-                $payment->contract_installment->save(); // Save the updated contract installment
+                $payment->contract_installment->save();
             }
+
+            // ✅ Notify lawyers, subaccounts, and admins for first 2 installments
+            $installmentId = optional(optional($payment->contract_installment)->installment)->id;
             if ($installmentId && in_array($installmentId, [1, 2])) {
-                // Notify all users with 'lawyer' role
-                $lawyers = User::role('lawyer')->get(); // Fetch lawyers
-                $subaccounts = User::role('sub.accaunt')->get(); // Fetch lawyers
-                $admins = User::role('admin')->get(); // Fetch admins
+                $lawyers = User::role('lawyer')->get();
+                $subaccounts = User::role('sub.accaunt')->get();
+                $admins = User::role('admin')->get();
 
-                // Notify lawyers
-                foreach ($lawyers as $lawyer) {
-                    $lawyer->notify(new PaymentNotify($payment));
-                }
-
-                // Notify subaccounts
-                foreach ($subaccounts as $subaccount) {
-                    $subaccount->notify(new PaymentNotify($payment));
-                }
-
-                // Notify admins
-                foreach ($admins as $admin) {
-                    $admin->notify(new PaymentNotify($payment));
+                foreach ([$lawyers, $subaccounts, $admins] as $group) {
+                    foreach ($group as $user) {
+                        $user->notify(new PaymentNotify($payment));
+                    }
                 }
             }
+
+            // ✅ Commit DB changes
+            DB::commit();
 
             return redirect()->route('contract.show', $payment->contract->url_address)
-                ->with('success', 'تم قبول الدفعة بنجاح وتم تسجيل المعاملة في الحساب النقدي.');
-        } else {
-            $ip = $this->getIPAddress();
-            return view('payment.accessdenied', ['ip' => $ip]);
+                ->with('success', '✅ تم قبول الدفعة بنجاح وتم إنشاء المعاملة المالية.');
+        } catch (\Exception $e) {
+            // Roll back in case of any issue
+            DB::rollBack();
+
+            // Log detailed error
+            Log::error('Payment approval failed', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect()->back()->with(
+                'error',
+                'حدث خطأ أثناء الموافقة على الدفعة: ' . $e->getMessage()
+            );
         }
     }
+
 
 
     public function pending($url_address)
