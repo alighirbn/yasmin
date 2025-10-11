@@ -8,6 +8,7 @@ use App\Http\Requests\CashAccountRequest;
 use App\Models\Cash\Cash_Account;
 use App\Models\Cash\CashTransfer;
 use App\Models\Cash\Transaction;
+use App\Models\Payment\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,7 +63,28 @@ class CashAccountController extends Controller
     {
         // Retrieve the cash account by its URL address
         $cashAccount = Cash_Account::where('url_address', $url_address)->firstOrFail();
+
+        // 🧩 Ensure every approved payment under this cash account has a transaction
+        $cashAccount->payments()
+            ->where('approved', true)
+            ->each(function ($payment) {
+                if (!$payment->transactions()->exists()) {
+                    Transaction::create([
+                        'url_address' => $this->get_random_string(60),
+                        'cash_account_id' => $payment->cash_account_id,
+                        'transaction_amount' => $payment->payment_amount,
+                        'transaction_type' => 'credit',
+                        'transaction_date' => $payment->payment_date,
+                        'transactionable_type' => Payment::class,
+                        'transactionable_id' => $payment->id,
+                        'user_id_create' => $payment->user_id_create ?? auth()->id(),
+                    ]);
+                }
+            });
+
+        // 🔄 Recalculate the account balance (if you have this logic implemented)
         $newBalance = $cashAccount->recalculateBalance();
+
         // Get all transactions for the cash account, sorted by date
         $transactions = $cashAccount->transactions()
             ->orderBy('transaction_date', 'asc')
@@ -92,6 +114,7 @@ class CashAccountController extends Controller
 
         return view('cash_account.statement', compact('cashAccount', 'transactions', 'startDate', 'endDate'));
     }
+
     /**
      * Show the form for editing the specified resource.
      */

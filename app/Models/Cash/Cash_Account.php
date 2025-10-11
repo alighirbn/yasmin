@@ -7,21 +7,26 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 
 class Cash_Account extends Model
 {
     use HasFactory;
+
     protected $table = 'cash_accounts';
 
     protected $fillable = [
         'url_address',
         'account_name',  // e.g., 'Main Account', 'Savings Account'
         'balance',       // Current balance of the cash account
-
         'user_id_create',
         'user_id_update',
     ];
+
+    // ✅ Relationship with payments
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'cash_account_id', 'id');
+    }
 
     // Relationship with transactions
     public function transactions()
@@ -32,7 +37,6 @@ class Cash_Account extends Model
     // Method to adjust balance
     public function adjustBalance($amount, $type)
     {
-
         // Recalculate the balance first to ensure it is correct
         $this->recalculateBalance();
 
