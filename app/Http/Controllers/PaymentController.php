@@ -99,11 +99,6 @@ class PaymentController extends Controller
                     ->with('error', 'تمت الموافقة على الدفعة مسبقًا.');
             }
 
-            // Validate amount
-            if (!is_numeric($payment->payment_amount) || $payment->payment_amount <= 0) {
-                return redirect()->route('contract.show', $payment->contract->url_address)
-                    ->with('error', 'قيمة الدفعة غير صالحة.');
-            }
 
             // Validate selected account
             $cash_account_id = $request->cash_account_id;
