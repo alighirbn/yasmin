@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,10 @@ Route::group(['middleware' => 'checkStatus'], function () {
     });
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    // ✅ تحديث: استخدام DashboardController بدلاً من عرض مباشر
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
 
     // include other route files
     require __DIR__ . '/map.php';
