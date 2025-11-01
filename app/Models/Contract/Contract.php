@@ -39,9 +39,23 @@ class Contract extends Model
     public function unpaidInstallments()
     {
         return $this->hasMany(Contract_Installment::class, 'contract_id', 'id')
-            ->whereDoesntHave('payment', function ($query) {
-                $query->where('approved', true);
+            ->where(function ($query) {
+                $query->where('paid', false)
+                    ->orWhereRaw('paid_amount < installment_amount');
             });
+    }
+
+    public function partiallyPaidInstallments()
+    {
+        return $this->hasMany(Contract_Installment::class, 'contract_id', 'id')
+            ->whereRaw('paid_amount > 0 AND paid_amount < installment_amount');
+    }
+
+    public function fullyPaidInstallments()
+    {
+        return $this->hasMany(Contract_Installment::class, 'contract_id', 'id')
+            ->where('paid', true)
+            ->whereRaw('paid_amount >= installment_amount');
     }
 
     public function hasPayments()

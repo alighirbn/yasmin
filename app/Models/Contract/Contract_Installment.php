@@ -36,10 +36,66 @@ class Contract_Installment extends Model
         'url_address',
         'installment_amount',
         'installment_date',
+        'paid_amount', // 🔹 Track partial payments
         'contract_id',
         'installment_id',
         'user_id_create',
         'user_id_update',
         'sequence_number', // 🔹 Added here
     ];
+
+    /**
+     * Check if installment is fully paid
+     */
+    public function isFullyPaid()
+    {
+        return $this->paid_amount >= $this->installment_amount;
+    }
+
+    /**
+     * Get remaining amount to be paid
+     */
+    public function getRemainingAmount()
+    {
+        return max(0, $this->installment_amount - $this->paid_amount);
+    }
+
+    /**
+     * Get payment progress percentage
+     */
+    public function getPaymentProgress()
+    {
+        if ($this->installment_amount == 0) {
+            return 0;
+        }
+        return min(100, ($this->paid_amount / $this->installment_amount) * 100);
+    }
+
+    /**
+     * Add a payment amount to this installment
+     */
+    public function addPayment($amount)
+    {
+        $this->paid_amount += $amount;
+
+        // Auto-update paid status when fully paid
+        if ($this->isFullyPaid()) {
+            $this->paid = true;
+        }
+
+        $this->save();
+    }
+
+    /**
+     * Remove a payment amount from this installment
+     */
+    public function removePayment($amount)
+    {
+        $this->paid_amount = max(0, $this->paid_amount - $amount);
+
+        // Update paid status
+        $this->paid = $this->isFullyPaid();
+
+        $this->save();
+    }
 }

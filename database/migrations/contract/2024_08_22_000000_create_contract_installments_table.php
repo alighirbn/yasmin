@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->string('url_address', 60)->unique()->nullable();
             $table->decimal('installment_amount', 15, 0);
+            $table->decimal('paid_amount', 15, 2)->default(0);
             $table->date('installment_date');
             $table->boolean('paid')->default(false);
 

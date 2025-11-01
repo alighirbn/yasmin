@@ -8,6 +8,7 @@ use App\Http\Requests\PaymentRequest;
 use App\Models\Cash\Cash_Account;
 use App\Models\Cash\Transaction;
 use App\Models\Contract\Contract;
+use App\Models\Contract\Contract_Installment;
 use App\Models\Payment\Payment;
 use App\Models\User;
 
@@ -42,6 +43,42 @@ class PaymentController extends Controller
             ->whereNotIn('stage', ['terminated'])
             ->get();
         return view('payment.create', compact(['contracts']));
+    }
+
+    /**
+     * Get installments for a specific contract (AJAX endpoint)
+     */
+    public function getContractInstallments($contractId)
+    {
+        try {
+            $installments = Contract_Installment::with('installment')
+                ->where('contract_id', $contractId)
+                ->orderBy('sequence_number')
+                ->get()
+                ->map(function ($installment) {
+                    return [
+                        'id' => $installment->id,
+                        'name' => $installment->installment->installment_name ?? 'قسط',
+                        'sequence' => $installment->sequence_number,
+                        'amount' => $installment->installment_amount,
+                        'paid_amount' => $installment->paid_amount,
+                        'remaining' => $installment->getRemainingAmount(),
+                        'is_fully_paid' => $installment->isFullyPaid(),
+                        'progress' => $installment->getPaymentProgress(),
+                        'date' => $installment->installment_date,
+                    ];
+                });
+
+            return response()->json([
+                'success' => true,
+                'installments' => $installments
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ في تحميل الأقساط'
+            ], 500);
+        }
     }
 
     /**
@@ -139,10 +176,21 @@ class PaymentController extends Controller
                 throw new \Exception('فشل إنشاء سجل المعاملة المالية.');
             }
 
-            // ✅ Mark the related installment as paid if it exists
+            // ✅ Mark the related installment as paid/partially paid if it exists
             if ($payment->contract_installment) {
-                $payment->contract_installment->paid = true;
-                $payment->contract_installment->save();
+                $installment = $payment->contract_installment;
+                $installment->addPayment($payment->payment_amount);
+
+                // Log payment progress
+                Log::info('Payment applied to installment', [
+                    'installment_id' => $installment->id,
+                    'payment_amount' => $payment->payment_amount,
+                    'paid_amount' => $installment->paid_amount,
+                    'installment_amount' => $installment->installment_amount,
+                    'remaining' => $installment->getRemainingAmount(),
+                    'progress' => $installment->getPaymentProgress() . '%',
+                    'fully_paid' => $installment->isFullyPaid() ? 'Yes' : 'No'
+                ]);
             }
 
             // ✅ Notify lawyers, subaccounts, and admins for first 2 installments
@@ -259,10 +307,15 @@ class PaymentController extends Controller
                 // Delete related transactions
                 $payment->transactions()->delete();
             }
-            // Update the contract_installment->paid field to false
+            // Update the contract_installment paid amount
             if ($payment->contract_installment) {
-                $payment->contract_installment->paid = false;
-                $payment->contract_installment->save(); // Save the updated contract installment
+                $payment->contract_installment->removePayment($payment->payment_amount);
+
+                Log::info('Payment removed from installment', [
+                    'installment_id' => $payment->contract_installment->id,
+                    'payment_amount' => $payment->payment_amount,
+                    'remaining_paid_amount' => $payment->contract_installment->paid_amount
+                ]);
             }
 
             // Delete the payment
@@ -340,6 +393,65 @@ class PaymentController extends Controller
             'cashAccountId'
         ));
     }
+
+    public function syncInstallmentsPaidAmount()
+    {
+        Log::info('Starting manual sync for installments paid_amount');
+
+        $installments = DB::table('contract_installments')->get();
+        $updated = 0;
+        $errors = 0;
+
+        foreach ($installments as $installment) {
+            try {
+                // Sum approved payments for each installment
+                $totalPaid = DB::table('payments')
+                    ->where('contract_installment_id', $installment->id)
+                    ->where('approved', true)
+                    ->sum('payment_amount');
+
+                $isPaid = ($totalPaid >= $installment->installment_amount);
+
+                DB::table('contract_installments')
+                    ->where('id', $installment->id)
+                    ->update([
+                        'paid_amount' => $totalPaid,
+                        'paid' => $isPaid,
+                        'updated_at' => now()
+                    ]);
+
+                $updated++;
+
+                if ($totalPaid > 0) {
+                    Log::info('Synced installment', [
+                        'installment_id' => $installment->id,
+                        'paid_amount' => $totalPaid,
+                        'installment_amount' => $installment->installment_amount,
+                        'paid' => $isPaid
+                    ]);
+                }
+            } catch (\Exception $e) {
+                $errors++;
+                Log::error('Failed to sync installment', [
+                    'installment_id' => $installment->id,
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+
+        Log::info('Manual sync completed', [
+            'total_installments' => $installments->count(),
+            'updated' => $updated,
+            'errors' => $errors
+        ]);
+
+        return back()->with('success', "✅ تم تحديث الأقساط بنجاح:
+        \n- عدد الأقساط: {$installments->count()}
+        \n- تم تحديث: {$updated}
+        \n- أخطاء: {$errors}
+    ");
+    }
+
     public function getIPAddress()
     {
         //whether ip is from the share internet

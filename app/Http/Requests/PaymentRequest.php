@@ -28,15 +28,39 @@ class PaymentRequest extends FormRequest
             'user_id_create' => ['Numeric'],
             'user_id_update' => ['Numeric'],
 
-
             //foreign id and reference
             'payment_contract_id' => ['required'],
-
-
+            'contract_installment_id' => ['nullable'],
 
             //normal fields
             'payment_date' => ['required', 'date_format:Y-m-d'],
-            'payment_amount' => ['required'],
+            'payment_amount' => [
+                'required',
+                'numeric',
+                'min:0.01',
+                function ($attribute, $value, $fail) {
+                    // Validate against installment if linked
+                    if ($this->contract_installment_id) {
+                        $installment = \App\Models\Contract\Contract_Installment::find($this->contract_installment_id);
+
+                        if ($installment) {
+                            $remaining = $installment->getRemainingAmount();
+
+                            // For updates, add back the current payment amount to remaining
+                            if ($this->route('url_address')) {
+                                $currentPayment = \App\Models\Payment\Payment::where('url_address', $this->route('url_address'))->first();
+                                if ($currentPayment && $currentPayment->contract_installment_id == $this->contract_installment_id) {
+                                    $remaining += $currentPayment->payment_amount;
+                                }
+                            }
+
+                            if ($value > $remaining) {
+                                $fail('مبلغ الدفعة (' . number_format($value) . ') يتجاوز المبلغ المتبقي للقسط (' . number_format($remaining) . ')');
+                            }
+                        }
+                    }
+                }
+            ],
             'payment_note' => ['required', 'max:200'],
         ];
     }

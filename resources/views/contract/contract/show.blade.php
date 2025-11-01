@@ -342,19 +342,42 @@
                                             <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
                                             <td>{{ $installment->installment_date }}</td>
                                             <td>
-                                                @if ($installment->payment == null)
+                                                @php
+                                                    $total = $installment->installment_amount;
+                                                    $paid = $installment->paid_amount ?? 0;
+                                                    $remain = $installment->getRemainingAmount();
+                                                    $progress = $installment->getPaymentProgress();
+                                                @endphp
+
+                                                @if ($paid == 0)
                                                     @if ($installment->isDue($installment->installment_date))
                                                         <span style="color: red;">لم تسدد - مستحقة</span>
                                                     @else
                                                         <span>لم تسدد - غير مستحقة</span>
                                                     @endif
-                                                @elseif ($installment->payment->approved)
-                                                    مسددة في {{ $installment->payment->payment_date }}
                                                 @else
-                                                    لم تتم الموافقة على الدفع
-                                                @endif
+                                                    <div>
+                                                        <strong>المدفوع:</strong> {{ number_format($paid, 0) }}
+                                                        دينار<br>
+                                                        <strong>المتبقي:</strong> {{ number_format($remain, 0) }}
+                                                        دينار<br>
 
+                                                    </div>
+
+                                                    <div class="mt-1 w-full bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-green-500 h-2 rounded-full"
+                                                            style="width: {{ $progress }}%"></div>
+                                                    </div>
+
+                                                    @if ($installment->payment && $installment->payment->approved)
+                                                        <small class="text-success">تم الدفع في
+                                                            {{ $installment->payment->payment_date }}</small>
+                                                    @elseif ($installment->payment)
+                                                        <small class="text-warning">بانتظار الموافقة</small>
+                                                    @endif
+                                                @endif
                                             </td>
+
                                             <td>
                                                 @if ($contract->stage != 'temporary')
                                                     @if ($installment->payment != null)
