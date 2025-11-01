@@ -286,9 +286,17 @@ class PayrollController extends Controller
         $currentMonth = now()->month;
         $currentYear  = now()->year;
 
-        $employees = Employee::where('status', 'active')
-            ->orWhere('status', 'terminated') // include recently terminated employees
+        $employees = Employee::whereDate('hire_date', '<=', now())
+            ->where(function ($q) use ($currentMonth, $currentYear) {
+                $q->where('status', 'active')
+                    ->orWhere(function ($q2) use ($currentMonth, $currentYear) {
+                        $q2->where('status', 'terminated')
+                            ->whereYear('termination_date', $currentYear)
+                            ->whereMonth('termination_date', $currentMonth);
+                    });
+            })
             ->get();
+
 
         foreach ($employees as $employee) {
             // Skip if payroll already exists for this employee

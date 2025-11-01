@@ -143,6 +143,39 @@ class Installment_Seeder extends Seeder
         'installment_period' => '0',
         'payment_method_id' => 3,
       ],
+      // NEW: Template for Flexible Payment Plan (method_id = 4)
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة مقدمة نقداً',
+        'installment_percent' => 0,
+        'installment_period' => '0',
+        'payment_method_id' => 4,
+      ],
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة مقدمة مؤجلة',
+        'installment_percent' => 0,
+        'installment_period' => '0',
+        'payment_method_id' => 4,
+      ],
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'قسط مرن',
+        'installment_percent' => 0,
+        'installment_period' => '0',
+        'payment_method_id' => 4,
+      ],
+      [
+        'url_address' => $this->get_random_string(60),
+        'installment_number' => '0',
+        'installment_name' => 'دفعة مفتاح',
+        'installment_percent' => 0,
+        'installment_period' => '0',
+        'payment_method_id' => 4,
+      ],
     ];
     foreach ($installments as $installment) {
       Installment::create($installment);

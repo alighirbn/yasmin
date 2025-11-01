@@ -6,22 +6,28 @@ use Illuminate\Support\Facades\Http;
 
 class ZainSmsService
 {
-    public function send($phone_number, $name, $amount, $due_date)
+    public function send($phone_number, $name, $amount, $due_date, $property_code = null)
     {
         $baseUrl = 'https://bulk-bgd.gtm.iq.zain.com:888/send-sms';
-        $token = '7oRQYsWqP6nZ4h8hZVTQXgyg05wDwe';
+        $token = 'whfh9WZIUKH64oDWXydvvAk6UtHQYT';
         $lang = 'ar';
 
-        // Normalize phone number
+        // تطبيع رقم الهاتف
         $phone_number = $this->normalizePhoneNumber($phone_number);
 
+        // ✅ صياغة الرسالة ضمن x1 لأن القالب لا يمكن تعديله
+        $message = "  {$name}، تذكير بدفع {$amount} دينار المستحق بتاريخ {$due_date}";
+        if ($property_code) {
+            $message .= " الدفعة الأولى عن العقار المرقم {$property_code}.";
+        }
+        $message .= " لتجنب الغرامات .";
+
+        // المعلمات المرسلة
         $params = [
             'token' => $token,
             'lang' => $lang,
             'receiver' => $phone_number,
-            'x1' => $name,
-            'x2' => $amount,
-            'x3' => $due_date,
+            'x1' => $message, // أرسل النص الكامل ضمن x1
         ];
 
         try {
@@ -34,21 +40,21 @@ class ZainSmsService
             return ['status' => false, 'error' => $e->getMessage()];
         }
     }
+
     private function normalizePhoneNumber($number)
     {
-        $number = preg_replace('/\D/', '', $number); // Remove non-digit characters
+        $number = preg_replace('/\D/', '', $number); // إزالة أي رموز غير أرقام
 
-        // If number starts with 0 and is 11 digits, convert to 964
+        // إذا الرقم يبدأ بـ0 ومكون من 11 رقم (مثلاً 0780...)
         if (preg_match('/^0(7\d{9})$/', $number, $matches)) {
             return '964' . $matches[1];
         }
 
-        // If already in international format, return as-is
+        // إذا الرقم أصلاً بصيغة دولية صحيحة
         if (preg_match('/^9647\d{9}$/', $number)) {
             return $number;
         }
 
-        // If invalid format
         throw new \InvalidArgumentException("Invalid phone number format: $number");
     }
 }

@@ -35,16 +35,16 @@
                         @if ($contract->stage !== 'terminated')
                             @can('contract-update')
                                 @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
+                                    {{-- عقد عليه دفعات وبمرحلة مؤقتة: نفتح مودال للتحقق بكلمة مرور --}}
                                     <a href="#passwordModal" class="btn btn-custom-edit" data-bs-toggle="modal">
                                         {{ __('word.contract_edit') }}
                                     </a>
                                 @else
-                                    <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-custom-edit">
-                                            {{ __('word.contract_edit') }}
-                                        </button>
-                                    </form>
+                                    {{-- عقد عادي: نفتح فورم التعديل مباشرة --}}
+                                    <a href="{{ route('contract.edit', $contract->url_address) }}"
+                                        class="btn btn-custom-edit">
+                                        {{ __('word.contract_edit') }}
+                                    </a>
                                 @endif
                             @endcan
 
