@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\PaymentController;
@@ -9,6 +8,9 @@ Route::group(['prefix' => 'payment'], function () {
 
     //index
     Route::get('/', [PaymentController::class, 'index'])->middleware(['auth', 'verified', 'permission:payment-list'])->name('payment.index');
+
+    //report
+    Route::get('/report', [PaymentController::class, 'report'])->middleware(['auth', 'verified', 'permission:payment-list'])->name('payment.report');
 
     //create
     Route::get('/create', [PaymentController::class, 'create'])->middleware(['auth', 'verified', 'permission:payment-create'])->name('payment.create');
@@ -25,6 +27,5 @@ Route::group(['prefix' => 'payment'], function () {
     Route::patch('/approve/{url_address}', [PaymentController::class, 'approve'])->middleware(['auth', 'verified', 'permission:payment-approve'])->name('payment.approve');
 
     //delete
-
     Route::delete('/delete/{url_address}', [PaymentController::class, 'destroy'])->middleware(['auth', 'verified', 'permission:payment-delete'])->name('payment.destroy');
 });

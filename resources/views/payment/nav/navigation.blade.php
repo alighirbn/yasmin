@@ -36,3 +36,10 @@
         {{ __('word.payment_pending') }}
     </a>
 @endcan
+
+@can('payment-list')
+    <a href="{{ route('payment.report') }}"
+        class="me-3 {{ request()->routeIs('payment.report') ? 'underline-active' : '' }}">
+        {{ __('word.payment_report') }}
+    </a>
+@endcan

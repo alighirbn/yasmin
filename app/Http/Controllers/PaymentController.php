@@ -276,7 +276,70 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Display payment report with filters
+     */
+    public function report(Request $request)
+    {
+        $user = auth()->user();
 
+        // Get filter parameters
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $cashAccountId = $request->input('cash_account_id');
+
+        // Base query for approved payments
+        $query = Payment::with([
+            'contract.customer',
+            'contract.building.building_category',
+            'cash_account'
+        ])->where('approved', true);
+
+        // Apply date filters
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        // Apply cash account filter
+        if ($cashAccountId) {
+            $query->where('cash_account_id', $cashAccountId);
+        }
+
+        // Get payments and calculate totals
+        $payments = $query->orderBy('created_at', 'desc')->get();
+
+        $totalPayments = $payments->sum('payment_amount');
+        $paymentsCount = $payments->count();
+
+        // Get cash accounts for filter dropdown
+        $cash_accounts = $user->hasRole('admin|ahmed|all access')
+            ? Cash_Account::all()
+            : Cash_Account::where('id', 5)->get();
+
+        // Group payments by cash account for summary
+        $paymentsByCashAccount = $payments->groupBy('cash_account_id')->map(function ($group) {
+            return [
+                'cash_account' => $group->first()->cash_account,
+                'total' => $group->sum('payment_amount'),
+                'count' => $group->count()
+            ];
+        });
+
+        return view('payment.report', compact(
+            'payments',
+            'totalPayments',
+            'paymentsCount',
+            'cash_accounts',
+            'paymentsByCashAccount',
+            'startDate',
+            'endDate',
+            'cashAccountId'
+        ));
+    }
     public function getIPAddress()
     {
         //whether ip is from the share internet
