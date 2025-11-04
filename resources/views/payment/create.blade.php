@@ -94,6 +94,7 @@
                                     <x-input-error :messages="$errors->get('payment_amount')" class="w-full mt-2" />
                                     <small id="amount-hint" class="text-gray-500 hidden">الحد الأقصى: <span
                                             id="max-amount">0</span></small>
+                                    <small class="text-blue-500">ملاحظة: يمكن إدخال قيم سالبة للسحب أو الاسترجاع</small>
                                 </div>
 
                                 <div class=" mx-4 my-4 w-full">
@@ -133,13 +134,22 @@
             var maxAmountAllowed = 0;
 
             function formatNumber(value) {
-                // Preserve negative sign and remove non-numeric characters except the negative sign
+                // Preserve negative sign and remove non-numeric characters except the negative sign and decimal
                 let isNegative = value.startsWith('-');
-                let cleanValue = value.replace(/[^\d-]/g, '');
+                let cleanValue = value.replace(/[^\d.-]/g, '');
                 // Ensure only one negative sign at the start
                 cleanValue = cleanValue.replace(/-+/g, (match, offset) => offset === 0 ? '-' : '');
-                // Format with commas
-                let formatted = cleanValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                // Ensure only one decimal point
+                let parts = cleanValue.split('.');
+                if (parts.length > 2) {
+                    cleanValue = parts[0] + '.' + parts.slice(1).join('');
+                }
+                // Format integer part with commas
+                let integerPart = parts[0].replace(/\D/g, '');
+                let formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+                // Add decimal part if exists
+                let formatted = parts.length > 1 ? formattedInteger + '.' + parts[1] : formattedInteger;
                 return (isNegative && !formatted.startsWith('-') ? '-' : '') + formatted;
             }
 
@@ -152,21 +162,30 @@
                 return cleanValue;
             }
 
+            function validateAmount(enteredAmount) {
+                // Allow negative values for received amounts
+                if (maxAmountAllowed > 0 && enteredAmount > maxAmountAllowed) {
+                    displayInput.classList.add('border-red-500');
+                    document.getElementById('amount-hint').classList.remove('text-gray-500');
+                    document.getElementById('amount-hint').classList.add('text-red-500', 'font-bold');
+                    return false;
+                } else {
+                    displayInput.classList.remove('border-red-500');
+                    document.getElementById('amount-hint').classList.remove('text-red-500', 'font-bold');
+                    document.getElementById('amount-hint').classList.add('text-gray-500');
+                    return true;
+                }
+            }
+
             displayInput.addEventListener('input', function() {
                 var formattedValue = formatNumber(displayInput.value);
                 displayInput.value = formattedValue;
                 hiddenInput.value = unformatNumber(formattedValue);
 
-                // Validate against max amount
+                // Validate against max amount (only for positive values)
                 var enteredAmount = parseFloat(unformatNumber(formattedValue));
-                if (maxAmountAllowed > 0 && enteredAmount > maxAmountAllowed) {
-                    displayInput.classList.add('border-red-500');
-                    document.getElementById('amount-hint').classList.remove('text-gray-500');
-                    document.getElementById('amount-hint').classList.add('text-red-500', 'font-bold');
-                } else {
-                    displayInput.classList.remove('border-red-500');
-                    document.getElementById('amount-hint').classList.remove('text-red-500', 'font-bold');
-                    document.getElementById('amount-hint').classList.add('text-gray-500');
+                if (!isNaN(enteredAmount)) {
+                    validateAmount(enteredAmount);
                 }
             });
 
@@ -253,9 +272,14 @@
                     document.getElementById('max-amount').textContent = formatNumber(remaining.toString());
                     document.getElementById('amount-hint').classList.remove('hidden');
 
-                    // Auto-fill with remaining amount
-                    displayInput.value = formatNumber(remaining.toString());
-                    hiddenInput.value = remaining;
+                    // Auto-fill with remaining amount (only positive)
+                    if (remaining > 0) {
+                        displayInput.value = formatNumber(remaining.toString());
+                        hiddenInput.value = remaining;
+                    } else {
+                        displayInput.value = '';
+                        hiddenInput.value = '';
+                    }
 
                     installmentDetails.classList.remove('hidden');
                 } else {
@@ -269,13 +293,29 @@
             document.querySelector('form').addEventListener('submit', function(e) {
                 hiddenInput.value = unformatNumber(displayInput.value);
 
-                // Validate amount doesn't exceed maximum
+                // Validate amount doesn't exceed maximum (only for positive values)
                 var enteredAmount = parseFloat(hiddenInput.value);
-                if (maxAmountAllowed > 0 && enteredAmount > maxAmountAllowed) {
+                if (!isNaN(enteredAmount) && enteredAmount > 0 && maxAmountAllowed > 0 && enteredAmount >
+                    maxAmountAllowed) {
                     e.preventDefault();
                     alert('مبلغ الدفعة يتجاوز المبلغ المتبقي للقسط!\nالحد الأقصى: ' + formatNumber(
                         maxAmountAllowed.toString()));
                     return false;
+                }
+
+                // Additional validation for negative values when linked to installment
+                if (!isNaN(enteredAmount) && enteredAmount < 0 && this.value) {
+                    var selectedOption = installmentSelect.options[installmentSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.paidAmount) {
+                        var paidAmount = parseFloat(selectedOption.dataset.paidAmount);
+                        if (Math.abs(enteredAmount) > paidAmount) {
+                            e.preventDefault();
+                            alert('لا يمكن سحب مبلغ أكبر من المبلغ المدفوع للقسط!\nالحد الأقصى للسحب: ' +
+                                formatNumber(
+                                    paidAmount.toString()));
+                            return false;
+                        }
+                    }
                 }
             });
         });

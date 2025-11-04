@@ -63,7 +63,9 @@
 
 <div id="sidebarmenu" class="py-2 " style="display: none">
     <div class="p-2">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="h-6;max-width: auto; height: 150px;">
+        <a href="{{ route('dashboard') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-width: auto; height: 150px;">
+        </a>
     </div>
 
     @can('map-map')

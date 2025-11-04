@@ -30,32 +30,57 @@ class PaymentRequest extends FormRequest
 
             //foreign id and reference
             'payment_contract_id' => ['required'],
-            'contract_installment_id' => ['nullable'],
+            'contract_installment_id' => ['nullable', 'sometimes'],
 
             //normal fields
             'payment_date' => ['required', 'date_format:Y-m-d'],
             'payment_amount' => [
                 'required',
                 'numeric',
-                'min:0.01',
                 function ($attribute, $value, $fail) {
+                    // Value must not be zero
+                    if ($value == 0) {
+                        $fail('مبلغ الدفعة لا يمكن أن يكون صفراً.');
+                        return;
+                    }
+
                     // Validate against installment if linked
                     if ($this->contract_installment_id) {
                         $installment = \App\Models\Contract\Contract_Installment::find($this->contract_installment_id);
 
                         if ($installment) {
-                            $remaining = $installment->getRemainingAmount();
+                            // For positive payments (receiving money)
+                            if ($value > 0) {
+                                $remaining = $installment->getRemainingAmount();
 
-                            // For updates, add back the current payment amount to remaining
-                            if ($this->route('url_address')) {
-                                $currentPayment = \App\Models\Payment\Payment::where('url_address', $this->route('url_address'))->first();
-                                if ($currentPayment && $currentPayment->contract_installment_id == $this->contract_installment_id) {
-                                    $remaining += $currentPayment->payment_amount;
+                                // For updates, add back the current payment amount to remaining
+                                if ($this->route('url_address')) {
+                                    $currentPayment = \App\Models\Payment\Payment::where('url_address', $this->route('url_address'))->first();
+                                    if ($currentPayment && $currentPayment->contract_installment_id == $this->contract_installment_id) {
+                                        $remaining += $currentPayment->payment_amount;
+                                    }
+                                }
+
+                                if ($value > $remaining) {
+                                    $fail('مبلغ الدفعة (' . number_format($value) . ') يتجاوز المبلغ المتبقي للقسط (' . number_format($remaining) . ')');
                                 }
                             }
+                            // For negative payments (refunds/withdrawals)
+                            elseif ($value < 0) {
+                                $paidAmount = $installment->paid_amount;
 
-                            if ($value > $remaining) {
-                                $fail('مبلغ الدفعة (' . number_format($value) . ') يتجاوز المبلغ المتبقي للقسط (' . number_format($remaining) . ')');
+                                // For updates, subtract the current payment amount from paid amount
+                                if ($this->route('url_address')) {
+                                    $currentPayment = \App\Models\Payment\Payment::where('url_address', $this->route('url_address'))->first();
+                                    if ($currentPayment && $currentPayment->contract_installment_id == $this->contract_installment_id) {
+                                        $paidAmount -= $currentPayment->payment_amount;
+                                    }
+                                }
+
+                                $refundAmount = abs($value);
+                                if ($refundAmount > $paidAmount) {
+                                    $fail('مبلغ السحب (' . number_format($refundAmount) . ') يتجاوز المبلغ المدفوع للقسط (' . number_format($paidAmount) . ')');
+                                }
                             }
                         }
                     }
@@ -76,9 +101,12 @@ class PaymentRequest extends FormRequest
         } elseif (request()->routeIs('payment.update')) {
             $this->mergeIfMissing(['user_id_update' =>  auth()->user()->id]);
         }
+
+        // Convert empty contract_installment_id to null
+        if ($this->has('contract_installment_id') && $this->contract_installment_id === '') {
+            $this->merge(['contract_installment_id' => null]);
+        }
     }
-
-
 
     function get_random_string($length)
     {
