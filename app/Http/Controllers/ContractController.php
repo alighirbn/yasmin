@@ -746,6 +746,93 @@ class ContractController extends Controller
         }
     }
 
+    public function appendix(string $url_address)
+    {
+        $contract = Contract::with(['customer', 'building', 'payment_method'])
+            ->where('url_address', '=', $url_address)
+            ->first();
+
+        if (!$contract) {
+            $ip = $this->getIPAddress();
+            return view('contract.contract.accessdenied', ['ip' => $ip]);
+        }
+
+        $contract_installments = Contract_Installment::with(['installment', 'payment'])
+            ->where('contract_id', $contract->id)
+            ->orderBy('installment_date')
+            ->get();
+
+        // ✅ متغيرات خطة الدفع المتغيرة
+        $variable_payment_details = [
+            'down_payment_amount' => 0,
+            'monthly_installment_amount' => 0,
+            'number_of_months' => 0,
+            'key_payment_amount' => 0,
+        ];
+
+        // ✅ Check for BOTH payment method 3 AND 4 (دفعات متغيرة AND خطة دفع مرنة)
+        if (in_array($contract->contract_payment_method_id, [3, 4])) {
+
+            // ✅ احسب إجمالي الدفعات المقدمة (sum of all down payments)
+            $variable_payment_details['down_payment_amount'] = $contract_installments
+                ->where('installment.installment_name', 'دفعة مقدمة')
+                ->sum('installment_amount');
+
+            // ✅ احسب الأقساط الشهرية
+            $monthlyInstallments = $contract_installments
+                ->where('installment.installment_name', 'دفعة شهرية');
+
+            if ($monthlyInstallments->count() > 0) {
+                $variable_payment_details['monthly_installment_amount'] = $monthlyInstallments->first()->installment_amount;
+                $variable_payment_details['number_of_months'] = $monthlyInstallments->count();
+            }
+
+            // ✅ احسب إجمالي دفعات المفتاح (sum of all key payments)
+            $variable_payment_details['key_payment_amount'] = $contract_installments
+                ->where('installment.installment_name', 'دفعة المفتاح')
+                ->sum('installment_amount');
+
+            // ✅ إذا ما عندي دفعة مقدمة لكن عندي مدفوعات، استخدم المدفوعات
+            if ($variable_payment_details['down_payment_amount'] == 0) {
+                $paidAmount = $contract->payments()
+                    ->where('approved', true)
+                    ->sum('payment_amount');
+
+                if ($paidAmount > 0) {
+                    $variable_payment_details['down_payment_amount'] = $paidAmount;
+                }
+            }
+        }
+
+        // ✅ معالجة مجموع العقد
+        $calculatedTotal =
+            $variable_payment_details['down_payment_amount'] +
+            ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+            $variable_payment_details['key_payment_amount'];
+
+        if ($calculatedTotal != $contract->contract_amount && $calculatedTotal > 0) {
+            $variable_payment_details['down_payment_amount'] =
+                $contract->contract_amount -
+                (
+                    ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+                    $variable_payment_details['key_payment_amount']
+                );
+
+            $calculatedTotal =
+                $variable_payment_details['down_payment_amount'] +
+                ($variable_payment_details['monthly_installment_amount'] * $variable_payment_details['number_of_months']) +
+                $variable_payment_details['key_payment_amount'];
+
+            $variable_payment_details['calculated_total'] = $calculatedTotal;
+        }
+
+        return view('contract.contract.appendix', compact(
+            'contract',
+            'contract_installments',
+            'variable_payment_details'
+        ));
+    }
+
     public function reserve(string $url_address)
     {
         // Retrieve the contract with necessary relationships

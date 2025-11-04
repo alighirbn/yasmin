@@ -7,149 +7,441 @@
         @include('contract.nav.navigation')
         @include('service.nav.navigation')
 
+        <style>
+            .workflow-status-compact {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 6px;
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .workflow-status-compact .status-info {
+                display: flex;
+                gap: 20px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .workflow-status-compact .status-item {
+                font-size: 13px;
+            }
+
+            .workflow-status-compact .next-action {
+                background: #ffc107;
+                padding: 6px 12px;
+                border-radius: 4px;
+                color: #000;
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .quick-actions-bar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 8px 0;
+                margin-bottom: 10px;
+                align-items: center;
+            }
+
+            .btn-compact {
+                padding: 6px 12px !important;
+                font-size: 13px !important;
+                position: relative;
+                white-space: nowrap;
+            }
+
+            .btn-compact:hover::after {
+                content: attr(data-hint);
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #1f2937;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 4px;
+                white-space: nowrap;
+                font-size: 11px;
+                z-index: 1000;
+                margin-bottom: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .show-all-btn {
+                background: #6b7280;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            .show-all-btn:hover {
+                background: #4b5563;
+            }
+
+            .all-actions-horizontal {
+                display: none;
+                gap: 10px;
+                padding: 10px;
+                background: #f9fafb;
+                border-radius: 6px;
+                margin-bottom: 15px;
+                flex-wrap: wrap;
+            }
+
+            .all-actions-horizontal.active {
+                display: flex;
+            }
+
+            .action-card {
+                background: white;
+                border: 1px solid #e5e7eb;
+                border-radius: 6px;
+                padding: 10px;
+                min-width: 180px;
+                flex: 1 1 auto;
+            }
+
+            .action-card-title {
+                font-size: 12px;
+                font-weight: bold;
+                color: #374151;
+                margin-bottom: 8px;
+                padding-bottom: 6px;
+                border-bottom: 2px solid #3b82f6;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .action-card-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .action-card-buttons .btn-compact {
+                width: 100%;
+                text-align: center;
+            }
+
+            .divider {
+                height: 30px;
+                width: 1px;
+                background: #d1d5db;
+                margin: 0 4px;
+            }
+        </style>
+
     </x-slot>
 
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="header-buttons">
-                        <a href="{{ url()->previous() }}" class="btn btn-custom-back">
-                            {{ __('word.back') }}
+
+                    {{-- Compact Workflow Status --}}
+                    <div class="workflow-status-compact">
+                        <div class="status-info">
+                            <div class="status-item">
+                                <strong>📋 {{ __('word.' . $contract->stage) }}</strong>
+                            </div>
+                            <div class="status-item">
+                                💳 {{ $contract->payment_method->method_name }}
+                            </div>
+                            <div class="status-item">
+                                💰 {{ number_format($contract->contract_amount, 0) }} د
+                            </div>
+                            @if ($due_installments_count > 0)
+                                <div class="status-item"
+                                    style="background: #dc3545; padding: 4px 8px; border-radius: 4px;">
+                                    ⚠️ {{ $due_installments_count }} قسط مستحق
+                                </div>
+                            @endif
+                        </div>
+                        <div>
+                            @if ($contract->stage == 'temporary')
+                                <span class="next-action">⏭️ قبول العقد</span>
+                            @elseif ($contract->stage == 'accepted')
+                                <span class="next-action">⏭️ أرشفة ثم مصادقة</span>
+                            @elseif ($contract->stage == 'authenticated')
+                                <span class="next-action" style="background: #10b981;">✅ نهائي</span>
+                            @elseif ($contract->stage == 'terminated')
+                                <span class="next-action" style="background: #dc3545; color: white;">❌ مفسوخ</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- Quick Actions - Always Visible in One Row --}}
+                    <div class="quick-actions-bar">
+                        <a href="{{ url()->previous() }}" class="btn btn-custom-back btn-compact" data-hint="رجوع">
+                            ← رجوع
                         </a>
-                        @if ($contract->stage !== 'terminated')
-                            <a href="{{ route('contract.temp', $contract->url_address) }}" class="btn btn-custom-print">
-                                {{ __('word.print') }}
-                            </a>
-                            <a href="{{ route('contract.reserve', $contract->url_address) }}"
-                                class="btn btn-custom-print">
-                                {{ __('word.print_reserve') }}
-                            </a>
-                        @endif
+
+                        <div class="divider"></div>
+
                         @can('contract-statement')
                             <a href="{{ route('contract.statement', $contract->url_address) }}"
-                                class="btn btn-custom-statement">
-                                {{ __('word.statement') }}
+                                class="btn btn-custom-statement btn-compact" data-hint="كشف الحساب">
+                                📊 كشف الحساب
                             </a>
                         @endcan
-                        @if ($contract->stage !== 'terminated')
-                            @can('contract-update')
-                                @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
-                                    {{-- عقد عليه دفعات وبمرحلة مؤقتة: نفتح مودال للتحقق بكلمة مرور --}}
-                                    <a href="#passwordModal" class="btn btn-custom-edit" data-bs-toggle="modal">
-                                        {{ __('word.contract_edit') }}
-                                    </a>
-                                @else
-                                    {{-- عقد عادي: نفتح فورم التعديل مباشرة --}}
-                                    <a href="{{ route('contract.edit', $contract->url_address) }}"
-                                        class="btn btn-custom-edit">
-                                        {{ __('word.contract_edit') }}
-                                    </a>
-                                @endif
-                            @endcan
 
-                            @can('contract-accept')
-                                @if ($contract->stage == 'temporary')
+                        @if ($contract->stage !== 'terminated')
+                            {{-- Most Common Actions Based on Stage --}}
+                            @if ($contract->stage == 'temporary')
+                                @can('contract-accept')
                                     <a href="{{ route('contract.accept', $contract->url_address) }}"
-                                        class="btn btn-custom-approve">
-                                        {{ __('word.contract_accept') }}
+                                        class="btn btn-custom-approve btn-compact" data-hint="قبول العقد">
+                                        ✅ قبول
                                     </a>
-                                @endif
-                            @endcan
-                            @can('contract-authenticat')
-                                @if ($contract->stage == 'accepted' && count($contract->images) >= 1 && $contract->payments->count() >= 1)
-                                    <a href="{{ route('contract.authenticat', $contract->url_address) }}"
-                                        class="btn btn-custom-approve">
-                                        {{ __('word.contract_authenticat') }}
-                                    </a>
-                                @endif
-                            @endcan
-
-                            @can('contract-archive')
-                                @if ($contract->payments->count() >= 1)
-                                    <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
-                                        class="btn btn-custom-archive">
-                                        {{ __('word.contract_archive') }}
-                                    </a>
-                                @endif
-
-                                @if ($contract->payments->count() >= 1)
-                                    <a href="{{ route('contract.scancreate', $contract->url_address) }}"
-                                        class="btn btn-custom-archive">
-                                        {{ __('word.contract_scan') }}
-                                    </a>
-                                @endif
-                            @endcan
-
-                        @endif
-                        @can('contract-archiveshow')
-                            @if ($contract->payments->count() >= 1 && count($contract->images) >= 1)
-                                <a href="{{ route('contract.archiveshow', $contract->url_address) }}"
-                                    class="btn btn-custom-archive">
-                                    {{ __('word.archiveshow') }}
-                                </a>
+                                @endcan
+                            @elseif ($contract->stage == 'accepted')
+                                @can('contract-archive')
+                                    @if ($contract->payments->count() >= 1)
+                                        <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
+                                            class="btn btn-custom-archive btn-compact" data-hint="أرشفة">
+                                            📁 أرشفة
+                                        </a>
+                                    @endif
+                                @endcan
+                                @can('contract-authenticat')
+                                    @if (count($contract->images) >= 1 && $contract->payments->count() >= 1)
+                                        <a href="{{ route('contract.authenticat', $contract->url_address) }}"
+                                            class="btn btn-custom-approve btn-compact" data-hint="مصادقة">
+                                            ✅ مصادقة
+                                        </a>
+                                    @endif
+                                @endcan
                             @endif
-                        @endcan
-                        @if ($contract->stage !== 'terminated')
-                            @can('contract-due')
-                                <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
-                                    class="btn btn-custom-due">
-                                    {{ __('word.contract_due') . ' (' . $due_installments_count . ')' }}
-                                </a>
-                            @endcan
+
+                            <div class="divider"></div>
+
                             @can('payment-show')
                                 <a href="{{ route('payment.index', ['contract_id' => $contract->id]) }}"
-                                    class="btn btn-custom-show">
-                                    {{ __('word.payment') }}
-                                </a>
-                                <a href="{{ route('payment.pending', $contract->url_address) }}"
-                                    class="btn btn-custom-due">
-                                    {{ __('word.payment_pending') . ' (' . $pending_payments_count . ')' }}
-                                </a>
-                            @endcan
-                            @can('contract-print')
-                                @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
-                                    <a href="{{ route('contract.print', $contract->url_address) }}"
-                                        class="btn btn-custom-print">
-                                        {{ __('word.contract_print') }}
-                                    </a>
-                                    <a href="{{ route('contract.onmap', $contract->url_address) }}"
-                                        class="btn btn-custom-print">
-                                        {{ __('word.contract_onmap') }}
-                                    </a>
-                                @endif
-                            @endcan
-                            @can('transfer-create')
-                                <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
-                                    class="btn btn-custom-transfer">
-                                    {{ __('word.contract_transfer') }}
-                                </a>
-                            @endcan
-                            @can('transfer-show')
-                                <a href="{{ route('transfer.contract', $contract->url_address) }}"
-                                    class="btn btn-custom-show">
-                                    {{ __('word.transfer_contract') }}
+                                    class="btn btn-custom-show btn-compact" data-hint="الدفعات">
+                                    💰 الدفعات
                                 </a>
                             @endcan
 
-                            @can('contract-temporary')
-                                @if ($contract->stage == 'authenticated')
-                                    <a href="{{ route('contract.temporary', $contract->url_address) }}"
-                                        class="btn btn-custom-approve">
-                                        {{ __('word.contract_temporary') }}
+                            @can('contract-due')
+                                @if ($due_installments_count > 0)
+                                    <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
+                                        class="btn btn-custom-due btn-compact" data-hint="الأقساط المستحقة">
+                                        ⚠️ مستحق ({{ $due_installments_count }})
                                     </a>
                                 @endif
                             @endcan
 
+                            <div class="divider"></div>
+
+                            <a href="{{ route('contract.temp', $contract->url_address) }}"
+                                class="btn btn-custom-print btn-compact" data-hint="طباعة">
+                                🖨️ طباعة
+                            </a>
+
+                            <div class="divider"></div>
                         @endif
 
+                        {{-- Show All Button --}}
+                        <button onclick="toggleAllActions()" class="show-all-btn">
+                            <span id="toggleIcon">▼</span> المزيد
+                        </button>
+                    </div>
+
+                    {{-- All Actions - Horizontal Cards --}}
+                    <div id="allActionsHorizontal" class="all-actions-horizontal">
+                        {{-- Navigation Card --}}
+                        <div class="action-card">
+                            <div class="action-card-title">🧭 التنقل</div>
+                            <div class="action-card-buttons">
+                                @can('contract-statement')
+                                    <a href="{{ route('contract.statement', $contract->url_address) }}"
+                                        class="btn btn-custom-statement btn-compact">
+                                        كشف الحساب
+                                    </a>
+                                @endcan
+                            </div>
+                        </div>
+
+                        @if ($contract->stage !== 'terminated')
+                            {{-- Contract Actions Card --}}
+                            <div class="action-card">
+                                <div class="action-card-title">⚙️ إجراءات العقد</div>
+                                <div class="action-card-buttons">
+                                    @can('contract-update')
+                                        @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
+                                            <a href="#passwordModal" class="btn btn-custom-edit btn-compact"
+                                                data-bs-toggle="modal">
+                                                تعديل (مؤمن)
+                                            </a>
+                                        @else
+                                            <a href="{{ route('contract.edit', $contract->url_address) }}"
+                                                class="btn btn-custom-edit btn-compact">
+                                                تعديل
+                                            </a>
+                                        @endif
+                                    @endcan
+
+                                    @can('contract-accept')
+                                        @if ($contract->stage == 'temporary')
+                                            <a href="{{ route('contract.accept', $contract->url_address) }}"
+                                                class="btn btn-custom-approve btn-compact">
+                                                قبول
+                                            </a>
+                                        @endif
+                                    @endcan
+
+                                    @can('contract-authenticat')
+                                        @if ($contract->stage == 'accepted' && count($contract->images) >= 1 && $contract->payments->count() >= 1)
+                                            <a href="{{ route('contract.authenticat', $contract->url_address) }}"
+                                                class="btn btn-custom-approve btn-compact">
+                                                مصادقة
+                                            </a>
+                                        @endif
+                                    @endcan
+
+                                    @can('contract-temporary')
+                                        @if ($contract->stage == 'authenticated')
+                                            <a href="{{ route('contract.temporary', $contract->url_address) }}"
+                                                class="btn btn-custom-approve btn-compact">
+                                                إرجاع
+                                            </a>
+                                        @endif
+                                    @endcan
+                                </div>
+                            </div>
+
+                            {{-- Payments Card --}}
+                            <div class="action-card">
+                                <div class="action-card-title">💰 الدفعات والأقساط</div>
+                                <div class="action-card-buttons">
+                                    @can('payment-show')
+                                        <a href="{{ route('payment.index', ['contract_id' => $contract->id]) }}"
+                                            class="btn btn-custom-show btn-compact">
+                                            الدفعات
+                                        </a>
+                                        <a href="{{ route('payment.pending', $contract->url_address) }}"
+                                            class="btn btn-custom-due btn-compact">
+                                            معلقة ({{ $pending_payments_count }})
+                                        </a>
+                                    @endcan
+                                    @can('contract-due')
+                                        <a href="{{ route('contract.due', ['contract_id' => $contract->id]) }}"
+                                            class="btn btn-custom-due btn-compact">
+                                            مستحقة ({{ $due_installments_count }})
+                                        </a>
+                                    @endcan
+                                </div>
+                            </div>
+
+                            {{-- Archive Card --}}
+                            <div class="action-card">
+                                <div class="action-card-title">📁 الأرشفة والمسح</div>
+                                <div class="action-card-buttons">
+                                    @can('contract-archive')
+                                        @if ($contract->payments->count() >= 1)
+                                            <a href="{{ route('contract.archivecreate', $contract->url_address) }}"
+                                                class="btn btn-custom-archive btn-compact">
+                                                أرشفة
+                                            </a>
+                                            <a href="{{ route('contract.scancreate', $contract->url_address) }}"
+                                                class="btn btn-custom-archive btn-compact">
+                                                مسح ضوئي
+                                            </a>
+                                        @endif
+                                    @endcan
+                                    @can('contract-archiveshow')
+                                        @if ($contract->payments->count() >= 1 && count($contract->images) >= 1)
+                                            <a href="{{ route('contract.archiveshow', $contract->url_address) }}"
+                                                class="btn btn-custom-archive btn-compact">
+                                                عرض الأرشيف
+                                            </a>
+                                        @endif
+                                    @endcan
+                                </div>
+                            </div>
+
+                            {{-- Printing Card --}}
+                            <div class="action-card">
+                                <div class="action-card-title">🖨️ الطباعة</div>
+                                <div class="action-card-buttons">
+                                    <a href="{{ route('contract.temp', $contract->url_address) }}"
+                                        class="btn btn-custom-print btn-compact">
+                                        طباعة عقد
+                                    </a>
+                                    <a href="{{ route('contract.reserve', $contract->url_address) }}"
+                                        class="btn btn-custom-print btn-compact">
+                                        إيصال حجز
+                                    </a>
+
+                                    @can('contract-print')
+                                        @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
+                                            <a href="{{ route('contract.print', $contract->url_address) }}"
+                                                class="btn btn-custom-print btn-compact">
+                                                عقد نهائي
+                                            </a>
+                                            <a href="{{ route('contract.onmap', $contract->url_address) }}"
+                                                class="btn btn-custom-print btn-compact">
+                                                على الخريطة
+                                            </a>
+                                            <a href="{{ route('contract.appendix', $contract->url_address) }}"
+                                                class="btn btn-custom-print btn-compact">
+                                                ملحق
+                                            </a>
+                                        @endif
+                                    @endcan
+                                </div>
+                            </div>
+
+                            {{-- Transfers Card --}}
+                            @can('transfer-create')
+                                <div class="action-card">
+                                    <div class="action-card-title">🔄 التحويلات</div>
+                                    <div class="action-card-buttons">
+                                        <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
+                                            class="btn btn-custom-transfer btn-compact">
+                                            تحويل جديد
+                                        </a>
+                                        @can('transfer-show')
+                                            <a href="{{ route('transfer.contract', $contract->url_address) }}"
+                                                class="btn btn-custom-show btn-compact">
+                                                عرض التحويلات
+                                            </a>
+                                        @endcan
+                                    </div>
+                                </div>
+                            @endcan
+                        @endif
+
+                        {{-- Danger Zone Card --}}
                         @can('contract-terminate')
                             @if ($contract->stage !== 'terminated')
-                                <a href="{{ route('contract.terminate', $contract->url_address) }}" class="btn btn-danger"
-                                    onclick="return confirm('هل أنت متأكد من فسخ العقد؟')">فسخ العقد</a>
+                                <div class="action-card" style="border-color: #dc3545;">
+                                    <div class="action-card-title" style="color: #dc3545; border-bottom-color: #dc3545;">
+                                        ⚠️ خطر</div>
+                                    <div class="action-card-buttons">
+                                        <a href="{{ route('contract.terminate', $contract->url_address) }}"
+                                            class="btn btn-danger btn-compact"
+                                            onclick="return confirm('هل أنت متأكد من فسخ العقد؟')">
+                                            فسخ العقد
+                                        </a>
+                                    </div>
+                                </div>
                             @endif
                         @endcan
                     </div>
+
                     <div>
                         @if ($message = Session::get('success'))
                             <div class="alert alert-success">
@@ -173,7 +465,7 @@
                                     <div
                                         class="circle {{ $index <= $contract->getCurrentStageIndex() ? 'completed' : '' }}">
                                         @if ($index <= $contract->getCurrentStageIndex())
-                                            &#10003; <!-- Checkmark symbol for completed stages -->
+                                            &#10003;
                                         @endif
                                     </div>
                                     <span
@@ -218,7 +510,8 @@
                             </div>
                             <div class=" mx-4 my-4 w-full ">
                                 <x-input-label for="method_name" class="w-full mb-1" :value="__('word.method_name')" />
-                                <p id="method_name" class="w-full h-9 block mt-1 " type="text" name="method_name">
+                                <p id="method_name" class="w-full h-9 block mt-1 " type="text"
+                                    name="method_name">
                                     {{ $contract->payment_method->method_name }}
                             </div>
 
@@ -488,6 +781,13 @@
     </div>
 
     <script>
+        function toggleAllActions() {
+            const horizontal = document.getElementById('allActionsHorizontal');
+            const icon = document.getElementById('toggleIcon');
+            horizontal.classList.toggle('active');
+            icon.textContent = horizontal.classList.contains('active') ? '▲' : '▼';
+        }
+
         $(document).ready(function() {
             $('.add_payment').on('click', function(event) {
                 if ($(this).data('clicked')) {

@@ -56,6 +56,11 @@ Route::group(['prefix' => 'contract'], function () {
         ->middleware(['auth', 'verified', 'permission:contract-print'])
         ->name('contract.print');
 
+    // contract appendix (add-on agreement)
+    Route::get('/appendix/{url_address}', [ContractController::class, 'appendix'])
+        ->middleware(['auth', 'verified', 'permission:contract-print'])
+        ->name('contract.appendix');
+
     Route::get('/onmap/{url_address}', [ContractController::class, 'onmap'])
         ->middleware(['auth', 'verified', 'permission:contract-print'])
         ->name('contract.onmap');
