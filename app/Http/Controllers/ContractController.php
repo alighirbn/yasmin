@@ -1101,7 +1101,7 @@ class ContractController extends Controller
 
         // 📝 Fetch variable/flexible payment plan details for editing (Methods 3 & 4)
         $variable_payment_details = [];
-        if ($contract->contract_payment_method_id == 3 || $contract->contract_payment_method_id == 4) {
+        if ($contract->contract_payment_method_id == 3) {
             $contract_installments = $contract->contract_installments()->with('installment')->orderBy('installment_date')->get();
             $down_payments = $contract_installments->where('installment.installment_name', 'دفعة مقدمة');
             $monthly_installments = $contract_installments->where('installment.installment_name', 'دفعة شهرية');
@@ -1153,7 +1153,68 @@ class ContractController extends Controller
                 'monthly_start_date' => $monthly_installments->first() ? $monthly_installments->first()->installment_date : null,
                 'key_payment_amount' => $key_payment ? $key_payment->installment_amount : 0,
             ];
+        } elseif ($contract->contract_payment_method_id == 4) {
+
+            $contract_installments = $contract->contract_installments()->with('installment')->orderBy('installment_date')->get();
+
+            $down_cash = $contract_installments->where('installment.installment_name', 'دفعة مقدمة نقداً');
+            $down_deferred = $contract_installments->where('installment.installment_name', 'دفعة مقدمة مؤجلة');
+            $monthly_installments = $contract_installments->where('installment.installment_name', 'قسط مرن');
+            $key_payment = $contract_installments->where('installment.installment_name', 'دفعة مفتاح')->first();
+
+            // ✅ إجمالي الدفعة المقدمة (نقد + مؤجل)
+            $down_payment_total = $down_cash->sum('installment_amount') + $down_deferred->sum('installment_amount');
+
+            // ✅ أول دفعة نقداً
+            $down_payment_installment = $down_cash->first() ? $down_cash->first()->installment_amount : 0;
+
+            // ✅ دفعة مؤجلة (أول واحدة فقط، الباقي نفس القيمة)
+            $deferred_installment_amount = $down_deferred->first() ? $down_deferred->first()->installment_amount : 0;
+
+            // ✅ تكرار الدفعات المؤجلة
+            $deferred_frequency = 1;
+            if ($down_deferred->count() > 1) {
+                $first_def = $down_deferred->first();
+                $second_def = $down_deferred->skip(1)->first();
+                if ($first_def && $second_def) {
+                    $date1 = Carbon::parse($first_def->installment_date);
+                    $date2 = Carbon::parse($second_def->installment_date);
+                    $deferred_frequency = $date1->diffInMonths($date2);
+                }
+            }
+
+            // ✅ أول قسط شهري
+            $monthly_amount = $monthly_installments->first() ? $monthly_installments->first()->installment_amount : 0;
+
+            // ✅ عدد الأقساط
+            $number_of_months = $monthly_installments->count();
+
+            // ✅ تكرار الأقساط المرنة
+            $monthly_frequency = 1;
+            if ($monthly_installments->count() > 1) {
+                $m1 = $monthly_installments->first();
+                $m2 = $monthly_installments->skip(1)->first();
+                if ($m1 && $m2) {
+                    $monthly_frequency = Carbon::parse($m1->installment_date)->diffInMonths($m2->installment_date);
+                }
+            }
+
+            // ✅ تاريخ أول قسط
+            $monthly_start_date = $monthly_installments->first() ? $monthly_installments->first()->installment_date : null;
+
+            $variable_payment_details = [
+                'down_payment_amount' => $down_payment_total,
+                'down_payment_installment' => $down_payment_installment,
+                'down_payment_deferred_installment' => $deferred_installment_amount,
+                'down_payment_deferred_frequency' => $deferred_frequency,
+                'monthly_installment_amount' => $monthly_amount,
+                'number_of_months' => $number_of_months,
+                'monthly_frequency' => $monthly_frequency,
+                'monthly_start_date' => $monthly_start_date,
+                'key_payment_amount' => $key_payment ? $key_payment->installment_amount : 0,
+            ];
         }
+
 
         // Calculate paid installments if contract is method 2
         $paidAmount = 0;
@@ -1170,10 +1231,6 @@ class ContractController extends Controller
             'paidAmount'
         ));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     /**
      * Update the specified resource in storage.
      */
@@ -1339,16 +1396,13 @@ class ContractController extends Controller
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
-            $dp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة'])->first();
-            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة شهرية'])->first();
-            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة المفتاح'])->first();
+            $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
+            $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
+            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
+            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
 
-            // Fallback to method 3
-            if (!$dp) $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
-            if (!$mi) $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
-            if (!$kp) $kp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة المفتاح'])->first();
 
-            if (!$dp || !$mi || !$kp) {
+            if (!$dp_cash || !$dp_deferred || !$mi || !$kp) {
                 return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
             }
 
@@ -1361,7 +1415,7 @@ class ContractController extends Controller
                     'installment_amount' => $down_now,
                     'installment_date'   => $contract_date,
                     'contract_id'        => $contract->id,
-                    'installment_id'     => $dp->id,
+                    'installment_id'     => $dp_cash->id,
                     'user_id_update'     => $request->user_id_update,
                     'sequence_number'    => ++$sequence,
                 ]);
@@ -1384,7 +1438,7 @@ class ContractController extends Controller
                         'installment_amount' => $x,
                         'installment_date'   => $contract_date->copy()->addMonths($i * $freq),
                         'contract_id'        => $contract->id,
-                        'installment_id'     => $dp->id,
+                        'installment_id'     => $dp_deferred->id,
                         'user_id_update'     => $request->user_id_update,
                         'sequence_number'    => ++$sequence,
                     ]);
@@ -1525,16 +1579,13 @@ class ContractController extends Controller
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
-            $dp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة'])->first();
-            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة شهرية'])->first();
-            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة المفتاح'])->first();
+            $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
+            $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
+            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
+            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
 
-            // Fallback to method 3
-            if (!$dp) $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
-            if (!$mi) $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
-            if (!$kp) $kp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة المفتاح'])->first();
 
-            if (!$dp || !$mi || !$kp) {
+            if (!$dp_cash || !$dp_deferred || !$mi || !$kp) {
                 return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
             }
 
@@ -1547,7 +1598,7 @@ class ContractController extends Controller
                     'installment_amount' => $down_now,
                     'installment_date'   => $contract_date,
                     'contract_id'        => $contract->id,
-                    'installment_id'     => $dp->id,
+                    'installment_id'     => $dp_cash->id,
                     'user_id_update'     => $request->user_id_update,
                     'sequence_number'    => $sequence++,
                 ]);
@@ -1570,7 +1621,7 @@ class ContractController extends Controller
                         'installment_amount' => $x,
                         'installment_date'   => $contract_date->copy()->addMonths($i * $freq),
                         'contract_id'        => $contract->id,
-                        'installment_id'     => $dp->id,
+                        'installment_id'     => $dp_deferred->id,
                         'user_id_update'     => $request->user_id_update,
                         'sequence_number'    => $sequence++,
                     ]);
