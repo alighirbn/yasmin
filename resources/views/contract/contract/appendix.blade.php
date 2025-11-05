@@ -72,58 +72,39 @@
                                     ويحل جدول السداد الجديد محل الجدول السابق بالكامل:</p>
 
                                 <div
-                                    style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
-                                    @php $counter = 1; @endphp
+                                    style="text-align:right; margin:0.8rem auto; font-size:0.92rem; font-weight:bold; line-height:1.9;">
 
-                                    @if (in_array($contract->contract_payment_method_id, [3, 4]))
-                                        {{-- ✅ Variable/Flexible Payment Plan --}}
+                                    @php $count = 1; @endphp
 
-                                        @if ($variable_payment_details['down_payment_amount'] > 0)
-                                            <p>
-                                                {{ $counter++ }}- الدفعة المقدمة:
-                                                {{ number_format($variable_payment_details['down_payment_amount']) }}
-                                                د.ع
-                                                ({{ Numbers::TafqeetMoney($variable_payment_details['down_payment_amount'], 'IQD') }})
-                                                تدفع عند توقيع هذا الملحق
-                                            </p>
-                                        @endif
+                                    @foreach ($contract_installments as $ins)
+                                        @php
+                                            $name = $ins->installment->installment_name; // مثل "دفعة مقدمة" أو "دفعة شهرية"
+                                            $amount = number_format($ins->installment_amount, 0);
+                                            $words = Numbers::TafqeetMoney($ins->installment_amount, 'IQD');
+                                            $date = \Carbon\Carbon::parse($ins->installment_date)->format('Y/m/d');
 
-                                        @if ($variable_payment_details['monthly_installment_amount'] > 0 && $variable_payment_details['number_of_months'] > 0)
-                                            <p>
-                                                {{ $counter++ }}- الأقساط الشهرية:
-                                                {{ number_format($variable_payment_details['monthly_installment_amount']) }}
-                                                د.ع
-                                                ({{ Numbers::TafqeetMoney($variable_payment_details['monthly_installment_amount'], 'IQD') }})
-                                                × {{ $variable_payment_details['number_of_months'] }} شهر،
-                                                تدفع شهرياً ابتداءً من
-                                                {{ \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y/m/d') }}
-                                            </p>
-                                        @endif
+                                            // إضافة الترتيب إذا تكرر نفس النوع (مقدمة - مقدمة الثانية ...)
+                                            $sameTypeOrder = $contract_installments
+                                                ->where('installment.installment_name', $name)
+                                                ->where('sequence_number', '<=', $ins->sequence_number)
+                                                ->count();
 
-                                        @if ($variable_payment_details['key_payment_amount'] > 0)
-                                            <p>
-                                                {{ $counter++ }}- دفعة المفتاح:
-                                                {{ number_format($variable_payment_details['key_payment_amount']) }}
-                                                د.ع
-                                                ({{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }})
-                                                عند تسليم الوحدة السكنية
-                                            </p>
-                                        @endif
-                                    @else
-                                        {{-- ✅ Fixed Payment Plan (Method 1 & 2) --}}
-                                        @foreach ($contract_installments as $ins)
-                                            @php
-                                                $name = $ins->installment->installment_name;
-                                                $amount = number_format($ins->installment_amount);
-                                                $words = Numbers::TafqeetMoney($ins->installment_amount, 'IQD');
-                                                $date = \Carbon\Carbon::parse($ins->installment_date)->format('Y/m/d');
-                                            @endphp
+                                            // اسم وصفي يعتمد على الترتيب
+                                            $displayName =
+                                                $name .
+                                                ($sameTypeOrder > 1
+                                                    ? ' ' . App\Helpers\Number::convert($sameTypeOrder)
+                                                    : '');
+                                        @endphp
 
-                                            <p>{{ $counter++ }}- الدفعة {{ $name }}:
-                                                مقدارها ({{ $amount }} د.ع) كتابةً ({{ $words }}),
-                                                وتستحق بتاريخ {{ $date }}</p>
-                                        @endforeach
-                                    @endif
+                                        <p>
+                                            {{ App\Helpers\Number::convert($count++) }}.
+                                            {{ $displayName }}:
+                                            ومقدارها ({{ $amount }}) وكتابتا ({{ $words }})
+                                            - تاريخ الاستحقاق: {{ $date }}
+                                        </p>
+                                    @endforeach
+
                                 </div>
 
                                 <p>يعتبر هذا الجدول جزءاً لا يتجزأ من العقد ويحل محل الجدول السابق.</p>

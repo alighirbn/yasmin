@@ -109,7 +109,7 @@
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>
                                     @if ($contract->contract_payment_method_id == 3)
-                                        {{-- ✅ طريقة الدفع 3: عرض ملخص --}}
+                                        {{-- Method 3: Summary format --}}
                                         1- الدفعة المقدمة:
                                         {{ number_format($variable_payment_details['down_payment_amount'], 0) }}
                                         ({{ Numbers::TafqeetMoney($variable_payment_details['down_payment_amount'], 'IQD') }})
@@ -122,8 +122,61 @@
                                         3- دفعة المفتاح:
                                         {{ number_format($variable_payment_details['key_payment_amount'], 0) }}
                                         ({{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }})
+                                    @elseif ($contract->contract_payment_method_id == 4)
+                                        {{-- Method 4: Detailed list with dates (like Method 2 but using sequence) --}}
+                                        @foreach ($contract_installments as $index => $contract_installment)
+                                            @php
+                                                $installment = $contract_installment->installment;
+                                                $sequenceNumber = $contract_installment->sequence_number ?: $index + 1;
+
+                                                $installmentName = $installment->installment_name;
+                                                $installmentAmount = number_format(
+                                                    $contract_installment->installment_amount,
+                                                    0,
+                                                );
+                                                $installmentAmountText = Numbers::TafqeetMoney(
+                                                    $contract_installment->installment_amount,
+                                                    'IQD',
+                                                );
+                                                $installmentDate = \Carbon\Carbon::parse(
+                                                    $contract_installment->installment_date,
+                                                )->format('Y/m/d');
+
+                                                $sameTypeCount = $contract_installments
+                                                    ->where('installment.installment_name', $installmentName)
+                                                    ->where('sequence_number', '<=', $sequenceNumber)
+                                                    ->count();
+
+                                                $descriptiveName =
+                                                    $installmentName .
+                                                    ($sameTypeCount > 1
+                                                        ? ' ' . App\Helpers\Number::convert($sameTypeCount)
+                                                        : '');
+
+                                                // حساب عدد السطور المطلوبة
+                                                $breakCount =
+                                                    $sequenceNumber >= 3 && $sequenceNumber <= 18
+                                                        ? 18 - $sequenceNumber
+                                                        : 0;
+                                            @endphp
+
+                                            {{-- طباعة القسط --}}
+                                            {{ $sequenceNumber }}. {{ $descriptiveName }}:
+                                            ومقدارها ({{ $installmentAmount }})
+                                            وكتابتا ({{ $installmentAmountText }})
+                                            - تاريخ الاستحقاق: {{ $installmentDate }}
+                                            <br>
+                                        @endforeach
+                                        {{-- طباعة الفراغات --}}
+                                        @for ($i = 0; $i < $breakCount; $i++)
+                                            <br>
+                                        @endfor
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 7)</p>
+                                        </div>
+                                        <br><br><br><br><br><br><br><br><br>
                                     @else
-                                        {{-- ✅ باقي طرق الدفع: عرض كل قسط --}}
+                                        {{-- Methods 1, 2: Individual installments with percentage --}}
                                         @foreach ($contract_installments as $contract_installment)
                                             @php
                                                 $installment = $contract_installment->installment;
@@ -139,7 +192,6 @@
                                                     'IQD',
                                                 );
 
-                                                // تحديد وقت الدفع
                                                 $paymentTiming =
                                                     $installmentNumber == 1
                                                         ? 'عند ابرام العقد'
@@ -152,25 +204,27 @@
                                                 <div style="display: flex; justify-content: center;">
                                                     <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 7)</p>
                                                 </div>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
-                                            @else
-                                                {{ $installmentNumber . '- الدفعة ' . $installmentName . ': ( ' . $installmentPercent . ' %) من قيمة الكلية لبدل شراء الوحده السكنية وتدفع ' . $paymentTiming . ' ومقدارها ( ' . $installmentAmount . ') وكتابتا (' . $installmentAmountText . ') ' }}
+                                                <br><br><br><br><br><br><br><br><br>
                                             @endif
+
+                                            {{ $installmentNumber .
+                                                '- الدفعة ' .
+                                                $installmentName .
+                                                ': ( ' .
+                                                $installmentPercent .
+                                                ' %) من قيمة الكلية لبدل شراء الوحده السكنية 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               وتدفع ' .
+                                                $paymentTiming .
+                                                ' ومقدارها ( ' .
+                                                $installmentAmount .
+                                                ') وكتابتا (' .
+                                                $installmentAmountText .
+                                                ') ' }}
                                             <br>
                                         @endforeach
                                     @endif
                                 </p>
                             </div>
-
                             <div style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold;">
                                 <p>في حالة رغبة الطرف الثاني الاستفاده من قرض مصرفي على الوحده السكنية وتسديدها الى
                                     الطرف الاول وحسب المبلغ الذي يحدد من قبل المصرف على ان يتحمل الطرف الثاني تسديد مبلغ
@@ -301,6 +355,21 @@
                                     @endif
 
                                 </p>
+                                @if ($contract->contract_payment_method_id == 4)
+                                    <br>
+                                    <br>
+                                    <div style="display: flex; justify-content: center;">
+                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 7)</p>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                @endif
                                 <p>
                                     <br> ثامناً: التزامات و حقوق الطرف الاول :
 
@@ -426,7 +495,21 @@
                                     الملكية اليه لايحق له مطالبة الطرف الأول بالتعويض عن تلك المصاريف أو الرسوم أو
                                     الضرائب في حال وجودها ، ويلتزم بتسديد أي رسوم أو مبالغ إضافية قد تفرضها الدولة على
                                     الطرف الأول او الوحدة السكنية وحسب الآلية التي تحددها الدولة.
-
+                                    @if ($contract->contract_payment_method_id == 4)
+                                        <br>
+                                        <br>
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 7)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif
                                     <br>6- يقر الطرف الثاني أنه اطلع على مواصفات الوحدة
                                     السكنية ويقر الطرف الثاني بعلمه ان النموذج الذي يتم تقديمه للتوضيح فقط ولا يلزم
                                     الطرف الاول بالالتزام بتنفيذه بشكل دقيق .
@@ -552,7 +635,20 @@
                                     المادة 178 من القانون المدني العراقي رقم 40 لسنة 1951 المعدل، ويتم ارجاع ( 50% ) من
                                     المبلغ الذي سبق وان تم تسديده من قبل الطرف الثاني بعد مرور (6) ستة اشهر من تاريخ فسخ
                                     العقد او بعد بيع الوحدة السكنية .
-                                    <br>2- يجوز للطرف الأول فسخ العقد اذا قام الطرف الثاني بالأخلال بأي فقرة من فقرات
+                                    @if ($contract->contract_payment_method_id == 4)
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 7)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif <br>2- يجوز للطرف الأول فسخ العقد اذا قام الطرف الثاني
+                                    بالأخلال بأي فقرة من فقرات
                                     هذا العقد دون الحاجة الى اعذار او انذار رسمي او حكم قضائي وذلك بموجب المادة 178 من
                                     القانون المدني العراقي رقم 40 لسنة 1951 المعدل. ويتم ارجاع ( 50%) من المبلغ الذي سبق
                                     وان تم تسديده من قبل الطرف الثاني بعد مرور 6 اشهر من تاريخ فسخ العقد أو بعد بيع
@@ -674,7 +770,21 @@
                                     طلب إلى الطرف الأول لاستحصال موافقته ويتم استقطاع مبلغ مقداره (٥٠%) من المبلغ
                                     المستلم من قبل الطرف الأول ويسلم المبلغ المتبقي والبالغ قيمته(٥٠%)الى الطرف الثاني
                                     بعد بيع الوحده السكنية الى مشتري آخر.
-
+                                    @if ($contract->contract_payment_method_id == 4)
+                                        <br>
+                                        <br>
+                                        <div style="display: flex; justify-content: center;">
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 5 - 6)</p>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    @endif
                                     <br> 11- تكون العمله العراقيه هي المعتمده في تسديد أقساط الوحده السكنية.
                                     <br> 12- يلتزم الطرف الثاني بدفع جميع الرسوم المستحقه للدوائر والازمه لتسجيل
                                     الوحده السكنية في دائرة التسجيل العقاري والدوائر ذات العلاقه.
@@ -862,6 +972,23 @@
                                 <br>
                                 <br>
                                 <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div style="display: flex; justify-content: center;">
+                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
+                                </div>
+                            @endif
+                            @if ($contract->contract_payment_method_id == 4)
                                 <br>
                                 <br>
                                 <br>

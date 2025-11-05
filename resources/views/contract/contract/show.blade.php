@@ -175,7 +175,7 @@
                             @elseif ($contract->stage == 'accepted')
                                 @php
                                     // شرط دفع أول دفعة أو المقدمة
-                                    $downPaymentPaid = $contract->payments()->where('approved', true)->exists();
+                                    $downPaymentPaid = $contract->payments()->exists();
                                 @endphp
 
                                 @if ($downPaymentPaid)
