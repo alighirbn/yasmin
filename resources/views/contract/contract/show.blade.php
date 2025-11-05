@@ -273,18 +273,6 @@
 
                     {{-- All Actions - Horizontal Cards --}}
                     <div id="allActionsHorizontal" class="all-actions-horizontal">
-                        {{-- Navigation Card --}}
-                        <div class="action-card">
-                            <div class="action-card-title">🧭 التنقل</div>
-                            <div class="action-card-buttons">
-                                @can('contract-statement')
-                                    <a href="{{ route('contract.statement', $contract->url_address) }}"
-                                        class="btn btn-custom-statement btn-compact">
-                                        كشف الحساب
-                                    </a>
-                                @endcan
-                            </div>
-                        </div>
 
                         @if ($contract->stage !== 'terminated')
                             {{-- Contract Actions Card --}}
@@ -390,11 +378,11 @@
                                 <div class="action-card-buttons">
                                     <a href="{{ route('contract.temp', $contract->url_address) }}"
                                         class="btn btn-custom-print btn-compact">
-                                        طباعة عقد
+                                        حجز اولي
                                     </a>
                                     <a href="{{ route('contract.reserve', $contract->url_address) }}"
                                         class="btn btn-custom-print btn-compact">
-                                        إيصال حجز
+                                        استمارة حجز
                                     </a>
 
                                     @can('contract-print')
