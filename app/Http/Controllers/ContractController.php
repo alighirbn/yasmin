@@ -418,22 +418,13 @@ class ContractController extends Controller
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
-            $dp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة'])->first();
-            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة شهرية'])->first();
-            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة المفتاح'])->first();
+            $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
+            $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
+            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
+            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
 
-            // Fallback to method 3 setup if method 4 installment types don't exist
-            if (!$dp) {
-                $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
-            }
-            if (!$mi) {
-                $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
-            }
-            if (!$kp) {
-                $kp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة المفتاح'])->first();
-            }
 
-            if (!$dp || !$mi || !$kp) {
+            if (!$dp_cash || !$dp_deferred || !$mi || !$kp) {
                 return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
             }
 
@@ -446,7 +437,7 @@ class ContractController extends Controller
                     'installment_amount' => $down_now,
                     'installment_date' => $contract_date,
                     'contract_id' => $contract->id,
-                    'installment_id' => $dp->id,
+                    'installment_id' => $dp_cash->id,
                     'user_id_create' => $request->user_id_create,
                     'sequence_number' => $seq++,
                 ]);
@@ -471,7 +462,7 @@ class ContractController extends Controller
                         'installment_amount' => $x,
                         'installment_date' => $contract_date->copy()->addMonths($i * $freq),
                         'contract_id' => $contract->id,
-                        'installment_id' => $dp->id,
+                        'installment_id' => $dp_deferred->id,
                         'user_id_create' => $request->user_id_create,
                         'sequence_number' => $seq++,
                     ]);
