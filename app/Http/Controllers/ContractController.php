@@ -416,6 +416,7 @@ class ContractController extends Controller
 
             $monthly_freq = max(1, (int)($request->monthly_frequency ?? 1));
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
+            $dp_start_date = Carbon::parse($request->down_payment_deferred_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
             $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
@@ -460,7 +461,7 @@ class ContractController extends Controller
                     Contract_Installment::create([
                         'url_address' => $this->random_string(60),
                         'installment_amount' => $x,
-                        'installment_date' => $contract_date->copy()->addMonths($i * $freq),
+                        'installment_date' => $dp_start_date->copy()->addMonths(($i - 1) * $freq),
                         'contract_id' => $contract->id,
                         'installment_id' => $dp_deferred->id,
                         'user_id_create' => $request->user_id_create,
@@ -1159,6 +1160,7 @@ class ContractController extends Controller
 
             $down_cash = $contract_installments->where('installment.installment_name', 'دفعة مقدمة نقداً');
             $down_deferred = $contract_installments->where('installment.installment_name', 'دفعة مقدمة مؤجلة');
+            $deferred_start_date = $down_deferred->first() ? $down_deferred->first()->installment_date : $contract->contract_date;
             $monthly_installments = $contract_installments->where('installment.installment_name', 'قسط مرن');
             $key_payment = $contract_installments->where('installment.installment_name', 'دفعة مفتاح')->first();
 
@@ -1207,6 +1209,7 @@ class ContractController extends Controller
                 'down_payment_installment' => $down_payment_installment,
                 'down_payment_deferred_installment' => $deferred_installment_amount,
                 'down_payment_deferred_frequency' => $deferred_frequency,
+                'down_payment_deferred_start_date' => $deferred_start_date,
                 'monthly_installment_amount' => $monthly_amount,
                 'number_of_months' => $number_of_months,
                 'monthly_frequency' => $monthly_frequency,
@@ -1394,6 +1397,7 @@ class ContractController extends Controller
 
             $monthly_freq = max(1, (int)($request->monthly_frequency ?? 1));
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
+            $dp_start_date = Carbon::parse($request->down_payment_deferred_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
             $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
@@ -1436,7 +1440,7 @@ class ContractController extends Controller
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
                         'installment_amount' => $x,
-                        'installment_date'   => $contract_date->copy()->addMonths($i * $freq),
+                        'installment_date' => $dp_start_date->copy()->addMonths(($i - 1) * $freq),
                         'contract_id'        => $contract->id,
                         'installment_id'     => $dp_deferred->id,
                         'user_id_update'     => $request->user_id_update,
@@ -1577,6 +1581,7 @@ class ContractController extends Controller
 
             $monthly_freq = max(1, (int)($request->monthly_frequency ?? 1));
             $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
+            $deferred_start_date = Carbon::parse($request->down_payment_deferred_start_date ?? $contract_date->copy()->addMonth());
 
             // Installments table IDs
             $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
@@ -1619,7 +1624,7 @@ class ContractController extends Controller
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
                         'installment_amount' => $x,
-                        'installment_date'   => $contract_date->copy()->addMonths($i * $freq),
+                        'installment_date'   => $deferred_start_date->copy()->addMonths(($i - 1) * $freq),
                         'contract_id'        => $contract->id,
                         'installment_id'     => $dp_deferred->id,
                         'user_id_update'     => $request->user_id_update,

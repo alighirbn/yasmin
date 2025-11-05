@@ -209,7 +209,7 @@
                                                 ': ( ' .
                                                 $installmentPercent .
                                                 ' %) من قيمة الكلية لبدل شراء الوحده السكنية 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       وتدفع ' .
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               وتدفع ' .
                                                 $paymentTiming .
                                                 ' ومقدارها ( ' .
                                                 $installmentAmount .
@@ -796,8 +796,7 @@
                                     الفتره حتى وان تم نقل ملكية الوحده السكنية الى الطرف الثاني.
                                     <br> 16- اي نزاع ينشأ بسبب هذا العقد تكون محكمة بداءة النجف هي المحكمة المختصه
                                     بالنظر في هذا النزاع.
-                                    <br> 17- يخضع هذا العقد لقانون الاستثمار رقم (١٣) لسنة (٢٠٠٦) وتعديلاته
-                                    وانظمته وتعليماته.
+
                                 </p>
                                 @if ($contract_installments->count() == 1)
                                     <br>
@@ -857,10 +856,14 @@
 
                                     حرر هذا العقد من (
 
-                                    @if ($contract_installments->count() == 1)
+                                    @if ($contract->contract_payment_method_id == 1)
                                         6
-                                    @else
+                                    @elseif ($contract->contract_payment_method_id == 2)
                                         7
+                                    @elseif ($contract->contract_payment_method_id == 3)
+                                        7
+                                    @elseif ($contract->contract_payment_method_id == 4)
+                                        6
                                     @endif
 
                                     ) صفحات وملاحقه في محافظة النجف الاشرف من نسختين تسلم نسخة لكل

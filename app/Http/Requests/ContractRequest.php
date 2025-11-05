@@ -165,6 +165,7 @@ class ContractRequest extends FormRequest
                 'down_payment_installment' => ['required', 'numeric', 'min:0'],
                 'down_payment_deferred_installment' => ['nullable', 'numeric', 'min:0'],
                 'down_payment_deferred_frequency' => ['nullable', 'integer', 'in:1,2,3,4,5,6'],
+                'down_payment_deferred_start_date' => ['required', 'date_format:Y-m-d'],
                 'monthly_installment_amount' => ['required', 'numeric', 'min:0'],
                 'number_of_months' => ['required', 'integer', 'min:1'],
                 'monthly_frequency' => ['required', 'integer', 'in:1,2,3,4,5,6'],

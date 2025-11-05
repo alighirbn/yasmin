@@ -420,6 +420,17 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="down_payment_deferred_start_date" class="w-full mb-1"
+                                        :value="'تاريخ بدء الأقساط المؤجلة للدفعة المقدمة'" />
+                                    <x-text-input id="down_payment_deferred_start_date" class="w-full block mt-1"
+                                        type="text" name="down_payment_deferred_start_date"
+                                        value="{{ old('down_payment_deferred_start_date', \Carbon\Carbon::now()->format('Y-m-d')) }}"
+                                        placeholder="yyyy-mm-dd" />
+                                    <div id="down_payment_deferred_start_date_error"
+                                        class="text-red-600 text-sm mt-2 hidden"></div>
+                                </div>
+
                             </div>
 
                             <hr class="mx-4 my-2">

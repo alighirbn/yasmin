@@ -375,7 +375,6 @@
                         </div>
 
                         <!-- Flexible Payment Plan (Method 4) -->
-                        <!-- Flexible Payment Plan (Method 4) -->
                         <div id="flexible-payment-fields" class="hidden">
                             <h2 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 my-4 w-full">
                                 دفعات مرنة
@@ -432,6 +431,20 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="down_payment_deferred_start_date" class="w-full mb-1"
+                                        :value="'تاريخ بدء الأقساط المؤجلة للدفعة المقدمة'" />
+                                    <x-text-input id="down_payment_deferred_start_date" class="w-full block mt-1"
+                                        type="text" name="down_payment_deferred_start_date"
+                                        value="{{ old('down_payment_deferred_start_date', $variable_payment_details['down_payment_deferred_start_date'] ?? \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d')) }}"
+                                        placeholder="yyyy-mm-dd" />
+                                    <input type="hidden" id="down_payment_deferred_start_date_hidden"
+                                        name="down_payment_deferred_start_date">
+
+                                    <x-input-error :messages="$errors->get('down_payment_deferred_start_date')" class="w-full mt-2" />
+                                </div>
+
                             </div>
 
                             <hr class="mx-4 my-2">
@@ -629,6 +642,14 @@
             var $flexMonthlyFrequency = $('#monthly_frequency');
             var $flexMonthlyStartDate = $('#monthly_start_date');
             var $flexKeyPaymentDisplay = $('#flex_key_payment_amount_display');
+            var $flexDownPaymentDeferredStartDateDisplay = $('#down_payment_deferred_start_date');
+            var $downPaymentDeferredStartDateHidden = $('#down_payment_deferred_start_date_hidden');
+
+            // تحديث الحقل المخفي عند تغير التاريخ
+            $flexDownPaymentDeferredStartDateDisplay.on('change', function() {
+                $downPaymentDeferredStartDateHidden.val($(this).val());
+            });
+
 
             var $contractSubmitButton = $('#contract-submit');
 
@@ -818,7 +839,8 @@
                 } else if (deferredTypeValue.startsWith('lump-')) {
                     let lumpMonth = parseInt(deferredTypeValue.split('-')[1]);
                     if (lumpMonth > months) {
-                        $deferredTypeError.text('{{ __('word.lump_month_exceeds_total') }}').removeClass('hidden');
+                        $deferredTypeError.text('{{ __('word.lump_month_exceeds_total') }}').removeClass(
+                            'hidden');
                         hasError = true;
                     } else {
                         $deferredTypeError.addClass('hidden');
@@ -1084,6 +1106,8 @@
             $flexNumberOfMonths.on('input', calculateFlexiblePlan);
             $flexMonthlyFrequency.on('change', calculateFlexiblePlan);
             $flexMonthlyStartDate.on('input', calculateFlexiblePlan);
+            $flexDownPaymentDeferredStartDateDisplay.on('change', calculateFlexiblePlan);
+
 
             // Prevent double submission for contract form
             $('form[action="{{ route('contract.update', $contract->url_address) }}"]').on('submit', function(e) {
@@ -1108,6 +1132,10 @@
                     $downPaymentInstallment.val(unformatNumber($flexDownPaymentInstallmentDisplay.val()));
                     $monthlyInstallment.val(unformatNumber($flexMonthlyInstallmentDisplay.val()));
                     $keyPayment.val(unformatNumber($flexKeyPaymentDisplay.val()));
+                    $('#down_payment_deferred_start_date_hidden').val($('#down_payment_deferred_start_date')
+                        .val());
+
+
                     // Also update the flexible-specific hidden field
                     $flexDownPaymentDeferredInstallment.val(unformatNumber(
                         $flexDownPaymentDeferredInstallmentDisplay.val()));
