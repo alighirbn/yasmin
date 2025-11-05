@@ -172,7 +172,7 @@
                                             <br>
                                         @endfor
                                         <div style="display: flex; justify-content: center;">
-                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 7)</p>
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 6)</p>
                                         </div>
                                         <br><br><br><br><br><br><br><br><br>
                                     @else
@@ -213,7 +213,7 @@
                                                 ': ( ' .
                                                 $installmentPercent .
                                                 ' %) من قيمة الكلية لبدل شراء الوحده السكنية 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               وتدفع ' .
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       وتدفع ' .
                                                 $paymentTiming .
                                                 ' ومقدارها ( ' .
                                                 $installmentAmount .
@@ -319,7 +319,7 @@
                                     <br> 3- يلتزم الطرف الثاني بسداد جميع الدفعات المشار لها في البند رابعاً وحسب
                                     التواريخ المثبتة ولدى البنك المحدد من قبل الطرف الأول مع تزويد الطرف الأول بوصل
                                     الايداع لأثبات ذلك .
-                                    @if ($contract_installments->count() == 12)
+                                    @if ($contract->contract_payment_method_id == 2)
                                         <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 7)</p>
@@ -445,7 +445,7 @@
                                     <br> 8- يلتزم الطرف الأول باحكام الضمان الخاصه بالمشروع والتي التزم بها مع هيئة
                                     استثمار النجف الاشرف والقوانيين والانظمه الازمه بحدود تعلق الامر بالوحده السكنية
                                     موضوع العقد وخدماتها وبنيتها التحتية
-                                    @if ($contract_installments->count() == 12)
+                                    @if ($contract->contract_payment_method_id == 2)
                                         <br>
                                         <br>
                                         <br>
@@ -570,7 +570,7 @@
                                     ايضا في حال فقدان الطرف الثاني للأهلية أو في حال حجره او إفلاسه او اعساره او وجود
                                     مانع من موانع الاهلية او عارض من عوارض الاهلية وذلك بموجب حكم بات صادر من محكمة
                                     مختصة .
-                                    @if ($contract_installments->count() == 12)
+                                    @if ($contract->contract_payment_method_id == 2)
                                         <br>
                                         <br>
                                         <br>
@@ -683,7 +683,7 @@
                                     <br>
                                     <br>
                                 @endif
-                                @if ($contract_installments->count() == 12)
+                                @if ($contract->contract_payment_method_id == 2)
                                     <br>
                                     <br>
                                     <br>
@@ -822,7 +822,7 @@
                                     <br>
                                     <br>
                                 @endif
-                                @if ($contract_installments->count() == 12)
+                                @if ($contract->contract_payment_method_id == 2)
                                     <br>
                                     <br>
                                     <div style="display: flex; justify-content: center;">
@@ -886,7 +886,7 @@
 
                             </div>
 
-                            @if ($contract_installments->count() == 12)
+                            @if ($contract->contract_payment_method_id == 2)
                                 <br>
                                 <br>
                                 <br>
@@ -942,7 +942,7 @@
                                     </p>
                                 </div>
                             </div>
-                            @if ($contract_installments->count() == 12)
+                            @if ($contract->contract_payment_method_id == 2)
                                 <br>
                                 <br>
                                 <br>
