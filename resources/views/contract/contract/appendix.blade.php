@@ -52,7 +52,8 @@
                                 <p>استناداً إلى عقد بيع الوحدة السكنية المبرم بتاريخ
                                     {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}
                                     بين:</p>
-
+                                <br>
+                                <br>
                                 <p>الطرف الأول: شركة بوابة العلم للمقاولات والتجارة العامة والاستثمارات العقارية
                                     المحدودة المسؤولية / النجف الأشرف ويمثلها المدير المفوض إضافةً لوظيفته.</p>
 
@@ -70,49 +71,55 @@
                                 <p>أولاً: تعديل جدول التسديد</p>
                                 <p>تم تعديل آلية تسديد بدل الوحدة السكنية الموضحة في البند (رابعاً) من العقد الأصلي،
                                     ويحل جدول السداد الجديد محل الجدول السابق بالكامل:</p>
-
                                 <div
                                     style="text-align:right; margin:0.8rem auto; font-size:0.92rem; font-weight:bold; line-height:1.9;">
 
-                                    @php $count = 1; @endphp
+                                    @php $line = 1; @endphp
 
                                     @foreach ($contract_installments as $ins)
                                         @php
-                                            $name = $ins->installment->installment_name; // مثل "دفعة مقدمة" أو "دفعة شهرية"
                                             $amount = number_format($ins->installment_amount, 0);
                                             $words = Numbers::TafqeetMoney($ins->installment_amount, 'IQD');
                                             $date = \Carbon\Carbon::parse($ins->installment_date)->format('Y/m/d');
 
-                                            // إضافة الترتيب إذا تكرر نفس النوع (مقدمة - مقدمة الثانية ...)
-                                            $sameTypeOrder = $contract_installments
-                                                ->where('installment.installment_name', $name)
-                                                ->where('sequence_number', '<=', $ins->sequence_number)
-                                                ->count();
+                                            // اسم الدفعة حسب التسلسل
+                                            if ($line == 1) {
+                                                $displayName = 'الدفعة المقدمة';
+                                            } else {
+                                                $displayName = 'الدفعة ' . App\Helpers\Number::convert($line);
+                                            }
 
-                                            // اسم وصفي يعتمد على الترتيب
-                                            $displayName =
-                                                $name .
-                                                ($sameTypeOrder > 1
-                                                    ? ' ' . App\Helpers\Number::convert($sameTypeOrder)
-                                                    : '');
+                                            // رقم لفظي (الأولى، الثانية...)
+                                            $ordinal = App\Helpers\Number::convert($line);
+
+                                            // حساب break حسب رقم الدفعة
+                                            $breakCount = $line >= 3 && $line <= 18 ? 27 - $line : 0;
+
+                                            $line++;
                                         @endphp
 
-                                        <p>
-                                            {{ App\Helpers\Number::convert($count++) }}.
-                                            {{ $displayName }}:
-                                            ومقدارها ({{ $amount }}) وكتابتا ({{ $words }})
-                                            - تاريخ الاستحقاق: {{ $date }}
+                                        <p style="direction: rtl;unicode-bidi: plaintext;">
+                                            {{ $line - 1 }}&nbsp;.&nbsp;{{ $displayName }}:
+                                            ومقدارها ({{ $amount }})
+                                            وكتابتا ({{ $words }})
+                                            - تستحق في: {{ $date }}
                                         </p>
-                                    @endforeach
 
+                                        {{-- طباعة الفراغات بعد هذا السطر إذا انطبق الشرط --}}
+                                    @endforeach
+                                    @for ($i = 0; $i < $breakCount; $i++)
+                                        <br>
+                                    @endfor
                                 </div>
 
                                 <p>يعتبر هذا الجدول جزءاً لا يتجزأ من العقد ويحل محل الجدول السابق.</p>
                             </div>
-
+                            <br>
+                            <br>
                             {{-- General Terms --}}
                             <div style="text-align:right; font-size:0.88rem; font-weight:bold; margin-top:12px;">
                                 <p>ثانياً: أحكام عامة</p>
+
                                 <p>١. تبقى جميع شروط العقد الأصلي نافذة وملزمة للطرفين ولا يُلغى منها شيء إلا ما ورد
                                     بشأنه في هذا الملحق.</p>
                                 <p>٢. يعتبر هذا الملحق جزءاً مكملاً ومتمماً للعقد الأصلي.</p>
@@ -133,20 +140,39 @@
                                     من نسختين أصليتين، بيد كل طرف نسخة للعمل بموجبها.
                                 </p>
                             </div>
-
-                            <div style="display:flex; justify-content:space-between; margin-top:40px;">
-                                <div style="text-align:center; width:45%; font-size:0.85rem; font-weight:bold;">
-                                    <p>الطرف الثاني</p><br><br>
-                                    <p>التوقيع: ____________</p>
-                                    <p>الاسم: {{ $contract->customer->customer_full_name }}</p>
-                                    <p>رقم الهوية: {{ $contract->customer->customer_card_number }}</p>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            @if ($contract->contract_payment_method_id == 4)
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            @endif
+                            <div class="flex ">
+                                <div
+                                    style="text-align: center; margin: 1rem auto; font-size: 0.875rem; font-weight: bold;">
+                                    <p> الطرف الثاني
+                                        <br>
+                                        <br>
+                                        <br> التوقيع /
+                                        <br> الاسم / {{ $contract->customer->customer_full_name }}
+                                        <br> رقم الهوية / {{ $contract->customer->customer_card_number }}
+                                        <br> العنوان / {{ $contract->customer->full_address }}
+                                    </p>
                                 </div>
-
-                                <div style="text-align:center; width:45%; font-size:0.85rem; font-weight:bold;">
-                                    <p>الطرف الأول</p><br><br>
-                                    <p>التوقيع: ____________</p>
-                                    <p>المدير المفوض لشركة بوابة العلم</p>
-                                    <p>للمقاولات العامة / إضافة لوظيفته</p>
+                                <div
+                                    style="text-align: center; margin: 1rem auto; font-size: 0.875rem; font-weight: bold;">
+                                    <p> الطرف الاول
+                                        <br>
+                                        <br>
+                                        <br> التوقيع /
+                                        <br> المدير المفوض لشركة بوابة العلم
+                                        <br> للمقاولات العامة المحدودة/ اضافة
+                                        <br> لوظيفته
+                                    </p>
                                 </div>
                             </div>
 

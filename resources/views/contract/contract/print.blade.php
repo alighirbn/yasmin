@@ -123,13 +123,11 @@
                                         {{ number_format($variable_payment_details['key_payment_amount'], 0) }}
                                         ({{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }})
                                     @elseif ($contract->contract_payment_method_id == 4)
-                                        {{-- Method 4: Detailed list with dates (like Method 2 but using sequence) --}}
+                                        {{-- Method 4: Sequential installments names without showing "مرن" or "دفعة مفتاح" --}}
                                         @foreach ($contract_installments as $index => $contract_installment)
                                             @php
-                                                $installment = $contract_installment->installment;
                                                 $sequenceNumber = $contract_installment->sequence_number ?: $index + 1;
 
-                                                $installmentName = $installment->installment_name;
                                                 $installmentAmount = number_format(
                                                     $contract_installment->installment_amount,
                                                     0,
@@ -142,35 +140,33 @@
                                                     $contract_installment->installment_date,
                                                 )->format('Y/m/d');
 
-                                                $sameTypeCount = $contract_installments
-                                                    ->where('installment.installment_name', $installmentName)
-                                                    ->where('sequence_number', '<=', $sequenceNumber)
-                                                    ->count();
+                                                // اسم القسط التسلسلي
+                                                if ($sequenceNumber == 1) {
+                                                    $displayName = 'الدفعة المقدمة';
+                                                } else {
+                                                    $displayName =
+                                                        'الدفعة ' . App\Helpers\Number::convert($sequenceNumber);
+                                                }
 
-                                                $descriptiveName =
-                                                    $installmentName .
-                                                    ($sameTypeCount > 1
-                                                        ? ' ' . App\Helpers\Number::convert($sameTypeCount)
-                                                        : '');
-
-                                                // حساب عدد السطور المطلوبة
+                                                // حساب عدد الأسطر للفراغات
                                                 $breakCount =
                                                     $sequenceNumber >= 3 && $sequenceNumber <= 18
                                                         ? 18 - $sequenceNumber
                                                         : 0;
                                             @endphp
 
-                                            {{-- طباعة القسط --}}
-                                            {{ $sequenceNumber }}. {{ $descriptiveName }}:
+                                            {{ $sequenceNumber }}. {{ $displayName }}:
                                             ومقدارها ({{ $installmentAmount }})
                                             وكتابتا ({{ $installmentAmountText }})
                                             - تاريخ الاستحقاق: {{ $installmentDate }}
                                             <br>
                                         @endforeach
+
                                         {{-- طباعة الفراغات --}}
                                         @for ($i = 0; $i < $breakCount; $i++)
                                             <br>
                                         @endfor
+
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 6)</p>
                                         </div>
@@ -213,7 +209,7 @@
                                                 ': ( ' .
                                                 $installmentPercent .
                                                 ' %) من قيمة الكلية لبدل شراء الوحده السكنية 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   وتدفع ' .
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       وتدفع ' .
                                                 $paymentTiming .
                                                 ' ومقدارها ( ' .
                                                 $installmentAmount .
@@ -356,8 +352,6 @@
 
                                 </p>
                                 @if ($contract->contract_payment_method_id == 4)
-                                    <br>
-                                    <br>
                                     <div style="display: flex; justify-content: center;">
                                         <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 6)</p>
                                     </div>
@@ -497,10 +491,10 @@
                                     الطرف الأول او الوحدة السكنية وحسب الآلية التي تحددها الدولة.
                                     @if ($contract->contract_payment_method_id == 4)
                                         <br>
-                                        <br>
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 6)</p>
                                         </div>
+                                        <br>
                                         <br>
                                         <br>
                                         <br>
@@ -624,7 +618,6 @@
                                     الغرامات التأخيرية لحين احلال مشتري اخر محله ويستحق الطرف الثاني (٥٠%) من المبلغ
                                     الواصل للطرف الأول وفي حالة عدم استلام الطرف الثاني للمبلغ المستحق له جاز للطرف
                                     الأول ايداع المبلغ لدى الدوائر المختصه.
-
                                 </p>
 
                                 <p>
@@ -639,6 +632,7 @@
                                         <div style="display: flex; justify-content: center;">
                                             <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 6)</p>
                                         </div>
+                                        <br>
                                         <br>
                                         <br>
                                         <br>
@@ -784,6 +778,8 @@
                                         <br>
                                         <br>
                                         <br>
+                                        <br>
+                                        <br>
                                     @endif
                                     <br> 11- تكون العمله العراقيه هي المعتمده في تسديد أقساط الوحده السكنية.
                                     <br> 12- يلتزم الطرف الثاني بدفع جميع الرسوم المستحقه للدوائر والازمه لتسجيل
@@ -885,7 +881,13 @@
                                     {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}</p>
 
                             </div>
-
+                            @if ($contract->contract_payment_method_id == 4)
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            @endif
                             @if ($contract->contract_payment_method_id == 2)
                                 <br>
                                 <br>
@@ -989,11 +991,6 @@
                                 </div>
                             @endif
                             @if ($contract->contract_payment_method_id == 4)
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
                                 <br>
                                 <br>
                                 <br>
