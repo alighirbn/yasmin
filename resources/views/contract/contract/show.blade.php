@@ -9,7 +9,7 @@
 
         <style>
             .workflow-status-compact {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #ecccb2 0%, #9f8b73 100%);
                 color: white;
                 padding: 12px 20px;
                 border-radius: 6px;
@@ -173,7 +173,16 @@
                             @if ($contract->stage == 'temporary')
                                 <span class="next-action">⏭️ قبول العقد</span>
                             @elseif ($contract->stage == 'accepted')
-                                <span class="next-action">⏭️ أرشفة ثم مصادقة</span>
+                                @php
+                                    // شرط دفع أول دفعة أو المقدمة
+                                    $downPaymentPaid = $contract->payments()->where('approved', true)->exists();
+                                @endphp
+
+                                @if ($downPaymentPaid)
+                                    <span class="next-action">⏭️ أرشفة ثم مصادقة</span>
+                                @else
+                                    <span class="next-action" style="background: #dc3545;">⛔ تسديد المقدمة أولاً</span>
+                                @endif
                             @elseif ($contract->stage == 'authenticated')
                                 <span class="next-action" style="background: #10b981;">✅ نهائي</span>
                             @elseif ($contract->stage == 'terminated')
@@ -245,12 +254,15 @@
 
                             <div class="divider"></div>
 
-                            <a href="{{ route('contract.temp', $contract->url_address) }}"
-                                class="btn btn-custom-print btn-compact" data-hint="طباعة">
-                                🖨️ طباعة
-                            </a>
+                            @can('contract-print')
+                                @if ($contract->stage == 'authenticated' && count($contract->images) >= 1)
+                                    <a href="{{ route('contract.print', $contract->url_address) }}"
+                                        class="btn btn-custom-print btn-compact" data-hint="طباعة عقد نهائي">
+                                        🖨️ طباعة عقد نهائي
 
-                            <div class="divider"></div>
+                                    </a>
+                                @endif
+                            @endcan
                         @endif
 
                         {{-- Show All Button --}}
@@ -407,16 +419,16 @@
                             {{-- Transfers Card --}}
                             @can('transfer-create')
                                 <div class="action-card">
-                                    <div class="action-card-title">🔄 التحويلات</div>
+                                    <div class="action-card-title">🔄 التناقلات</div>
                                     <div class="action-card-buttons">
                                         <a href="{{ route('transfer.create', ['contract_id' => $contract->id]) }}"
                                             class="btn btn-custom-transfer btn-compact">
-                                            تحويل جديد
+                                            تناقل جديد
                                         </a>
                                         @can('transfer-show')
                                             <a href="{{ route('transfer.contract', $contract->url_address) }}"
                                                 class="btn btn-custom-show btn-compact">
-                                                عرض التحويلات
+                                                عرض التناقلات
                                             </a>
                                         @endcan
                                     </div>

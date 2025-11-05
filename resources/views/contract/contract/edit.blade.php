@@ -375,6 +375,7 @@
                         </div>
 
                         <!-- Flexible Payment Plan (Method 4) -->
+                        <!-- Flexible Payment Plan (Method 4) -->
                         <div id="flexible-payment-fields" class="hidden">
                             <h2 class="font-semibold underline text-l text-gray-900 leading-tight mx-4 my-4 w-full">
                                 دفعات مرنة
@@ -386,7 +387,7 @@
                                         :value="'إجمالي الدفعة المقدمة (نقد + مؤجل)'" />
                                     <x-text-input id="flex_down_payment_amount_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('down_payment_amount', 0), 0) }}"
+                                        value="{{ number_format((float) old('down_payment_amount', $variable_payment_details['down_payment_amount'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <div id="flex_down_payment_error" class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
@@ -396,7 +397,7 @@
                                         :value="'المبلغ النقدي الآن من الدفعة المقدمة'" />
                                     <x-text-input id="flex_down_payment_installment_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('down_payment_installment', $paidAmount ?? 0), 0) }}"
+                                        value="{{ number_format((float) old('down_payment_installment', $variable_payment_details['down_payment_installment'] ?? ($paidAmount ?? 0)), 0) }}"
                                         placeholder="0" />
                                     <div id="flex_down_payment_installment_error"
                                         class="text-red-600 text-sm mt-2 hidden"></div>
@@ -407,11 +408,11 @@
                                         :value="'مبلغ كل قسط مؤجل من الدفعة المقدمة'" />
                                     <x-text-input id="down_payment_deferred_installment_display"
                                         class="w-full block mt-1" type="text"
-                                        value="{{ number_format((float) old('down_payment_deferred_installment', 0), 0) }}"
+                                        value="{{ number_format((float) old('down_payment_deferred_installment', $variable_payment_details['down_payment_deferred_installment'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <input type="hidden" id="down_payment_deferred_installment"
                                         name="down_payment_deferred_installment"
-                                        value="{{ old('down_payment_deferred_installment', 0) }}">
+                                        value="{{ old('down_payment_deferred_installment', $variable_payment_details['down_payment_deferred_installment'] ?? 0) }}">
                                     <div id="down_payment_deferred_installment_error"
                                         class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
@@ -425,7 +426,7 @@
                                         name="down_payment_deferred_frequency">
                                         @foreach ([1, 2, 3, 4, 5, 6] as $m)
                                             <option value="{{ $m }}"
-                                                {{ old('down_payment_deferred_frequency', 1) == $m ? 'selected' : '' }}>
+                                                {{ old('down_payment_deferred_frequency', $variable_payment_details['down_payment_deferred_frequency'] ?? 1) == $m ? 'selected' : '' }}>
                                                 {{ "كل {$m} شهر" }}
                                             </option>
                                         @endforeach
@@ -441,7 +442,7 @@
                                         :value="'مبلغ القسط الدوري'" />
                                     <x-text-input id="flex_monthly_installment_amount_display"
                                         class="w-full block mt-1" type="text"
-                                        value="{{ number_format((float) old('monthly_installment_amount', 0), 0) }}"
+                                        value="{{ number_format((float) old('monthly_installment_amount', $variable_payment_details['monthly_installment_amount'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <div id="flex_monthly_installment_error" class="text-red-600 text-sm mt-2 hidden">
                                     </div>
@@ -451,7 +452,8 @@
                                     <x-input-label for="flex_number_of_months" class="w-full mb-1"
                                         :value="'عدد الأقساط'" />
                                     <x-text-input id="flex_number_of_months" class="w-full block mt-1" type="number"
-                                        min="0" max="360" value="{{ old('number_of_months', 0) }}" />
+                                        min="0" max="360"
+                                        value="{{ old('number_of_months', $variable_payment_details['number_of_months'] ?? 0) }}" />
                                     <div id="flex_number_of_months_error" class="text-red-600 text-sm mt-2 hidden">
                                     </div>
                                 </div>
@@ -462,7 +464,7 @@
                                         name="monthly_frequency">
                                         @foreach ([1, 2, 3, 4, 5, 6] as $m)
                                             <option value="{{ $m }}"
-                                                {{ old('monthly_frequency', 1) == $m ? 'selected' : '' }}>
+                                                {{ old('monthly_frequency', $variable_payment_details['monthly_frequency'] ?? 1) == $m ? 'selected' : '' }}>
                                                 {{ "كل {$m} شهر" }}
                                             </option>
                                         @endforeach
@@ -473,7 +475,7 @@
                                     <x-input-label for="monthly_start_date" class="w-full mb-1" :value="'تاريخ بدء الأقساط'" />
                                     <x-text-input id="monthly_start_date" class="w-full block mt-1" type="text"
                                         name="monthly_start_date"
-                                        value="{{ old('monthly_start_date', \Carbon\Carbon::now()->format('Y-m-d')) }}"
+                                        value="{{ old('monthly_start_date', $variable_payment_details['monthly_start_date'] ?? \Carbon\Carbon::now()->format('Y-m-d')) }}"
                                         placeholder="yyyy-mm-dd" />
                                     <div id="monthly_start_date_error" class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
@@ -485,7 +487,7 @@
                                         :value="'دفعة المفتاح (سيتم حسابها تلقائياً إن لزم)'" />
                                     <x-text-input id="flex_key_payment_amount_display"
                                         class="w-full block mt-1 bg-gray-100" type="text" readonly
-                                        value="{{ number_format((float) old('key_payment_amount', 0), 0) }}" />
+                                        value="{{ number_format((float) old('key_payment_amount', $variable_payment_details['key_payment_amount'] ?? 0), 0) }}" />
                                 </div>
                             </div>
 

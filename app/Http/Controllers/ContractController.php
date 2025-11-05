@@ -1078,7 +1078,7 @@ class ContractController extends Controller
         $oldMethod = $contract->contract_payment_method_id;
 
         // 🚨 Block edits if contract has payments and not temporary,
-        // EXCEPT when migrating 2 → 3
+        // EXCEPT when migrating 2 → 3 or 2 → 4
         if ($contract->payments->count() > 0 && $contract->stage != 'temporary' && !($oldMethod == 2)) {
             return redirect()->route('contract.index')
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
@@ -1108,23 +1108,63 @@ class ContractController extends Controller
 
         $payment_methods = Payment_Method::all();
 
-        // 📝 Fetch variable payment plan details for editing
+        // 📝 Fetch variable/flexible payment plan details for editing (Methods 3 & 4)
         $variable_payment_details = [];
-        if ($contract->contract_payment_method_id == 3) {
-            $contract_installments = $contract->contract_installments()->with('installment')->get();
-            $down_payment = $contract_installments->where('installment.installment_name', 'دفعة مقدمة')->first();
+        if ($contract->contract_payment_method_id == 3 || $contract->contract_payment_method_id == 4) {
+            $contract_installments = $contract->contract_installments()->with('installment')->orderBy('installment_date')->get();
+            $down_payments = $contract_installments->where('installment.installment_name', 'دفعة مقدمة');
             $monthly_installments = $contract_installments->where('installment.installment_name', 'دفعة شهرية');
             $key_payment = $contract_installments->where('installment.installment_name', 'دفعة المفتاح')->first();
 
+            // Calculate total down payment (sum of all down payment installments)
+            $down_payment_total = $down_payments->sum('installment_amount');
+
+            // First down payment is the immediate cash payment
+            $down_payment_first = $down_payments->first();
+            $down_payment_installment = $down_payment_first ? $down_payment_first->installment_amount : 0;
+
+            // Calculate deferred down payment details
+            $deferred_down_payments = $down_payments->slice(1); // Skip first payment
+            $deferred_installment_amount = $deferred_down_payments->first() ? $deferred_down_payments->first()->installment_amount : 0;
+
+            // Calculate frequency (spacing between deferred payments)
+            $deferred_frequency = 1;
+            if ($deferred_down_payments->count() > 1) {
+                $first_deferred = $deferred_down_payments->first();
+                $second_deferred = $deferred_down_payments->skip(1)->first();
+                if ($first_deferred && $second_deferred) {
+                    $date1 = Carbon::parse($first_deferred->installment_date);
+                    $date2 = Carbon::parse($second_deferred->installment_date);
+                    $deferred_frequency = $date1->diffInMonths($date2);
+                }
+            }
+
+            // Calculate monthly installment frequency
+            $monthly_frequency = 1;
+            if ($monthly_installments->count() > 1) {
+                $first_monthly = $monthly_installments->first();
+                $second_monthly = $monthly_installments->skip(1)->first();
+                if ($first_monthly && $second_monthly) {
+                    $date1 = Carbon::parse($first_monthly->installment_date);
+                    $date2 = Carbon::parse($second_monthly->installment_date);
+                    $monthly_frequency = $date1->diffInMonths($date2);
+                }
+            }
+
             $variable_payment_details = [
-                'down_payment_amount' => $down_payment ? $down_payment->installment_amount : 0,
+                'down_payment_amount' => $down_payment_total,
+                'down_payment_installment' => $down_payment_installment,
+                'down_payment_deferred_installment' => $deferred_installment_amount,
+                'down_payment_deferred_frequency' => $deferred_frequency,
                 'monthly_installment_amount' => $monthly_installments->first() ? $monthly_installments->first()->installment_amount : 0,
                 'number_of_months' => $monthly_installments->count(),
+                'monthly_frequency' => $monthly_frequency,
+                'monthly_start_date' => $monthly_installments->first() ? $monthly_installments->first()->installment_date : null,
                 'key_payment_amount' => $key_payment ? $key_payment->installment_amount : 0,
             ];
         }
 
-        // NEW: Pre-calculate paid installments if contract is method 2
+        // Calculate paid installments if contract is method 2
         $paidAmount = 0;
         if ($contract->contract_payment_method_id == 2 && $contract->payments->count() > 0) {
             $paidAmount = $contract->payments()->where('approved', true)->sum('payment_amount');
@@ -1136,10 +1176,9 @@ class ContractController extends Controller
             'buildings',
             'payment_methods',
             'variable_payment_details',
-            'paidAmount' // 👈 now available in Blade
+            'paidAmount'
         ));
     }
-
 
     /**
      * Update the specified resource in storage.

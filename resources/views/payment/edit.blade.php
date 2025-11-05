@@ -1,6 +1,8 @@
 <x-app-layout>
 
     <x-slot name="header">
+        <link rel="stylesheet" type="text/css" href="{{ url('/css/select2.min.css') }}" />
+        <script src="{{ asset('js/select2.min.js') }}"></script>
         <div class="flex justify-start">
             @include('payment.nav.navigation')
             @include('income.nav.navigation')
@@ -8,7 +10,6 @@
             @include('cash_account.nav.navigation')
             @include('cash_transfer.nav.navigation')
         </div>
-
     </x-slot>
 
     <div class="bg-custom py-6">
@@ -29,9 +30,10 @@
 
                             <div class="flex ">
                                 <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="payment_contract_id" class="w-full mb-1" :value="__('word.payment_contract_id')" />
-                                    <select id="payment_contract_id" class="w-full block mt-1 "
-                                        name="payment_contract_id">
+                                    <x-input-label for="payment_contract_id" class="w-full mb-1" :value="__('word.building_number')" />
+                                    <select id="payment_contract_id" class="js-example-basic-single w-full block mt-1 "
+                                        name="payment_contract_id" data-placeholder="ادخل الاسم او رقم العقار">
+                                        <option value=""></option>
                                         @foreach ($contracts as $contract)
                                             <option value="{{ $contract->id }}"
                                                 {{ (old('payment_contract_id') ?? $payment->payment_contract_id) == $contract->id ? 'selected' : '' }}>
@@ -41,16 +43,107 @@
                                     </select>
                                     <x-input-error :messages="$errors->get('payment_contract_id')" class="w-full mt-2" />
                                 </div>
+                            </div>
 
+                            <!-- Installment Selection Section -->
+                            <div id="installment-section"
+                                class="{{ $payment->contract_installment_id ? '' : 'hidden' }}">
+                                <div class="mx-4 my-4">
+                                    <x-input-label for="contract_installment_id" class="w-full mb-1"
+                                        :value="__('اختر القسط')" />
+                                    <select id="contract_installment_id"
+                                        class="w-full block mt-1 border-gray-300 rounded-md"
+                                        name="contract_installment_id">
+                                        <option value="">اختر القسط...</option>
+                                        @if ($payment->contract_installment_id)
+                                            <option value="{{ $payment->contract_installment_id }}" selected>
+                                                {{ $payment->contract_installment->installment->installment_name ?? 'قسط' }}
+                                                -
+                                                المبلغ:
+                                                {{ number_format($payment->contract_installment->installment_amount, 0) }}
+                                            </option>
+                                        @endif
+                                    </select>
+                                    <x-input-error :messages="$errors->get('contract_installment_id')" class="w-full mt-2" />
+                                </div>
+
+                                <!-- Installment Details Display -->
+                                <div id="installment-details"
+                                    class="mx-4 my-4 p-4 bg-blue-50 border border-blue-200 rounded-lg {{ $payment->contract_installment_id ? '' : 'hidden' }}">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <span class="font-semibold">المبلغ الكلي:</span>
+                                            <span id="detail-total-amount" class="text-lg">
+                                                @if ($payment->contract_installment_id)
+                                                    {{ number_format($payment->contract_installment->installment_amount, 0) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold">المبلغ المدفوع:</span>
+                                            <span id="detail-paid-amount" class="text-lg text-green-600">
+                                                @if ($payment->contract_installment_id)
+                                                    {{ number_format($payment->contract_installment->paid_amount, 0) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold">المبلغ المتبقي:</span>
+                                            <span id="detail-remaining-amount" class="text-lg text-red-600">
+                                                @if ($payment->contract_installment_id)
+                                                    {{ number_format($payment->contract_installment->getRemainingAmount(), 0) }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold">نسبة الإنجاز:</span>
+                                            <span id="detail-progress" class="text-lg">
+                                                @if ($payment->contract_installment_id)
+                                                    {{ number_format($payment->contract_installment->getPaymentProgress(), 1) }}%
+                                                @else
+                                                    0%
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="mt-3">
+                                        <div class="w-full bg-gray-200 rounded-full h-4">
+                                            <div id="progress-bar"
+                                                class="bg-green-500 h-4 rounded-full transition-all duration-300"
+                                                style="width: @if ($payment->contract_installment_id) {{ $payment->contract_installment->getPaymentProgress() }}%@else 0% @endif">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="flex">
-                                <div class=" mx-4 my-4 w-full">
-                                    <x-input-label for="payment_amount" class="w-full mb-1" :value="__('word.payment_amount')" />
-                                    <x-text-input id="payment_amount" class="w-full block mt-1" type="text"
-                                        name="payment_amount"
-                                        value="{{ old('payment_amount') ?? $payment->payment_amount }}" />
+                                <div class="mx-4 my-4 w-full">
+                                    <x-input-label for="payment_amount_display" class="w-full mb-1" :value="__('word.payment_amount')" />
+                                    <x-text-input id="payment_amount_display" class="w-full block mt-1" type="text"
+                                        value="{{ number_format(old('payment_amount', $payment->payment_amount), 0) }}"
+                                        placeholder="0" />
+                                    <input type="hidden" id="payment_amount" name="payment_amount"
+                                        value="{{ old('payment_amount', $payment->payment_amount) }}">
                                     <x-input-error :messages="$errors->get('payment_amount')" class="w-full mt-2" />
+                                    <small id="amount-hint"
+                                        class="text-gray-500 {{ $payment->contract_installment_id ? '' : 'hidden' }}">
+                                        الحد الأقصى: <span id="max-amount">
+                                            @if ($payment->contract_installment_id)
+                                                {{ number_format($payment->contract_installment->getRemainingAmount() + $payment->payment_amount, 0) }}
+                                            @else
+                                                0
+                                            @endif
+                                        </span>
+                                    </small>
+                                    <small class="text-blue-500">ملاحظة: يمكن إدخال قيم سالبة للسحب أو الاسترجاع</small>
                                 </div>
 
                                 <div class=" mx-4 my-4 w-full">
@@ -68,7 +161,6 @@
                                         value="{{ old('payment_note') ?? $payment->payment_note }}" />
                                     <x-input-error :messages="$errors->get('payment_note')" class="w-full mt-2" />
                                 </div>
-
                             </div>
 
                             <div class=" mx-4 my-4 w-full">
@@ -82,5 +174,228 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var displayInput = document.getElementById('payment_amount_display');
+            var hiddenInput = document.getElementById('payment_amount');
+            var contractSelect = document.getElementById('payment_contract_id');
+            var installmentSection = document.getElementById('installment-section');
+            var installmentSelect = document.getElementById('contract_installment_id');
+            var installmentDetails = document.getElementById('installment-details');
+            var maxAmountAllowed = 0;
+            var originalPaymentAmount = {{ $payment->payment_amount }}; // Store original payment amount
+
+            function formatNumber(value) {
+                // Preserve negative sign and remove non-numeric characters except the negative sign and decimal
+                let isNegative = value.startsWith('-');
+                let cleanValue = value.replace(/[^\d.-]/g, '');
+                // Ensure only one negative sign at the start
+                cleanValue = cleanValue.replace(/-+/g, (match, offset) => offset === 0 ? '-' : '');
+                // Ensure only one decimal point
+                let parts = cleanValue.split('.');
+                if (parts.length > 2) {
+                    cleanValue = parts[0] + '.' + parts.slice(1).join('');
+                }
+                // Format integer part with commas
+                let integerPart = parts[0].replace(/\D/g, '');
+                let formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+                // Add decimal part if exists
+                let formatted = parts.length > 1 ? formattedInteger + '.' + parts[1] : formattedInteger;
+                return (isNegative && !formatted.startsWith('-') ? '-' : '') + formatted;
+            }
+
+            function unformatNumber(value) {
+                // Preserve negative sign and remove commas
+                let isNegative = value.startsWith('-');
+                let cleanValue = value.replace(/,/g, '');
+                // Ensure only one negative sign at the start
+                cleanValue = cleanValue.replace(/-+/g, (match, offset) => offset === 0 ? '-' : '');
+                return cleanValue;
+            }
+
+            function validateAmount(enteredAmount) {
+                // Allow negative values for received amounts
+                if (maxAmountAllowed > 0 && enteredAmount > maxAmountAllowed) {
+                    displayInput.classList.add('border-red-500');
+                    document.getElementById('amount-hint').classList.remove('text-gray-500');
+                    document.getElementById('amount-hint').classList.add('text-red-500', 'font-bold');
+                    return false;
+                } else {
+                    displayInput.classList.remove('border-red-500');
+                    document.getElementById('amount-hint').classList.remove('text-red-500', 'font-bold');
+                    document.getElementById('amount-hint').classList.add('text-gray-500');
+                    return true;
+                }
+            }
+
+            displayInput.addEventListener('input', function() {
+                var formattedValue = formatNumber(displayInput.value);
+                displayInput.value = formattedValue;
+                hiddenInput.value = unformatNumber(formattedValue);
+
+                // Validate against max amount (only for positive values)
+                var enteredAmount = parseFloat(unformatNumber(formattedValue));
+                if (!isNaN(enteredAmount)) {
+                    validateAmount(enteredAmount);
+                }
+            });
+
+            // Load installments when contract is selected
+            $(contractSelect).on('change', function() {
+                var contractId = $(this).val();
+
+                if (contractId) {
+                    // Show loading state
+                    installmentSelect.innerHTML = '<option value="">جاري التحميل...</option>';
+                    installmentSection.classList.remove('hidden');
+                    installmentDetails.classList.add('hidden');
+
+                    // Fetch installments via AJAX
+                    fetch(`/payment/contract/${contractId}/installments`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                installmentSelect.innerHTML = '<option value="">اختر القسط...</option>';
+
+                                data.installments.forEach(function(installment) {
+                                    var option = document.createElement('option');
+                                    option.value = installment.id;
+                                    option.dataset.amount = installment.amount;
+                                    option.dataset.paidAmount = installment.paid_amount;
+                                    option.dataset.remaining = installment.remaining;
+                                    option.dataset.progress = installment.progress;
+                                    option.dataset.isFullyPaid = installment.is_fully_paid;
+
+                                    var statusIcon = installment.is_fully_paid ? '✅' :
+                                        (installment.paid_amount > 0 ? '⏳' : '❌');
+
+                                    var displayText = `${statusIcon} ${installment.name} - ` +
+                                        `المبلغ: ${formatNumber(installment.amount.toString())} - ` +
+                                        `المتبقي: ${formatNumber(installment.remaining.toString())}`;
+
+                                    option.textContent = displayText;
+
+                                    // Pre-select if this is the current installment
+                                    if (installment.id ==
+                                        {{ $payment->contract_installment_id ?? 'null' }}) {
+                                        option.selected = true;
+                                    }
+
+                                    installmentSelect.appendChild(option);
+                                });
+
+                                // Trigger change event to show details if installment is pre-selected
+                                if (installmentSelect.value) {
+                                    installmentSelect.dispatchEvent(new Event('change'));
+                                }
+                            } else {
+                                installmentSelect.innerHTML =
+                                    '<option value="">حدث خطأ في تحميل الأقساط</option>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            installmentSelect.innerHTML =
+                                '<option value="">حدث خطأ في تحميل الأقساط</option>';
+                        });
+                } else {
+                    installmentSection.classList.add('hidden');
+                    installmentDetails.classList.add('hidden');
+                }
+            });
+
+            // Show installment details when selected
+            installmentSelect.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+
+                if (this.value && selectedOption.dataset.amount) {
+                    var totalAmount = parseFloat(selectedOption.dataset.amount);
+                    var paidAmount = parseFloat(selectedOption.dataset.paidAmount);
+                    var remaining = parseFloat(selectedOption.dataset.remaining);
+                    var progress = parseFloat(selectedOption.dataset.progress);
+
+                    // When editing, add back the original payment amount to get accurate remaining
+                    if (this.value == {{ $payment->contract_installment_id ?? 'null' }}) {
+                        remaining += originalPaymentAmount;
+                        paidAmount -= originalPaymentAmount;
+                        progress = (paidAmount / totalAmount) * 100;
+                    }
+
+                    // Update details display
+                    document.getElementById('detail-total-amount').textContent = formatNumber(totalAmount
+                        .toString());
+                    document.getElementById('detail-paid-amount').textContent = formatNumber(paidAmount
+                        .toString());
+                    document.getElementById('detail-remaining-amount').textContent = formatNumber(remaining
+                        .toString());
+                    document.getElementById('detail-progress').textContent = progress.toFixed(1) + '%';
+                    document.getElementById('progress-bar').style.width = progress + '%';
+
+                    // Set max amount and show hint
+                    maxAmountAllowed = remaining;
+                    document.getElementById('max-amount').textContent = formatNumber(remaining.toString());
+                    document.getElementById('amount-hint').classList.remove('hidden');
+
+                    installmentDetails.classList.remove('hidden');
+                } else {
+                    installmentDetails.classList.add('hidden');
+                    document.getElementById('amount-hint').classList.add('hidden');
+                    maxAmountAllowed = 0;
+                }
+            });
+
+            // On form submission, make sure the hidden input is set correctly
+            document.querySelector('form').addEventListener('submit', function(e) {
+                hiddenInput.value = unformatNumber(displayInput.value);
+
+                // Validate amount doesn't exceed maximum (only for positive values)
+                var enteredAmount = parseFloat(hiddenInput.value);
+                if (!isNaN(enteredAmount) && enteredAmount > 0 && maxAmountAllowed > 0 && enteredAmount >
+                    maxAmountAllowed) {
+                    e.preventDefault();
+                    alert('مبلغ الدفعة يتجاوز المبلغ المتبقي للقسط!\nالحد الأقصى: ' + formatNumber(
+                        maxAmountAllowed.toString()));
+                    return false;
+                }
+
+                // Additional validation for negative values when linked to installment
+                if (!isNaN(enteredAmount) && enteredAmount < 0 && installmentSelect.value) {
+                    var selectedOption = installmentSelect.options[installmentSelect.selectedIndex];
+                    if (selectedOption && selectedOption.dataset.paidAmount) {
+                        var paidAmount = parseFloat(selectedOption.dataset.paidAmount);
+                        // When editing, consider the original payment amount
+                        if (installmentSelect.value == {{ $payment->contract_installment_id ?? 'null' }}) {
+                            paidAmount -= originalPaymentAmount;
+                        }
+                        if (Math.abs(enteredAmount) > paidAmount) {
+                            e.preventDefault();
+                            alert('لا يمكن سحب مبلغ أكبر من المبلغ المدفوع للقسط!\nالحد الأقصى للسحب: ' +
+                                formatNumber(paidAmount.toString()));
+                            return false;
+                        }
+                    }
+                }
+            });
+
+            // Initialize Select2
+            $(document).ready(function() {
+                $('.js-example-basic-single').select2();
+
+                // Trigger contract change to load installments if contract is already selected
+                if (contractSelect.value) {
+                    $(contractSelect).trigger('change');
+                }
+            });
+
+            // Prevent double submission
+            $('form').on('submit', function() {
+                var $submitButton = $(this).find('button[type="submit"]');
+                $submitButton.text('جاري الحفظ');
+                $submitButton.prop('disabled', true);
+            });
+        });
+    </script>
 
 </x-app-layout>
