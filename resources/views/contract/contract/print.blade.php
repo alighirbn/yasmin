@@ -213,7 +213,7 @@
                                                 ': ( ' .
                                                 $installmentPercent .
                                                 ' %) من قيمة الكلية لبدل شراء الوحده السكنية 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       وتدفع ' .
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   وتدفع ' .
                                                 $paymentTiming .
                                                 ' ومقدارها ( ' .
                                                 $installmentAmount .
@@ -359,7 +359,7 @@
                                     <br>
                                     <br>
                                     <div style="display: flex; justify-content: center;">
-                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 7)</p>
+                                        <p style="font-size: 14px; font-weight: bold;">صفحة ( 2 - 6)</p>
                                     </div>
                                     <br>
                                     <br>
@@ -499,7 +499,7 @@
                                         <br>
                                         <br>
                                         <div style="display: flex; justify-content: center;">
-                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 7)</p>
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 3 - 6)</p>
                                         </div>
                                         <br>
                                         <br>
@@ -637,7 +637,7 @@
                                     العقد او بعد بيع الوحدة السكنية .
                                     @if ($contract->contract_payment_method_id == 4)
                                         <div style="display: flex; justify-content: center;">
-                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 7)</p>
+                                            <p style="font-size: 14px; font-weight: bold;">صفحة ( 4 - 6)</p>
                                         </div>
                                         <br>
                                         <br>
