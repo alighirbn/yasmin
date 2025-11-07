@@ -1720,21 +1720,6 @@ class ContractController extends Controller
 
             // 6) Next sequence after preserved (paid) rows
             $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
-            // --- DEBUG CHECK ---
-            dd([
-                'down_payment_amount' => $request->down_payment_amount,
-                'down_payment_installment' => $request->down_payment_installment,
-                'paidDownCash (already paid)' => $paidDownCash,
-                'calculated_down_now' => $down_now,
-                'calculated_down_total' => $down,
-                'diff' => $down_now - $paidDownCash,
-                'types' => [
-                    'down_payment_amount' => gettype($request->down_payment_amount),
-                    'down_payment_installment' => gettype($request->down_payment_installment),
-                    'paidDownCash' => gettype($paidDownCash),
-                ],
-            ]);
-
             // 7) CASH DOWN (دفعة مقدمة نقداً)
             // لا يتم إنشاء دفعة جديدة إذا كانت مدفوعة بالكامل سابقاً
             if ($down_now > 0 && round($down_now, 2) > round($paidDownCash, 2)) {
