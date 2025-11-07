@@ -1071,8 +1071,8 @@ class ContractController extends Controller
 
         // 🚨 Block edits if contract has payments and not temporary,
         // EXCEPT when migrating 2 → 3 or 2 → 4
-        if ($contract->payments->count() > 0 && $contract->stage != 'temporary' && !($oldMethod == 2)) {
-            return redirect()->route('contract.index')
+        if ($contract->payments->count() > 0 && $contract->stage != 'temporary') {
+            return redirect()->route('contract.show', $contract->url_address)
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
 
@@ -1224,6 +1224,7 @@ class ContractController extends Controller
         if ($contract->contract_payment_method_id == 2 && $contract->payments->count() > 0) {
             $paidAmount = $contract->payments()->where('approved', true)->sum('payment_amount');
         }
+
 
         return view('contract.contract.edit', compact(
             'contract',

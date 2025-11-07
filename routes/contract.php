@@ -25,7 +25,8 @@ Route::group(['prefix' => 'contract'], function () {
         ->name('contract.store');
 
     // edit form (GET)
-    Route::get('/edit/{url_address}', [ContractController::class, 'edit'])
+    // بدل الـ GET الحالي
+    Route::match(['get', 'post'], '/edit/{url_address}', [ContractController::class, 'edit'])
         ->middleware(['auth', 'verified', 'permission:contract-update'])
         ->name('contract.edit');
 

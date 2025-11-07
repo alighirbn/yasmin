@@ -150,6 +150,14 @@
             <div class=" overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
+                    {{-- Success & Error Messages --}}
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">{{ $message }}</div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
                     {{-- Compact Workflow Status --}}
                     <div class="workflow-status-compact">
                         <div class="status-info">
@@ -443,11 +451,7 @@
                     </div>
 
                     <div>
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success">
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
+
                         <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
                             {{ __('word.contract_info') }}
                         </h1>
