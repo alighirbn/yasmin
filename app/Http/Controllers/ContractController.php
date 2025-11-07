@@ -1670,7 +1670,8 @@ class ContractController extends Controller
             $contract->contract_installments()
                 ->whereDoesntHave('payment', fn($q) => $q->where('approved', true))
                 ->delete();
-
+            // 👇 أضف هذا السطر لتحديث العلاقة من قاعدة البيانات بعد الحذف
+            $contract->load('contract_installments');
             // 3) Clean inputs
             $clean = fn($v) => (float) str_replace(',', '', $v ?? 0);
 
@@ -1679,6 +1680,9 @@ class ContractController extends Controller
             $monthly  = $clean($request->monthly_installment_amount);
             $months   = max(0, (int) $request->number_of_months); // guard
             $key      = $clean($request->key_payment_amount);
+
+            // 👇 استخدم هذا بعد التنظيف لحساب التسلسل بشكل صحيح بعد الحذف
+            $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
             // 4) Do not allow lowering cash down below what was already paid toward cash-down
             if ($paidDownCash > 0 && $down_now < $paidDownCash) {
