@@ -1681,8 +1681,18 @@ class ContractController extends Controller
             $months   = max(0, (int) $request->number_of_months); // guard
             $key      = $clean($request->key_payment_amount);
 
-            // 👇 استخدم هذا بعد التنظيف لحساب التسلسل بشكل صحيح بعد الحذف
-            $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
+            // حساب رقم التسلسل التالي بعد الأقساط المسددة
+            $maxSeq = $contract->contract_installments()
+                ->whereNotNull('sequence_number')
+                ->max('sequence_number');
+
+            if ($maxSeq) {
+                $sequence = $maxSeq;
+            } else {
+                // إذا كانت الأقساط القديمة لا تحتوي على sequence_number، نبدأ من عددها
+                $sequence = $contract->contract_installments()->count();
+            }
+
 
             // 4) Do not allow lowering cash down below what was already paid toward cash-down
             if ($paidDownCash > 0 && $down_now < $paidDownCash) {
