@@ -1720,10 +1720,10 @@ class ContractController extends Controller
             // 6) Next sequence after preserved (paid) rows
             $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
-            // 7) CASH DOWN (only create if not already paid cash-down fully)
-            // If some cash-down was paid, we only create the difference (if any)
-            if ($down_now > $paidDownCash) {
-                $cashDownToCreate = $down_now - $paidDownCash;
+            // 7) CASH DOWN (دفعة مقدمة نقداً)
+            // لا يتم إنشاء دفعة جديدة إذا كانت مدفوعة بالكامل سابقاً
+            if ($down_now > 0 && round($down_now, 2) > round($paidDownCash, 2)) {
+                $cashDownToCreate = round($down_now - $paidDownCash, 2);
 
                 Contract_Installment::create([
                     'url_address'        => $this->random_string(60),
@@ -1735,6 +1735,7 @@ class ContractController extends Controller
                     'sequence_number'    => ++$sequence,
                 ]);
             }
+
 
             // 8) Deferred down payments
             if ($deferred_total > 0) {
