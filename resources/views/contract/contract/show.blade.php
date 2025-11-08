@@ -289,11 +289,6 @@
                                 <div class="action-card-buttons">
                                     @can('contract-update')
                                         @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
-                                            <a href="#passwordModal" class="btn btn-custom-edit btn-compact"
-                                                data-bs-toggle="modal">
-                                                تعديل (مؤمن)
-                                            </a>
-                                        @else
                                             <a href="{{ route('contract.edit', $contract->url_address) }}"
                                                 class="btn btn-custom-edit btn-compact">
                                                 تعديل
@@ -754,32 +749,6 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="passwordModal" class="modal">
-        <div class="modal-dialog">
-            <div class="modal-content  text-gray-900">
-                <form action="{{ route('contract.edit', $contract->url_address) }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title">تأكيد كلمة المرور</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>يرجى إدخال كلمة المرور الخاصة بك لتأكيد التعديل.</p>
-                        <div class="form-group">
-                            <label for="password">كلمة المرور</label>
-                            <input type="password" name="password" id="password" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-custom-statement">تأكيد</button>
-                        <button type="button" class="btn btn-custom-transfer" data-bs-dismiss="modal">إلغاء</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

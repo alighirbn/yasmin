@@ -8,7 +8,6 @@
         @include('contract.nav.navigation')
         @include('service.nav.navigation')
     </x-slot>
-
     <div class="bg-custom py-6">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
@@ -260,11 +259,11 @@
                                         :value="__('word.down_payment_installment')" />
                                     <x-text-input id="down_payment_installment_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('down_payment_installment', $contract->down_payment_installment ?? ($paidAmount ?? 0)), 0) }}"
+                                        value="{{ number_format((float) old('down_payment_installment', $variable_payment_details['down_payment_installment'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <input type="hidden" id="down_payment_installment"
                                         name="down_payment_installment"
-                                        value="{{ old('down_payment_installment', $contract->down_payment_installment ?? ($paidAmount ?? 0)) }}">
+                                        value="{{ old('down_payment_installment', $variable_payment_details['down_payment_installment'] ?? 0) }}">
                                     <x-input-error :messages="$errors->get('down_payment_installment')" class="w-full mt-2" />
                                     <div id="down_payment_installment_error" class="text-red-600 text-sm mt-2 hidden">
                                     </div>
@@ -276,11 +275,11 @@
                                         :value="__('word.monthly_installment_amount')" />
                                     <x-text-input id="monthly_installment_amount_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('monthly_installment_amount', $contract->monthly_installment_amount ?? 0), 0) }}"
+                                        value="{{ number_format((float) old('monthly_installment_amount', $variable_payment_details['monthly_installment_amount'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <input type="hidden" id="monthly_installment_amount"
                                         name="monthly_installment_amount"
-                                        value="{{ old('monthly_installment_amount', $contract->monthly_installment_amount ?? 0) }}">
+                                        value="{{ old('monthly_installment_amount', $variable_payment_details['monthly_installment_amount'] ?? 0) }}">
                                     <x-input-error :messages="$errors->get('monthly_installment_amount')" class="w-full mt-2" />
                                     <div id="monthly_installment_error" class="text-red-600 text-sm mt-2 hidden">
                                     </div>
@@ -293,10 +292,10 @@
                                     <x-input-label for="number_of_months" class="w-full mb-1" :value="__('word.number_of_months')" />
                                     <input type="range" id="number_of_months" name="number_of_months"
                                         class="w-full" min="1" max="120"
-                                        value="{{ old('number_of_months', $contract->number_of_months ?? 36) }}" />
+                                        value="{{ old('number_of_months', $variable_payment_details['number_of_months'] ?? 36) }}" />
                                     <div class="text-center">
                                         <span
-                                            id="months-label">{{ old('number_of_months', $contract->number_of_months ?? 36) }}</span>
+                                            id="months-label">{{ old('number_of_months', $variable_payment_details['number_of_months'] ?? 36) }}</span>
                                         {{ __('word.months') }}
                                     </div>
                                     <x-input-error :messages="$errors->get('number_of_months')" class="w-full mt-2" />
@@ -342,9 +341,9 @@
                                         :value="__('word.key_payment_amount')" />
                                     <x-text-input id="key_payment_amount_display"
                                         class="w-full block mt-1 bg-gray-100" type="text" readonly
-                                        value="{{ number_format((float) old('key_payment_amount', $contract->key_payment_amount ?? 0), 0) }}" />
+                                        value="{{ number_format((float) old('key_payment_amount', $variable_payment_details['key_payment_amount'] ?? 0), 0) }}" />
                                     <input type="hidden" id="key_payment_amount" name="key_payment_amount"
-                                        value="{{ old('key_payment_amount', $contract->key_payment_amount ?? 0) }}">
+                                        value="{{ old('key_payment_amount', $variable_payment_details['key_payment_amount'] ?? 0) }}">
                                     <x-input-error :messages="$errors->get('key_payment_amount')" class="w-full mt-2" />
                                     <div id="key_payment_error" class="text-red-600 text-sm mt-2 hidden"></div>
                                 </div>
@@ -396,7 +395,7 @@
                                         :value="'المبلغ النقدي الآن من الدفعة المقدمة'" />
                                     <x-text-input id="flex_down_payment_installment_display" class="w-full block mt-1"
                                         type="text"
-                                        value="{{ number_format((float) old('down_payment_installment', $variable_payment_details['down_payment_installment'] ?? ($paidAmount ?? 0)), 0) }}"
+                                        value="{{ number_format((float) old('down_payment_installment', $variable_payment_details['down_payment_installment'] ?? 0), 0) }}"
                                         placeholder="0" />
                                     <div id="flex_down_payment_installment_error"
                                         class="text-red-600 text-sm mt-2 hidden"></div>
@@ -650,7 +649,6 @@
                 $downPaymentDeferredStartDateHidden.val($(this).val());
             });
 
-
             var $contractSubmitButton = $('#contract-submit');
 
             // Helpers
@@ -695,7 +693,6 @@
             formatInput($downPaymentInstallmentDisplay, $downPaymentInstallment, $(
                 '#down_payment_installment_error'));
             formatInput($monthlyInstallmentDisplay, $monthlyInstallment, $('#monthly_installment_error'));
-            formatInput($contractAmountDisplay, $contractAmount, null);
 
             // Initialize formatting for flexible payment inputs (without hidden fields as they share with variable)
             formatInput($flexDownPaymentDisplay, null, $('#flex_down_payment_error'));
@@ -703,6 +700,21 @@
             formatInput($flexDownPaymentDeferredInstallmentDisplay, $flexDownPaymentDeferredInstallment, $(
                 '#down_payment_deferred_installment_error'));
             formatInput($flexMonthlyInstallmentDisplay, null, $('#flex_monthly_installment_error'));
+
+            // ✅ Format contract amount display (manual editing)
+            $contractAmountDisplay.on('input', function() {
+                var numericValue = unformatNumber($contractAmountDisplay.val());
+                var formattedValue = formatNumber(numericValue);
+                $contractAmountDisplay.val(formattedValue);
+                $contractAmount.val(numericValue);
+
+                if (isVariableSelected()) {
+                    validatePaymentPlan();
+                    autoCalculateKeyPayment();
+                } else if (isFlexibleSelected()) {
+                    calculateFlexiblePlan();
+                }
+            });
 
             // Format deferred months input
             $deferredMonths.on('input', function() {
@@ -733,15 +745,19 @@
                     'true';
             }
 
-            // Calculate contract amount with discount
-            function calculateContractAmount() {
+            // ✅ Update contract amount only when building changes AND amount is 0/empty
+            function updateContractAmountOnBuildingChange() {
                 var $selectedOption = $('#contract_building_id').find('option:selected');
                 var basePrice = parseFloat($selectedOption.data('price')) || 0;
                 var discount = parseFloat($discountInput.val()) || 0;
                 var discountedAmount = basePrice - (basePrice * (discount / 100));
 
-                $contractAmount.val(discountedAmount);
-                $contractAmountDisplay.val(formatNumber(discountedAmount.toString()));
+                // Only auto-fill if contract_amount is currently 0 or empty
+                var currentAmount = parseFloat($contractAmount.val()) || 0;
+                if (currentAmount === 0 || $contractAmount.val() === '') {
+                    $contractAmount.val(discountedAmount);
+                    $contractAmountDisplay.val(formatNumber(discountedAmount.toString()));
+                }
 
                 if (isVariableSelected()) {
                     validatePaymentPlan();
@@ -899,69 +915,69 @@
 
                 let $tbody = $('#payment-breakdown');
                 $tbody.html(`
-                <tr>
-                    <td class="px-2 py-1">{{ __('word.down_payment_installment') }}</td>
-                    <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
-                    <td class="px-2 py-1">1</td>
-                    <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
-                </tr>
-            `);
+            <tr>
+                <td class="px-2 py-1">{{ __('word.down_payment_installment') }}</td>
+                <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
+                <td class="px-2 py-1">1</td>
+                <td class="px-2 py-1">${formatNumber(downInstallment)}</td>
+            </tr>
+        `);
 
                 if (deferredTypeValue === 'spread' && deferredMonthsCount > 0 && deferred > 0) {
                     let firstMonthsTotal = (firstMonthlyAmount * deferredMonthsCount) + (remainder > 0 ? remainder :
                         0);
                     $tbody.append(`
-                    <tr>
-                        <td class="px-2 py-1">{{ __('word.first_monthly_installments') }}</td>
-                        <td class="px-2 py-1">${formatNumber(firstMonthlyAmount + (remainder > 0 ? remainder / deferredMonthsCount : 0))}</td>
-                        <td class="px-2 py-1">${deferredMonthsCount}</td>
-                        <td class="px-2 py-1">${formatNumber(firstMonthsTotal)}</td>
-                    </tr>
-                `);
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.first_monthly_installments') }}</td>
+                    <td class="px-2 py-1">${formatNumber(firstMonthlyAmount + (remainder > 0 ? remainder / deferredMonthsCount : 0))}</td>
+                    <td class="px-2 py-1">${deferredMonthsCount}</td>
+                    <td class="px-2 py-1">${formatNumber(firstMonthsTotal)}</td>
+                </tr>
+            `);
                     if (months > deferredMonthsCount) {
                         $tbody.append(`
-                        <tr>
-                            <td class="px-2 py-1">{{ __('word.remaining_monthly_installments') }}</td>
-                            <td class="px-2 py-1">${formatNumber(monthly)}</td>
-                            <td class="px-2 py-1">${months - deferredMonthsCount}</td>
-                            <td class="px-2 py-1">${formatNumber(monthly * (months - deferredMonthsCount))}</td>
-                        </tr>
-                    `);
+                    <tr>
+                        <td class="px-2 py-1">{{ __('word.remaining_monthly_installments') }}</td>
+                        <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                        <td class="px-2 py-1">${months - deferredMonthsCount}</td>
+                        <td class="px-2 py-1">${formatNumber(monthly * (months - deferredMonthsCount))}</td>
+                    </tr>
+                `);
                     }
                 } else if (deferredTypeValue.startsWith('lump-') && deferred > 0) {
                     $tbody.append(`
-                    <tr>
-                        <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
-                        <td class="px-2 py-1">${formatNumber(monthly)}</td>
-                        <td class="px-2 py-1">${months}</td>
-                        <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
-                    </tr>
-                    <tr>
-                        <td class="px-2 py-1">{{ __('word.deferred_lump_sum') }}</td>
-                        <td class="px-2 py-1">${formatNumber(deferred)}</td>
-                        <td class="px-2 py-1">{{ __('word.with_installment') }} ${lumpMonth}</td>
-                        <td class="px-2 py-1">${formatNumber(deferred)}</td>
-                    </tr>
-                `);
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
+                    <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                    <td class="px-2 py-1">${months}</td>
+                    <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
+                </tr>
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.deferred_lump_sum') }}</td>
+                    <td class="px-2 py-1">${formatNumber(deferred)}</td>
+                    <td class="px-2 py-1">{{ __('word.with_installment') }} ${lumpMonth}</td>
+                    <td class="px-2 py-1">${formatNumber(deferred)}</td>
+                </tr>
+            `);
                 } else {
                     $tbody.append(`
-                    <tr>
-                        <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
-                        <td class="px-2 py-1">${formatNumber(monthly)}</td>
-                        <td class="px-2 py-1">${months}</td>
-                        <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
-                    </tr>
-                `);
+                <tr>
+                    <td class="px-2 py-1">{{ __('word.monthly_installments') }}</td>
+                    <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                    <td class="px-2 py-1">${months}</td>
+                    <td class="px-2 py-1">${formatNumber(monthly * months)}</td>
+                </tr>
+            `);
                 }
 
                 $tbody.append(`
-                <tr>
-                    <td class="px-2 py-1">{{ __('word.key_payment') }}</td>
-                    <td class="px-2 py-1">${formatNumber(key)}</td>
-                    <td class="px-2 py-1">1</td>
-                    <td class="px-2 py-1">${formatNumber(key)}</td>
-                </tr>
-            `);
+            <tr>
+                <td class="px-2 py-1">{{ __('word.key_payment') }}</td>
+                <td class="px-2 py-1">${formatNumber(key)}</td>
+                <td class="px-2 py-1">1</td>
+                <td class="px-2 py-1">${formatNumber(key)}</td>
+            </tr>
+        `);
 
                 $('#breakdown-total').text(formatNumber(discountedAmount));
                 validatePaymentPlan();
@@ -999,45 +1015,45 @@
                 $tbody.empty();
 
                 $tbody.append(`
-                    <tr>
-                        <td class="px-2 py-1">دفعة مقدمة (نقد)</td>
-                        <td class="px-2 py-1">${formatNumber(downCash)}</td>
-                        <td class="px-2 py-1">1</td>
-                        <td class="px-2 py-1">${formatNumber(downCash)}</td>
-                    </tr>
-                `);
+                <tr>
+                    <td class="px-2 py-1">دفعة مقدمة (نقد)</td>
+                    <td class="px-2 py-1">${formatNumber(downCash)}</td>
+                    <td class="px-2 py-1">1</td>
+                    <td class="px-2 py-1">${formatNumber(downCash)}</td>
+                </tr>
+            `);
 
                 if (deferredTotal > 0) {
                     let pieces = deferredPiece > 0 ? Math.ceil(deferredTotal / deferredPiece) : 1;
                     $tbody.append(`
-                        <tr>
-                            <td class="px-2 py-1">دفعة مقدمة (مؤجل)</td>
-                            <td class="px-2 py-1">${formatNumber(deferredTotal)}</td>
-                            <td class="px-2 py-1">${pieces} × كل ${deferredFreq} شهر</td>
-                            <td class="px-2 py-1">${formatNumber(deferredTotal)}</td>
-                        </tr>
-                    `);
+                    <tr>
+                        <td class="px-2 py-1">دفعة مقدمة (مؤجل)</td>
+                        <td class="px-2 py-1">${formatNumber(deferredTotal)}</td>
+                        <td class="px-2 py-1">${pieces} × كل ${deferredFreq} شهر</td>
+                        <td class="px-2 py-1">${formatNumber(deferredTotal)}</td>
+                    </tr>
+                `);
                 }
 
                 if (monthly > 0 && monthsCount > 0) {
                     $tbody.append(`
-                        <tr>
-                            <td class="px-2 py-1">أقساط دورية</td>
-                            <td class="px-2 py-1">${formatNumber(monthly)}</td>
-                            <td class="px-2 py-1">${monthsCount} × كل ${monthlyFreq} شهر</td>
-                            <td class="px-2 py-1">${formatNumber(monthly * monthsCount)}</td>
-                        </tr>
-                    `);
+                    <tr>
+                        <td class="px-2 py-1">أقساط دورية</td>
+                        <td class="px-2 py-1">${formatNumber(monthly)}</td>
+                        <td class="px-2 py-1">${monthsCount} × كل ${monthlyFreq} شهر</td>
+                        <td class="px-2 py-1">${formatNumber(monthly * monthsCount)}</td>
+                    </tr>
+                `);
                 }
 
                 $tbody.append(`
-                    <tr>
-                        <td class="px-2 py-1">دفعة المفتاح</td>
-                        <td class="px-2 py-1">${formatNumber(key)}</td>
-                        <td class="px-2 py-1">1</td>
-                        <td class="px-2 py-1">${formatNumber(key)}</td>
-                    </tr>
-                `);
+                <tr>
+                    <td class="px-2 py-1">دفعة المفتاح</td>
+                    <td class="px-2 py-1">${formatNumber(key)}</td>
+                    <td class="px-2 py-1">1</td>
+                    <td class="px-2 py-1">${formatNumber(key)}</td>
+                </tr>
+            `);
 
                 let total = downCash + deferredTotal + (monthly * monthsCount) + key;
                 $('#flexible-breakdown-total').text(formatNumber(total));
@@ -1086,8 +1102,8 @@
 
             // Event listeners
             $paymentMethodSelect.on('change select2:select', toggleVariableFields);
-            $('#contract_building_id').on('change select2:select', calculateContractAmount);
-            $discountInput.on('input', calculateContractAmount);
+            $('#contract_building_id').on('change select2:select', updateContractAmountOnBuildingChange);
+            $discountInput.on('input', updateContractAmountOnBuildingChange);
 
             // Variable payment events
             $numberOfMonths.on('input', autoCalculateKeyPayment);
@@ -1107,7 +1123,6 @@
             $flexMonthlyFrequency.on('change', calculateFlexiblePlan);
             $flexMonthlyStartDate.on('input', calculateFlexiblePlan);
             $flexDownPaymentDeferredStartDateDisplay.on('change', calculateFlexiblePlan);
-
 
             // Prevent double submission for contract form
             $('form[action="{{ route('contract.update', $contract->url_address) }}"]').on('submit', function(e) {
@@ -1135,7 +1150,6 @@
                     $('#down_payment_deferred_start_date_hidden').val($('#down_payment_deferred_start_date')
                         .val());
 
-
                     // Also update the flexible-specific hidden field
                     $flexDownPaymentDeferredInstallment.val(unformatNumber(
                         $flexDownPaymentDeferredInstallmentDisplay.val()));
@@ -1152,8 +1166,6 @@
 
             // Initial setup
             toggleVariableFields();
-            calculateContractAmount();
         });
     </script>
-
 </x-app-layout>

@@ -1070,24 +1070,10 @@ class ContractController extends Controller
 
         $oldMethod = $contract->contract_payment_method_id;
 
-        // 🚨 Block edits if contract has payments and not temporary,
-        // EXCEPT when migrating 2 → 3 or 2 → 4
+        // 🚨 Block edits if contract has payments and not temporary
         if ($contract->payments->count() > 0 && $contract->stage != 'temporary') {
             return redirect()->route('contract.show', $contract->url_address)
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
-        }
-
-        // 🔑 If temporary contract with payments → require password
-        if ($contract->payments->count() > 0 && $contract->stage == 'temporary') {
-            if ($request->has('password')) {
-                if (!Hash::check($request->password, auth()->user()->password)) {
-                    return redirect()->route('contract.index')
-                        ->with('error', 'كلمة المرور غير صحيحة.');
-                }
-            } else {
-                return redirect()->route('contract.index')
-                    ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله. يرجى إدخال كلمة المرور لتأكيد التعديل.');
-            }
         }
 
         $customers = Customer::all();
@@ -1101,131 +1087,215 @@ class ContractController extends Controller
 
         $payment_methods = Payment_Method::all();
 
-        // 📝 Fetch variable/flexible payment plan details for editing (Methods 3 & 4)
-        $variable_payment_details = [];
-        if ($contract->contract_payment_method_id == 3) {
-            $contract_installments = $contract->contract_installments()->with('installment')->orderBy('installment_date')->get();
-            $down_payments = $contract_installments->where('installment.installment_name', 'دفعة مقدمة');
-            $monthly_installments = $contract_installments->where('installment.installment_name', 'دفعة شهرية');
-            $key_payment = $contract_installments->where('installment.installment_name', 'دفعة المفتاح')->first();
-
-            // Calculate total down payment (sum of all down payment installments)
-            $down_payment_total = $down_payments->sum('installment_amount');
-
-            // First down payment is the immediate cash payment
-            $down_payment_first = $down_payments->first();
-            $down_payment_installment = $down_payment_first ? $down_payment_first->installment_amount : 0;
-
-            // Calculate deferred down payment details
-            $deferred_down_payments = $down_payments->slice(1); // Skip first payment
-            $deferred_installment_amount = $deferred_down_payments->first() ? $deferred_down_payments->first()->installment_amount : 0;
-
-            // Calculate frequency (spacing between deferred payments)
-            $deferred_frequency = 1;
-            if ($deferred_down_payments->count() > 1) {
-                $first_deferred = $deferred_down_payments->first();
-                $second_deferred = $deferred_down_payments->skip(1)->first();
-                if ($first_deferred && $second_deferred) {
-                    $date1 = Carbon::parse($first_deferred->installment_date);
-                    $date2 = Carbon::parse($second_deferred->installment_date);
-                    $deferred_frequency = $date1->diffInMonths($date2);
-                }
-            }
-
-            // Calculate monthly installment frequency
-            $monthly_frequency = 1;
-            if ($monthly_installments->count() > 1) {
-                $first_monthly = $monthly_installments->first();
-                $second_monthly = $monthly_installments->skip(1)->first();
-                if ($first_monthly && $second_monthly) {
-                    $date1 = Carbon::parse($first_monthly->installment_date);
-                    $date2 = Carbon::parse($second_monthly->installment_date);
-                    $monthly_frequency = $date1->diffInMonths($date2);
-                }
-            }
-
-            $variable_payment_details = [
-                'down_payment_amount' => $down_payment_total,
-                'down_payment_installment' => $down_payment_installment,
-                'down_payment_deferred_installment' => $deferred_installment_amount,
-                'down_payment_deferred_frequency' => $deferred_frequency,
-                'monthly_installment_amount' => $monthly_installments->first() ? $monthly_installments->first()->installment_amount : 0,
-                'number_of_months' => $monthly_installments->count(),
-                'monthly_frequency' => $monthly_frequency,
-                'monthly_start_date' => $monthly_installments->first() ? $monthly_installments->first()->installment_date : null,
-                'key_payment_amount' => $key_payment ? $key_payment->installment_amount : 0,
-            ];
-        } elseif ($contract->contract_payment_method_id == 4) {
-
-            $contract_installments = $contract->contract_installments()->with('installment')->orderBy('installment_date')->get();
-
-            $down_cash = $contract_installments->where('installment.installment_name', 'دفعة مقدمة نقداً');
-            $down_deferred = $contract_installments->where('installment.installment_name', 'دفعة مقدمة مؤجلة');
-            $deferred_start_date = $down_deferred->first() ? $down_deferred->first()->installment_date : $contract->contract_date;
-            $monthly_installments = $contract_installments->where('installment.installment_name', 'قسط مرن');
-            $key_payment = $contract_installments->where('installment.installment_name', 'دفعة مفتاح')->first();
-
-            // ✅ إجمالي الدفعة المقدمة (نقد + مؤجل)
-            $down_payment_total = $down_cash->sum('installment_amount') + $down_deferred->sum('installment_amount');
-
-            // ✅ أول دفعة نقداً
-            $down_payment_installment = $down_cash->first() ? $down_cash->first()->installment_amount : 0;
-
-            // ✅ دفعة مؤجلة (أول واحدة فقط، الباقي نفس القيمة)
-            $deferred_installment_amount = $down_deferred->first() ? $down_deferred->first()->installment_amount : 0;
-
-            // ✅ تكرار الدفعات المؤجلة
-            $deferred_frequency = 1;
-            if ($down_deferred->count() > 1) {
-                $first_def = $down_deferred->first();
-                $second_def = $down_deferred->skip(1)->first();
-                if ($first_def && $second_def) {
-                    $date1 = Carbon::parse($first_def->installment_date);
-                    $date2 = Carbon::parse($second_def->installment_date);
-                    $deferred_frequency = $date1->diffInMonths($date2);
-                }
-            }
-
-            // ✅ أول قسط شهري
-            $monthly_amount = $monthly_installments->first() ? $monthly_installments->first()->installment_amount : 0;
-
-            // ✅ عدد الأقساط
-            $number_of_months = $monthly_installments->count();
-
-            // ✅ تكرار الأقساط المرنة
-            $monthly_frequency = 1;
-            if ($monthly_installments->count() > 1) {
-                $m1 = $monthly_installments->first();
-                $m2 = $monthly_installments->skip(1)->first();
-                if ($m1 && $m2) {
-                    $monthly_frequency = Carbon::parse($m1->installment_date)->diffInMonths($m2->installment_date);
-                }
-            }
-
-            // ✅ تاريخ أول قسط
-            $monthly_start_date = $monthly_installments->first() ? $monthly_installments->first()->installment_date : null;
-
-            $variable_payment_details = [
-                'down_payment_amount' => $down_payment_total,
-                'down_payment_installment' => $down_payment_installment,
-                'down_payment_deferred_installment' => $deferred_installment_amount,
-                'down_payment_deferred_frequency' => $deferred_frequency,
-                'down_payment_deferred_start_date' => $deferred_start_date,
-                'monthly_installment_amount' => $monthly_amount,
-                'number_of_months' => $number_of_months,
-                'monthly_frequency' => $monthly_frequency,
-                'monthly_start_date' => $monthly_start_date,
-                'key_payment_amount' => $key_payment ? $key_payment->installment_amount : 0,
-            ];
-        }
-
-
-        // Calculate paid installments if contract is method 2
+        // ✅ Calculate paid amount (used for all methods)
         $paidAmount = 0;
-        if ($contract->contract_payment_method_id == 2 && $contract->payments->count() > 0) {
+        if ($contract->payments->count() > 0) {
             $paidAmount = $contract->payments()->where('approved', true)->sum('payment_amount');
         }
 
+        // ✅ Initialize with default values (ensures all keys exist)
+        $variable_payment_details = [
+            'down_payment_amount' => 0,
+            'down_payment_installment' => $paidAmount, // Default to paid amount
+            'down_payment_deferred_installment' => 0,
+            'down_payment_deferred_frequency' => 1,
+            'down_payment_deferred_start_date' => \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d'),
+            'monthly_installment_amount' => 0,
+            'number_of_months' => 0,
+            'monthly_frequency' => 1,
+            'monthly_start_date' => \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d'),
+            'key_payment_amount' => 0,
+        ];
+
+        // ======================================================
+        // Method 3: Variable Payment Plan
+        // ======================================================
+        if ($contract->contract_payment_method_id == 3) {
+            $contract_installments = $contract->contract_installments()
+                ->with('installment')
+                ->orderBy('installment_date')
+                ->get();
+
+            // Fetch installment types
+            $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
+            $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
+            $kp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة المفتاح'])->first();
+
+            if ($dp && $mi && $kp) {
+                $down_payments = $contract_installments->where('installment_id', $dp->id);
+                $monthly_installments = $contract_installments->where('installment_id', $mi->id);
+                $key_payment = $contract_installments->where('installment_id', $kp->id)->first();
+
+                // Total down payment
+                $down_payment_total = $down_payments->sum('installment_amount');
+
+                // First down payment (cash)
+                $down_payment_first = $down_payments->first();
+                $down_payment_installment = $down_payment_first ? $down_payment_first->installment_amount : $paidAmount;
+
+                // Deferred installments (all except first)
+                $deferred_down_payments = $down_payments->skip(1); // Skip first payment
+                $deferred_installment_amount = $deferred_down_payments->first()
+                    ? $deferred_down_payments->first()->installment_amount
+                    : 0;
+
+                // Deferred start date
+                $deferred_start_date = $deferred_down_payments->first()
+                    ? $deferred_down_payments->first()->installment_date
+                    : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
+
+                // Deferred frequency
+                $deferred_frequency = 1;
+                if ($deferred_down_payments->count() > 1) {
+                    $first_deferred = $deferred_down_payments->first();
+                    $second_deferred = $deferred_down_payments->skip(1)->first();
+                    if ($first_deferred && $second_deferred) {
+                        $date1 = \Carbon\Carbon::parse($first_deferred->installment_date);
+                        $date2 = \Carbon\Carbon::parse($second_deferred->installment_date);
+                        $deferred_frequency = $date1->diffInMonths($date2);
+                    }
+                }
+
+                // Monthly installments
+                $monthly_amount = $monthly_installments->first()
+                    ? $monthly_installments->first()->installment_amount
+                    : 0;
+                $number_of_months = $monthly_installments->count();
+
+                // Monthly frequency
+                $monthly_frequency = 1;
+                if ($monthly_installments->count() > 1) {
+                    $first_monthly = $monthly_installments->first();
+                    $second_monthly = $monthly_installments->skip(1)->first();
+                    if ($first_monthly && $second_monthly) {
+                        $date1 = \Carbon\Carbon::parse($first_monthly->installment_date);
+                        $date2 = \Carbon\Carbon::parse($second_monthly->installment_date);
+                        $monthly_frequency = $date1->diffInMonths($date2);
+                    }
+                }
+
+                // Monthly start date
+                $monthly_start_date = $monthly_installments->first()
+                    ? $monthly_installments->first()->installment_date
+                    : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
+
+                // Key payment
+                $key_amount = $key_payment ? $key_payment->installment_amount : 0;
+
+                // ✅ Update details array
+                $variable_payment_details = [
+                    'down_payment_amount' => $down_payment_total,
+                    'down_payment_installment' => $down_payment_installment,
+                    'down_payment_deferred_installment' => $deferred_installment_amount,
+                    'down_payment_deferred_frequency' => $deferred_frequency,
+                    'down_payment_deferred_start_date' => $deferred_start_date,
+                    'monthly_installment_amount' => $monthly_amount,
+                    'number_of_months' => $number_of_months,
+                    'monthly_frequency' => $monthly_frequency,
+                    'monthly_start_date' => $monthly_start_date,
+                    'key_payment_amount' => $key_amount,
+                ];
+            }
+        }
+
+        // ======================================================
+        // Method 4: Flexible Payment Plan
+        // ======================================================
+        elseif ($contract->contract_payment_method_id == 4) {
+            $contract_installments = $contract->contract_installments()
+                ->with('installment')
+                ->orderBy('installment_date')
+                ->get();
+
+            // Fetch installment types
+            $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
+            $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
+            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
+            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
+
+            if ($dp_cash && $dp_deferred && $mi && $kp) {
+                $down_cash = $contract_installments->where('installment_id', $dp_cash->id);
+                $down_deferred = $contract_installments->where('installment_id', $dp_deferred->id);
+                $monthly_installments = $contract_installments->where('installment_id', $mi->id);
+                $key_payment = $contract_installments->where('installment_id', $kp->id)->first();
+
+                // Total down payment (cash + deferred)
+                $down_payment_total = $down_cash->sum('installment_amount') + $down_deferred->sum('installment_amount');
+
+                // Cash down payment
+                $down_payment_installment = $down_cash->first()
+                    ? $down_cash->first()->installment_amount
+                    : $paidAmount;
+
+                // Deferred installment amount
+                $deferred_installment_amount = $down_deferred->first()
+                    ? $down_deferred->first()->installment_amount
+                    : 0;
+
+                // Deferred start date
+                $deferred_start_date = $down_deferred->first()
+                    ? $down_deferred->first()->installment_date
+                    : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
+
+                // Deferred frequency
+                $deferred_frequency = 1;
+                if ($down_deferred->count() > 1) {
+                    $first_def = $down_deferred->first();
+                    $second_def = $down_deferred->skip(1)->first();
+                    if ($first_def && $second_def) {
+                        $date1 = \Carbon\Carbon::parse($first_def->installment_date);
+                        $date2 = \Carbon\Carbon::parse($second_def->installment_date);
+                        $deferred_frequency = $date1->diffInMonths($date2);
+                    }
+                }
+
+                // Monthly installments
+                $monthly_amount = $monthly_installments->first()
+                    ? $monthly_installments->first()->installment_amount
+                    : 0;
+                $number_of_months = $monthly_installments->count();
+
+                // Monthly frequency
+                $monthly_frequency = 1;
+                if ($monthly_installments->count() > 1) {
+                    $m1 = $monthly_installments->first();
+                    $m2 = $monthly_installments->skip(1)->first();
+                    if ($m1 && $m2) {
+                        $monthly_frequency = \Carbon\Carbon::parse($m1->installment_date)->diffInMonths($m2->installment_date);
+                    }
+                }
+
+                // Monthly start date
+                $monthly_start_date = $monthly_installments->first()
+                    ? $monthly_installments->first()->installment_date
+                    : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
+
+                // Key payment
+                $key_amount = $key_payment ? $key_payment->installment_amount : 0;
+
+                // ✅ Update details array
+                $variable_payment_details = [
+                    'down_payment_amount' => $down_payment_total,
+                    'down_payment_installment' => $down_payment_installment,
+                    'down_payment_deferred_installment' => $deferred_installment_amount,
+                    'down_payment_deferred_frequency' => $deferred_frequency,
+                    'down_payment_deferred_start_date' => $deferred_start_date,
+                    'monthly_installment_amount' => $monthly_amount,
+                    'number_of_months' => $number_of_months,
+                    'monthly_frequency' => $monthly_frequency,
+                    'monthly_start_date' => $monthly_start_date,
+                    'key_payment_amount' => $key_amount,
+                ];
+            }
+        }
+
+        // ======================================================
+        // Method 2: For migration scenarios
+        // ======================================================
+        elseif ($contract->contract_payment_method_id == 2 && $paidAmount > 0) {
+            // When migrating from Method 2 with payments, set down_payment_installment to paid amount
+            $variable_payment_details['down_payment_installment'] = $paidAmount;
+        }
 
         return view('contract.contract.edit', compact(
             'contract',
@@ -1264,7 +1334,7 @@ class ContractController extends Controller
                 ($oldMethod == 4 && $newMethod == 4)
             )
         ) {
-            return redirect()->route('contract.index')
+            return redirect()->route('contract.show', $contract->url_address)
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
 
@@ -1276,13 +1346,26 @@ class ContractController extends Controller
         $clean = fn($v) => (float) str_replace(',', '', $v ?? 0);
 
         // ======================================================
-        // CASE 1: Migration from Method 2 → 3  (SAFE + TRANSACTION VERSION)
+        // CASE 1: Migration from Method 2 → 3 (SAFE + TRANSACTION VERSION)
         // ======================================================
         if ($oldMethod == 2 && $newMethod == 3) {
 
             DB::beginTransaction();
 
             try {
+                // Fetch installment types
+                $dp = Installment::where('payment_method_id', 3)
+                    ->where('installment_name', 'دفعة مقدمة')->first();
+                $mi = Installment::where('payment_method_id', 3)
+                    ->where('installment_name', 'دفعة شهرية')->first();
+                $kp = Installment::where('payment_method_id', 3)
+                    ->where('installment_name', 'دفعة المفتاح')->first();
+
+                if (!$dp || !$mi || !$kp) {
+                    DB::rollBack();
+                    return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
+                }
+                // Fetch paid installments
                 $paidInstallments = $contract->contract_installments()
                     ->whereHas('payment', function ($q) {
                         $q->where('approved', true);
@@ -1291,14 +1374,20 @@ class ContractController extends Controller
                     ->get();
 
                 $paidAmount = $paidInstallments->sum('installment_amount');
-
-                // حذف الأقساط غير المدفوعة فقط
+                // ✅ UPDATE paid installments to use Method 3 installment_id (down payment)
+                foreach ($paidInstallments as $paidInst) {
+                    $paidInst->update(['installment_id' => $dp->id]);
+                }
+                // Delete only unpaid installments
                 $contract->contract_installments()
                     ->whereDoesntHave('payment', function ($q) {
                         $q->where('approved', true);
                     })
                     ->delete();
 
+
+
+                // Clean inputs
                 $down_payment_amount       = $clean($request->down_payment_amount);
                 $down_payment_installment  = $clean($request->down_payment_installment);
                 $monthly_installment_amount = $clean($request->monthly_installment_amount);
@@ -1306,50 +1395,59 @@ class ContractController extends Controller
                 $deferred_type             = $request->input('deferred_type', 'none');
                 $deferred_months           = (int) $request->input('deferred_months', 0);
                 $key_payment_amount        = $clean($request->key_payment_amount);
-                $deferred                  = max(0, $down_payment_amount - $down_payment_installment);
 
-                $down_payment_installment_record = Installment::where('payment_method_id', 3)
-                    ->where('installment_name', 'دفعة مقدمة')->first();
-                $monthly_installment = Installment::where('payment_method_id', 3)
-                    ->where('installment_name', 'دفعة شهرية')->first();
-                $key_payment_installment = Installment::where('payment_method_id', 3)
-                    ->where('installment_name', 'دفعة المفتاح')->first();
+                // Check last paid monthly installment date
+                $lastPaidMonthlyDate = $paidInstallments
+                    ->where('installment_id', $mi->id)
+                    ->max('installment_date');
 
-                if (!$down_payment_installment_record || !$monthly_installment || !$key_payment_installment) {
-                    DB::rollBack();
-                    return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
+                // Determine monthly start date
+                if ($lastPaidMonthlyDate) {
+                    $startDate = Carbon::parse($lastPaidMonthlyDate)->addMonth();
+                } else {
+                    $startDate = Carbon::parse($request->contract_date)->addMonth();
                 }
 
+                // Calculate deferred amount - FIXED VERSION
+                $deferred_raw = max(0, $down_payment_amount - $down_payment_installment);
+
+                // ✅ Subtract what customer already paid beyond the cash portion
+                if ($paidAmount > $down_payment_installment) {
+                    $already_paid_deferred = $paidAmount - $down_payment_installment;
+                    $deferred = max(0, $deferred_raw - $already_paid_deferred);
+                } else {
+                    $deferred = $deferred_raw;
+                }
+
+                $deferred_per_month = ($deferred_type === 'spread' && $deferred_months > 0 && $deferred > 0)
+                    ? floor($deferred / $deferred_months)
+                    : 0;
+                $remainder = ($deferred_type === 'spread' && $deferred_months > 0 && $deferred > 0)
+                    ? $deferred % $deferred_months
+                    : 0;
+
+                // Sequence number
                 $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
-                // إذا لا توجد دفعات مدفوعة سابقًا → أنشئ دفعة مقدمة نقدًا بتاريخ العقد
-                if ($paidAmount == 0 && $down_payment_installment > 0) {
+                // ✅ Down payment NOW (create only the difference)
+                if ($down_payment_installment > 0 && $down_payment_installment > $paidAmount) {
+                    $cashDownToCreate = $down_payment_installment - $paidAmount;
+
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
-                        'installment_amount' => $down_payment_installment,
+                        'installment_amount' => $cashDownToCreate,
                         'installment_date'   => Carbon::parse($request->contract_date),
                         'contract_id'        => $contract->id,
-                        'installment_id'     => $down_payment_installment_record->id,
+                        'installment_id'     => $dp->id,
                         'user_id_update'     => $request->user_id_update,
                         'sequence_number'    => ++$sequence,
                     ]);
                 }
 
-                // تاريخ بداية الأقساط الشهرية:
-                // بعد آخر قسط مدفوع (إن وجد)، وإلا من تاريخ العقد
-                $startDate = $paidInstallments->count() > 0
-                    ? Carbon::parse($paidInstallments->last()->installment_date)
-                    : Carbon::parse($request->contract_date);
-
-                $deferred_per_month = ($deferred_type === 'spread' && $deferred_months > 0)
-                    ? floor($deferred / $deferred_months)
-                    : 0;
-                $remainder = ($deferred_type === 'spread' && $deferred_months > 0)
-                    ? $deferred % $deferred_months
-                    : 0;
-
+                // ✅ Monthly installments with deferred spread
                 for ($i = 1; $i <= $number_of_months; $i++) {
                     $extra = 0;
+
                     if ($deferred_type === 'spread' && $deferred > 0 && $i <= $deferred_months) {
                         $extra = $deferred_per_month;
                         if ($i === $deferred_months && $remainder > 0) {
@@ -1366,28 +1464,28 @@ class ContractController extends Controller
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
                         'installment_amount' => $monthly_amount,
-                        'installment_date'   => $startDate->copy()->addMonths($i),
+                        'installment_date'   => $startDate->copy()->addMonths($i - 1),
                         'contract_id'        => $contract->id,
-                        'installment_id'     => $monthly_installment->id,
+                        'installment_id'     => $mi->id,
                         'user_id_update'     => $request->user_id_update,
                         'sequence_number'    => ++$sequence,
                     ]);
                 }
 
-                // دفعة المفتاح بعد آخر قسط شهري
+                // ✅ Key payment
                 if ($key_payment_amount > 0) {
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
                         'installment_amount' => $key_payment_amount,
-                        'installment_date'   => $startDate->copy()->addMonths($number_of_months + 1),
+                        'installment_date'   => $startDate->copy()->addMonths($number_of_months),
                         'contract_id'        => $contract->id,
-                        'installment_id'     => $key_payment_installment->id,
+                        'installment_id'     => $kp->id,
                         'user_id_update'     => $request->user_id_update,
                         'sequence_number'    => ++$sequence,
                     ]);
                 }
 
-                // ✅ التحقق النهائي: مجموع الأقساط = مبلغ العقد
+                // ✅ Final validation
                 $total = (float) Contract_Installment::where('contract_id', $contract->id)->sum('installment_amount');
                 $contractAmount = (float) str_replace(',', '', $contract->contract_amount);
 
@@ -1403,7 +1501,6 @@ class ContractController extends Controller
                 DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
-
                 return back()->with('error', 'حدث خطأ أثناء حفظ الأقساط، يرجى المحاولة لاحقاً.');
             }
         }
@@ -1417,31 +1514,7 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
-                $paidInstallments = $contract->contract_installments()
-                    ->whereHas('payment', fn($q) => $q->where('approved', true))
-                    ->orderBy('installment_date')
-                    ->get();
-
-                $paidAmount = $paidInstallments->sum('installment_amount');
-
-                $contract->contract_installments()
-                    ->whereDoesntHave('payment', fn($q) => $q->where('approved', true))
-                    ->delete();
-
-                $down = $clean($request->down_payment_amount);
-                $down_now = $clean($request->down_payment_installment);
-                $monthly = $clean($request->monthly_installment_amount);
-                $months = (int) $request->number_of_months;
-                $key = $clean($request->key_payment_amount);
-
-                $deferred_total = max(0, $down - $down_now);
-                $piece = $clean($request->down_payment_deferred_installment ?? 0);
-                $freq = max(1, (int)($request->down_payment_deferred_frequency ?? 1));
-
-                $monthly_freq = max(1, (int)($request->monthly_frequency ?? 1));
-                $start_date = Carbon::parse($request->monthly_start_date ?? $contract_date->copy()->addMonth());
-                $dp_start_date = Carbon::parse($request->down_payment_deferred_start_date ?? $contract_date->copy()->addMonth());
-
+                // Fetch installment types
                 $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
                 $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
                 $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
@@ -1451,13 +1524,66 @@ class ContractController extends Controller
                     DB::rollBack();
                     return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
                 }
+                // Fetch paid installments
+                $paidInstallments = $contract->contract_installments()
+                    ->whereHas('payment', fn($q) => $q->where('approved', true))
+                    ->orderBy('installment_date')
+                    ->get();
 
+                $paidAmount = $paidInstallments->sum('installment_amount');
+                // ✅ UPDATE paid installments to use Method 4 installment_id (cash down payment)
+                foreach ($paidInstallments as $paidInst) {
+                    $paidInst->update(['installment_id' => $dp_cash->id]);
+                }
+
+                // Delete only unpaid installments
+                $contract->contract_installments()
+                    ->whereDoesntHave('payment', fn($q) => $q->where('approved', true))
+                    ->delete();
+
+
+
+                // Clean inputs
+                $down = $clean($request->down_payment_amount);
+                $down_now = $clean($request->down_payment_installment);
+                $monthly = $clean($request->monthly_installment_amount);
+                $months = (int) $request->number_of_months;
+                $key = $clean($request->key_payment_amount);
+
+                $deferred_total = max(0, $down - $down_now);
+                $piece = $clean($request->down_payment_deferred_installment ?? 0);
+                $freq = max(1, (int)($request->down_payment_deferred_frequency ?? 1));
+                $monthly_freq = max(1, (int)($request->monthly_frequency ?? 1));
+
+                // Sequence number
                 $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
-                if ($paidAmount == 0 && $down_now > 0) {
+                // Check last paid monthly installment date
+                $lastPaidMonthlyDate = $paidInstallments
+                    ->where('installment_id', $mi->id)
+                    ->max('installment_date');
+
+                // Determine monthly start date
+                if ($lastPaidMonthlyDate) {
+                    $start_date = Carbon::parse($lastPaidMonthlyDate)->addMonths($monthly_freq);
+                } elseif (!empty($request->monthly_start_date)) {
+                    $start_date = Carbon::parse($request->monthly_start_date);
+                } else {
+                    $start_date = $contract_date->copy()->addMonth();
+                }
+
+                // Deferred start date
+                $dp_start_date = !empty($request->down_payment_deferred_start_date)
+                    ? Carbon::parse($request->down_payment_deferred_start_date)
+                    : $contract_date->copy()->addMonth();
+
+                // ✅ Down payment NOW (create only the difference)
+                if ($down_now > 0 && $down_now > $paidAmount) {
+                    $cashDownToCreate = $down_now - $paidAmount;
+
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
-                        'installment_amount' => $down_now,
+                        'installment_amount' => $cashDownToCreate,
                         'installment_date'   => $contract_date,
                         'contract_id'        => $contract->id,
                         'installment_id'     => $dp_cash->id,
@@ -1466,6 +1592,7 @@ class ContractController extends Controller
                     ]);
                 }
 
+                // ✅ Deferred down payment
                 if ($deferred_total > 0) {
                     if ($piece <= 0) $piece = $deferred_total;
                     $cnt = (int) ceil($deferred_total / $piece);
@@ -1487,6 +1614,7 @@ class ContractController extends Controller
                     }
                 }
 
+                // ✅ Monthly installments
                 for ($i = 0; $i < $months; $i++) {
                     Contract_Installment::create([
                         'url_address'        => $this->random_string(60),
@@ -1499,6 +1627,7 @@ class ContractController extends Controller
                     ]);
                 }
 
+                // ✅ Key payment
                 if ($key > 0) {
                     $lastMonthly = $start_date->copy()->addMonths(max(0, $months - 1) * $monthly_freq);
                     $keyDate = $lastMonthly->copy()->addMonth();
@@ -1541,10 +1670,10 @@ class ContractController extends Controller
         // ======================================================
         elseif ($newMethod == 3) {
 
-            DB::beginTransaction(); // ✅ نبدأ معاملة قاعدة البيانات
+            DB::beginTransaction();
 
             try {
-                // 0) جلب أنواع الأقساط
+                // 0) Fetch installment types
                 $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
                 $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
                 $kp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة المفتاح'])->first();
@@ -1554,28 +1683,28 @@ class ContractController extends Controller
                     return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
                 }
 
-                // 1) جلب الأقساط المدفوعة فقط (نحافظ عليها)
+                // 1) Fetch paid installments (we will preserve them)
                 $paidInstallments = $contract->contract_installments()
                     ->whereHas('payment', fn($q) => $q->where('approved', true))
                     ->orderBy('installment_date')
                     ->get();
 
-                // المبالغ المدفوعة حسب النوع
+                // Sum of paid amounts by type
                 $paidDown = $paidInstallments->where('installment_id', $dp->id)->sum('installment_amount');
                 $paidMonthly = $paidInstallments->where('installment_id', $mi->id)->sum('installment_amount');
                 $paidKey = $paidInstallments->where('installment_id', $kp->id)->sum('installment_amount');
 
-                // آخر قسط شهري مدفوع (لتحديد نقطة البداية)
+                // Last paid monthly installment date
                 $lastPaidMonthly = $paidInstallments
                     ->where('installment_id', $mi->id)
                     ->max('installment_date');
 
-                // 2) حذف الأقساط غير المدفوعة فقط
+                // 2) Delete only unpaid installments
                 $contract->contract_installments()
                     ->whereDoesntHave('payment', fn($q) => $q->where('approved', true))
                     ->delete();
 
-                // 3) تنظيف المدخلات
+                // 3) Clean inputs
                 $clean = fn($v) => (float) str_replace(',', '', $v ?? 0);
                 $down_payment_amount = $clean($request->down_payment_amount);
                 $down_payment_installment = $clean($request->down_payment_installment);
@@ -1585,7 +1714,7 @@ class ContractController extends Controller
                 $deferred_months = max(0, (int) $request->deferred_months);
                 $key_payment_amount = $clean($request->key_payment_amount);
 
-                // 4) منع تقليل الدفعة المقدمة تحت المدفوع
+                // 4) Prevent reducing down payment below what's already paid
                 if ($paidDown > 0 && $down_payment_installment < $paidDown) {
                     DB::rollBack();
                     return back()->with(
@@ -1595,26 +1724,35 @@ class ContractController extends Controller
                     );
                 }
 
-                // 5) حساب المؤجل
-                $deferred = max(0, $down_payment_amount - $down_payment_installment);
-                $deferred_per_month = ($deferred_type === 'spread' && $deferred_months > 0)
+                // 5) Calculate deferred - FIXED VERSION
+                $deferred_raw = max(0, $down_payment_amount - $down_payment_installment);
+
+                // ✅ Subtract what customer already paid beyond the cash portion
+                if ($paidDown > $down_payment_installment) {
+                    $already_paid_deferred = $paidDown - $down_payment_installment;
+                    $deferred = max(0, $deferred_raw - $already_paid_deferred);
+                } else {
+                    $deferred = $deferred_raw;
+                }
+
+                $deferred_per_month = ($deferred_type === 'spread' && $deferred_months > 0 && $deferred > 0)
                     ? floor($deferred / $deferred_months)
                     : 0;
-                $remainder = ($deferred_type === 'spread' && $deferred_months > 0)
+                $remainder = ($deferred_type === 'spread' && $deferred_months > 0 && $deferred > 0)
                     ? $deferred % $deferred_months
                     : 0;
 
-                // 6) تحديد تاريخ بداية الأقساط الشهرية
+                // 6) Determine monthly start date
                 if ($lastPaidMonthly) {
                     $monthlyStart = Carbon::parse($lastPaidMonthly)->addMonth();
                 } else {
                     $monthlyStart = $contract_date->copy()->addMonth();
                 }
 
-                // 7) الترقيم التسلسلي
+                // 7) Sequence number
                 $sequence = $contract->contract_installments()->max('sequence_number') ?? 0;
 
-                // 8) دفعة مقدمة (فقط الفرق)
+                // 8) Down payment (create only the difference)
                 if ($down_payment_installment > $paidDown) {
                     $amountToCreate = $down_payment_installment - $paidDown;
                     Contract_Installment::create([
@@ -1628,7 +1766,7 @@ class ContractController extends Controller
                     ]);
                 }
 
-                // 9) أقساط شهرية
+                // 9) Monthly installments
                 for ($i = 1; $i <= $number_of_months; $i++) {
                     $extra = 0;
 
@@ -1656,7 +1794,7 @@ class ContractController extends Controller
                     ]);
                 }
 
-                // 10) دفعة المفتاح (إذا لم تُدفع)
+                // 10) Key payment (if not fully paid)
                 if ($key_payment_amount > 0 && $key_payment_amount > $paidKey) {
                     $keyToCreate = $key_payment_amount - $paidKey;
                     $keyDate = $monthlyStart->copy()->addMonths($number_of_months);
@@ -1672,7 +1810,7 @@ class ContractController extends Controller
                     ]);
                 }
 
-                // 11) تحقق من المجموع النهائي
+                // 11) Final validation
                 $total = (float) Contract_Installment::where('contract_id', $contract->id)->sum('installment_amount');
                 $contractAmount = (float) str_replace(',', '', $contract->contract_amount);
 
@@ -1685,11 +1823,9 @@ class ContractController extends Controller
                     );
                 }
 
-                DB::commit(); // ✅ حفظ نهائي فقط إذا المجموع متوازن
-
+                DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
-
                 return back()->with('error', 'حدث خطأ أثناء حفظ الأقساط، يرجى المحاولة لاحقاً.');
             }
         }
@@ -1875,61 +2011,129 @@ class ContractController extends Controller
 
 
         // ======================================================
-        // CASE 3: Method 1 & 2 logic (original code unchanged)
+        // CASE 3: Method 1 & 2 logic (WITH TRANSACTION + VALIDATION)
         // ======================================================
         elseif ($newMethod == 2 && $contract->contract_installments->count() == 12) {
-            foreach ($contract->contract_installments as $contract_installment) {
-                $contract_installment->update([
-                    'installment_amount' => $contract_installment->installment->installment_percent * $request->contract_amount,
-                    'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($contract_installment->installment->installment_period),
-                    'sequence_number'    => $contract_installment->installment->installment_number,
-                ]);
+
+            DB::beginTransaction();
+
+            try {
+                foreach ($contract->contract_installments as $contract_installment) {
+                    $contract_installment->update([
+                        'installment_amount' => $contract_installment->installment->installment_percent * $request->contract_amount,
+                        'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($contract_installment->installment->installment_period),
+                        'sequence_number'    => $contract_installment->installment->installment_number,
+                    ]);
+                }
+
+                // ✅ Validation
+                $total = (float) Contract_Installment::where('contract_id', $contract->id)->sum('installment_amount');
+                $contractAmount = (float) str_replace(',', '', $contract->contract_amount);
+
+                if (abs($total - $contractAmount) > 0.01) {
+                    DB::rollBack();
+                    return back()->with(
+                        'error',
+                        "مجموع الأقساط (" . number_format($total) .
+                            ") لا يساوي مبلغ العقد (" . number_format($contractAmount) . ")."
+                    );
+                }
+
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                return back()->with('error', 'حدث خطأ أثناء تحديث الأقساط.');
             }
         } elseif ($newMethod == 1 && $contract->contract_installments->count() == 1) {
-            foreach ($contract->contract_installments as $contract_installment) {
-                $contract_installment->update([
-                    'installment_amount' => $request->contract_amount,
-                    'installment_date'   => $request->contract_date,
-                    'sequence_number'    => $contract_installment->installment->installment_number,
-                ]);
+
+            DB::beginTransaction();
+
+            try {
+                foreach ($contract->contract_installments as $contract_installment) {
+                    $contract_installment->update([
+                        'installment_amount' => $request->contract_amount,
+                        'installment_date'   => $request->contract_date,
+                        'sequence_number'    => $contract_installment->installment->installment_number,
+                    ]);
+                }
+
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                return back()->with('error', 'حدث خطأ أثناء تحديث الأقساط.');
             }
         } elseif ($newMethod == 2 && $contract->contract_installments->count() != 12) {
-            $contract->contract_installments()->delete();
-            $installments = Installment::where('payment_method_id', 2)->get();
 
-            if ($installments->isEmpty()) {
-                return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
-            }
+            DB::beginTransaction();
 
-            foreach ($installments as $installment) {
-                Contract_Installment::create([
-                    'url_address'        => $this->random_string(60),
-                    'installment_amount' => $installment->installment_percent * $request->contract_amount,
-                    'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
-                    'contract_id'        => $contract->id,
-                    'installment_id'     => $installment->id,
-                    'user_id_update'     => $request->user_id_update,
-                    'sequence_number'    => $installment->installment_number,
-                ]);
+            try {
+                $contract->contract_installments()->delete();
+                $installments = Installment::where('payment_method_id', 2)->get();
+
+                if ($installments->isEmpty()) {
+                    DB::rollBack();
+                    return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
+                }
+
+                foreach ($installments as $installment) {
+                    Contract_Installment::create([
+                        'url_address'        => $this->random_string(60),
+                        'installment_amount' => $installment->installment_percent * $request->contract_amount,
+                        'installment_date'   => Carbon::parse($contract->contract_date)->addMonth($installment->installment_period),
+                        'contract_id'        => $contract->id,
+                        'installment_id'     => $installment->id,
+                        'user_id_update'     => $request->user_id_update,
+                        'sequence_number'    => $installment->installment_number,
+                    ]);
+                }
+
+                // ✅ Validation
+                $total = (float) Contract_Installment::where('contract_id', $contract->id)->sum('installment_amount');
+                $contractAmount = (float) str_replace(',', '', $contract->contract_amount);
+
+                if (abs($total - $contractAmount) > 0.01) {
+                    DB::rollBack();
+                    return back()->with(
+                        'error',
+                        "مجموع الأقساط (" . number_format($total) .
+                            ") لا يساوي مبلغ العقد (" . number_format($contractAmount) . ")."
+                    );
+                }
+
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                return back()->with('error', 'حدث خطأ أثناء حفظ الأقساط.');
             }
         } elseif ($newMethod == 1 && $contract->contract_installments->count() != 1) {
-            $contract->contract_installments()->delete();
-            $installments = Installment::where('payment_method_id', 1)->get();
 
-            if ($installments->isEmpty()) {
-                return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
-            }
+            DB::beginTransaction();
 
-            foreach ($installments as $installment) {
-                Contract_Installment::create([
-                    'url_address'        => $this->random_string(60),
-                    'installment_amount' => $request->contract_amount,
-                    'installment_date'   => $request->contract_date,
-                    'contract_id'        => $contract->id,
-                    'installment_id'     => $installment->id,
-                    'user_id_update'     => $request->user_id_update,
-                    'sequence_number'    => $installment->installment_number,
-                ]);
+            try {
+                $contract->contract_installments()->delete();
+                $installments = Installment::where('payment_method_id', 1)->get();
+
+                if ($installments->isEmpty()) {
+                    DB::rollBack();
+                    return back()->with('error', 'اعدادات الاقساط غير موجودة في النظام.');
+                }
+
+                foreach ($installments as $installment) {
+                    Contract_Installment::create([
+                        'url_address'        => $this->random_string(60),
+                        'installment_amount' => $request->contract_amount,
+                        'installment_date'   => $request->contract_date,
+                        'contract_id'        => $contract->id,
+                        'installment_id'     => $installment->id,
+                        'user_id_update'     => $request->user_id_update,
+                        'sequence_number'    => $installment->installment_number,
+                    ]);
+                }
+
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                return back()->with('error', 'حدث خطأ أثناء حفظ الأقساط.');
             }
         }
 
