@@ -1208,10 +1208,10 @@ class ContractController extends Controller
                 ->get();
 
             // Fetch installment types
-            $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
+            $dp_cash     = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
             $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
-            $mi = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
-            $kp = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
+            $mi          = Installment::where(['payment_method_id' => 4, 'installment_name' => 'قسط مرن'])->first();
+            $kp          = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مفتاح'])->first();
 
             if ($dp_cash && $dp_deferred && $mi && $kp) {
                 $down_cash = $contract_installments->where('installment_id', $dp_cash->id);
@@ -1219,58 +1219,56 @@ class ContractController extends Controller
                 $monthly_installments = $contract_installments->where('installment_id', $mi->id);
                 $key_payment = $contract_installments->where('installment_id', $kp->id)->first();
 
-                // Total down payment (cash + deferred)
+                // ✅ Total down payment (cash + deferred)
                 $down_payment_total = $down_cash->sum('installment_amount') + $down_deferred->sum('installment_amount');
 
-                // Cash down payment
-                $down_payment_installment = $down_cash->first()
-                    ? $down_cash->first()->installment_amount
-                    : $paidAmount;
+                // ✅ Cash down payments (all paid amounts)
+                $down_payment_installment = $down_cash->sum('installment_amount');
 
-                // Deferred installment amount
+                // ✅ Deferred installment amount (assume uniform)
                 $deferred_installment_amount = $down_deferred->first()
                     ? $down_deferred->first()->installment_amount
                     : 0;
 
-                // Deferred start date
+                // ✅ Deferred start date
                 $deferred_start_date = $down_deferred->first()
                     ? $down_deferred->first()->installment_date
                     : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
 
-                // Deferred frequency
+                // ✅ Deferred frequency
                 $deferred_frequency = 1;
                 if ($down_deferred->count() > 1) {
                     $first_def = $down_deferred->first();
                     $second_def = $down_deferred->skip(1)->first();
                     if ($first_def && $second_def) {
-                        $date1 = \Carbon\Carbon::parse($first_def->installment_date);
-                        $date2 = \Carbon\Carbon::parse($second_def->installment_date);
-                        $deferred_frequency = $date1->diffInMonths($date2);
+                        $deferred_frequency = \Carbon\Carbon::parse($first_def->installment_date)
+                            ->diffInMonths(\Carbon\Carbon::parse($second_def->installment_date));
                     }
                 }
 
-                // Monthly installments
+                // ✅ Monthly installments
                 $monthly_amount = $monthly_installments->first()
                     ? $monthly_installments->first()->installment_amount
                     : 0;
                 $number_of_months = $monthly_installments->count();
 
-                // Monthly frequency
+                // ✅ Monthly frequency
                 $monthly_frequency = 1;
                 if ($monthly_installments->count() > 1) {
                     $m1 = $monthly_installments->first();
                     $m2 = $monthly_installments->skip(1)->first();
                     if ($m1 && $m2) {
-                        $monthly_frequency = \Carbon\Carbon::parse($m1->installment_date)->diffInMonths($m2->installment_date);
+                        $monthly_frequency = \Carbon\Carbon::parse($m1->installment_date)
+                            ->diffInMonths(\Carbon\Carbon::parse($m2->installment_date));
                     }
                 }
 
-                // Monthly start date
+                // ✅ Monthly start date
                 $monthly_start_date = $monthly_installments->first()
                     ? $monthly_installments->first()->installment_date
                     : \Carbon\Carbon::parse($contract->contract_date)->addMonth()->format('Y-m-d');
 
-                // Key payment
+                // ✅ Key payment
                 $key_amount = $key_payment ? $key_payment->installment_amount : 0;
 
                 // ✅ Update details array
@@ -1288,6 +1286,7 @@ class ContractController extends Controller
                 ];
             }
         }
+
 
         // ======================================================
         // Method 2: For migration scenarios
@@ -1338,10 +1337,6 @@ class ContractController extends Controller
                 ->with('error', 'لا يمكن تعديل العقد لأنه يحتوي على دفعات وتم قبوله.');
         }
 
-
-        $contract->update($request->validated());
-        $contract_date = Carbon::parse($request->contract_date);
-
         // Helper function
         $clean = fn($v) => (float) str_replace(',', '', $v ?? 0);
 
@@ -1353,6 +1348,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 // Fetch installment types
                 $dp = Installment::where('payment_method_id', 3)
                     ->where('installment_name', 'دفعة مقدمة')->first();
@@ -1505,7 +1502,6 @@ class ContractController extends Controller
             }
         }
 
-
         // ======================================================
         // CASE 1B: Migration from Method 2 → 4 (Transaction Safe)
         // ======================================================
@@ -1514,6 +1510,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 // Fetch installment types
                 $dp_cash = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
                 $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
@@ -1663,8 +1661,6 @@ class ContractController extends Controller
             }
         }
 
-
-
         // ======================================================
         // CASE 2: Normal Method 3 update (SAFE + TRANSACTION VERSION)
         // ======================================================
@@ -1673,6 +1669,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 // 0) Fetch installment types
                 $dp = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة مقدمة'])->first();
                 $mi = Installment::where(['payment_method_id' => 3, 'installment_name' => 'دفعة شهرية'])->first();
@@ -1830,7 +1828,6 @@ class ContractController extends Controller
             }
         }
 
-
         // ======================================================
         // CASE 2B: Normal Method 4 update (SAFE + TRANSACTION VERSION)
         // ======================================================
@@ -1839,6 +1836,8 @@ class ContractController extends Controller
             DB::beginTransaction(); // ✅ ابدأ معاملة قاعدة البيانات
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 // 0) Fetch installment types safely
                 $dp_cash     = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة نقداً'])->first();
                 $dp_deferred = Installment::where(['payment_method_id' => 4, 'installment_name' => 'دفعة مقدمة مؤجلة'])->first();
@@ -1856,6 +1855,10 @@ class ContractController extends Controller
                     ->whereHas('payment', fn($q) => $q->where('approved', true))
                     ->orderBy('installment_date')
                     ->get();
+                // ✅ UPDATE paid installments to use Method 4 installment_id (cash down payment)
+                foreach ($paidInstallments as $paidInst) {
+                    $paidInst->update(['installment_id' => $dp_cash->id]);
+                }
 
                 // مجموع ما تم دفعه فعلاً (أي دفعات تمت الموافقة عليها)
                 $paidDownCash = $contract->contract_installments()
@@ -2007,9 +2010,6 @@ class ContractController extends Controller
             }
         }
 
-
-
-
         // ======================================================
         // CASE 3: Method 1 & 2 logic (WITH TRANSACTION + VALIDATION)
         // ======================================================
@@ -2018,6 +2018,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 foreach ($contract->contract_installments as $contract_installment) {
                     $contract_installment->update([
                         'installment_amount' => $contract_installment->installment->installment_percent * $request->contract_amount,
@@ -2049,6 +2051,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 foreach ($contract->contract_installments as $contract_installment) {
                     $contract_installment->update([
                         'installment_amount' => $request->contract_amount,
@@ -2067,6 +2071,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 $contract->contract_installments()->delete();
                 $installments = Installment::where('payment_method_id', 2)->get();
 
@@ -2110,6 +2116,8 @@ class ContractController extends Controller
             DB::beginTransaction();
 
             try {
+                $contract->update($request->validated());
+                $contract_date = Carbon::parse($request->contract_date);
                 $contract->contract_installments()->delete();
                 $installments = Installment::where('payment_method_id', 1)->get();
 
@@ -2140,9 +2148,6 @@ class ContractController extends Controller
         return redirect()->route('contract.show', ['url_address' => $contract->url_address])
             ->with('success', 'تم تعديل العقد بنجاح.');
     }
-
-
-
 
     /**
      * Update all contracts and installments.
