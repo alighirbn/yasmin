@@ -36,6 +36,9 @@ class Contract_Installment extends Model
         'paid_amount' => 0,
     ];
 
+    // ✅ This makes JSON output automatically include "is_fully_paid"
+    protected $appends = ['is_fully_paid'];
+
     // ============================================================================
     // RELATIONSHIPS
     // ============================================================================
@@ -140,10 +143,9 @@ class Contract_Installment extends Model
     /**
      * Check if installment is fully paid
      */
-    public function isFullyPaid(): bool
+    public function isFullyPaid()
     {
-        // Check if has approved payment
-        return $this->payment && $this->payment->approved === true;
+        return $this->paid_amount >= $this->installment_amount;
     }
 
     /**
@@ -298,6 +300,11 @@ class Contract_Installment extends Model
     // ============================================================================
     // ATTRIBUTE ACCESSORS
     // ============================================================================
+
+    public function getIsFullyPaidAttribute(): bool
+    {
+        return $this->isFullyPaid();
+    }
 
     /**
      * Get formatted installment amount

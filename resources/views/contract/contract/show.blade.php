@@ -288,7 +288,7 @@
                                 <div class="action-card-title">⚙️ إجراءات العقد</div>
                                 <div class="action-card-buttons">
                                     @can('contract-update')
-                                        @if ($contract->payments->count() > 0 && $contract->stage == 'temporary')
+                                        @if ($contract->payments->count() >= 0 && $contract->stage == 'temporary')
                                             <a href="{{ route('contract.edit', $contract->url_address) }}"
                                                 class="btn btn-custom-edit btn-compact">
                                                 تعديل
