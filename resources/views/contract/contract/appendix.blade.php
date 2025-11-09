@@ -50,9 +50,10 @@
                             {{-- Intro --}}
                             <div style="text-align:right; font-size:0.88rem; font-weight:bold; margin-top:15px;">
                                 <p>
-                                    استناداً إلى عقد بيع الوحدة السكنية رقم
+                                    استناداً إلى عقد بيع رقم
                                     ({{ $contract->id ?? 'غير محدد' }})
-                                    الكائنة في البناية رقم ({{ $contract->building->building_number ?? 'غير محدد' }})
+                                    الخاص بالوحدة السكنية رقم
+                                    ({{ $contract->building->building_number ?? 'غير محدد' }})
                                     والمسجلة بتاريخ
                                     {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}
                                     بين الطرفين.
@@ -145,7 +146,7 @@
                                 <br>
                                 <br>
                                 <div style="display: flex; justify-content: center;">
-                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
+                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 1 - 1)</p>
                                 </div>
                                 <br>
                                 <br>
