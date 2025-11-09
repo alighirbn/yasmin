@@ -56,7 +56,7 @@
                                     ({{ $contract->building->building_number ?? 'غير محدد' }})
                                     والمسجلة بتاريخ
                                     {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}
-                                    بين الطرفين.
+                                    بين الطرفين:
                                 </p>
 
                                 <br>
@@ -109,13 +109,7 @@
                             <br>
                             <br>
                             <br>
-                            @if ($contract->contract_payment_method_id == 4)
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                            @endif
+
                             <div class="flex ">
                                 <div
                                     style="text-align: center; margin: 1rem auto; font-size: 0.875rem; font-weight: bold;">
