@@ -49,10 +49,15 @@
 
                             {{-- Intro --}}
                             <div style="text-align:right; font-size:0.88rem; font-weight:bold; margin-top:15px;">
-                                <p>استناداً إلى عقد بيع الوحدة السكنية المبرم بتاريخ
+                                <p>
+                                    استناداً إلى عقد بيع الوحدة السكنية رقم
+                                    ({{ $contract->id ?? 'غير محدد' }})
+                                    الكائنة في البناية رقم ({{ $contract->building->building_number ?? 'غير محدد' }})
+                                    والمسجلة بتاريخ
                                     {{ \Carbon\Carbon::parse($contract->contract_date)->format('Y/m/d') }}
-                                    بين:</p>
-                                <br>
+                                    بين الطرفين.
+                                </p>
+
                                 <br>
                                 <p>الطرف الأول: شركة بوابة العلم للمقاولات والتجارة العامة والاستثمارات العقارية
                                     المحدودة المسؤولية / النجف الأشرف ويمثلها المدير المفوض إضافةً لوظيفته.</p>
@@ -70,49 +75,8 @@
                             <div style="margin-top:12px; font-size:0.88rem; font-weight:bold; text-align:right;">
                                 <p>أولاً: تعديل جدول التسديد</p>
                                 <p>تم تعديل آلية تسديد بدل الوحدة السكنية الموضحة في البند (رابعاً) من العقد الأصلي،
-                                    ويحل جدول السداد الجديد محل الجدول السابق بالكامل:</p>
-                                <div
-                                    style="text-align:right; margin:0.8rem auto; font-size:0.92rem; font-weight:bold; line-height:1.9;">
+                                    ويحل جدول السداد الجديد المرفق ربطاً محل الجدول السابق بالكامل.</p>
 
-                                    @php $line = 1; @endphp
-
-                                    @foreach ($contract_installments as $ins)
-                                        @php
-                                            $amount = number_format($ins->installment_amount, 0);
-                                            $words = Numbers::TafqeetMoney($ins->installment_amount, 'IQD');
-                                            $date = \Carbon\Carbon::parse($ins->installment_date)->format('Y/m/d');
-
-                                            // اسم الدفعة حسب التسلسل
-                                            if ($line == 1) {
-                                                $displayName = 'الدفعة المقدمة';
-                                            } else {
-                                                $displayName = 'الدفعة ' . App\Helpers\Number::convert($line);
-                                            }
-
-                                            // رقم لفظي (الأولى، الثانية...)
-                                            $ordinal = App\Helpers\Number::convert($line);
-
-                                            // حساب break حسب رقم الدفعة
-                                            $breakCount = $line >= 3 && $line <= 18 ? 27 - $line : 0;
-
-                                            $line++;
-                                        @endphp
-
-                                        <p style="direction: rtl;unicode-bidi: plaintext;">
-                                            {{ $line - 1 }}&nbsp;.&nbsp;{{ $displayName }}:
-                                            ومقدارها ({{ $amount }})
-                                            وكتابتا ({{ $words }})
-                                            - تستحق في: {{ $date }}
-                                        </p>
-
-                                        {{-- طباعة الفراغات بعد هذا السطر إذا انطبق الشرط --}}
-                                    @endforeach
-                                    @for ($i = 0; $i < $breakCount; $i++)
-                                        <br>
-                                    @endfor
-                                </div>
-
-                                <p>يعتبر هذا الجدول جزءاً لا يتجزأ من العقد ويحل محل الجدول السابق.</p>
                             </div>
                             <br>
                             <br>
@@ -175,7 +139,143 @@
                                     </p>
                                 </div>
                             </div>
+                            @if ($contract_installments->count() >= 1)
+                                <br>
 
+                                <br>
+                                <br>
+                                <div style="display: flex; justify-content: center;">
+                                    <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            @endif
+                            <div
+                                style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold; direction: rtl;">
+                                <div
+                                    style="text-align: right; margin: 1.2rem auto; font-size: 1rem; font-weight: bold; direction: rtl;">
+                                    <p style="margin-bottom: 10px; text-align: center; font-size: 1.05rem;">
+                                        جدول آلية التسديد
+                                        <br>
+                                        <span style="font-size: 0.95rem; font-weight: normal;">
+                                            استناداً إلى الفقرة ( اولاً) من ملحق العقد
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <table
+                                    style="width:100%; border-collapse: collapse; text-align:right; font-weight: normal;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid #000;">
+                                            <th style="padding: 6px; border:1px solid #000;">#</th>
+                                            <th style="padding: 6px; border:1px solid #000;">نوع الدفعة</th>
+                                            <th style="padding: 6px; border:1px solid #000;">المبلغ رقماً</th>
+                                            <th style="padding: 6px; border:1px solid #000;">المبلغ كتابةً</th>
+                                            <th style="padding: 6px; border:1px solid #000;">تاريخ الاستحقاق</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if ($contract->contract_payment_method_id == 3)
+                                            {{-- Method 3: دفعة مقدمة + شهرية + مفتاح --}}
+                                            <tr>
+                                                <td style="padding: 6px; border:1px solid #000;">1</td>
+                                                <td style="padding: 6px; border:1px solid #000;">الدفعة المقدمة</td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ number_format($variable_payment_details['down_payment_amount'], 0) }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ Numbers::TafqeetMoney($variable_payment_details['down_payment_amount'], 'IQD') }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">عند ابرام العقد</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="padding: 6px; border:1px solid #000;">2</td>
+                                                <td style="padding: 6px; border:1px solid #000;">الدفعة الشهرية ×
+                                                    {{ $variable_payment_details['number_of_months'] }}</td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ number_format($variable_payment_details['monthly_installment_amount'], 0) }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ Numbers::TafqeetMoney($variable_payment_details['monthly_installment_amount'], 'IQD') }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">شهرياً</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="padding: 6px; border:1px solid #000;">3</td>
+                                                <td style="padding: 6px; border:1px solid #000;">دفعة المفتاح</td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ number_format($variable_payment_details['key_payment_amount'], 0) }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">
+                                                    {{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }}
+                                                </td>
+                                                <td style="padding: 6px; border:1px solid #000;">عند التسليم</td>
+                                            </tr>
+                                        @elseif ($contract->contract_payment_method_id == 4)
+                                            {{-- Method 4: دفعات متسلسلة --}}
+                                            @foreach ($contract_installments as $index => $contract_installment)
+                                                @php
+                                                    $n = $contract_installment->sequence_number ?: $index + 1;
+                                                    $name =
+                                                        $n == 1
+                                                            ? 'الدفعة المقدمة'
+                                                            : 'الدفعة ' . App\Helpers\Number::convert($n);
+                                                @endphp
+
+                                                <tr>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ $n }}</td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ $name }}</td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ number_format($contract_installment->installment_amount, 0) }}
+                                                    </td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ Numbers::TafqeetMoney($contract_installment->installment_amount, 'IQD') }}
+                                                    </td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ \Carbon\Carbon::parse($contract_installment->installment_date)->format('Y/m/d') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            {{-- Methods 1, 2 --}}
+                                            @foreach ($contract_installments as $contract_installment)
+                                                @php
+                                                    $i = $contract_installment->installment;
+                                                @endphp
+                                                <tr>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ $i->installment_number }}</td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ 'الدفعة ' . $i->installment_name }}</td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ number_format($contract_installment->installment_amount, 0) }}
+                                                    </td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ Numbers::TafqeetMoney($contract_installment->installment_amount, 'IQD') }}
+                                                    </td>
+                                                    <td style="padding: 6px; border:1px solid #000;">
+                                                        {{ $i->installment_number == 1 ? 'عند ابرام العقد' : 'بعد ثلاثة اشهر من الدفعه ' . App\Helpers\Number::convert($i->installment_number - 1) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                                <br>
+                                <br>
+                                <p>يعتبر هذا الجدول جزءاً لا يتجزأ من العقد ويحل محل الجدول السابق.</p>
+                            </div>
                         </div>
                     </div>
 
