@@ -786,6 +786,8 @@ class ContractController extends Controller
             ->where('contract_id', $contract->id)
             ->join('installments', 'contract_installments.installment_id', '=', 'installments.id')
             ->select('contract_installments.*') // Select only contract_installments columns
+            ->orderBy('contract_installments.sequence_number', 'asc') // ✅ ترتيب حسب التسلسل
+            ->orderBy('contract_installments.installment_date', 'asc') // ✅ ثم حسب التاريخ
             ->get();
 
         // Initialize variable payment details
@@ -1492,6 +1494,9 @@ class ContractController extends Controller
                 return $this->migrateMethod2To4($contract, $request);
             }
 
+            if ($oldMethod == 4 && $newMethod == 2) {
+                return $this->migrateMethod4To2($contract, $request);
+            }
             if ($newMethod == 3) {
                 return $this->updateMethod3($contract, $request);
             }
@@ -1555,6 +1560,7 @@ class ContractController extends Controller
             [2, 4],
             [3, 3],
             [4, 4],
+            [2, 4],
         ];
 
         foreach ($allowedTransitions as [$old, $new]) {
@@ -1956,6 +1962,136 @@ class ContractController extends Controller
         }
     }
 
+    // ============================================================================
+    // METHOD 4 → 2 MIGRATION
+    // ============================================================================
+
+    private function migrateMethod4To2($contract, $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $contract->update($request->validated());
+            $contractDate = Carbon::parse($request->contract_date);
+            $contractAmount = $this->cleanAmount($request->contract_amount);
+
+            // Get Method 2 installment definitions (must have exactly 12)
+            $method2Installments = Installment::where('payment_method_id', 2)
+                ->orderBy('installment_number')
+                ->get()
+                ->keyBy('installment_number'); // استخدم installment_number كمفتاح
+
+            if ($method2Installments->isEmpty()) {
+                throw new \Exception('اعدادات الاقساط للطريقة 2 غير موجودة في النظام.');
+            }
+
+            if ($method2Installments->count() !== 12) {
+                throw new \Exception('الطريقة 2 يجب أن تحتوي على 12 قسط بالضبط.');
+            }
+
+            // Get all existing installments ordered by date and paid amount (paid first)
+            $allInstallments = $contract->contract_installments()
+                ->with('payment', 'installment')
+                ->orderBy('installment_date')
+                ->orderByDesc('paid_amount')
+                ->get();
+
+            // Calculate total paid amount
+            $totalPaid = $allInstallments->sum('paid_amount');
+
+            // Validate: total paid cannot exceed contract amount
+            if ($totalPaid > $contractAmount + 0.01) {
+                throw new \Exception(
+                    "لا يمكن التحويل للطريقة 2: المبلغ المدفوع " . number_format($totalPaid, 2) .
+                        " أكبر من مبلغ العقد " . number_format($contractAmount, 2)
+                );
+            }
+
+            // Track which Method 2 installment numbers are already assigned
+            $usedInstallmentNumbers = [];
+
+            // Process existing paid installments - map them to Method 2 installments in order
+            $nextInstallmentNumber = 1; // ابدأ من القسط الأول
+
+            foreach ($allInstallments as $inst) {
+                if ($inst->paid_amount > 0) {
+                    // Find the next available Method 2 installment
+                    while (isset($usedInstallmentNumbers[$nextInstallmentNumber]) && $nextInstallmentNumber <= 12) {
+                        $nextInstallmentNumber++;
+                    }
+
+                    if ($nextInstallmentNumber > 12) {
+                        throw new \Exception('عدد الأقساط المدفوعة يتجاوز 12 قسط.');
+                    }
+
+                    $method2Inst = $method2Installments->get($nextInstallmentNumber);
+
+                    if (!$method2Inst) {
+                        throw new \Exception("لم يتم العثور على القسط رقم {$nextInstallmentNumber} في الطريقة 2.");
+                    }
+
+                    // Calculate what this installment SHOULD be in Method 2
+                    $expectedAmount = $contractAmount * $method2Inst->installment_percent;
+
+                    // Update the installment to match Method 2 structure
+                    $inst->update([
+                        'installment_amount' => round($expectedAmount, 2),
+                        'installment_id' => $method2Inst->id,
+                        'sequence_number' => $method2Inst->installment_number,
+                        'installment_date' => $contractDate->copy()->addMonths($method2Inst->installment_period),
+                    ]);
+
+                    $usedInstallmentNumbers[$nextInstallmentNumber] = true;
+                    $nextInstallmentNumber++;
+                } else {
+                    // Delete completely unpaid installments
+                    $inst->delete();
+                }
+            }
+
+            // Check if contract is fully paid
+            if (count($usedInstallmentNumbers) >= 12) {
+                DB::commit();
+                return redirect()->route('contract.show', $contract->url_address)
+                    ->with('success', 'تم تحويل العقد من الطريقة 4 إلى 2 بنجاح. العقد مدفوع بالكامل.');
+            }
+
+            // Create remaining unpaid Method 2 installments
+            foreach ($method2Installments as $installmentNumber => $installment) {
+                // Skip installments that are already assigned to paid records
+                if (isset($usedInstallmentNumbers[$installmentNumber])) {
+                    continue;
+                }
+
+                // Calculate amount using percentage from installment table
+                $installmentAmount = $contractAmount * $installment->installment_percent;
+
+                Contract_Installment::create([
+                    'url_address' => $this->random_string(60),
+                    'installment_amount' => round($installmentAmount, 2),
+                    'paid_amount' => 0,
+                    'installment_date' => $contractDate->copy()->addMonths($installment->installment_period),
+                    'contract_id' => $contract->id,
+                    'installment_id' => $installment->id,
+                    'user_id_update' => $request->user_id_update,
+                    'sequence_number' => $installment->installment_number,
+                ]);
+            }
+
+            // Validate totals
+            if (!$this->validateTotal($contract)) {
+                $this->throwValidationError($contract);
+            }
+
+            DB::commit();
+
+            return redirect()->route('contract.show', $contract->url_address)
+                ->with('success', 'تم تحويل العقد من الطريقة 4 إلى 2 بنجاح.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
+    }
     // ============================================================================
     // METHOD 3 UPDATE
     // ============================================================================
