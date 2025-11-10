@@ -866,9 +866,11 @@ class ContractController extends Controller
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
 
+        // ✅ أضف ترتيب حسب sequence_number أولاً، ثم التاريخ
         $contract_installments = Contract_Installment::with(['installment', 'payment'])
             ->where('contract_id', $contract->id)
-            ->orderBy('installment_date')
+            ->orderBy('sequence_number', 'asc')  // ✅ ترتيب حسب التسلسل أولاً
+            ->orderBy('installment_date', 'asc') // ✅ ثم حسب التاريخ
             ->get();
 
         // ✅ متغيرات خطة الدفع المتغيرة
@@ -969,8 +971,11 @@ class ContractController extends Controller
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
 
+        // ✅ أضف الترتيب هنا
         $contract_installments = Contract_Installment::with(['installment', 'payment'])
             ->where('contract_id', $contract->id)
+            ->orderBy('sequence_number', 'asc')  // ✅ ترتيب حسب التسلسل
+            ->orderBy('installment_date', 'asc') // ✅ ثم حسب التاريخ
             ->get();
 
         // ✅ Add this block
@@ -1030,6 +1035,7 @@ class ContractController extends Controller
 
             $variable_payment_details['calculated_total'] = $calculatedTotal;
         }
+
         return view('contract.contract.print', compact(
             'contract',
             'contract_installments',
