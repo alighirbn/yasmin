@@ -114,7 +114,7 @@ class ContractInstallmentController extends Controller
 
     /**
      * Update multiple installments at once.
-     * Supports: amount/date changes, reordering, type changes, and deletions
+     * Supports: amount/date changes, reordering, type changes, deletions, and adding new installments
      */
     public function updateBulk(Request $request, string $contract_url_address)
     {
@@ -128,6 +128,13 @@ class ContractInstallmentController extends Controller
             'installments.*.installment_date' => 'required|date',
             'installments.*.sequence_number' => 'required|integer|min:1',
             'deleted_installments' => 'nullable|json',
+            // Validation for new installments
+            'new_installments' => 'nullable|array',
+            'new_installments.*.temp_id' => 'nullable|string',
+            'new_installments.*.installment_id' => 'required|exists:installments,id',
+            'new_installments.*.installment_amount' => 'required|numeric|min:0',
+            'new_installments.*.installment_date' => 'required|date',
+            'new_installments.*.sequence_number' => 'required|integer|min:1',
         ]);
 
         DB::beginTransaction();
@@ -150,12 +157,6 @@ class ContractInstallmentController extends Controller
                         $installment->delete();
                     }
                 }
-            }
-
-            // Ensure at least one installment remains
-            $remainingCount = count($validated['installments']);
-            if ($remainingCount === 0) {
-                throw new \Exception('لا يمكن حذف جميع الأقساط. يجب أن يبقى قسط واحد على الأقل.');
             }
 
             // Update existing installments
@@ -194,14 +195,58 @@ class ContractInstallmentController extends Controller
                 ]);
             }
 
+            // Handle new installments
+            $newInstallmentsCount = 0;
+            if (!empty($validated['new_installments'])) {
+                foreach ($validated['new_installments'] as $newData) {
+                    // Validate installment type belongs to the same payment method
+                    $installmentType = \App\Models\Contract\Installment::findOrFail($newData['installment_id']);
+                    if ($installmentType->payment_method_id !== $contract->contract_payment_method_id) {
+                        throw new \Exception(
+                            'نوع القسط الجديد لا يتوافق مع طريقة الدفع الخاصة بالعقد'
+                        );
+                    }
+
+                    // Create new installment
+                    Contract_Installment::create([
+                        'url_address' => $this->random_string(60),
+                        'installment_amount' => $newData['installment_amount'],
+                        'installment_date' => $newData['installment_date'],
+                        'paid_amount' => 0,
+                        'contract_id' => $contract->id,
+                        'installment_id' => $newData['installment_id'],
+                        'sequence_number' => $newData['sequence_number'],
+                        'user_id_create' => auth()->id(),
+                    ]);
+
+                    $newInstallmentsCount++;
+                }
+            }
+
+            // Ensure at least one installment remains
+            $totalInstallments = $contract->contract_installments()->count();
+            if ($totalInstallments === 0) {
+                throw new \Exception('لا يمكن حذف جميع الأقساط. يجب أن يبقى قسط واحد على الأقل.');
+            }
+
             // Validate contract total
             $this->validateContractTotal($contract);
 
             DB::commit();
 
             $message = 'تم تعديل الأقساط بنجاح';
+            $details = [];
+
             if (count($deletedInstallments) > 0) {
-                $message .= ' (تم حذف ' . count($deletedInstallments) . ' قسط)';
+                $details[] = 'تم حذف ' . count($deletedInstallments) . ' قسط';
+            }
+
+            if ($newInstallmentsCount > 0) {
+                $details[] = 'تمت إضافة ' . $newInstallmentsCount . ' قسط جديد';
+            }
+
+            if (!empty($details)) {
+                $message .= ' (' . implode('، ', $details) . ')';
             }
 
             return redirect()->route('contract.show', $contract->url_address)
