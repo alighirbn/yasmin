@@ -294,6 +294,12 @@
                                                 تعديل
                                             </a>
                                         @endif
+
+                                        <!-- Bulk edit all installments -->
+                                        <a href="{{ route('contract.installment.edit_bulk', $contract->url_address) }}"
+                                            class="btn btn-primary">
+                                            تعديل جميع الأقساط
+                                        </a>
                                     @endcan
 
                                     @can('contract-accept')

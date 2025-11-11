@@ -65,6 +65,7 @@ Route::group(['middleware' => 'checkStatus'], function () {
     require __DIR__ . '/role.php';
     require __DIR__ . '/notification.php';
     require __DIR__ . '/profile.php';
+    require __DIR__ . '/contract_installment.php';
 });
 
 // ✅ auth routes (login, register, reset…)
