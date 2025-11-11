@@ -22,9 +22,39 @@ class ServiceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'service.action')
-            ->addColumn('service_amount', function ($row) {
-                return number_format($row->service_amount, 0);
+            ->addColumn('service_amount', fn($row) => number_format($row->service_amount, 0))
+
+            // ✅ Arabic + colored contract stage badge
+            ->addColumn('contract_stage', function ($row) {
+                if (!$row->contract || !$row->contract->stage) {
+                    return '<span class="text-gray-500">غير محدد</span>';
+                }
+
+                $stage = $row->contract->stage;
+
+                // Arabic labels
+                $labels = [
+                    'temporary'     => 'حجز اولي',
+                    'accepted'      => 'مقبول',
+                    'authenticated' => 'مصادق',
+                    'terminated'    => 'فسخ',
+                ];
+
+                // Tailwind color classes
+                $colors = [
+                    'temporary'     => 'bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold',
+                    'accepted'      => 'bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold',
+                    'authenticated' => 'bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold',
+                    'terminated'    => 'bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-semibold',
+                ];
+
+                $label = $labels[$stage] ?? $stage;
+                $color = $colors[$stage] ?? 'bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-semibold';
+
+                return "<span class='{$color}'>{$label}</span>";
             })
+
+            // ✅ Filtering rules
             ->filterColumn('contract.customer.customer_full_name', function ($query, $keyword) {
                 $query->whereHas('contract.customer', function ($query) use ($keyword) {
                     $query->where('customer_full_name', 'like', "%{$keyword}%");
@@ -35,37 +65,32 @@ class ServiceDataTable extends DataTable
                     $query->where('building_number', 'like', "%{$keyword}%");
                 });
             })
-            ->filterColumn('service_date', function ($query, $keyword) {
-                $query->where('service_date', 'like', "%{$keyword}%");
-            })
-            ->filterColumn('service_type.type_name', function ($query, $keyword) {
-                $query->whereHas('service_type', function ($q) use ($keyword) {
-                    $q->where('type_name', 'like', "%{$keyword}%");
+            ->filterColumn('contract.stage', function ($query, $keyword) {
+                $query->whereHas('contract', function ($q) use ($keyword) {
+                    $q->where('stage', 'like', "%{$keyword}%");
                 });
             })
-            ->rawColumns(['action'])
-            ->setRowId('id');
+
+            // ✅ Keep HTML rendering for badges & actions
+            ->setRowId('id')
+            ->rawColumns(['action', 'contract_stage']);
     }
 
     /**
      * Get query source of dataTable.
-     *
-     * @param \App\Models\Payment\Service $model
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Service $model): QueryBuilder
     {
         return $model->newQuery()->with([
             'contract.customer',
             'contract.building',
+            'contract.payment_method',
             'service_type'
         ]);
     }
 
     /**
      * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
      */
     public function html(): HtmlBuilder
     {
@@ -100,8 +125,6 @@ class ServiceDataTable extends DataTable
 
     /**
      * Get the dataTable columns definition.
-     *
-     * @return array
      */
     public function getColumns(): array
     {
@@ -146,6 +169,11 @@ class ServiceDataTable extends DataTable
                 ->name('service_type.type_name')
                 ->class('text-center'),
 
+            // ✅ New Arabic + colored contract stage
+            Column::computed('contract_stage')
+                ->title(__('word.stage'))
+                ->class('text-center'),
+
             Column::make('service_amount')->title(__('word.service_amount'))->class('text-center'),
             Column::make('service_note')->title(__('word.service_note'))->class('text-center'),
         ];
@@ -153,11 +181,9 @@ class ServiceDataTable extends DataTable
 
     /**
      * Get filename for export.
-     *
-     * @return string
      */
     protected function filename(): string
     {
-        return 'Service' . date('YmdHis');
+        return 'Service_' . date('YmdHis');
     }
 }
