@@ -177,6 +177,8 @@ class ServiceDataTable extends DataTable
                 ->class('text-center'),
             Column::computed('contract_stage')
                 ->title(__('word.stage'))
+                ->exportable(true)
+                ->printable(true)
                 ->class('text-center'),
 
             Column::make('service_amount')->title(__('word.service_amount'))->class('text-center'),
