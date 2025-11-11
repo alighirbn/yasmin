@@ -22,8 +22,19 @@ class ServiceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'service.action')
-            ->addColumn('service_amount', fn($row) => number_format($row->service_amount, 0))
-
+            ->addColumn('service_amount', function ($row) {
+                return number_format($row->service_amount, 0);
+            })
+            ->filterColumn('contract.customer.customer_full_name', function ($query, $keyword) {
+                $query->whereHas('contract.customer', function ($query) use ($keyword) {
+                    $query->where('customer_full_name', 'like', "%{$keyword}%");
+                });
+            })
+            ->filterColumn('contract.building.building_number', function ($query, $keyword) {
+                $query->whereHas('contract.building', function ($query) use ($keyword) {
+                    $query->where('building_number', 'like', "%{$keyword}%");
+                });
+            })
             // ✅ Arabic + colored contract stage badge
             ->addColumn('contract_stage', function ($row) {
                 if (!$row->contract || !$row->contract->stage) {
@@ -54,43 +65,37 @@ class ServiceDataTable extends DataTable
                 return "<span class='{$color}'>{$label}</span>";
             })
 
-            // ✅ Filtering rules
-            ->filterColumn('contract.customer.customer_full_name', function ($query, $keyword) {
-                $query->whereHas('contract.customer', function ($query) use ($keyword) {
-                    $query->where('customer_full_name', 'like', "%{$keyword}%");
+            ->filterColumn('service_date', function ($query, $keyword) {
+                $query->where('service_date', 'like', "%{$keyword}%");
+            })
+            ->filterColumn('service_type.type_name', function ($query, $keyword) {
+                $query->whereHas('service_type', function ($q) use ($keyword) {
+                    $q->where('type_name', 'like', "%{$keyword}%");
                 });
             })
-            ->filterColumn('contract.building.building_number', function ($query, $keyword) {
-                $query->whereHas('contract.building', function ($query) use ($keyword) {
-                    $query->where('building_number', 'like', "%{$keyword}%");
-                });
-            })
-            ->filterColumn('contract.stage', function ($query, $keyword) {
-                $query->whereHas('contract', function ($q) use ($keyword) {
-                    $q->where('stage', 'like', "%{$keyword}%");
-                });
-            })
-
-            // ✅ Keep HTML rendering for badges & actions
-            ->setRowId('id')
-            ->rawColumns(['action', 'contract_stage']);
+            ->rawColumns(['action', 'contract_stage'])
+            ->setRowId('id');
     }
 
     /**
      * Get query source of dataTable.
+     *
+     * @param \App\Models\Payment\Service $model
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Service $model): QueryBuilder
     {
         return $model->newQuery()->with([
             'contract.customer',
             'contract.building',
-            'contract.payment_method',
             'service_type'
         ]);
     }
 
     /**
      * Optional method if you want to use html builder.
+     *
+     * @return \Yajra\DataTables\Html\Builder
      */
     public function html(): HtmlBuilder
     {
@@ -125,6 +130,8 @@ class ServiceDataTable extends DataTable
 
     /**
      * Get the dataTable columns definition.
+     *
+     * @return array
      */
     public function getColumns(): array
     {
@@ -168,8 +175,6 @@ class ServiceDataTable extends DataTable
                 ->data('service_type.type_name')
                 ->name('service_type.type_name')
                 ->class('text-center'),
-
-            // ✅ New Arabic + colored contract stage
             Column::computed('contract_stage')
                 ->title(__('word.stage'))
                 ->class('text-center'),
@@ -181,9 +186,11 @@ class ServiceDataTable extends DataTable
 
     /**
      * Get filename for export.
+     *
+     * @return string
      */
     protected function filename(): string
     {
-        return 'Service_' . date('YmdHis');
+        return 'Service' . date('YmdHis');
     }
 }
