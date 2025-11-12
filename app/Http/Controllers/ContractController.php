@@ -39,8 +39,8 @@ class ContractController extends Controller
      */
     public function index(Request $request)
     {
-        // Base query with joins for sortable related columns
-        $query = \App\Models\Contract\Contract::query()
+        // Base query with joins
+        $baseQuery = \App\Models\Contract\Contract::query()
             ->leftJoin('customers', 'contracts.contract_customer_id', '=', 'customers.id')
             ->leftJoin('buildings', 'contracts.contract_building_id', '=', 'buildings.id')
             ->leftJoin('payment_method', 'contracts.contract_payment_method_id', '=', 'payment_method.id')
@@ -51,23 +51,22 @@ class ContractController extends Controller
                 'payment_method.method_name as payment_method_name'
             );
 
-        // 🔹 Filters
+        // Apply filters
         if ($request->filled('contract_id')) {
-            $query->where('contracts.id', $request->contract_id);
+            $baseQuery->where('contracts.id', $request->contract_id);
         }
 
         if ($request->filled('customer_name')) {
-            $query->where('customers.customer_full_name', 'like', '%' . $request->customer_name . '%');
+            $baseQuery->where('customers.customer_full_name', 'like', '%' . $request->customer_name . '%');
         }
 
         if ($request->filled('stage')) {
-            $query->where('contracts.stage', $request->stage);
+            $baseQuery->where('contracts.stage', $request->stage);
         }
 
-        // 🔹 Sorting
+        // Sorting
         $sort = $request->get('sort', 'contracts.id');
         $direction = $request->get('direction', 'desc');
-
         $allowedSorts = [
             'contracts.id',
             'contracts.contract_amount',
@@ -81,23 +80,30 @@ class ContractController extends Controller
             $sort = 'contracts.id';
         }
 
-        $query->orderBy($sort, $direction);
+        $baseQuery->orderBy($sort, $direction);
 
-        // 🔹 Pagination
-        $contracts = $query->paginate(25)->withQueryString();
+        // Paginated data for table
+        $contracts = (clone $baseQuery)->paginate(25)->withQueryString();
 
-        // 🔹 Summary
-        $totalContracts = (clone $query)->count();
+        // Full filtered dataset for print/export
+        $allContracts = (clone $baseQuery)->get();
 
-        return view('contract.contract.index', compact('contracts', 'totalContracts'))
-            ->with([
-                'selectedStage' => $request->stage,
-                'contractId' => $request->contract_id,
-                'customerName' => $request->customer_name,
-                'sort' => $sort,
-                'direction' => $direction,
-            ]);
+        // Summary
+        $totalContracts = $allContracts->count();
+
+        return view('contract.contract.index', compact(
+            'contracts',
+            'allContracts',
+            'totalContracts',
+            'sort',
+            'direction'
+        ))->with([
+            'selectedStage' => $request->stage,
+            'contractId' => $request->contract_id,
+            'customerName' => $request->customer_name,
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
