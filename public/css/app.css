@@ -16,157 +16,113 @@
     color: #fff1f1;
     /* Text color */
 }
+/* ================================
+   Unified Custom Button Styles
+   ================================ */
+
 .btn-custom-print {
-    background-color: #e7e74d;
-    /* Replace with your desired color */
-    color: #2f2f2f;
-    /* Text color */
+    background-color: #e7e74d; /* soft yellow */
+    color: #2f2f2f; /* dark text for contrast */
 }
 
 .btn-custom-print:hover {
-    background-color: #a4b830;
-    /* Darker shade on hover */
+    background-color: #c9c93d; /* darker yellow on hover */
     color: #2f2f2f;
-    /* Text color */
 }
+
+
+.btn-custom-excel {
+    background-color: #007bff;
+    color: #ffffff;
+}
+.btn-custom-excel:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+.btn-custom-show {
+    background-color: #17a2b8;
+    color: #ffffff;
+}
+.btn-custom-show:hover {
+    background-color: #138496;
+    color: #ffffff;
+}
+
+.btn-custom-statement {
+    background-color: #ffc107;
+    color: #2f2f2f;
+}
+.btn-custom-statement:hover {
+    background-color: #e0a800;
+    color: #2f2f2f;
+}
+
+.btn-custom-delete {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+.btn-custom-delete:hover {
+    background-color: #a71d2a;
+    color: #ffffff;
+}
+
+.btn-custom-back {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+.btn-custom-back:hover {
+    background-color: #545b62;
+    color: #ffffff;
+}
+
+/* Optional extra buttons from your second style set */
 
 .btn-custom-due {
     background-color: #8d4de7;
-    /* Replace with your desired color */
-    color: #fffbfb;
-    /* Text color */
+    color: #ffffff;
 }
-
 .btn-custom-due:hover {
     background-color: #7b30b8;
-    /* Darker shade on hover */
     color: #ffffff;
-    /* Text color */
 }
+
 .btn-custom-transfer {
     background-color: #848383;
-    /* Replace with your desired color */
     color: #ffffff;
-    /* Text color */
 }
-
 .btn-custom-transfer:hover {
-    background-color: #797979;
-    /* Darker shade on hover */
+    background-color: #6e6e6e;
     color: #ffffff;
-    /* Text color */
-}
-.btn-custom-show {
-    background-color: #4d9ae7;
-    /* Replace with your desired color */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-show:hover {
-    background-color: #3081b8;
-    /* Darker shade on hover */
-    color: #ffffff;
-    /* Text color */
 }
 
 .btn-custom-approve {
     background-color: #3bd342;
-    /* Replace with your desired color */
     color: #ffffff;
-    /* Text color */
 }
-
 .btn-custom-approve:hover {
-    background-color: #39b830;
-    /* Darker shade on hover */
+    background-color: #2fa334;
     color: #ffffff;
-    /* Text color */
 }
 
 .btn-custom-archive {
     background-color: #a91d53;
-    /* Replace with your desired color */
     color: #ffffff;
-    /* Text color */
 }
-
 .btn-custom-archive:hover {
     background-color: #751743;
-    /* Darker shade on hover */
     color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-statement {
-    background-color: #5f4de7;
-    /* Replace with your desired color */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-statement:hover {
-    background-color: #4230b8;
-    /* Darker shade on hover */
-    color: #ffffff;
-    /* Text color */
 }
 
 .btn-custom-edit {
     background-color: #d89042;
-    /* Replace with your desired color */
     color: #ffffff;
-    /* Text color */
 }
-
 .btn-custom-edit:hover {
-    background-color: #c2753e;
-    /* Darker shade on hover */
+    background-color: #b86a2c;
     color: #ffffff;
-    /* Text color */
 }
 
-.btn-custom-delete {
-    background-color: #922e2e;
-    /* Replace with your desired color */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-delete:hover {
-    background-color: #560606;
-    /* Darker shade on hover */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-statement {
-    background-color: #5f4de7;
-    /* Replace with your desired color */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-statement:hover {
-    background-color: #4230b8;
-    /* Darker shade on hover */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-back {
-    background-color: #e74d90;
-    /* Replace with your desired color */
-    color: #ffffff;
-    /* Text color */
-}
-
-.btn-custom-back:hover {
-    background-color: #b83098;
-    /* Darker shade on hover */
-    color: #ffffff;
-    /* Text color */
-}
 .a4-width {
     width: 793.7px; /* Approximate A4 width in pixels */
     max-width: 100%;

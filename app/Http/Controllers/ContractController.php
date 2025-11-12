@@ -8,7 +8,6 @@ use App\Models\Contract\Contract;
 use App\Models\Customer\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Contract\Installment;
-use App\DataTables\ContractDataTable;
 use App\Http\Requests\ContractRequest;
 use App\Services\WiaScanner;
 use App\Http\Requests\CustomerRequest;
@@ -38,9 +37,66 @@ class ContractController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ContractDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable->render('contract.contract.index');
+        // Base query with joins for sortable related columns
+        $query = \App\Models\Contract\Contract::query()
+            ->leftJoin('customers', 'contracts.contract_customer_id', '=', 'customers.id')
+            ->leftJoin('buildings', 'contracts.contract_building_id', '=', 'buildings.id')
+            ->leftJoin('payment_method', 'contracts.contract_payment_method_id', '=', 'payment_method.id')
+            ->select(
+                'contracts.*',
+                'customers.customer_full_name as customer_name',
+                'buildings.building_number as building_no',
+                'payment_method.method_name as payment_method_name'
+            );
+
+        // 🔹 Filters
+        if ($request->filled('contract_id')) {
+            $query->where('contracts.id', $request->contract_id);
+        }
+
+        if ($request->filled('customer_name')) {
+            $query->where('customers.customer_full_name', 'like', '%' . $request->customer_name . '%');
+        }
+
+        if ($request->filled('stage')) {
+            $query->where('contracts.stage', $request->stage);
+        }
+
+        // 🔹 Sorting
+        $sort = $request->get('sort', 'contracts.id');
+        $direction = $request->get('direction', 'desc');
+
+        $allowedSorts = [
+            'contracts.id',
+            'contracts.contract_amount',
+            'contracts.contract_date',
+            'contracts.stage',
+            'customers.customer_full_name',
+            'buildings.building_number',
+        ];
+
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'contracts.id';
+        }
+
+        $query->orderBy($sort, $direction);
+
+        // 🔹 Pagination
+        $contracts = $query->paginate(25)->withQueryString();
+
+        // 🔹 Summary
+        $totalContracts = (clone $query)->count();
+
+        return view('contract.contract.index', compact('contracts', 'totalContracts'))
+            ->with([
+                'selectedStage' => $request->stage,
+                'contractId' => $request->contract_id,
+                'customerName' => $request->customer_name,
+                'sort' => $sort,
+                'direction' => $direction,
+            ]);
     }
 
     /**

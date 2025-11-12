@@ -141,8 +141,473 @@
                 background: #d1d5db;
                 margin: 0 4px;
             }
-        </style>
 
+            /* ================================
+       WORKFLOW STATUS BAR
+    ================================ */
+            .workflow-status-compact {
+                background: linear-gradient(135deg, #b38a4c 0%, #7b5a2a 100%);
+                color: #ffffff;
+                padding: 14px 22px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            }
+
+            .workflow-status-compact .status-info {
+                display: flex;
+                gap: 25px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .workflow-status-compact .status-item {
+                font-size: 14px;
+                background: rgba(255, 255, 255, 0.15);
+                padding: 6px 10px;
+                border-radius: 6px;
+            }
+
+            .workflow-status-compact .next-action {
+                background: #f1d142;
+                padding: 8px 14px;
+                border-radius: 6px;
+                color: #2f2f2f;
+                font-weight: bold;
+                font-size: 13px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            /* ================================
+       QUICK ACTIONS BAR
+    ================================ */
+            .quick-actions-bar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 8px 0;
+                margin-bottom: 15px;
+                align-items: center;
+                border-bottom: 1px solid #e0d6c6;
+                padding-bottom: 12px;
+            }
+
+            .btn-compact {
+                padding: 6px 12px !important;
+                font-size: 13px !important;
+                position: relative;
+                white-space: nowrap;
+                border: none;
+                border-radius: 6px;
+                font-weight: 600;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+            }
+
+            .btn-compact:hover {
+                transform: translateY(-2px);
+            }
+
+            .btn-compact:hover::after {
+                content: attr(data-hint);
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #1f2937;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 4px;
+                white-space: nowrap;
+                font-size: 11px;
+                z-index: 1000;
+                margin-bottom: 4px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .show-all-btn {
+                background: #9f7a3e;
+                color: #ffffff;
+                border: none;
+                padding: 6px 14px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 13px;
+                white-space: nowrap;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .show-all-btn:hover {
+                background: #7a5c2d;
+            }
+
+            .divider {
+                height: 28px;
+                width: 1px;
+                background: #d1c5b4;
+                margin: 0 6px;
+            }
+
+            /* ================================
+       ALL ACTIONS SECTION
+    ================================ */
+            .all-actions-horizontal {
+                display: none;
+                gap: 12px;
+                padding: 12px;
+                background: #fdfbf8;
+                border: 1px solid #e0d6c6;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .all-actions-horizontal.active {
+                display: flex;
+            }
+
+            .action-card {
+                background: #ffffff;
+                border: 1px solid #e0d6c6;
+                border-radius: 8px;
+                padding: 12px;
+                min-width: 200px;
+                flex: 1 1 220px;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+                transition: transform 0.2s;
+            }
+
+            .action-card:hover {
+                transform: translateY(-2px);
+            }
+
+            .action-card-title {
+                font-size: 13px;
+                font-weight: bold;
+                color: #6b4b1f;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+                border-bottom: 2px solid #c99b4f;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .action-card-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            /* ================================
+       PROGRESS BAR
+    ================================ */
+            .progress-bar-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+                padding: 24px 0;
+                font-family: Arial, sans-serif;
+                direction: rtl;
+            }
+
+            .progress-line-background {
+                position: absolute;
+                top: 24px;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background-color: #e0d6c6;
+                border-radius: 2px;
+                z-index: 0;
+            }
+
+            .progress-line-foreground {
+                position: absolute;
+                top: 24px;
+                right: 0;
+                height: 4px;
+                background-color: #b38a4c;
+                border-radius: 2px;
+                z-index: 1;
+                transition: width 0.3s ease;
+            }
+
+            .circle {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background-color: #ffffff;
+                border: 2px solid #d4b184;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #b38a4c;
+                font-size: 14px;
+                font-weight: bold;
+                margin-bottom: 8px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .circle.completed {
+                background-color: #b38a4c;
+                color: white;
+                border-color: #b38a4c;
+            }
+
+            .stage-label {
+                font-size: 12px;
+                color: #7a6a55;
+                transition: color 0.3s;
+            }
+
+            .stage-label.completed-text {
+                color: #b38a4c;
+            }
+
+            /* ================================
+       TABLE STYLING
+    ================================ */
+            table.table {
+                background-color: #ffffff;
+                border: 1px solid #e0d6c6;
+                border-radius: 8px;
+                overflow: hidden;
+                width: 100%;
+            }
+
+            table.table th {
+                background-color: #f8f2ea;
+                color: #4e3e28;
+                font-weight: 600;
+                text-align: center;
+                padding: 10px;
+            }
+
+            table.table td {
+                text-align: center;
+                vertical-align: middle;
+                padding: 10px;
+                border-top: 1px solid #f0e8dc;
+            }
+
+            table.table tr:nth-child(even) {
+                background-color: #fdfaf6;
+            }
+
+            table.table tr:hover {
+                background-color: #f4efe8;
+            }
+
+            /* ================================
+       RESPONSIVE
+    ================================ */
+            @media (max-width: 992px) {
+
+                .workflow-status-compact,
+                .quick-actions-bar {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .divider {
+                    display: none;
+                }
+            }
+        </style>
+        <style>
+            /* ================================
+   INFO SECTION STYLES
+================================ */
+            .info-section {
+                margin-top: 20px;
+                background: #ffffff;
+                border: 1px solid #e0d6c6;
+                border-radius: 10px;
+                padding: 18px 22px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .info-section h2 {
+                font-size: 16px;
+                font-weight: 700;
+                color: #6b4b1f;
+                margin-bottom: 12px;
+                border-bottom: 2px solid #c99b4f;
+                padding-bottom: 4px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 16px;
+            }
+
+            .info-item {
+                background: #fcf8f3;
+                border: 1px solid #e6ddcc;
+                border-radius: 8px;
+                padding: 10px 14px;
+                transition: all 0.2s ease;
+            }
+
+            .info-item:hover {
+                background: #f7f2ea;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            }
+
+            .info-label {
+                font-size: 13px;
+                color: #7b6b58;
+                margin-bottom: 4px;
+                display: block;
+            }
+
+            .info-value {
+                font-size: 14px;
+                font-weight: 600;
+                color: #2f2f2f;
+                word-wrap: break-word;
+            }
+
+            .info-note {
+                background: #fff9e6;
+                border: 1px dashed #e6c85e;
+                border-radius: 8px;
+                padding: 10px 14px;
+                font-size: 14px;
+                color: #6b571d;
+                margin-top: 10px;
+            }
+
+            @media (max-width: 768px) {
+                .info-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+        <style>
+            .installment-section {
+                margin-top: 25px;
+                background: #ffffff;
+                border: 1px solid #e0d6c6;
+                border-radius: 10px;
+                padding: 18px 22px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .installment-section h2 {
+                font-size: 16px;
+                font-weight: 700;
+                color: #6b4b1f;
+                margin-bottom: 14px;
+                border-bottom: 2px solid #c99b4f;
+                padding-bottom: 4px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            /* Table styling */
+            .table-installments {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                border-radius: 8px;
+                overflow: hidden;
+                background-color: #fff;
+            }
+
+            .table-installments thead th {
+                background-color: #f8f2ea;
+                color: #4e3e28;
+                font-weight: 600;
+                text-align: center;
+                padding: 10px;
+                border-bottom: 2px solid #e0d6c6;
+            }
+
+            .table-installments td {
+                text-align: center;
+                vertical-align: middle;
+                padding: 10px;
+                border-top: 1px solid #f0e8dc;
+            }
+
+            .table-installments tr:nth-child(even) {
+                background-color: #fdfaf6;
+            }
+
+            .table-installments tr:hover {
+                background-color: #f7f3ee;
+                transition: background 0.2s ease-in-out;
+            }
+
+            /* Status tags */
+            .status-badge {
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 13px;
+                font-weight: 600;
+                color: #fff;
+            }
+
+            .status-due {
+                background-color: #e53935;
+            }
+
+            .status-pending {
+                background-color: #fb8c00;
+            }
+
+            .status-paid {
+                background-color: #43a047;
+            }
+
+            .status-upcoming {
+                background-color: #6b7280;
+            }
+
+            /* Payment progress bar */
+            .progress-bar-wrapper {
+                margin-top: 4px;
+                background-color: #e9e5de;
+                border-radius: 6px;
+                height: 8px;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                background-color: #43a047;
+                height: 8px;
+                border-radius: 6px;
+                transition: width 0.3s ease;
+            }
+
+            /* Buttons inside table */
+            .table-action {
+                display: flex;
+                justify-content: center;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            .table-action .btn {
+                padding: 4px 10px !important;
+                font-size: 13px !important;
+                border-radius: 6px;
+            }
+        </style>
     </x-slot>
 
     <div class="bg-custom py-6">
@@ -480,261 +945,239 @@
                             @endforeach
                         </div>
 
-                        <div class="flex ">
+                        <!-- ✅ CONTRACT INFO -->
+                        <div class="info-section">
+                            <h2>📋 {{ __('word.contract_info') }}</h2>
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="id" class="w-full mb-1" :value="__('word.id')" />
-                                <p id="id" class="w-full h-9 block mt-1 " type="text" name="id">
-                                    {{ $contract->id }}
-                            </div>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.id') }}</span>
+                                    <span class="info-value">{{ $contract->id }}</span>
+                                </div>
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="contract_date" class="w-full mb-1" :value="__('word.contract_date')" />
-                                <p id="contract_date" class="w-full h-9 block mt-1 " type="text"
-                                    name="contract_date">
-                                    {{ $contract->contract_date }}
-                            </div>
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.contract_date') }}</span>
+                                    <span class="info-value">{{ $contract->contract_date }}</span>
+                                </div>
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="stage" class="w-full mb-1" :value="__('word.stage')" />
-                                <p id="stage" class="w-full h-9 block mt-1 " type="text" name="stage">
-                                    {{ __('word.' . $contract->stage) }}
-                            </div>
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.stage') }}</span>
+                                    <span class="info-value">{{ __('word.' . $contract->stage) }}</span>
+                                </div>
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="stage_date" class="w-full mb-1" :value="__('word.stage_date')" />
-                                <p id="stage_date" class="w-full h-9 block mt-1 " type="text" name="stage_date">
-                                    @if ($contract->stage == 'temporary')
-                                        {{ $contract->temporary_at }}
-                                    @elseif ($contract->stage == 'accepted')
-                                        {{ $contract->accepted_at }}
-                                    @elseif ($contract->stage == 'authenticated')
-                                        {{ $contract->authenticated_at }}
-                                    @endif
-                            </div>
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="method_name" class="w-full mb-1" :value="__('word.method_name')" />
-                                <p id="method_name" class="w-full h-9 block mt-1 " type="text"
-                                    name="method_name">
-                                    {{ $contract->payment_method->method_name }}
-                            </div>
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.stage_date') }}</span>
+                                    <span class="info-value">
+                                        @if ($contract->stage == 'temporary')
+                                            {{ $contract->temporary_at }}
+                                        @elseif ($contract->stage == 'accepted')
+                                            {{ $contract->accepted_at }}
+                                        @elseif ($contract->stage == 'authenticated')
+                                            {{ $contract->authenticated_at }}
+                                        @endif
+                                    </span>
+                                </div>
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="contract_amount" class="w-full mb-1" :value="__('word.contract_amount')" />
-                                <p id="contract_amount" class="w-full h-9 block mt-1 " type="text"
-                                    name="contract_amount">
-                                    {{ number_format($contract->contract_amount, 0) }} دينار
-                            </div>
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.method_name') }}</span>
+                                    <span class="info-value">{{ $contract->payment_method->method_name }}</span>
+                                </div>
 
-                        </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.customer_info') }}
-                        </h1>
-                        <div class="flex ">
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="contract_customer_id" class="w-full mb-1" :value="__('word.contract_customer_id')" />
-                                <p id="contract_customer_id" class="w-full h-9 block mt-1" type="text"
-                                    name="contract_customer_id">
-                                    {{ $contract->customer->customer_full_name }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="customer_card_number" class="w-full mb-1" :value="__('word.customer_card_number')" />
-                                <p id="customer_card_number" class="w-full h-9 block mt-1" type="text"
-                                    name="customer_card_number">
-                                    {{ $contract->customer->customer_card_number }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="customer_phone" class="w-full mb-1" :value="__('word.customer_phone')" />
-                                <p id="customer_phone" class="w-full h-9 block mt-1" type="text"
-                                    name="customer_phone">
-                                    {{ $contract->customer->customer_phone }}
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.contract_amount') }}</span>
+                                    <span class="info-value">{{ number_format($contract->contract_amount, 0) }}
+                                        دينار</span>
+                                </div>
                             </div>
                         </div>
-                        <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                            {{ __('word.building_info') }}
-                        </h1>
-                        <div class="flex ">
 
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="building_type_id" class="w-full mb-1" :value="__('word.building_type_id')" />
-                                <p id="building_type_id" class="w-full h-9 block mt-1 " type="text"
-                                    name="building_type_id">
-                                    {{ $contract->building->building_type->type_name }}
+                        <!-- ✅ CUSTOMER INFO -->
+                        <div class="info-section">
+                            <h2>👤 {{ __('word.customer_info') }}</h2>
+
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.contract_customer_id') }}</span>
+                                    <span class="info-value">{{ $contract->customer->customer_full_name }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.customer_card_number') }}</span>
+                                    <span class="info-value">{{ $contract->customer->customer_card_number }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.customer_phone') }}</span>
+                                    <span class="info-value">{{ $contract->customer->customer_phone }}</span>
+                                </div>
                             </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="building_category_id" class="w-full mb-1" :value="__('word.building_category_id')" />
-                                <p id="building_category_id" class="w-full h-9 block mt-1 " type="text"
-                                    name="building_category_id">
-
-                                    {{ $contract->building->building_category->category_name }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="contract_building_id" class="w-full mb-1" :value="__('word.contract_building_id')" />
-                                <p id="contract_building_id" class="w-full h-9 block mt-1 " type="text"
-                                    name="contract_building_id">
-                                    {{ $contract->building->building_number }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="block_number" class="w-full mb-1" :value="__('word.block_number')" />
-                                <p id="block_number" class="w-full h-9 block mt-1 " type="text"
-                                    name="block_number">
-                                    {{ $contract->building->block_number }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="house_number" class="w-full mb-1" :value="__('word.house_number')" />
-                                <p id="house_number" class="w-full h-9 block mt-1 " type="text"
-                                    name="house_number">
-                                    {{ $contract->building->house_number }}
-                            </div>
-
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="building_area" class="w-full mb-1" :value="__('word.building_area')" />
-                                <p id="building_area" class="w-full h-9 block mt-1 " type="text"
-                                    name="building_area">
-                                    {{ $contract->building->building_area }}
-                            </div>
-
                         </div>
 
-                        <div class="flex">
-                            <div class=" mx-4 my-4 w-full ">
-                                <x-input-label for="contract_note" class="w-full mb-1" :value="__('word.contract_note')" />
-                                <p id="contract_note" class="w-full h-9 block mt-1 " type="text"
-                                    name="contract_note">
+                        <!-- ✅ BUILDING INFO -->
+                        <div class="info-section">
+                            <h2>🏠 {{ __('word.building_info') }}</h2>
+
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.building_type_id') }}</span>
+                                    <span
+                                        class="info-value">{{ $contract->building->building_type->type_name }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.building_category_id') }}</span>
+                                    <span
+                                        class="info-value">{{ $contract->building->building_category->category_name }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.contract_building_id') }}</span>
+                                    <span class="info-value">{{ $contract->building->building_number }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.block_number') }}</span>
+                                    <span class="info-value">{{ $contract->building->block_number }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.house_number') }}</span>
+                                    <span class="info-value">{{ $contract->building->house_number }}</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">{{ __('word.building_area') }}</span>
+                                    <span class="info-value">{{ $contract->building->building_area }}</span>
+                                </div>
+                            </div>
+
+                            @if ($contract->contract_note)
+                                <div class="info-note">
+                                    <strong>📝 {{ __('word.contract_note') }}:</strong>
                                     {{ $contract->contract_note }}
-                            </div>
+                                </div>
+                            @endif
                         </div>
-                        @if ($contract->stage !== 'terminated')
-                            <h1 class=" font-semibold underline text-l text-gray-900 leading-tight mx-4  w-full">
-                                {{ __('word.installment_info') }}
-                            </h1>
-                            <div class="container mt-4">
 
-                                <table class="table table-striped">
-                                    <thead>
-                                        <th scope="col" width="14%">{{ __('word.installment_number') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.installment_name') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.installment_percent') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.installment_amount') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.installment_date') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.installment_payment') }}</th>
-                                        <th scope="col" width="14%">{{ __('word.action') }}</th>
-                                    </thead>
-                                    @php
-                                        $hide = 0;
-                                    @endphp
-                                    @foreach ($contract_installments as $installment)
-                                        <tr>
-                                            <td>{{ $installment->sequence_number ?? $installment->installment->installment_number }}
-                                            </td>
-                                            <td>{{ $installment->installment->installment_name }}</td>
-                                            <td>{{ number_format(($installment->installment_amount / $contract->contract_amount) * 100, 2) }}
-                                                %</td>
-                                            <td>{{ number_format($installment->installment_amount, 0) }} دينار</td>
-                                            <td>{{ $installment->installment_date }}</td>
-                                            <td>
+                        <!-- ✅ Installment Info Section -->
+                        @if ($contract->stage !== 'terminated')
+                            <div class="installment-section">
+                                <h2>💰 {{ __('word.installment_info') }}</h2>
+
+                                <div class="table-responsive">
+                                    <table class="table-installments">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ __('word.installment_number') }}</th>
+                                                <th>{{ __('word.installment_name') }}</th>
+                                                <th>{{ __('word.installment_percent') }}</th>
+                                                <th>{{ __('word.installment_amount') }}</th>
+                                                <th>{{ __('word.installment_date') }}</th>
+                                                <th>{{ __('word.installment_payment') }}</th>
+                                                <th>{{ __('word.action') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $hide = 0; @endphp
+                                            @foreach ($contract_installments as $installment)
                                                 @php
                                                     $total = $installment->installment_amount;
                                                     $paid = $installment->paid_amount ?? 0;
                                                     $remain = $installment->getRemainingAmount();
                                                     $progress = $installment->getPaymentProgress();
+                                                    $isDue = $installment->isDue($installment->installment_date);
                                                 @endphp
 
-                                                @if ($paid == 0)
-                                                    @if ($installment->isDue($installment->installment_date))
-                                                        <span style="color: red;">لم تسدد - مستحقة</span>
-                                                    @else
-                                                        <span>لم تسدد - غير مستحقة</span>
-                                                    @endif
-                                                @else
-                                                    <div>
-                                                        <strong>المدفوع:</strong> {{ number_format($paid, 0) }}
-                                                        دينار<br>
-                                                        <strong>المتبقي:</strong> {{ number_format($remain, 0) }}
-                                                        دينار<br>
+                                                <tr>
+                                                    <td>{{ $installment->sequence_number ?? $installment->installment->installment_number }}
+                                                    </td>
+                                                    <td>{{ $installment->installment->installment_name }}</td>
+                                                    <td>{{ number_format(($installment->installment_amount / $contract->contract_amount) * 100, 2) }}%
+                                                    </td>
+                                                    <td>{{ number_format($installment->installment_amount, 0) }} دينار
+                                                    </td>
+                                                    <td>{{ $installment->installment_date }}</td>
 
-                                                    </div>
-
-                                                    <div class="mt-1 w-full bg-gray-200 rounded-full h-2">
-                                                        <div class="bg-green-500 h-2 rounded-full"
-                                                            style="width: {{ $progress }}%"></div>
-                                                    </div>
-
-                                                    @if ($installment->payment && $installment->payment->approved)
-                                                        <small class="text-success">تم الدفع في
-                                                            {{ $installment->payment->payment_date }}</small>
-                                                    @elseif ($installment->payment)
-                                                        <small class="text-warning">بانتظار الموافقة</small>
-                                                    @endif
-                                                @endif
-                                            </td>
-
-                                            <td>
-                                                @if ($contract->stage != 'temporary')
-                                                    @if ($installment->payment != null)
-                                                        @can('payment-show')
-                                                            <a href="{{ route('payment.show', $installment->payment->url_address) }}"
-                                                                class="btn btn-custom-show">
-                                                                {{ __('word.view') }}
-                                                            </a>
-                                                        @endcan
-                                                    @else
-                                                        @if ($hide == 0)
-                                                            @can('payment-create')
-                                                                <div class="flex">
-
-                                                                    <div class=" mx-2 my-2 w-full ">
-                                                                        <a href="{{ route('contract.add', $installment->url_address) }}"
-                                                                            class="add_payment btn btn-custom-edit">
-                                                                            {{ __('word.add_payment') }}
-                                                                        </a>
-
-                                                                    </div>
-                                                                    @can('contract-sms')
-                                                                        <div class=" mx-2 my-2 w-full ">
-                                                                            <form action="{{ route('contract.sendSms') }}"
-                                                                                method="POST" class="d-inline">
-                                                                                @csrf
-                                                                                <input type="hidden" name="phone_number"
-                                                                                    value="{{ $contract->customer->customer_phone }}">
-                                                                                <input type="hidden" name="name"
-                                                                                    value="{{ $contract->customer->customer_full_name }}">
-                                                                                <input type="hidden" name="amount"
-                                                                                    value="{{ number_format($installment->installment_amount, 0) }} دينار">
-                                                                                <input type="hidden" name="due_date"
-                                                                                    value="{{ $installment->installment_date }} الدفعة {{ $installment->installment->installment_name }} عن العقار المرقم {{ $contract->building->building_number }}">
-                                                                                <input type="hidden" name="contract_url"
-                                                                                    value="{{ $contract->url_address }}">
-
-                                                                                <button type="submit"
-                                                                                    class="btn btn-custom-print">
-                                                                                    sms
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    @endcan
-                                                                </div>
-                                                                @php
-                                                                    $hide = 1;
-                                                                @endphp
-                                                            @endcan
+                                                    <td>
+                                                        {{-- Payment Status --}}
+                                                        @if ($paid == 0)
+                                                            @if ($isDue)
+                                                                <span class="status-badge status-due">مستحق</span>
+                                                            @else
+                                                                <span class="status-badge status-upcoming">غير
+                                                                    مستحق</span>
+                                                            @endif
                                                         @else
+                                                            <span
+                                                                class="status-badge {{ $installment->payment && !$installment->payment->approved ? 'status-pending' : 'status-paid' }}">
+                                                                {{ $installment->payment && !$installment->payment->approved ? 'بانتظار الموافقة' : 'مدفوع' }}
+                                                            </span>
+                                                            <div class="progress-bar-wrapper mt-1">
+                                                                <div class="progress-bar-fill"
+                                                                    style="width: {{ $progress }}%"></div>
+                                                            </div>
+                                                            <small class="text-muted">
+                                                                <strong>المدفوع:</strong> {{ number_format($paid, 0) }}
+                                                                /
+                                                                <strong>المتبقي:</strong>
+                                                                {{ number_format($remain, 0) }}
+                                                            </small><br>
+                                                            @if ($installment->payment && $installment->payment->approved)
+                                                                <small class="text-success">تم الدفع في
+                                                                    {{ $installment->payment->payment_date }}</small>
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                @endif
+                                                    </td>
 
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </table>
+                                                    <td>
+                                                        <div class="table-action">
+                                                            {{-- View Existing Payment --}}
+                                                            @if ($contract->stage != 'temporary')
+                                                                @if ($installment->payment)
+                                                                    @can('payment-show')
+                                                                        <a href="{{ route('payment.show', $installment->payment->url_address) }}"
+                                                                            class="btn btn-custom-show">{{ __('word.view') }}</a>
+                                                                    @endcan
+                                                                @else
+                                                                    {{-- Add Payment and Send SMS (first unpaid installment) --}}
+                                                                    @if ($hide == 0)
+                                                                        @can('payment-create')
+                                                                            <a href="{{ route('contract.add', $installment->url_address) }}"
+                                                                                class="add_payment btn btn-custom-edit">{{ __('word.add_payment') }}</a>
+                                                                            @can('contract-sms')
+                                                                                <form
+                                                                                    action="{{ route('contract.sendSms') }}"
+                                                                                    method="POST" class="d-inline">
+                                                                                    @csrf
+                                                                                    <input type="hidden" name="phone_number"
+                                                                                        value="{{ $contract->customer->customer_phone }}">
+                                                                                    <input type="hidden" name="name"
+                                                                                        value="{{ $contract->customer->customer_full_name }}">
+                                                                                    <input type="hidden" name="amount"
+                                                                                        value="{{ number_format($installment->installment_amount, 0) }} دينار">
+                                                                                    <input type="hidden" name="due_date"
+                                                                                        value="{{ $installment->installment_date }} الدفعة {{ $installment->installment->installment_name }} عن العقار المرقم {{ $contract->building->building_number }}">
+                                                                                    <input type="hidden" name="contract_url"
+                                                                                        value="{{ $contract->url_address }}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-custom-print">SMS</button>
+                                                                                </form>
+                                                                            @endcan
+                                                                        @endcan
+                                                                        @php $hide = 1; @endphp
+                                                                    @endif
+                                                                @endif
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         @endif
+
                         <div class="flex">
                             @if (isset($contract->user_id_create))
                                 <div class="mx-4 my-4 ">
