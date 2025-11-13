@@ -340,6 +340,8 @@ class PaymentController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         $cashAccountId = $request->input('cash_account_id');
+        $installmentStatus = $request->input('installmentStatus');
+
 
         // Base query for approved payments
         $query = Payment::with([
@@ -361,6 +363,22 @@ class PaymentController extends Controller
         if ($cashAccountId) {
             $query->where('cash_account_id', $cashAccountId);
         }
+
+        if ($installmentStatus) {
+            $query->whereHas('contract_installment', function ($q) use ($installmentStatus) {
+                if ($installmentStatus == 'full') {
+                    $q->whereColumn('paid_amount', '>=', 'installment_amount');
+                }
+                if ($installmentStatus == 'partial') {
+                    $q->where('paid_amount', '>', 0)
+                        ->whereColumn('paid_amount', '<', 'installment_amount');
+                }
+                if ($installmentStatus == 'none') {
+                    $q->where('paid_amount', '=', 0);
+                }
+            });
+        }
+
 
         // Get payments and calculate totals
         $payments = $query->orderBy('created_at', 'desc')->get();

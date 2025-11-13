@@ -1121,7 +1121,7 @@ class ContractController extends Controller
                         $query->where('installment_name', 'دفعة مقدمة');
                     })->first();
 
-                if ($down_payment && !$down_payment->paid && $contract_installment->id != $down_payment->id) {
+                if ($down_payment && !$down_payment->isFullyPaid() && $contract_installment->id != $down_payment->id) {
                     return redirect()->route('contract.show', $contract_installment->contract->url_address)
                         ->with('error', 'يجب دفع الدفعة المقدمة أولاً.');
                 }

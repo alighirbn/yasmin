@@ -162,6 +162,22 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-3">
+                                                <label for="installmentStatus" class="form-label">حالة القسط</label>
+                                                <select class="form-select" id="installmentStatus"
+                                                    name="installmentStatus">
+                                                    <option value="">كل الحالات</option>
+                                                    <option value="full"
+                                                        {{ request('installmentStatus') == 'full' ? 'selected' : '' }}>
+                                                        مدفوع بالكامل</option>
+                                                    <option value="partial"
+                                                        {{ request('installmentStatus') == 'partial' ? 'selected' : '' }}>
+                                                        مدفوع جزئياً</option>
+                                                    <option value="none"
+                                                        {{ request('installmentStatus') == 'none' ? 'selected' : '' }}>
+                                                        غير مدفوع</option>
+                                                </select>
+                                            </div>
 
                                             <div class="col-md-2 d-flex align-items-end">
                                                 <button type="submit" class="btn btn-primary w-100">
@@ -269,6 +285,7 @@
                                                             <th>القسط</th>
                                                             <th>المبلغ</th>
                                                             <th>الحساب النقدي</th>
+                                                            <th>الحالة</th>
 
                                                         </tr>
                                                     </thead>
@@ -301,6 +318,27 @@
                                                                     IQD
                                                                 </td>
                                                                 <td>{{ $payment->cash_account->account_name ?? 'غير محدد' }}
+                                                                </td>
+                                                                <td>
+                                                                    @if ($payment->contract_installment)
+                                                                        @php
+                                                                            $ins = $payment->contract_installment;
+                                                                        @endphp
+
+                                                                        @if ($ins->paid_amount >= $ins->installment_amount)
+                                                                            <span class="badge bg-success">مدفوع
+                                                                                بالكامل</span>
+                                                                        @elseif ($ins->paid_amount > 0)
+                                                                            <span
+                                                                                class="badge bg-warning text-dark">مدفوع
+                                                                                جزئياً</span>
+                                                                        @else
+                                                                            <span class="badge bg-danger">غير
+                                                                                مدفوع</span>
+                                                                        @endif
+                                                                    @else
+                                                                        -
+                                                                    @endif
                                                                 </td>
 
                                                             </tr>

@@ -586,137 +586,128 @@
                                 <br>
                                 <br>
                                 <br>
-                                <br>
-                                <br>
                                 <div style="display: flex; justify-content: center;">
                                     <p style="font-size: 14px; font-weight: bold;">صفحة ( 6 - 6)</p>
                                 </div>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
                             @endif
 
                             <div
                                 style="text-align: right; margin: 0.8rem auto; font-size: 0.9rem; font-weight: bold; direction: rtl;">
-                                <div
-                                    style="text-align: right; margin: 1.2rem auto; font-size: 1rem; font-weight: bold; direction: rtl;">
-                                    <p style="margin-bottom: 10px; text-align: center; font-size: 1.05rem;">
-                                        جدول آلية التسديد
-                                        <br>
-                                        <span style="font-size: 0.95rem; font-weight: normal;">
-                                            استناداً إلى الفقرة ( رابعاً) من العقد
-                                        </span>
-                                    </p>
-                                </div>
 
-                                <table
-                                    style="width:100%; border-collapse: collapse; text-align:right; font-weight: normal;">
-                                    <thead>
-                                        <tr style="border-bottom: 2px solid #000;">
-                                            <th style="padding: 6px; border:1px solid #000;">#</th>
-                                            <th style="padding: 6px; border:1px solid #000;">نوع الدفعة</th>
-                                            <th style="padding: 6px; border:1px solid #000;">المبلغ رقماً</th>
-                                            <th style="padding: 6px; border:1px solid #000;">المبلغ كتابةً</th>
-                                            <th style="padding: 6px; border:1px solid #000;">تاريخ الاستحقاق</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                @php
+                                    // تقسيم 21 صف لكل صفحة
+                                    $pages = $contract_installments->chunk(21);
 
-                                        @if ($contract->contract_payment_method_id == 3)
-                                            {{-- Method 3: دفعة مقدمة + شهرية + مفتاح --}}
-                                            <tr>
-                                                <td style="padding: 6px; border:1px solid #000;">1</td>
-                                                <td style="padding: 6px; border:1px solid #000;">الدفعة المقدمة</td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ number_format($variable_payment_details['down_payment_amount'], 0) }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ Numbers::TafqeetMoney($variable_payment_details['down_payment_amount'], 'IQD') }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">عند ابرام العقد</td>
+                                    function nameStatic($ci, $method)
+                                    {
+                                        $n = $ci->sequence_number;
+
+                                        if ($method == 3) {
+                                            if ($n == 1) {
+                                                return 'الدفعة المقدمة';
+                                            }
+                                            if ($ci->installment_type_id == 3) {
+                                                return 'دفعة المفتاح';
+                                            }
+                                            return 'الدفعة الشهرية ' . App\Helpers\Number::convert($n - 1);
+                                        }
+
+                                        if ($method == 4) {
+                                            return $n == 1
+                                                ? 'الدفعة المقدمة'
+                                                : 'الدفعة ' . App\Helpers\Number::convert($n);
+                                        }
+
+                                        return 'الدفعة ' . $ci->installment->installment_name;
+                                    }
+                                @endphp
+
+                                <style>
+                                    /* تثبيت الصفوف نفس ارتفاع جدولك الأصلي */
+                                    .fixed-row td {
+                                        height: 32px !important;
+                                        max-height: 32px !important;
+                                        min-height: 32px !important;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                    }
+
+                                    .page-break {
+                                        page-break-after: always;
+                                    }
+                                </style>
+
+                                @foreach ($pages as $pageIndex => $chunk)
+                                    @if ($pageIndex == 0)
+                                        <div style="page-break-before: always;"></div>
+                                    @endif
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    @if ($pageIndex == 0)
+                                        <div
+                                            style="text-align: right; margin: 1.2rem auto; font-size: 1rem; font-weight: bold; direction: rtl;">
+                                            <p style="margin-bottom: 10px; text-align: center; font-size: 1.05rem;">
+                                                جدول آلية التسديد
+                                                <br>
+                                                <span style="font-size: 0.95rem; font-weight: normal;">
+                                                    استناداً إلى الفقرة ( رابعاً) من العقد
+                                                </span>
+                                            </p>
+                                        </div>
+                                    @endif
+
+                                    <table
+                                        style="width:100%; border-collapse: collapse; text-align:right; font-weight: normal; table-layout: fixed;">
+
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid #000;">
+                                                <th style="padding: 6px; border:1px solid #000; width:5%;">#</th>
+                                                <th style="padding: 6px; border:1px solid #000; width:20%;">نوع الدفعة
+                                                </th>
+                                                <th style="padding: 6px; border:1px solid #000; width:13%;">المبلغ رقماً
+                                                </th>
+                                                <th style="padding: 6px; border:1px solid #000; width:50%;">المبلغ
+                                                    كتابةً</th>
+                                                <th style="padding: 6px; border:1px solid #000; width:12%;">تاريخ
+                                                    الاستحقاق</th>
                                             </tr>
+                                        </thead>
 
-                                            <tr>
-                                                <td style="padding: 6px; border:1px solid #000;">2</td>
-                                                <td style="padding: 6px; border:1px solid #000;">الدفعة الشهرية ×
-                                                    {{ $variable_payment_details['number_of_months'] }}</td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ number_format($variable_payment_details['monthly_installment_amount'], 0) }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ Numbers::TafqeetMoney($variable_payment_details['monthly_installment_amount'], 'IQD') }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">شهرياً</td>
-                                            </tr>
+                                        <tbody>
 
-                                            <tr>
-                                                <td style="padding: 6px; border:1px solid #000;">3</td>
-                                                <td style="padding: 6px; border:1px solid #000;">دفعة المفتاح</td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ number_format($variable_payment_details['key_payment_amount'], 0) }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">
-                                                    {{ Numbers::TafqeetMoney($variable_payment_details['key_payment_amount'], 'IQD') }}
-                                                </td>
-                                                <td style="padding: 6px; border:1px solid #000;">عند التسليم</td>
-                                            </tr>
-                                        @elseif ($contract->contract_payment_method_id == 4)
-                                            {{-- Method 4: دفعات متسلسلة --}}
-                                            @foreach ($contract_installments as $index => $contract_installment)
+                                            @foreach ($chunk as $ci)
                                                 @php
-                                                    $n = $contract_installment->sequence_number ?: $index + 1;
-                                                    $name =
-                                                        $n == 1
-                                                            ? 'الدفعة المقدمة'
-                                                            : 'الدفعة ' . App\Helpers\Number::convert($n);
+                                                    $name = nameStatic($ci, $contract->contract_payment_method_id);
                                                 @endphp
 
-                                                <tr>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ $n }}</td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ $name }}</td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ number_format($contract_installment->installment_amount, 0) }}
+                                                <tr class="fixed-row">
+                                                    <td style="padding:6px; border:1px solid #000;">
+                                                        {{ $ci->sequence_number }}</td>
+                                                    <td style="padding:6px; border:1px solid #000;">{{ $name }}
                                                     </td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ Numbers::TafqeetMoney($contract_installment->installment_amount, 'IQD') }}
+                                                    <td style="padding:6px; border:1px solid #000;">
+                                                        {{ number_format($ci->installment_amount, 0) }}</td>
+                                                    <td style="padding:6px; border:1px solid #000;">
+                                                        {{ Numbers::TafqeetMoney($ci->installment_amount, 'IQD') }}
                                                     </td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ \Carbon\Carbon::parse($contract_installment->installment_date)->format('Y/m/d') }}
+                                                    <td style="padding:6px; border:1px solid #000;">
+                                                        {{ \Carbon\Carbon::parse($ci->installment_date)->format('Y/m/d') }}
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            {{-- Methods 1, 2 --}}
-                                            @foreach ($contract_installments as $contract_installment)
-                                                @php
-                                                    $i = $contract_installment->installment;
-                                                @endphp
-                                                <tr>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ $i->installment_number }}</td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ 'الدفعة ' . $i->installment_name }}</td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ number_format($contract_installment->installment_amount, 0) }}
-                                                    </td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ Numbers::TafqeetMoney($contract_installment->installment_amount, 'IQD') }}
-                                                    </td>
-                                                    <td style="padding: 6px; border:1px solid #000;">
-                                                        {{ $i->installment_number == 1 ? 'عند ابرام العقد' : 'بعد ثلاثة اشهر من الدفعه ' . App\Helpers\Number::convert($i->installment_number - 1) }}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+
+                                    @if ($pageIndex < count($pages) - 1)
+                                        <div class="page-break"></div>
+                                    @endif
+                                @endforeach
+
                             </div>
 
                         </div>
