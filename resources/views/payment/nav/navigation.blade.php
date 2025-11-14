@@ -37,7 +37,7 @@
     </a>
 @endcan
 
-@can('payment-list')
+@can('cash_account-list')
     <a href="{{ route('payment.report') }}"
         class="me-3 {{ request()->routeIs('payment.report') ? 'underline-active' : '' }}">
         {{ __('word.payment_report') }}
