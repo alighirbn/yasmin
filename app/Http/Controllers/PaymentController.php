@@ -298,36 +298,64 @@ class PaymentController extends Controller
     {
         $payment = Payment::where('url_address', $url_address)->first();
 
-        if (isset($payment)) {
-            if ($payment->approved) {
-                // Adjust the cash account balance by debiting the payment amount
-                $cashAccount = Cash_Account::find($payment->cash_account_id); // or find based on your logic
-                $cashAccount->adjustBalance($payment->payment_amount, 'debit');
+        if (!$payment) {
+            $ip = $this->getIPAddress();
+            return view('payment.accessdenied', ['ip' => $ip]);
+        }
 
-                // Delete related transactions
+        DB::beginTransaction();
+
+        try {
+
+            // إذا كانت الدفعة مصدّقة، نعيد النقود للحساب ونحذف معاملات النقدية
+            if ($payment->approved) {
+
+                $cashAccount = Cash_Account::find($payment->cash_account_id);
+
+                if ($cashAccount) {
+                    // إرجاع المبلغ إلى الصندوق (debit)
+                    $cashAccount->adjustBalance($payment->payment_amount, 'debit');
+                }
+
+                // حذف المعاملات النقدية المرتبطة
                 $payment->transactions()->delete();
             }
-            // Update the contract_installment paid amount
+
+            // إزالة المبلغ من القسط المرتبط
             if ($payment->contract_installment) {
                 $payment->contract_installment->removePayment($payment->payment_amount);
 
                 Log::info('Payment removed from installment', [
-                    'installment_id' => $payment->contract_installment->id,
-                    'payment_amount' => $payment->payment_amount,
+                    'installment_id'       => $payment->contract_installment->id,
+                    'payment_amount'       => $payment->payment_amount,
                     'remaining_paid_amount' => $payment->contract_installment->paid_amount
                 ]);
             }
 
-            // Delete the payment
+            // حذف الدفعة
             $payment->delete();
 
-            return redirect()->route('payment.index')
-                ->with('success', 'تمت حذف الدفعة بنجاح ');
-        } else {
-            $ip = $this->getIPAddress();
-            return view('payment.accessdenied', ['ip' => $ip]);
+            DB::commit();
+
+            return redirect()
+                ->route('payment.index')
+                ->with('success', 'تم حذف الدفعة بنجاح');
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            Log::error('Error deleting payment', [
+                'payment_id' => $payment->id ?? null,
+                'message'    => $e->getMessage(),
+                'trace'      => $e->getTraceAsString(),
+            ]);
+
+            return redirect()
+                ->route('payment.index')
+                ->with('error', 'حدث خطأ أثناء حذف الدفعة، يرجى المحاولة لاحقاً');
         }
     }
+
 
     /**
      * Display payment report with filters
