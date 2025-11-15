@@ -39,19 +39,48 @@ class ContractController extends Controller
      */
     public function index(Request $request)
     {
-        // Base query with joins
-        $baseQuery = \App\Models\Contract\Contract::query()
+        $baseQuery = Contract::query()
             ->leftJoin('customers', 'contracts.contract_customer_id', '=', 'customers.id')
             ->leftJoin('buildings', 'contracts.contract_building_id', '=', 'buildings.id')
             ->leftJoin('payment_method', 'contracts.contract_payment_method_id', '=', 'payment_method.id')
+
+            ->leftJoin('payments as last_pay', function ($join) {
+                $join->on('last_pay.payment_contract_id', '=', 'contracts.id')
+                    ->whereNotNull('last_pay.contract_installment_id')
+                    ->whereRaw('last_pay.payment_date = (
+                 SELECT MAX(p2.payment_date)
+                 FROM payments p2
+                 WHERE p2.payment_contract_id = contracts.id
+                   AND p2.contract_installment_id IS NOT NULL
+             )');
+            })
+
+            ->leftJoin('contract_installments as last_ci', 'last_ci.id', '=', 'last_pay.contract_installment_id')
+            ->leftJoin('installments as ins', 'ins.id', '=', 'last_ci.installment_id')
+
             ->select(
                 'contracts.*',
-                'customers.customer_full_name as customer_name',
-                'buildings.building_number as building_no',
-                'payment_method.method_name as payment_method_name'
-            );
 
-        // Apply filters
+                DB::raw('ANY_VALUE(customers.customer_full_name) as customer_name'),
+                DB::raw('ANY_VALUE(customers.customer_phone) as customer_phone'),
+                DB::raw('ANY_VALUE(buildings.building_number) as building_no'),
+                DB::raw('ANY_VALUE(payment_method.method_name) as payment_method_name'),
+
+                DB::raw('ANY_VALUE(last_pay.payment_amount) as last_payment_amount'),
+                DB::raw('ANY_VALUE(last_pay.payment_date) as last_payment_date'),
+
+                DB::raw("ANY_VALUE(
+            CASE
+                WHEN last_ci.sequence_number = 1 THEN 'الدفعة المقدمة'
+                ELSE ins.installment_name
+            END
+        ) as last_installment_name")
+            )
+
+            ->groupBy('contracts.id');
+
+
+        // الفلاتر
         if ($request->filled('contract_id')) {
             $baseQuery->where('contracts.id', $request->contract_id);
         }
@@ -60,19 +89,25 @@ class ContractController extends Controller
             $baseQuery->where('customers.customer_full_name', 'like', '%' . $request->customer_name . '%');
         }
 
+        if ($request->filled('customer_phone')) {
+            $baseQuery->where('customers.customer_phone', 'like', '%' . $request->customer_phone . '%');
+        }
+
         if ($request->filled('stage')) {
             $baseQuery->where('contracts.stage', $request->stage);
         }
 
-        // Sorting
+        // السورت
         $sort = $request->get('sort', 'contracts.id');
         $direction = $request->get('direction', 'desc');
+
         $allowedSorts = [
             'contracts.id',
             'contracts.contract_amount',
             'contracts.contract_date',
             'contracts.stage',
             'customers.customer_full_name',
+            'customers.customer_phone',
             'buildings.building_number',
         ];
 
@@ -82,13 +117,12 @@ class ContractController extends Controller
 
         $baseQuery->orderBy($sort, $direction);
 
-        // Paginated data for table
+        // 🔥 منع تكرار العقود نهائياً
+        $baseQuery->groupBy('contracts.id');
+
+        // الناتج
         $contracts = (clone $baseQuery)->paginate(25)->withQueryString();
-
-        // Full filtered dataset for print/export
         $allContracts = (clone $baseQuery)->get();
-
-        // Summary
         $totalContracts = $allContracts->count();
 
         return view('contract.contract.index', compact(
@@ -103,6 +137,7 @@ class ContractController extends Controller
             'customerName' => $request->customer_name,
         ]);
     }
+
 
 
     /**
@@ -1153,6 +1188,41 @@ class ContractController extends Controller
             return view('contract.contract.accessdenied', ['ip' => $ip]);
         }
     }
+
+    public function dueByDays(Request $request)
+    {
+        $days = $request->get('days', 7);
+        $customerName = $request->get('customer_name');
+        $sort = $request->get('sort', 'installment_date');
+        $direction = $request->get('direction', 'asc');
+
+        $targetDate = Carbon::now()->addDays($days)->format('Y-m-d');
+
+        $installments = Contract_Installment::with(['contract.customer', 'contract.building', 'installment'])
+            ->where('installment_date', '<=', $targetDate)
+            ->whereRaw('paid_amount < installment_amount')
+            ->whereHas('contract', function ($q) {
+                $q->whereNotIn('stage', ['terminated']);
+            })
+            ->when($customerName, function ($q) use ($customerName) {
+                $q->whereHas('contract.customer', function ($c) use ($customerName) {
+                    $c->where('customer_full_name', 'like', "%$customerName%");
+                });
+            })
+            ->select(
+                'contract_installments.*',
+                DB::raw('(installment_amount - paid_amount) as remaining'),
+                DB::raw('DATEDIFF(installment_date, CURRENT_DATE) as days_left')
+            )
+            ->orderBy($sort, $direction)
+            ->get();
+
+        return view(
+            'contract.contract.due_by_days',
+            compact('installments', 'days', 'customerName', 'sort', 'direction')
+        );
+    }
+
 
     public function dueInstallments($contract_id = null)
     {

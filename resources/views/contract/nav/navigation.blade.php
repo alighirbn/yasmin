@@ -36,6 +36,13 @@
     </a>
 @endcan
 
+@can('contract-due')
+    <a href="{{ route('contract.dueByDays') }}"
+        class="me-3 {{ request()->routeIs('contract.dueByDays') ? 'underline-active' : '' }}">
+        الأقساط حسب الأيام
+    </a>
+@endcan
+
 @can('transfer-list')
     <a href="{{ route('transfer.index') }}"
         class="me-3 {{ request()->routeIs('transfer.index') ? 'underline-active' : '' }}">

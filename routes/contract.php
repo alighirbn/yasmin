@@ -122,6 +122,10 @@ Route::group(['prefix' => 'contract'], function () {
     Route::get('/due/{contract_id?}', [ContractController::class, 'dueInstallments'])
         ->middleware(['auth', 'verified', 'permission:contract-due'])
         ->name('contract.due');
+    // due installments by days
+    Route::get('/due-days', [ContractController::class, 'dueByDays'])
+        ->middleware(['auth', 'verified', 'permission:contract-due'])
+        ->name('contract.dueByDays');
 
     // delete
     Route::delete('/delete/{url_address}', [ContractController::class, 'destroy'])
