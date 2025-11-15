@@ -300,19 +300,35 @@
                                         {{-- Buttons --}}
                                         <td>
                                             <div class="flex justify-center flex-wrap">
-                                                <a href="{{ route('contract.show', $contract->url_address) }}"
-                                                    class="m-1 btn-custom btn-custom-show">{{ __('word.view') }}</a>
 
-                                                <a href="{{ route('contract.statement', $contract->url_address) }}"
-                                                    class="m-1 btn-custom btn-custom-statement">{{ __('word.statement') }}</a>
+                                                @can('contract-show')
+                                                    <a href="{{ route('contract.show', $contract->url_address) }}"
+                                                        class="m-1 btn-custom btn-custom-show">
+                                                        {{ __('word.view') }}
+                                                    </a>
+                                                @endcan
 
-                                                <form action="{{ route('contract.destroy', $contract->url_address) }}"
-                                                    method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit"
-                                                        class="m-1 btn-custom btn-custom-delete">{{ __('word.delete') }}</button>
-                                                </form>
+                                                @can('contract-statement')
+                                                    <a href="{{ route('contract.statement', $contract->url_address) }}"
+                                                        class="m-1 btn-custom btn-custom-statement">
+                                                        {{ __('word.statement') }}
+                                                    </a>
+                                                @endcan
+
+                                                @can('contract-delete')
+                                                    <form action="{{ route('contract.destroy', $contract->url_address) }}"
+                                                        method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="m-1 btn-custom btn-custom-delete">
+                                                            {{ __('word.delete') }}
+                                                        </button>
+                                                    </form>
+                                                @endcan
+
                                             </div>
+
                                         </td>
 
                                         <td>{{ $contract->id }}</td>
