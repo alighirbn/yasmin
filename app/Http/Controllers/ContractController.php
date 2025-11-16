@@ -1212,24 +1212,39 @@ class ContractController extends Controller
         $sort = $request->get('sort', 'installment_date');
         $direction = $request->get('direction', 'asc');
 
+        // Target date within X days
         $targetDate = Carbon::now()->addDays($days)->format('Y-m-d');
 
-        $installments = Contract_Installment::with(['contract.customer', 'contract.building', 'installment'])
+        $installments = Contract_Installment::with([
+            'contract.customer',
+            'contract.building',
+            'installment'
+        ])
+            // Only installments due within X days
             ->where('installment_date', '<=', $targetDate)
+
+            // Still unpaid (fully or partially)
             ->whereRaw('paid_amount < installment_amount')
+
+            // Only contracts with valid stages (removed temporary + terminated)
             ->whereHas('contract', function ($q) {
-                $q->whereNotIn('stage', ['terminated']);
+                $q->whereIn('stage', ['accepted', 'authenticated']);
             })
+
+            // Optional filter by customer name
             ->when($customerName, function ($q) use ($customerName) {
                 $q->whereHas('contract.customer', function ($c) use ($customerName) {
                     $c->where('customer_full_name', 'like', "%$customerName%");
                 });
             })
+
+            // Select needed fields + calculated values
             ->select(
                 'contract_installments.*',
-                DB::raw('(installment_amount - paid_amount) as remaining'),
-                DB::raw('DATEDIFF(installment_date, CURRENT_DATE) as days_left')
+                DB::raw('(installment_amount - paid_amount) AS remaining'),
+                DB::raw('DATEDIFF(installment_date, CURRENT_DATE) AS days_left')
             )
+
             ->orderBy($sort, $direction)
             ->get();
 
@@ -1238,6 +1253,7 @@ class ContractController extends Controller
             compact('installments', 'days', 'customerName', 'sort', 'direction')
         );
     }
+
 
 
     public function dueInstallments($contract_id = null)
