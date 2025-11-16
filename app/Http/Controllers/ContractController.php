@@ -44,17 +44,21 @@ class ContractController extends Controller
             ->leftJoin('buildings', 'contracts.contract_building_id', '=', 'buildings.id')
             ->leftJoin('payment_method', 'contracts.contract_payment_method_id', '=', 'payment_method.id')
 
+            // 🔥 Correct last payment join (always return the true last paid installment)
             ->leftJoin('payments as last_pay', function ($join) {
                 $join->on('last_pay.payment_contract_id', '=', 'contracts.id')
                     ->whereNotNull('last_pay.contract_installment_id')
-                    ->whereRaw('last_pay.payment_date = (
-                 SELECT MAX(p2.payment_date)
-                 FROM payments p2
-                 WHERE p2.payment_contract_id = contracts.id
-                   AND p2.contract_installment_id IS NOT NULL
-             )');
+                    ->whereRaw('last_pay.id = (
+                    SELECT p2.id
+                    FROM payments p2
+                    WHERE p2.payment_contract_id = contracts.id
+                      AND p2.contract_installment_id IS NOT NULL
+                    ORDER BY p2.payment_date DESC, p2.id DESC
+                    LIMIT 1
+                )');
             })
 
+            // 🔗 link last paid installment
             ->leftJoin('contract_installments as last_ci', 'last_ci.id', '=', 'last_pay.contract_installment_id')
             ->leftJoin('installments as ins', 'ins.id', '=', 'last_ci.installment_id')
 
@@ -66,21 +70,27 @@ class ContractController extends Controller
                 DB::raw('ANY_VALUE(buildings.building_number) as building_no'),
                 DB::raw('ANY_VALUE(payment_method.method_name) as payment_method_name'),
 
+                // last payment
                 DB::raw('ANY_VALUE(last_pay.payment_amount) as last_payment_amount'),
                 DB::raw('ANY_VALUE(last_pay.payment_date) as last_payment_date'),
 
-                DB::raw("ANY_VALUE(
-            CASE
-                WHEN last_ci.sequence_number = 1 THEN 'الدفعة المقدمة'
-                ELSE ins.installment_name
-            END
-        ) as last_installment_name")
+                // last installment name logic
+                DB::raw("
+                ANY_VALUE(
+                    CASE 
+                        WHEN last_ci.sequence_number = 1 THEN 'الدفعة المقدمة'
+                        ELSE ins.installment_name
+                    END
+                ) as last_installment_name
+            ")
             )
 
             ->groupBy('contracts.id');
 
+        // =======================
+        //        FILTERS
+        // =======================
 
-        // الفلاتر
         if ($request->filled('contract_id')) {
             $baseQuery->where('contracts.id', $request->contract_id);
         }
@@ -97,7 +107,10 @@ class ContractController extends Controller
             $baseQuery->where('contracts.stage', $request->stage);
         }
 
-        // السورت
+        // =======================
+        //        SORTING
+        // =======================
+
         $sort = $request->get('sort', 'contracts.id');
         $direction = $request->get('direction', 'desc');
 
@@ -117,10 +130,12 @@ class ContractController extends Controller
 
         $baseQuery->orderBy($sort, $direction);
 
-        // 🔥 منع تكرار العقود نهائياً
+        // =======================
+        //     FINAL RESULTS
+        // =======================
+
         $baseQuery->groupBy('contracts.id');
 
-        // الناتج
         $contracts = (clone $baseQuery)->paginate(25)->withQueryString();
         $allContracts = (clone $baseQuery)->get();
         $totalContracts = $allContracts->count();
@@ -137,6 +152,7 @@ class ContractController extends Controller
             'customerName' => $request->customer_name,
         ]);
     }
+
 
 
 
